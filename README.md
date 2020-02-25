@@ -33,7 +33,7 @@ All additional software is included in the /usr/local/src directory inside the d
 The first thing you will need to do is pull the docker image to your computer.  You do this by running the command:
 
 ```{bash}
-docker pull kdgosik/2020_scWorkshop:latest
+docker pull kdgosik/2020scworkshop:latest
 ```
 
 ### Running Rstudio in Docker locally on your computer
@@ -41,7 +41,7 @@ docker pull kdgosik/2020_scWorkshop:latest
 ```{bash}
 docker run --rm -ti -e DISABLE_AUTH=true \
 -v $PWD:/home/rstudio \
--p 9000:8787 kdgosik/2020_scWorkshop
+-p 9000:8787 kdgosik/2020scworkshop
 
 ```
   - You can choose any port (in this exmaple above the PORT NUMBER is 9000)
@@ -54,7 +54,7 @@ docker run --rm -ti -e DISABLE_AUTH=true \
 ```{bash}
 docker run --rm -it -e PASSWORD=train \
 -v $PWD:/home/rstudio \
--p 9000:8787 kdgosik/2020_scWorkshop
+-p 9000:8787 kdgosik/2020scworkshop
 ```
   - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
@@ -76,7 +76,7 @@ docker run --rm -it -e PASSWORD=train \
     - you will access rstudio by going to port 9000 on your computer (localhost:9000 in your browser)
     - 9000 can be any port you would like.  We will change this up for each student in the class
   - kdgosik/2020_scWorkshop: the image to run.  It will be the image into a container if not already built on your computer
-    - [image link](https://hub.docker.com/r/kdgosik/2020_scWorkshop)
+    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 
 
 
@@ -126,7 +126,7 @@ devtools::install_github('MacoskoLab/liger')
 Same command as above but add the option bash at the end to access the ternimal in the docker container.
 
 ```{bash}
-docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020_scWorkshop bash
+docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 ```
 
 
