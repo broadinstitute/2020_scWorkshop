@@ -5,35 +5,35 @@ MAINTAINER kgosik@broadinstitute.org
 ### Install Utilities
 #########
 RUN apt-get update && apt-get install -y gcc g++ perl python3 python3-pip python-dev \
-                                        automake make cmake less vim \
-                                        wget git curl bsdtar libdb-dev libglu1-mesa-dev \
-                                        zlib1g-dev bzip2 libncurses5-dev \
-                                        texlive-latex-base default-jre \
-                                        build-essential libghc-zlib-dev libncurses-dev \
-                                        libbz2-dev liblzma-dev libpcre3-dev libxml2-dev \
-                                        libblas-dev gfortran unzip ftp libzmq3-dev \
-                                        nano fort77 libreadline-dev \
-                                        libcurl4-openssl-dev libx11-dev libxt-dev \
-                                        x11-common libcairo2-dev libpng-dev \
-                                        libreadline6-dev libjpeg-dev pkg-config \
-                                        gsl-bin libgsl0-dev \
-                                        libeigen3-dev libboost-all-dev \
-                                        libssl-dev libcairo2-dev libxt-dev \
-                                        libgtk2.0-dev xvfb xauth xfonts-base \
-                                        apt-transport-https libhdf5-serial-dev
+                                        automake make cmake less vim nano fort77 \
+                                        wget git curl bsdtar bzip2 gfortran unzip ftp \
+                                        libpng-dev libjpeg-dev \
+                                        texlive-latex-base default-jre build-essential
+                                        # libdb-dev libglu1-mesa-dev zlib1g-dev  \
+                                        # libncurses5-dev libghc-zlib-dev libncurses-dev \
+                                        # libbz2-dev liblzma-dev libpcre3-dev libxml2-dev \
+                                        # libblas-dev libzmq3-dev libreadline-dev libssl-dev \
+                                        # libcurl4-openssl-dev libx11-dev libxt-dev \
+                                        # x11-common libcairo2-dev \
+                                        # libreadline6-dev libgsl0-dev \
+                                        # libeigen3-dev libboost-all-dev \
+                                        # libgtk2.0-dev xvfb xauth xfonts-base \
+                                        # apt-transport-https libhdf5-serial-dev
 
 RUN cp $(which tar) $(which tar)~ \
     && ln -sf $(which bsdtar) $(which tar)
 
 
 ## Get Course Materials
-RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git /home/rstudio/.
+RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git \
+  /home/rstudio/2020_scWorkshop/
 
 
 # ## Install R packages
 # COPY install.R /usr/local/src
 # ## install necessary R packages
 # RUN Rscript /usr/local/src/install.R
+# RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
 
 # ## Install Python Requirements
 # COPY requirements.txt /usr/local/src

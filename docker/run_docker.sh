@@ -1,5 +1,5 @@
 #!/bin/sh
-cd ..
+
 
 docker run --rm -ti -v $PWD:/home/rstudio \
 -e DISABLE_AUTH=true \

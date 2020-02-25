@@ -1,6 +1,7 @@
 docker/IGV_2.4.19.zip
 docker/cellranger-3.0.2.tar.gz
 docker/fastqc_v0.11.8.zip
+data/vdj_v1_hs_nsclc_5gex_filtered_gene_bc_matrices.tar.gz
 .Rproj.user
 berlin.pem
 keys/

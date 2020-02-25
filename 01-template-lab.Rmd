@@ -1,0 +1,25 @@
+---
+title: "01-template-lab"
+author: "Kirk Gosik"
+date: "2/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(Seurat)
+```
+
+## Template Example
+
+```{r read_data}
+counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices/GRCh38")
+```
+
+## Make Object
+
+```{r pressure, echo=FALSE}
+obj <- CreateSeuratObject(counts)
+```
+
+## Process Object
