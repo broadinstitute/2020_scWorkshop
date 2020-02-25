@@ -1,14 +1,14 @@
 --- 
 title: "ANALYSIS OF SINGLE CELL RNA-SEQ DATA"
 author: ["Orr Ashenberg", "Dana Silverbush", "Kirk Gosik"]
-date: "02/25/2019 - 03/01/2019"
+date: "03/23/2020 - 03/27/2020"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: true
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
-url: 'https://broadinstitute.github.io/2019_scWorkshop/'
+url: 'https://broadinstitute.github.io/2020_scWorkshop/'
 github-repo: "broadinstitute/2019_scWorkship"
 cover-image: "images/cover.png"
 ---

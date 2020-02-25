@@ -1,8 +1,8 @@
 #!/bin/sh
 
 set -ev
-
+cd ..
 VERSION=`cat VERSION.txt`
 
-docker push kdgosik/scellbern2019:${VERSION}
-docker push kdgosik/scellbern2019:latest
+docker push kdgosik/2020scworkshop:${VERSION}
+docker push kdgosik/2020scworkshop:latest

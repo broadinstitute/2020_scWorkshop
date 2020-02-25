@@ -1,7 +1,1 @@
-0.0.1: initial rebuild of Brian's docker container from 2018_scWorkshop
-0.0.2: rebuild using rocker/rstudio.  Has all software needed for workshop
-0.0.3: issues with SRAtools, removed from image
-0.0.4: Included FASTQC, IGViewr and the R package liger
-0.0.5: Installed Samtools
-0.0.6: Included Rmarkdown in the R package install
-0.0.7: Included CountClust and rgl R package  and apt-get install libglu1-mesa-dev
+0.0.1: initial rebuild of docker container from 2019_scWorkshop

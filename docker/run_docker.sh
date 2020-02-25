@@ -1,4 +1,7 @@
 #!/bin/sh
+cd ..
 
-docker run --rm -ti -v `pwd`:/home/rstudio -e USER=training -e PASSWORD=training -p 10000:8787 kdgosik/scell $*
+docker run --rm -ti -v $PWD:/home/rstudio \
+-e DISABLE_AUTH=true \
+-p 8787:8787 kdgosik/2020scworkshop
 

@@ -1,8 +1,7 @@
 # Intro
 
- This is a minimal example of a book based on R Markdown and [bookdown](https://github.com/rstudio/bookdown). Please see the page "Get Started" at [https://bookdown.org/](https://bookdown.org/) for how to compile this example.
- 
-[Course Webiste](https://broadinstitute.github.io/2019_scWorkshop/)
+In recent years single cell RNA-seq (scRNA-seq) has become widely used for transcriptome analysis in many areas of biology. In contrast to bulk RNA-seq, scRNA-seq provides quantitative measurements of the expression of every gene in a single cell. However, to analyze scRNA-seq data, novel methods are required and some of the underlying assumptions for the methods developed for bulk RNA-seq experiments are no longer valid. In this course we will cover all steps of the scRNA-seq processing, starting from the raw reads coming off the sequencer. The course includes common analysis strategies, using state-of-the-art methods and we also discuss the central biological questions that can be addressed using scRNA-seq.
+[Course Webiste](https://broadinstitute.github.io/2020_scWorkshop/)
 
 
 ## Docker Usage
@@ -34,18 +33,17 @@ All additional software is included in the /usr/local/src directory inside the d
 The first thing you will need to do is pull the docker image to your computer.  You do this by running the command:
 
 ```{bash}
-docker pull kdgosik/scellbern2019:latest
+docker pull kdgosik/2020_scWorkshop:latest
 ```
 
 ### Running Rstudio in Docker locally on your computer
 
 ```{bash}
-docker run --rm -it -e PASSWORD=train \
--v $PWD/Share:/Share \
--v $PWD:/mydir \
--p 9000:8787 kdgosik/scellbern2019
+docker run --rm -ti -e DISABLE_AUTH=true \
+-v $PWD:/home/rstudio \
+-p 9000:8787 kdgosik/2020_scWorkshop
+
 ```
-  - Need to type your computers password to use sudo
   - You can choose any port (in this exmaple above the PORT NUMBER is 9000)
   - Go to your web browser at [localhost:9000](http://localhost:9000)
     - Generic webiste http://localhost:$PORT_NUMBER
@@ -55,12 +53,10 @@ docker run --rm -it -e PASSWORD=train \
 
 ```{bash}
 docker run --rm -it -e PASSWORD=train \
--v $PWD/Share:/Share \
--v $PWD:/mydir \
--p 9000:8787 kdgosik/scellbern2019
+-v $PWD:/home/rstudio \
+-p 9000:8787 kdgosik/2020_scWorkshop
 ```
-  - no sudo needed
-  - Change the PORT NUMBER to your user number (e.g. user1 should use 9001, user99 should use 9099)
+  - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
   - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9000
 
@@ -79,8 +75,8 @@ docker run --rm -it -e PASSWORD=train \
     - rstudio runs on port 8787 inside the container
     - you will access rstudio by going to port 9000 on your computer (localhost:9000 in your browser)
     - 9000 can be any port you would like.  We will change this up for each student in the class
-  - kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer
-    - [image link](https://hub.docker.com/r/kdgosik/scellbern2019)
+  - kdgosik/2020_scWorkshop: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/2020_scWorkshop)
 
 
 
@@ -130,8 +126,9 @@ devtools::install_github('MacoskoLab/liger')
 Same command as above but add the option bash at the end to access the ternimal in the docker container.
 
 ```{bash}
-docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 bash
+docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020_scWorkshop bash
 ```
+
 
 
 #### Get Course Material
@@ -139,5 +136,5 @@ docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 ba
 Once you have docker running and you are in the terminal you can pull the course content to your computer by running the command below.  This will bring all the Rmarkdown files for you to run.
 
 ```{bash}
-git clone https://github.com/broadinstitute/2019_scWorkshop.git
+git clone https://github.com/broadinstitute/2020_scWorkshop.git
 ```
