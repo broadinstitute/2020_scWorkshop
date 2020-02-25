@@ -5,6 +5,8 @@ date: "2/25/2020"
 output: html_document
 ---
 
+# Lab Template
+
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
 library(Seurat)

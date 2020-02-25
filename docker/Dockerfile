@@ -29,10 +29,7 @@ RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git /home/rstudi
 
 
 # ## Install R packages
-COPY install.R /usr/local/src
-# ## install necessary R packages
-RUN Rscript /usr/local/src/install.R
-# RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
+RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
 
 # ## Install Python Requirements
 # COPY requirements.txt /usr/local/src

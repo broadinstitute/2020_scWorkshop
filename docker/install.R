@@ -1,5 +1,5 @@
 ## CRAN Packages
-install.packages("Seurat")
+install.packages("Seurat", dependencies = TRUE)
 install.packages('umap')
 # install.packages("ggplot2")
 # install.packages("gam")

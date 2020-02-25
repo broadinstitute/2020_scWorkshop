@@ -75,7 +75,7 @@ docker run --rm -it -e PASSWORD=train \
     - rstudio runs on port 8787 inside the container
     - you will access rstudio by going to port 9000 on your computer (localhost:9000 in your browser)
     - 9000 can be any port you would like.  We will change this up for each student in the class
-  - kdgosik/2020_scWorkshop: the image to run.  It will be the image into a container if not already built on your computer
+  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 
 
@@ -123,7 +123,7 @@ devtools::install_github('MacoskoLab/liger')
 
 ### Docker Terminal
 
-Same command as above but add the option bash at the end to access the ternimal in the docker container.
+Same command as above but add the option bash at the end to access the terminal in the docker container.
 
 ```{bash}
 docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
