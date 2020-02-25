@@ -1,0 +1,9 @@
+book_filename: "2020_scWorkshop"
+delete_merged_file: true
+output_dir: "docs"
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: true
+language:
+  ui:
+    chapter_name:  ""

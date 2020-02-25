@@ -1,0 +1,8 @@
+---
+title: "02-scRNA-Seq-Experimental-Design"
+output: html_document
+---
+
+# scRNA-Seq Experimental Design
+
+<iframe src="https://docs.google.com/a/broadinstitute.org/presentation/d/e/2PACX-1vTeRic5eP4nxxIli1eEel9sboHkenyEF2EfR83o2kKuW7Oa0nYky6Sngh5OmG5c9RLJKfNeUfhx1Qwx/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

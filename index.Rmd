@@ -1,0 +1,229 @@
+--- 
+title: "ANALYSIS OF SINGLE CELL RNA-SEQ DATA"
+author: ["Orr Ashenberg", "Dana Silverbush", "Kirk Gosik"]
+date: "02/25/2019 - 03/01/2019"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: true
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+url: 'https://broadinstitute.github.io/2019_scWorkshop/'
+github-repo: "broadinstitute/2019_scWorkship"
+cover-image: "images/cover.png"
+---
+
+# Introduction
+
+## COURSE OVERVIEW
+
+In recent years single cell RNA-seq (scRNA-seq) has become widely used for transcriptome analysis in many areas of biology. In contrast to bulk RNA-seq, scRNA-seq provides quantitative measurements of the expression of every gene in a single cell. However, to analyze scRNA-seq data, novel methods are required and some of the underlying assumptions for the methods developed for bulk RNA-seq experiments are no longer valid. In this course we will cover all steps of the scRNA-seq processing, starting from the raw reads coming off the sequencer. The course includes common analysis strategies, using state-of-the-art methods and we also discuss the central biological questions that can be addressed using scRNA-seq.
+
+
+## TARGETED AUDIENCE & ASSUMED BACKGROUND
+
+This course is aimed at researchers and technical workers who are or will be analyzing scRNA-seq data. The material is suitable both for experimentalists who want to learn more about data-analysis as well as computational biologists who want to learn about scRNASeq methods. Examples demonstrated in this course can be applied to any experimental protocol or biological system.
+
+The requirements for this course are:
+  1.  Working knowledge of unix (managing files, running programs)
+  2. Programming experience in R (writing a function, basic I/O operations, variable types, using packages). Bioconductor  experience is a plus. 
+  3. Familiarity with next-generation sequencing data and its analyses (using alignment and quantification tools for bulk sequencing data)
+
+
+## COURSE FORMAT
+
+The course will be delivered over the course of five days. Each day will include a lecture and laboratory component. The lecture will introduce the topics of discussion and the laboratory sessions will be focused on practical hands-on analysis of scRNA-seq data. These sessions will involve a combination of both mirroring exercises with the instructor to demonstrate a skill as well as applying these skills on your own to complete individual exercises. After and during each exercise, interpretation of results will be discussed as a group. Computing will be done using a combination of tools installed on the attendees laptop computer and web resources accessed via web browser.
+
+
+
+## Getting Started
+
+
+## SESSION CONTENT
+
+### Monday – Classes from 09:30 to 17:30 (lunch break-1 hr, 40 min of total coffee breaks)
+
+#### Lecture 1 – scRNA-Seq experimental design
+
+  - Overview of course
+  - General introduction: HCA/KCO overview
+  - Comparison of Bulk and single cell RNA-Seq
+  - Overview of available scRNA-seq technologies (10x) and experimental protocols
+  - scRNA-Seq experimental design and analysis workflow?
+
+#### Lab 1 –  Understanding sequencing raw data
+
+  - Lab based around data wrangling from public data repositories: get data from 10x website, single cell portal, from GEO (fastqs, counts)
+  - Shell and Unix commands to navigate directories, create folders, open files
+  - Raw file formats
+
+#### Lecture 2 - Intro to Data processing: from bcl file to bam file
+
+  - scRNA-Seq processing workflow starting with choice of sequencer (NextSeq, HiSeq, MiSeq) / barcode swapping and bcl files
+  - Overview of Popular tools and algorithms
+  - Common single-cell analyses and interpretation 
+  - Sequencing data: alignment and quality control
+  - Looking at cool things in alignment like where reads are, mutations, splicing
+
+#### Lab 2 – Processing raw scRNA-Seq data
+
+  - Data outputs from different scRNAseq technologies (10x, Smart-seq2) - process both?
+  - Demultiplexing sequencing data
+  - Read Quality Control (CellRanger, dropEst, fastqc)
+  - Run bowtie2 on 2 wells to demonstrate alignment
+  - Read alignment and visualization (kallisto, RSEM, Igviewer)
+  - Demultiplexing
+  - FastQC
+  - Align (STAR/TOPHAT/Kallisto)
+  - IGViewer - what do we want here? I use it for mutation detections, copying sequences, searching for alternative splicing. 
+
+
+#### Flash talks (1.5 hr, break into 2 groups of 13)
+small presentation about your genome assembly and annotation project, ideally do 3 slides -2/3 mins (powerpoint or similar). So you can introduce yourselves and we can get to know each other.
+
+### Tuesday – Classes from 09:30 to 17:30
+ 
+#### Lecture 3 – Transcriptome quantification: from bam file to counts
+
+  - Read & UMI counting (Kallisto alignment-free pseudocounts as well), how RSEM works (length dependence, sequencing depth, multimapping reads), CellRanger (dropest), bustools
+  - 10x barcode structure and links to Perturb-seq
+  - Gene length & coverage 
+  - Gene expression units (count data Smart-seq2 counts or 10x UMIs vs expression data)
+  - Some R overview slides, https://r4ds.had.co.nz/
+
+#### Lab 3 - Introduction to R
+
+  - Installing packages
+  - Data-types
+  - Data manipulation, slicing
+  - Strings manipulations
+  - Introducing object oriented programming / S4 objects
+  - Visualization tools
+  - Bonus create FeaturePlot from Seurat in base ggplot
+  - Bonus: run RSEM on Dana’s bam files if you are bored 
+
+#### Lecture 4 - Expression QC, normalisation and batch correction
+
+  - What CellRanger does for quality filtering
+  - PBMC data
+  - Normalisation methods https://www.nature.com/articles/nmeth.4292
+  - Doublets, empty droplets
+  - Barcode swapping
+  - Regression with technical covariates
+  - What about imputation?
+
+#### Lab 4 – Data wrangling for scRNAseq data
+
+  - Data structures and file formats for single-cell data
+  - Quality control of cells and genes (doublets, ambient, empty drops)
+  - Data exploration: violin plots…
+  - Introducing Seurat object
+    - Genes
+    - House keeping genes
+    - Mitochondrial genes (never used these ones)
+    - Filter - Do we remove both cells and genes here?
+    - Normalize (introduce more options, other than log transform?)
+    - Find variable genes (Is it a first reduction? Why the binning?)
+    - Scaling 
+    - Regression
+    - Heatmap of desired genes?
+    - Sigantures? 
+    - Bonus - imputation (magic? One of the two Gocken recommended?)
+
+#### Flash talks (1.5 hr, break into 2 groups of 13)
+
+small presentation about your genome assembly and annotation project, ideally do 3 slides -2/3 mins (powerpoint or similar). So you can introduce yourselves and we can get to know each other.
+
+### Wednesday – Classes from 09:30 to 17:30
+  
+#### Lecture 5 - Identifying cell populations
+
+  - Feature selection
+  - Dimensionality reduction
+  - Clustering and assigning identity (Louvain, NMF, topic models, variational autoencoder)
+  - Differential expression tests
+
+
+#### Lab 5 – Feature selection & Clustering analysis
+
+  - Parameters and clustering 
+  - Comparison of feature selection methods
+
+
+#### Lecture 6 - Introduction to batch effects
+
+  - Batch correction methods (regress out batch, scaling within batch, CCA, MNN, Liger, scvi, scgen)
+  - Evaluation methods for batch correction (ARI, average silhouette width, kBET...)
+
+
+#### Lab 6 - Correcting batch effects
+
+  - Comparison of batch correction methods, Seurat pancreas
+
+
+#### Poster session with beer & wine (time?)
+
+Poster of current or proposed single cell genomic study. Print out would be good (recent posters are fine), or if you haven’t got a recent one, just a quick one pulled together on powerpoint and printed out on A4 is okay too - you shouldn't stress too much about this, it’s just to connect the flash talks to the posters and it will be absolutely informal (unlike a poster session at a conference!).
+Take notes on how to do single-cell analysis, ideas, challenges, things you find interesting, directions you would like to explore.
+
+
+### Thursday – Classes from 09:30 to 17:30
+
+Post poster session discussion groups
+30 min discussion wrapping up poster session, and keeping track of ideas in a shared Google doc
+
+
+#### Lecture 7 - Advanced topics: Pseudotime cell trajectories
+
+  - Waddington Landscape
+  - Pseudotime inference
+  - Differential expression through pseudotime
+
+
+#### Lab 8 - Functional and Pseudotime analysis
+
+  - Popular tools and packages for functional analysis (https://github.com/dynverse/dynmethods#list-of-included-methods)
+  - Review concepts from papers
+  - Comparison of pseudotime methods
+
+
+#### Lecture 8 - Single-cell multiomic technologies
+
+  - Introduction to other omic data types
+  - Integrating scRNA-seq with other single-cell modalities (CITE, Perturb, ATAC, methylation…)
+
+
+#### Lab 9 - Analysis of CITE-seq, scATAC-seq
+  - https://github.com/Hoohm/CITE-seq-Count
+  - https://cite-seq.com/eccite-seq/
+  - https://support.10xgenomics.com/single-cell-vdj/index/doc/technical-note-assay-scheme-and-configuration-of-chromium-single-cell-vdj-libraries
+  - https://satijalab.org/seurat/multimodal_vignette.html
+  - https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html
+
+
+### Friday – Classes from 09:30 to 17:30 
+ 
+
+#### Lab 10 - small dataset for analysis
+
+Karthik has a good starting point: Krumlov_lab2_guidelines.html and Hemberg lab http://hemberg-lab.github.io/scRNA.seq.course/advanced-exercises.html
+Present a set of methods and orders in which to try them
+  - IDH mutated glioma
+  - Goal for first half: get to clustering and identify malignant cells (inferCNV possible)
+  - Goal for second half: cell states
+  - For our other courses, the last day we usually divide them in groups of 3-4 ppl and assign them a small dataset in order to repeat all the analyses they have learnt during the week, to think about the best strategy to carry out the analyses and to present the results in front of the other ppl. I believe this is something very productive and helpful because it is a kind of wrap-up and brainstorming session. Normally, ppl love to talk and present something and in this way they/we can be 100% sure they really understood the different steps of the pipeline.
+
+
+#### Lecture 9 - Group presentations 
+
+Review, Questions and Answers
+
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

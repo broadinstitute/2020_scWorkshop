@@ -1,0 +1,414 @@
+---
+title: "13-Correcting-Batch-Effects"
+output: html_document
+---
+
+# Correcting Batch Effects
+
+In this lab, we will look at different single cell RNA-seq datasets collected from pancreatic islets. We will look at how different batch correction methods affect our data analysis.
+
+Note: you can increase the system memory available to Docker by going to Docker -> Preferences -> Advanced and shifting the Memory slider.
+
+## Load settings and packages
+
+```{r setup_batch_correct, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(Seurat)
+library(Matrix)
+library(fossil) 
+library(dplyr)
+library(plyr)
+## library(liger)
+
+# Set folder location for saving output files. This is also the same location as input data.
+# mydir <- "/mydir/src/batch_correction/"
+# mydir <- "/Users/orr/Documents/physalia/src/batch_correction/"
+mydir <- "scWorkshopDropbox/batch_correction/"
+
+Rda.sparse.path <- paste0(mydir, "pancreas_subsample.Rda")
+Rda.path <- paste0(mydir, "pancreas_nobatchcorrect.Rda")
+Rda.CCA.path <- paste0(mydir, "pancreas_CCA.Rda")
+Rda.liger.path <- paste0(mydir, "pancreas_liger.Rda")
+
+# Read in all four input expression matrices
+celseq.data <- read.table(paste0(mydir, "pancreas_multi_celseq_expression_matrix.txt.gz"))
+celseq2.data <- read.table(paste0(mydir, "pancreas_multi_celseq2_expression_matrix.txt.gz"))
+fluidigmc1.data <- read.table(paste0(mydir, "pancreas_multi_fluidigmc1_expression_matrix.txt.gz"))
+smartseq2.data <- read.table(paste0(mydir, "pancreas_multi_smartseq2_expression_matrix.txt.gz"))
+
+# Convert to sparse matrices for efficiency
+celseq.data <- as(as.matrix(celseq.data), "dgCMatrix")
+celseq2.data <- as(as.matrix(celseq2.data), "dgCMatrix")
+fluidigmc1.data <- as(as.matrix(fluidigmc1.data), "dgCMatrix")
+smartseq2.data <- as(as.matrix(smartseq2.data), "dgCMatrix")
+
+MergeMultipleSeuratObjects <- function(gcdata, project) {
+  #' This function uses the MergeSeurat function to merge two or more Seurat objects.
+  #' IMPORTANT note: do.normalize = F flag in Seurat::MergeSeurat() means that no normalization
+  #' or scaling information (gcdata@data and gcdata@scale.data) exists in the merged Seurat object.
+  #' gcdata@scale.data = NULL and gcdata@data = gcdata@raw.data. Normalization and scaling must be
+  #' performed on the merged object before PCA.
+  #' IMPORTANT: also note that Seurat chooses the initial identity class for each cell based on the 
+  #' first field from the cell's column name, where "_" is used as a delimiter in the string split.
+  #' 
+  #' @param gcdata List of Seurat objects where the object elements are named by their sample.
+  #' @param project Project name to give merged Seurat object.
+  #' @return Merged Seurat object.
+  if (length(gcdata) == 1) {  # if list of Seurat objects only has 1 element, no merge needs to be done
+    return(gcdata)
+  }
+  
+  # Iteratively merge Seurat objects two at a time.
+  gcdata.merge <- gcdata[[1]]
+  for(i in 2:length(gcdata)){
+    gcdata.merge <- MergeSeurat(object1 = gcdata.merge, object2 = gcdata[[i]],
+                                do.scale = F, do.center = F, do.normalize = F)
+  }
+  gcdata.merge
+}
+```
+
+## Preparing the individual Seurat objects for each pancreas dataset without batch correction
+
+```{r prepare_seurat, eval = FALSE}
+# What is the size of each single cell RNA-seq dataset? 
+# Briefly describe the technology used to collect each dataset.
+# Which datasets do you expect to be different and which do you expect to be similar?
+dim(celseq.data)
+dim(celseq2.data)
+dim(fluidigmc1.data)
+dim(smartseq2.data)
+
+# Create and setup Seurat objects for each dataset with the following 6 steps.
+# 1. CreateSeuratObject
+# 2. FilterCells
+# 3. NormalizeData
+# 4. FindVariableGenes
+# 5. ScaleData 
+# 6. Update @meta.data slot in Seurat object with tech column (celseq, celseq2, fluidigmc1, smartseq2)
+# Look at the distributions of number of genes per cell before and after FilterCells.
+
+# CEL-seq (https://www.cell.com/cell-reports/fulltext/S2211-1247(12)00228-8)
+# In FilterCells, use low.thresholds = 1750
+celseq <- CreateSeuratObject(counts = celseq.data)
+VlnPlot(celseq, "nGene")
+celseq <- FilterCells(celseq, subset.names = "nGene", low.thresholds = 1750)
+VlnPlot(celseq, "nGene")
+celseq <- NormalizeData(celseq)
+celseq <- FindVariableGenes(celseq, do.plot = F, display.progress = F)
+celseq <- ScaleData(celseq)
+celseq@meta.data$tech <- "celseq"
+
+# CEL-Seq2 https://www.cell.com/molecular-cell/fulltext/S1097-2765(09)00641-8
+# In FilterCells, use low.thresholds = 2500.
+celseq2 <- CreateSeuratObject(counts = celseq2.data)
+VlnPlot(celseq2, "nGene")
+celseq2 <- FilterCells(celseq2, subset.names = "nGene", low.thresholds = 2500)
+VlnPlot(celseq2, "nGene")
+celseq2 <- NormalizeData(celseq2)
+celseq2 <- FindVariableGenes(celseq2, do.plot = F, display.progress = F)
+celseq2 <- ScaleData(celseq2)
+celseq2@meta.data$tech <- "celseq2"
+
+# Fluidigm C1
+# Omit FilterCells function call because cells are already high quality.
+fluidigmc1 <- CreateSeuratObject(counts = fluidigmc1.data)
+VlnPlot(fluidigmc1, "nGene")
+fluidigmc1 <- NormalizeData(fluidigmc1)
+fluidigmc1 <- FindVariableGenes(fluidigmc1, do.plot = F, display.progress = F)
+fluidigmc1 <- ScaleData(fluidigmc1)
+fluidigmc1@meta.data$tech <- "fluidigmc1"
+
+# SMART-Seq2
+# In FilterCells, use low.thresholds = 2500.
+smartseq2 <- CreateSeuratObject(counts = smartseq2.data)
+VlnPlot(smartseq2, "nGene")
+smartseq2 <- FilterCells(smartseq2, subset.names = "nGene", low.thresholds = 2500)
+VlnPlot(smartseq2, "nGene")
+smartseq2 <- NormalizeData(smartseq2)
+smartseq2 <- FindVariableGenes(smartseq2, do.plot = F, display.progress = F)
+smartseq2 <- ScaleData(smartseq2)
+smartseq2@meta.data$tech <- "smartseq2"
+
+# This code sub-samples the data in order to speed up calculations and not use too much memory.
+celseq <- SetAllIdent(celseq, id = "tech")
+celseq <- SubsetData(celseq, max.cells.per.ident = 500, random.seed = 1)
+celseq2 <- SetAllIdent(celseq2, id = "tech")
+celseq2 <- SubsetData(celseq2, max.cells.per.ident = 500, random.seed = 1)
+fluidigmc1 <- SetAllIdent(fluidigmc1, id = "tech")
+fluidigmc1 <- SubsetData(fluidigmc1, max.cells.per.ident = 500, random.seed = 1)
+smartseq2 <- SetAllIdent(smartseq2, id = "tech")
+smartseq2 <- SubsetData(smartseq2, max.cells.per.ident = 500, random.seed = 1)
+
+# Save the sub-sampled Seurat objects
+# save(celseq, celseq2, fluidigmc1, smartseq2, file = Rda.sparse.path)
+```
+
+## Cluster pancreatic datasets without batch correction
+
+Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.
+```{r no_batch_correction, eval = FALSE}
+# Merge Seurat objects by making a list of the 4 Seurat objects and using MergeMultipleSeuratObjects.
+# The documentation for this function is in the first code chunk.
+gcdata <- MergeMultipleSeuratObjects(list("celseq" = celseq, "celseq2" = celseq2, "fluidigmc1" = fluidigmc1, "smartseq2" = smartseq2), project = "pancreas")
+
+# Look at how the number of cells per gene varies across the different technologies.
+VlnPlot(gcdata, "nGene", group.by = "tech")
+
+# The merged data must be normalized and scaled (but you only need to scale the variable genes). 
+# Let us also find the variable genes again this time using all the pancreas data.
+gcdata <- NormalizeData(object = gcdata)
+gcdata <- FindVariableGenes(gcdata, do.plot = F, display.progress = F)
+gcdata <- ScaleData(gcdata, genes.use = gcdata@var.genes)
+
+# Do PCA on data including only the variable genes.
+gcdata <- RunPCA(gcdata, pc.genes = gcdata@var.genes, pcs.compute = 30, do.print = TRUE, pcs.print = 5, genes.print = 5)
+
+# Color the PC biplot by the scRNA-seq technology. Hint: use DimPlot
+# Which technologies look similar to one another?
+DimPlot(gcdata, reduction.use = "pca", dim.1 = 1, dim.2 = 2, group.by = "tech")
+
+# Cluster the cells using the first twenty principal components.
+gcdata <- FindClusters(gcdata, reduction.type = "pca", dims.use = 1:20, print.output = F, save.SNN = T, force.recalc = T, random.seed = 100)
+
+# Create a tSNE visualization. 
+gcdata <- RunTSNE(gcdata, dims.use = 1:20, do.fast = T, reduction.use = "pca", perplexity = 30)
+
+# Visualize the Louvain clustering and the batches on the tSNE. 
+# Remember, the clustering is stored in @meta.data in column res.0.8 and the technology is
+# stored in the column tech. Remember you can also use DimPlot
+DimPlot(gcdata, reduction.use = "tsne", dim.1 = 1, dim.2 = 2, group.by = "res.0.8")
+DimPlot(gcdata, reduction.use = "tsne", dim.1 = 1, dim.2 = 2, group.by = "tech")
+
+# Are you surprised by the results? Compare to your expectations from the PC biplot.
+
+# Adjusted rand index test for overlap between technology and cluster labelings. 
+# This goes between 0 (completely dissimilar clustering) to 1 (identical clustering). 
+# The adjustment corrects for chance grouping between cluster elements.
+# https://davetang.org/muse/2017/09/21/adjusted-rand-index/
+ari <- dplyr::select(gcdata@meta.data, tech, res.0.8)
+ari$tech <- plyr::mapvalues(ari$tech, from = c("celseq", "celseq2", "fluidigmc1", "smartseq2"), to = c(0, 1, 2, 3))
+adj.rand.index(as.numeric(ari$tech), as.numeric(ari$res.0.8))
+
+# Save current progress.
+# save(gcdata, file = Rda.path)
+# To load the data, run the following command.
+# load(Rda.path)
+```
+
+### Batch correction: canonical correlation analysis (CCA) using Seurat
+
+Here we use canonical correlation analysis to see to what extent it can remove potential batch effects.
+
+```{r batchcorrect_CCA, eval = FALSE}
+# The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.
+# Why would we implement such a requirement?
+ob.list <- list(celseq, celseq2, fluidigmc1, smartseq2)
+genes.use <- c()
+for (i in 1:length(ob.list)) {
+  genes.use <- c(genes.use, head(rownames(ob.list[[i]]@hvg.info), 1000))
+}
+genes.use <- names(which(table(genes.use) > 1))
+for (i in 1:length(ob.list)) {
+  genes.use <- genes.use[genes.use %in% rownames(ob.list[[i]]@scale.data)]
+}
+
+# Run multi-set CCA on the 4 pancreatic islet datasets. 
+# Use the variable genes above, and calculate 15 canonical components.
+gcdata.CCA <- RunMultiCCA(ob.list, genes.use = genes.use, num.ccs = 15)
+
+# Visualize CCA results. First plot CC1 versus CC2 with cells grouped by tech. 
+DimPlot(gcdata.CCA, reduction.use = "cca", group.by = "tech", pt.size = 0.5)
+
+# Visualize CCA results. Second, look at a violin plot of CC1 scores with cells grouped by tech.
+VlnPlot(gcdata.CCA, features.plot = c("CC1", "CC2"), group.by = "tech")
+
+# We can also look at the genes important in the first few canonical components.
+DimHeatmap(object = gcdata.CCA, reduction.type = "cca", cells.use = 500, 
+    dim.use = 1:9, do.balanced = TRUE)
+
+# Read the documentation for MetageneBicorPlot and 
+# also read https://en.wikipedia.org/wiki/Biweight_midcorrelation
+# Use this function to determine how many canonical components to select.
+# Remember to use the appropriate grouping variable.
+# Try evaluating the first 15 canonical components.
+MetageneBicorPlot(gcdata.CCA, grouping.var = "tech", dims.eval = 1:15)
+
+# Based on the previous heatmaps and the midcorrelation plot, how many CCs will you select?
+
+# Next we can align the CCA subspaces across the 4 datasets. This will generate a new 
+# dimensional reduction called cca.aligned. The cells from all the datasets can then
+# be clustered in this new space.
+# Use AlignSubspace, specifying which variable to group by and the number of CCs to align
+gcdata.CCA <- AlignSubspace(gcdata.CCA, grouping.var = "tech", dims.align = 1:12)
+
+# Visualize the distribution of the aligned canonical correlation vectors (ACC1, ACC2) 
+# using VlnPlot.
+VlnPlot(gcdata.CCA, features.plot = "ACC1", group.by = "tech")
+VlnPlot(gcdata.CCA, features.plot = "ACC2", group.by = "orig.ident", do.return = TRUE)
+# How does this compare to the distributions of the canonical components (CC1, CC2)?
+
+# Clustering. Choose the dimensional reduction type to use and the number of aligned 
+# canonical correlation vectors to use.
+gcdata.CCA <- FindClusters(gcdata.CCA, reduction.type = "cca.aligned", dims.use = 1:12, save.SNN = T, random.seed = 100)
+
+# tSNE. Choose the dimensional reduction type to use and the number of aligned 
+# canonical correlation vectors to use.
+gcdata.CCA <- RunTSNE(gcdata.CCA, reduction.use = "cca.aligned", dims.use = 1:12, do.fast = TRUE, seed.use = 1)
+# gcdata.CCA <- RunTNSE()
+
+# Visualize the Louvain clustering and the batches on the tSNE. 
+# Remember, the clustering is stored in @meta.data in column res.0.8 and the technology is
+# stored in the column tech. Remember you can also use DimPlot
+p1 <- DimPlot(gcdata.CCA, reduction.use = "tsne", dim.1 = 1, dim.2 = 2, group.by = "res.0.8", do.return = T)
+p2 <- DimPlot(gcdata.CCA, reduction.use = "tsne", dim.1 = 1, dim.2 = 2, group.by = "tech", do.return = T)
+plot_grid(p1, p2)
+
+# Let's look to see how the adjusted rand index changed compared to using no batch correction.
+ari <- dplyr::select(gcdata.CCA@meta.data, tech, res.0.8)
+ari$tech <- plyr::mapvalues(ari$tech, from = c("celseq", "celseq2", "fluidigmc1", "smartseq2"), to = c(0, 1, 2, 3))
+adj.rand.index(as.numeric(ari$tech), as.numeric(ari$res.0.8))
+
+# We can also identify conserved marker genes across the batches. Differential gene expression is
+# done across each batch, and the p-values are combined.
+markers <- FindConservedMarkers(gcdata.CCA, ident.1 = 0, grouping.var = "tech", print.bar = T)
+head(markers)
+
+# Visualize the expression of the first 5 marker genes on tSNE across the different batches
+# using FeatureHeatmap.
+FeatureHeatmap(gcdata.CCA, features.plot = rownames(markers)[1:5], group.by = "tech", pt.size = 0.25, key.position = "top", max.exp = 3)
+
+# Save current progress.
+# save(gcdata.CCA, file = Rda.CCA.path)
+# To load the data, run the following command.
+# load(Rda.CCA.path)
+```
+
+### Batch correction: integrative non-negative matrix factorization (NMF) using LIGER
+
+Here we use integrative non-negative matrix factorization to see to what extent it can remove potential batch effects.
+
+The important parameters in the batch correction are the number of factors (k), the penalty parameter (lambda), and the clustering resolution. The number of factors sets the number of factors (consisting of shared and dataset-specific factors) used in factorizing the matrix. The penalty parameter sets the balance between factors shared across the batches and factors specific to the individual batches. The default setting of lambda=5.0 is usually used by the Macosko lab. Resolution=1.0 is used in the Louvain clustering of the shared neighbor factors that have been quantile normalized.
+
+```{r batchcorrect_liger, eval = FALSE}
+# The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.
+ob.list <- list(celseq, celseq2, fluidigmc1, smartseq2)
+genes.use <- c()
+for (i in 1:length(ob.list)) {
+  genes.use <- c(genes.use, head(rownames(ob.list[[i]]@hvg.info), 1000))
+}
+genes.use <- names(which(table(genes.use) > 1))
+for (i in 1:length(ob.list)) {
+  genes.use <- genes.use[genes.use %in% rownames(ob.list[[i]]@scale.data)]
+}
+
+# Next we create a LIGER object with raw counts data from each batch.
+ob.list <- list("celseq" = celseq.data, "celseq2" = celseq2.data, "fluidigmc1" = fluidigmc1.data, "smartseq2" = smartseq2.data)
+data.liger <- createLiger(ob.list) 
+
+# Normalize gene expression for each batch.
+data.liger <- liger::normalize(data.liger)
+
+# For variable gene selection, we can either use those we identified in the earlier CCA 
+# batch correction analysis (genes.use) or we can use the LIGER function selectGenes().
+# data.liger <- selectGenes(data.liger, var.thresh = 0.1)
+data.liger@var.genes <- genes.use
+
+# Print out the number of variable genes for LIGER analysis.
+print(length(data.liger@var.genes))
+
+# Scale the gene expression across the datasets. 
+# Why does LIGER not center the data? Hint, think about the use of 
+# non-negative matrix factorization and the constraints that this imposes.
+data.liger <- scaleNotCenter(data.liger)
+
+# These two steps take 10-20 min. Only run them if you finish with the rest of the code.
+# Use the `suggestK` function to determine the appropriate number of factors to use.
+# Use the `suggestLambda` function to find the smallest lambda for which the alignment metric stabilizes.
+# suggestK(data.liger)
+# suggestLambda(ligerex, k = 20)
+
+# Use alternating least squares (ALS) to factorize the matrix.
+k.suggest <- 20  # with this line, we do not use the suggested k by suggestK()
+data.liger <- optimizeALS(data.liger, k = k.suggest, rand.seed = 1) 
+
+# What do matrices H, V, and W represent, and what are their dimensions?
+dim(data.liger@H$celseq)
+dim(data.liger@V$celseq)
+dim(data.liger@W)
+
+# Let's see what the integrated data looks like mapped onto a tSNE visualization.
+data.liger <- runTSNE(data.liger, use.raw = T)
+p <- plotByDatasetAndCluster(data.liger, return.plots = T)
+print(p[[1]])  # plot by dataset
+
+# Next, do clustering of cells in shared nearest factor space, and then quantile alignment.
+data.liger <- quantileAlignSNF(data.liger, resolution = 1.0) # SNF clustering and quantile alignment
+
+# What are the dimensions of H.norm. What does this represent? 
+dim(data.liger@H.norm)
+
+# Visualize liger batch correction results.
+data.liger <- runTSNE(data.liger)
+p <- plotByDatasetAndCluster(data.liger, return.plots = T) 
+print(p[[1]])  # plot by dataset
+plot_grid(p[[1]], p[[2]])
+
+# Let's look to see how the adjusted rand index changed compared to using no batch correction.
+tech <- unlist(lapply(1:length(data.liger@H), function(x) { 
+  rep(names(data.liger@H)[x], nrow(data.liger@H[[x]]))}))
+clusters <- data.liger@alignment.clusters
+ari <- data.frame("tech" = tech, "clusters" = clusters)
+ari$tech <- plyr::mapvalues(ari$tech, from = c("celseq", "celseq2", "fluidigmc1", "smartseq2"), to = c(0, 1, 2, 3))
+adj.rand.index(as.numeric(ari$tech), as.numeric(ari$clusters))
+
+# Look at proportion of each batch in each cluster, and look at factor loadings across clusters
+plotClusterProportions(data.liger)
+plotClusterFactors(data.liger, use.aligned = T)
+
+# Look at genes that are specific to a dataset and shared across datasets.
+# Use the plotWordClouds function and choose 2 datasets.
+pdf(paste0(mydir, "word_clouds.pdf"))
+plotWordClouds(data.liger, dataset1 = "celseq2", dataset2 = "smartseq2")
+dev.off()
+
+# Look at factor loadings for each cell using plotFactors. 
+pdf(paste0(mydir, "plot_factors.pdf"))
+plotFactors(data.liger)
+dev.off()
+
+# Identify shared and batch-specific marker genes from liger factorization.
+# Use the getFactorMarkers function and choose 2 datasets.
+# Then plot some genes of interest using plotGene and plotGeneViolin.
+markers <- getFactorMarkers(data.liger, dataset1 = "celseq2", dataset2 = "smartseq2", num.genes = 10)
+plotGene(data.liger, gene = "INS")
+plotGeneViolin(data.liger, gene = "INS")
+
+# Save current progress.
+# save(data.liger, file = Rda.liger.path)
+# To load the data, run the following command.
+# load(Rda.liger.path)
+```
+
+## Additional exploration: Regressing out unwanted covariates 
+Learn how to regress out different technical covariates (number of UMIs, number of genes, percent mitochondrial reads) by studying [Seurat's PBMC tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html) and the ScaleData() function.
+
+```{r regress}
+
+```
+
+## Additional exploration: kBET
+
+Within your RStudio session, install [k-nearest neighbour batch effect test](https://github.com/theislab/kBET) and learn how to use its functionality to quantify batch effects in the pancreatic data.
+```{r kBET}
+
+```
+
+## Additional exploration: Seurat 3
+
+Read how new version of Seurat does [data integration](https://satijalab.org/seurat/pancreas_integration_label_transfer.html)
+
+## Acknowledgements
+
+This document builds off a tutorial from the [Seurat website](https://www.dropbox.com/s/aji4ielg8gc70vj/multiple_pancreas_workflow.R?dl=1) and a tutorial from the [LIGER website](https://github.com/MacoskoLab/liger/blob/master/vignettes/liger-vignette.html).

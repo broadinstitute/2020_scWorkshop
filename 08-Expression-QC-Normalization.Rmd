@@ -1,0 +1,8 @@
+---
+title: "08-Expression-QC-Normalization"
+output: html_document
+---
+
+# Expression QC and Normalization
+
+<iframe src="https://docs.google.com/a/broadinstitute.org/presentation/d/e/2PACX-1vQwnwlAYfbNIQpIeCPYe6fMxGvZJxsnrYroIYcGGJGuBizo2Yu69BG6ew6jyY2X1HRRtVPSLZ64nQpX/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

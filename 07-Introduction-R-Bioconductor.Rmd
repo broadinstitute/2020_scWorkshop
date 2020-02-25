@@ -1,0 +1,656 @@
+---
+title: "07-Introduction-R"
+output: html_document
+---
+
+```{r settings, echo=FALSE}
+library(knitr)
+opts_chunk$set(out.width='90%', fig.align = 'center')
+
+
+library(Seurat)
+library(Matrix)
+library(ggplot2)
+```
+
+
+# Introduction R/Bioconductor
+
+```{bash, eval = FALSE, echo = FALSE}
+mkdir data
+wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd ..
+```
+
+## Start Environment
+
+```{bash start_env, eval = FALSE}
+## maybe take away the --rm so they can save the container for later
+## run from your home directory
+cd 
+
+## example for user99
+docker run --rm -it -e PASSWORD=train \
+  -v $PWD/Share:/Share \
+  -v $PWD:/mydir \
+  -p 9099:8787 kdgosik/scellbern2019
+```
+
+**Explaination of commands**
+```{bash docker_cmds, eval = FALSE}
+  - docker: command to run docker
+  - run: asking docker to run a container
+  - --rm: flag to remove the container when you exit from it
+      - nothing will be saved from your session to access again later
+      - this flag can be removed to keep container
+  - -it: flag to run the container interactively
+  - - this will keep all session output displaying on the terminal
+  - - to stop container go to terminal and press Crtl+c
+  - -v $PWD/Share:/Share: map the share directory from AWS to Share inside docker container
+  - -v $PWD:/mydir: map your home directory to a directory inside docker container called home
+  - -p 9017:8787: map docker container port of 8787(rstudio port default) to your computer port 9017
+  - kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/scellbern2019)
+```
+
+  - [localhost:9099](https://localhost:9099)  or on AWS
+  - [<AWS PUBLIC IP ADDRESS>:9099](https://:9099)
+
+  - ec2-<AWS PUBLIC IP ADDRESS>.us-west-2.compute.amazonaws.com:$PORT_NUMBER
+  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9099
+
+  - R/Rstudio parts
+  - Data Types and classes
+  - Packages and where to get them
+  - S3 vs S4
+  - Visualizations and ggplot
+  
+  
+  - Installing packages
+  - Data-types
+  - Data manipulation, slicing
+  - Strings manipulations
+  - Introducing object oriented programming / S4 objects
+  - Visualization tools
+  - Bonus create FeaturePlot from Seurat in base ggplot
+  - Bonus: run RSEM on Dana’s bam files if you are bored 
+  
+
+## Installing packages
+
+### CRAN
+
+The Comprehensive R Archive Network [CRAN](https://cran.r-project.org/) is the biggest archive of R packages. There are few requirements for uploading packages besides building and installing succesfully, hence documentation and support is often minimal and figuring how to use these packages can be a challenge it itself. CRAN is the default repository R will search to find packages to install:
+
+```{r cran_inst, eval=FALSE}
+install.packages("devtools")
+
+# or multiple packages
+
+install.packages(c("ggplot2", "stringr"))
+```
+
+### Github
+
+[Github](https://github.com/) isn't specific to R, any code of any type in any state can be uploaded. There is no guarantee a package uploaded to github will even install, nevermind do what it claims to do. R packages can be downloaded and installed directly from github using the "devtools" package installed above.
+
+```{r devtools_inst, eval=FALSE}
+## username/repository
+devtools::install_github("satijalab/seurat") # latest stable version of Seurat package
+```
+
+Github is also a version control system which stores multiple versions of any package. By default the most recent "master" version of the package is installed. If you want an older version or the development branch this can be specified using the "ref" parameter:
+
+```{r devtools2_inst, eval=FALSE}
+# different branch
+devtools::install_github("satijalab/seurat", ref="release3.0")
+
+# previous commit
+## Merge branch 'develop' into feat/MultiModal
+##  - Shiwei Zheng committed on Jul 2, 2018
+devtools::install_github("tallulandrews/M3Drop", ref="551014f488770627ab154a62e59d49df5df98a3f")
+```
+Note: make sure you re-install the M3Drop master branch for later in the course.
+
+### Bioconductor
+
+Bioconductor is a repository of R-packages specifically for biological analyses. It has the strictest requirements for submission, including installation on every platform and full documentation with a tutorial (called a vignette) explaining how the package should be used. Bioconductor also encourages utilization of standard data structures/classes and coding style/naming conventions, so that, in theory, packages and analyses can be combined into large pipelines or workflows. 
+
+
+Bioconductor also requires creators to support their packages and has a regular 6-month release schedule. Make sure you are using the most recent release of bioconductor before trying to install packages for the course.
+
+```{r bioc_inst, eval = FALSE}
+## >= R 3.5.0
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Rsamtools", version = "3.8", ask = FALSE)
+```
+
+### Source
+
+The final way to install packages is directly from source. In this case you have to download a fully built source code file, usually packagename.tar.gz, or clone the github repository and rebuild the package yourself. Generally this will only be done if you want to edit a package yourself, or if for some reason the former methods have failed.  You can also get previous packages that aren't supported any more on the [CRAN package archive](https://cran.r-project.org/)
+
+```{r src_isnt, eval=FALSE}
+## Get an old package and install from source
+install.packages("GenABEL_1.8-0.tar.gz", type="source")
+```
+
+## Installation instructions:
+All the packages necessary for this course are available [here](https://github.com/broadinstitute/2019_scWorkshop). A list of the packages will be on the README.md for the repository.  A script is also available inside the docker/install.R file.  
+
+
+
+
+
+### Classes/Types
+
+
+R is a high level language so the underlying data-type is generally not important. The exception if you are accessing R data directly using another language such as C, but that is beyond the scope of this course. Instead we will consider the basic data classes: numeric, integer, logical, and character, and the higher level data class called "factor". You can check what class your data is using the "class()" function.
+
+#### Integer
+
+```{r }
+x <- 4 ## assign value of 4 to x
+
+class(x) ## check class of x
+
+is.integer(x) ## check if x is an integer
+
+is.numeric(x) ## check if x is numeric
+
+x <- as.numeric(x) ## assign y to be an numeric
+
+is.numeric(x) ## check if the assignment worked
+
+class(x) ## check if the assignment worked
+
+x ## check value of x
+```
+
+
+#### Numeric
+
+```{r num_types}
+## assign value of 1.414 to y
+y <- 1.414
+## check class of y
+class(y)
+## check if y is numeric
+is.numeric(y)
+## check if y is an integer
+is.integer(y)
+## assign y to be an integer
+y <- as.integer(y)
+## check if the assignment worked
+is.integer(y)
+## check value of y
+y
+```
+
+
+#### Logical/ Boolean
+
+The `logical` class stores boolean truth values, i.e. TRUE and FALSE. It is used for storing the results of logical operations and conditional statements will be coerced to this class. Most other data-types can be coerced to boolean without triggering (or "throwing") error messages, which may cause unexpected behaviour.
+
+```{r logi_types}
+z <- TRUE ## assign value of TRUE to z
+class(z) ## check class of z
+is.logical(z) ## check if z is of logical type
+```
+
+
+### Data structures
+  - Homogeneous
+    - 1D: atomic vector
+    - 2D: matrix
+    - nD: array
+  - Heterogeneous
+    - 1D: list
+    - 2D: data.frame
+
+
+#### Character Vectors
+
+```{r char_types}
+## assign a character vector with c() operator
+character_vector <- c("A", "C", "T", "G", "C", "T", "G", "C", "G", "A", "T", "G", "A", "C", "G", "A", "C")
+
+## check class
+class(character_vector)
+
+
+## access the 3rd element with [] operator
+## *note*: R is index starts at 1 (other programming languages start at 0)
+character_vector[3]
+
+
+## access 3rd through 6th elemenet
+character_vector[3:6]
+
+## access the elements 1,4,7,10 with c()
+character_vector[c(1, 4, 7, 10)]
+
+## access all the A's
+character_vector[grep("A", character_vector)]
+```
+
+
+#### Numeric Vector
+
+The "numeric" class is the default class for storing any numeric data - integers, decimal numbers, numbers in scientific notation, etc...
+
+```{r num_vecs}
+## assign a character vector with c() operator
+numeric_vector <- c(1, 5, 21, 17, 98, 35, 11, 13)
+
+## check class
+class(numeric_vector)
+
+## access the 5th element with [] operator
+numeric_vector[5]
+
+## access 2nd through 4th elemenet
+numeric_vector[2:4]
+```
+
+```{r num_vec2}
+## backticks ` ` allow you to give names with non-typical characters
+`numeric?_vecotr` <- c("A", 1, 5, 21, 17, 98, 35, 11, 13)
+
+## check vector
+`numeric?_vecotr`
+
+## check class (Notice the quotation marks on the numbers!)
+class(`numeric?_vecotr`)
+```
+
+#### Factor Vector
+
+String/Character data is very memory inefficient to store, each letter generally requires the same amount of memory as any integer. Thus when storing a vector of strings with repeated elements it is more efficient assign each element to an integer and store the vector as integers and an additional string-to-integer association table. Thus, by default R will read in text columns of a data table as factors. 
+
+```{r factor_type}
+factor_vector <- factor(numeric_vector)
+factor_vector
+```
+
+
+#### Named Vector
+
+```{r name_vec}
+names(numeric_vector) <- paste0("Patient", 1 : length(numeric_vector))
+numeric_vector
+```
+
+
+
+#### List
+
+```{r list_type}
+## change the c() operator to list() operator
+new_list <- list("A", 1, 5, 21, 17, 98, 35, 11, 13)
+new_list
+```
+
+```{r list_elem}
+## get 2nd element of list
+new_list[[2]]
+```
+
+
+```{r name_list}
+names(new_list) <- paste0("Patient", 1 : length(new_list))
+new_list
+```
+
+```{r name_2list}
+## get 2nd element of list
+new_list[[2]]
+```
+
+  - 2D
+
+#### matrix
+
+**Create Matrix**
+```{r mat_type}
+## create numeric matrix
+numeric_matrix <- matrix(sample(1:10, 100, replace = TRUE), nrow = 10, ncol = 10)
+class(numeric_matrix) ## check class
+```
+
+
+**Check Structure**
+```{r strct}
+str(numeric_matrix)
+```
+
+**Get 3rd Row**
+```{r num_mat}
+## get 3rd row
+numeric_matrix[3, ]
+```
+
+
+**Get 4th Column**
+```{r num_mat_col}
+## get 4th colum
+numeric_matrix[, 4]
+```
+
+
+
+####  data.frame
+
+**Get data.frame**
+```{r df_type}
+## built in R data.frame iris
+head(iris)
+```
+
+**Check Class**
+```{r df_class}
+class(iris)
+```
+
+**Check Structure**
+```{r df_struct}
+str(iris)
+```
+
+**Get 3rd Row**
+```{r df_col_sub}
+## get 3rd row
+iris[3,]
+```
+
+
+**Get 4th Column**
+```{r df_row_sub}
+## get 4th colum
+iris[,4]
+```
+
+**Get 3rd Row**
+```{r num_mat_row}
+## get 3rd row
+numeric_matrix[3, ]
+```
+
+
+**Get Species Variable**
+```{r df_var}
+## get variable
+iris$Species
+```
+
+
+
+### Detour to S3/S4
+
+  - S3 most of R uses
+  - Bioconductor requires R packages to be written as S4 objects
+  - OO field [guide](http://adv-r.had.co.nz/OO-essentials.html)
+  - Closer to a typical programming language
+    - Classes/Methods and Generics
+    - Lots of Generics implemented for Bioinformatics!
+  
+Different way to access values.  Need to use the @ symbol instead of $
+
+  - (@ is equivalent to $, and slot() to [[.)
+
+```{r obj_type, eval= FALSE}
+## example
+object@
+```
+
+
+#### Sparse Matrix
+
+Triplet format for storing a matrix
+row, column, value
+i, p, x
+
+
+Different from base R.  Uses the S4 methods that Bioconductor uses. 
+```{r sparse_mat, eval= FALSE}
+sparse_matrix <- pbmc_small@data[1:10, ]
+class(sparse_matrix)
+```
+
+
+**ith row - 1**
+```{r sparse_mat_idx, eval= FALSE}
+sparse_matrix@i
+```
+
+**pth column - 1**
+```{r sp_mat_col, eval= FALSE}
+sparse_matrix@p
+```
+
+
+**value**
+```{r sp_x, eval= FALSE}
+sparse_matrix@x
+```
+
+**Get First Value**
+```{r sp_mat_sub, eval= FALSE}
+sparse_matrix[2,1]
+```
+**dense matrix**
+```{r dense_mat, eval= FALSE}
+dense_matrix <- as.matrix(sparse_matrix)
+class(dense_matrix)
+```
+
+```{r struct_mat, eval= FALSE}
+str(dense_matrix)
+```
+
+**Get First Value**
+```{r dense_mat_sub, eval= FALSE}
+dense_matrix[2,1]
+```
+
+
+
+#### Functions
+
+```{r funcs, eval = FALSE}
+
+create_function <- function(x, y) {
+  
+}
+```
+
+
+
+#### Reading Files
+
+```{r read_file, eval = FALSE}
+
+## read csv files
+read.csv("PATH/TO/FILENAME.csv")
+
+## read tsv files
+read.delim("PATH/TO/FILENAME.tsv", sep = '\t')
+
+```
+
+
+## More information
+
+You can get more information about any R commands relevant to these datatypes using by typing `?function` in an interactive session.
+
+### Checking for help for any function!
+
+  - start with a ? (this indicates you need the help menu)
+  - then the function name to get help on
+
+```{r ggplot_help}
+library(ggplot2)
+
+?ggplot  ## ggplot is a function, how do we use it?
+```
+
+
+
+    
+## Grammer of Graphics (ggplot2)
+
+
+### What is ggplot2?
+
+ggplot2 is an R package designed by Hadley Wickham which facilitates data plotting. In this lab, we will touch briefly on some of the features of the package. If you would like to learn more about how to use ggplot2, we would recommend reading "ggplot2 Elegant graphics for data analysis", by Hadley Wickham or checking out his original paper on the [package](http://vita.had.co.nz/papers/layered-grammar.pdf)
+
+
+  - Data: Always start with the data, identify the dimensions you want to visualize.
+  - Aesthetics: Confirm the axes based on the data dimensions, positions of various data points in the plot. Also check if any form of encoding is needed including size, shape, color and so on which are useful for plotting multiple data dimensions.
+  - Scale: Do we need to scale the potential values, use a specific scale to represent multiple values or a range?
+  - Geometric objects: These are popularly known as ‘geoms’. This would cover the way we would depict the data points on the visualization. Should it be points, bars, lines and so on?
+  - Statistics: Do we need to show some statistical measures in the visualization like measures of central tendency, spread, confidence intervals?
+  - Facets: Do we need to create subplots based on specific data dimensions?
+  - Coordinate system: What kind of a coordinate system should the visualization be based on — should it be cartesian or polar?
+
+```{r img_ggplot, echo = FALSE}
+knitr::include_graphics("images/components_grammar_graphics.png")
+```
+
+
+```{r ggplot_intro, eval = FALSE, echo = FALSE}
+# If you don't have Tmisc installed, first install devtools, then install
+# from github: install.packages('devtools')
+# devtools::install_github('stephenturner/Tmisc')
+library(Tmisc)
+library(ggplot2)
+data(quartet)
+
+p <- ggplot(quartet, aes(x, y)) + geom_point()
+p <- p + geom_smooth(method = lm, se = FALSE)
+p <- p + facet_wrap(~set)
+p
+```
+
+
+
+### Principles of ggplot2
+
+* Your data must be a dataframe if you want to plot it using ggplot2. 
+* Use the `aes` mapping function to specify how variables in the dataframe map to features on your plot
+* Use geoms to specify how your data should be represented on your graph eg. as a scatterplot, a barplot, a boxplot etc.
+
+
+  - Data: Always start with the data, identify the dimensions you want to visualize.
+```{r ggplot_seurat}
+library(Seurat)
+library(ggplot2)
+
+gbm <- pbmc_small@assays$RNA@data
+
+gbm <- as.data.frame(as.matrix(t(gbm)))
+
+new_plot <- ggplot(gbm)
+```
+
+  - Aesthetics: Confirm the axes based on the data dimensions, positions of various data points in the plot. Also check if any form of encoding is needed including size, shape, color and so on which are useful for plotting multiple data dimensions.
+
+**1D Plots**
+```{r 1d_plot}
+new_plot_1dx <- ggplot(gbm, aes(x = MS4A1))
+new_plot_1dx
+```
+
+  - Scale: Do we need to scale the potential values, use a specific scale to represent multiple values or a range?
+  
+  - Geometric objects: These are popularly known as ‘geoms’. This would cover the way we would depict the data points on the visualization. Should it be points, bars, lines and so on?
+  
+```{r 1dx_plot}
+## ggplot(gbm, aes(x = MS4A1)) + geom_histogram()
+## or
+## new_plot_1dx <- new_plot_1dx + geom_histogram()  ## reassign
+new_plot_1dx + geom_histogram()
+```
+
+#### Lab A
+
+Use different geom_ to make a different plots
+  - try _bar()
+  - try _density()
+  
+```{r dense_plot}
+new_plot_1dx + geom_density()
+```
+
+
+  - Statistics: Do we need to show some statistical measures in the visualization like measures of central tendency, spread, confidence intervals?
+  
+  
+```{r hist_plot}
+ggplot(gbm, aes(x = MS4A1)) + geom_histogram() + stat_bin(bins = 10)
+```
+
+
+**2D Plots**
+ 
+```{r 2d_plot}
+new_plot_2d <- ggplot(gbm, aes(x = MS4A1, y = CD79B))
+```
+  
+```{r scatter_plot}
+## scatter plot
+new_plot_2d + geom_point()
+```
+
+
+#### Lab B
+
+Use different geom_ to make a different plots
+  - try _bar_abline()
+  - try _bin2d()
+  
+```{r 2d_exer}
+new_plot_2d
+```
+
+  - Adding Statisitics in 2D plots
+    - Regression line (lm - linear model using OLS regression)
+    
+```{r 2d_exer_2}
+ggplot(gbm, aes(MS4A1, CD79B)) + geom_point() + stat_smooth(method = "lm")
+```
+
+  - Adding Text Labels
+
+```{r add_text}
+## notice plus `+` at the end of each line, adding a new layer!
+ggplot(gbm, aes(MS4A1, CD79B)) +            ## Data layer
+  geom_point() +                            ## Geometry layer
+  stat_smooth(method = "lm") +              ## 
+  geom_text(aes(label = rownames(gbm)))
+```
+
+
+#### Lab C
+
+Play arund with ggplot2.  See what geoms to add and layers to include.
+
+```{r labc}
+ggplot(gbm, aes(x = MS4A1, y = CD79B))
+```
+
+
+
+## Reference
+
+  - [R for Data Science](https://r4ds.had.co.nz/)
+  - [Advanced R](http://adv-r.had.co.nz/)
+  - [Bioconductor Workflows](http://bioconductor.org/packages/release/BiocViews.html#___Workflow)
+  - [Bioconductor Presentation](http://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf)
+  - [Original ggplot2 paper](http://vita.had.co.nz/papers/layered-grammar.pdf)
+  - [ggplot2 reference](https://ggplot2.tidyverse.org/reference/index.html)
+  - [ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+  - [blog post](https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149)
+  - [Hemberg Lab](https://hemberg-lab.github.io/scRNA.seq.course/introduction-to-rbioconductor.html#an-introduction-to-ggplot2)
+  

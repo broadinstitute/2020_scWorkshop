@@ -1,0 +1,8 @@
+---
+title: "12-Batch-Effects"
+output: html_document
+---
+
+# Batch Effects
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQJnkEUAZD42BZ4D78GotKcL7RpKebG5rLQq9DbhWqe-R8QTGNfImFj7mCM9e3VDg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

@@ -1,0 +1,626 @@
+---
+title: "11-Cluster-Analysis"
+output: html_document
+---
+
+# Feature Selection and Cluster Analysis
+
+## Abstract
+
+Many methods have been used to determine differential gene expression from single-cell RNA (scRNA)-seq data. We evaluated 36 approaches using experimental and synthetic data and found considerable differences in the number and characteristics of the genes that are called differentially expressed. Prefiltering of lowly expressed genes has important effects, particularly for some of the methods developed for bulk RNA-seq data analysis. However, we found that bulk RNA-seq analysis methods do not generally perform worse than those developed specifically for scRNA-seq. We also present conquer, a repository of consistently processed, analysis-ready public scRNA-seq data sets that is aimed at simplifying method evaluation and reanalysis of published results. Each data set provides abundance estimates for both genes and transcripts, as well as quality control and exploratory analysis reports. [@soneson2018bias]
+
+
+
+Cells are the basic building blocks of organisms and each cell is unique. Single-cell RNA sequencing has emerged as an indispensable tool to dissect the cellular heterogeneity and decompose tissues into cell types and/or cell states, which offers enormous potential for de novo discovery. Single-cell transcriptomic atlases provide unprecedented resolution to reveal complex cellular events and deepen our understanding of biological systems. In this review, we summarize and compare single-cell RNA sequencing technologies, that were developed since 2009, to facilitate a well-informed choice of method. The applications of these methods in different biological contexts are also discussed. We anticipate an ever-increasing role of single-cell RNA sequencing in biology with further improvement in providing spatial information and coupling to other cellular modalities. In the future, such biological findings will greatly benefit medical research. [@hedlund2018single]
+
+
+
+## Seurat Tutorial
+
+```{r}
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+library(CountClust)
+
+pbmc <- pbmc_small
+pbmc@meta.data$barcode <- row.names(pbmc@meta.data)
+# pbmc@ident <- factor()
+```
+
+
+
+### Preprocessing Steps
+
+This was all covered in the last Lab!
+
+```{r, eval = FALSE}
+# The number of genes and UMIs (nGene and nUMI) are automatically calculated
+# for every object by Seurat.  For non-UMI data, nUMI represents the sum of
+# the non-normalized values within a cell We calculate the percentage of
+# mitochondrial genes here and store it in percent.mito using AddMetaData.
+# We use object@raw.data since this represents non-transformed and
+# non-log-normalized counts The % of UMI mapping to MT-genes is a common
+# scRNA-seq QC metric.
+mito.genes <- grep(pattern = "^MT-", x = rownames(x = pbmc@data), value = TRUE)
+percent.mito <- Matrix::colSums(pbmc@raw.data[mito.genes, ])/Matrix::colSums(pbmc@raw.data)
+
+# AddMetaData adds columns to object@meta.data, and is a great place to
+# stash QC stats
+pbmc <- AddMetaData(object = pbmc, metadata = percent.mito, col.name = "percent.mito")
+##VlnPlot(object = pbmc, features.plot = c("nGene", "nUMI"), "percent.mito"), nCol = 3)
+```
+
+
+```{r, eval = FALSE}
+# GenePlot is typically used to visualize gene-gene relationships, but can
+# be used for anything calculated by the object, i.e. columns in
+# object@meta.data, PC scores etc.  Since there is a rare subset of cells
+# with an outlier level of high mitochondrial percentage and also low UMI
+# content, we filter these as well
+par(mfrow = c(1, 2))
+GenePlot(object = pbmc, gene1 = "nUMI", gene2 = "percent.mito")
+GenePlot(object = pbmc, gene1 = "nUMI", gene2 = "nGene")
+```
+
+
+
+**Already A Subset of the Data**  
+
+This is not run becuase we are already working with a subset.  This is here for reference.
+
+```{r, eval = FALSE}
+# We filter out cells that have unique gene counts over 2,500 or less than
+# 200 Note that low.thresholds and high.thresholds are used to define a
+# 'gate'.  -Inf and Inf should be used if you don't want a lower or upper
+# threshold.
+
+pbmc <- FilterCells(object = pbmc, 
+                    subset.names = c("nGene", "percent.mito"), 
+                    low.thresholds = c(200, -Inf), 
+                    high.thresholds = c(2500, 0.1))
+
+
+```
+
+
+
+
+```{r, eval = FALSE}
+pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
+```
+
+
+
+```{r, eval = FALSE}
+pbmc <- FindVariableGenes(object = pbmc, 
+                          mean.function = ExpMean, 
+                          dispersion.function = LogVMR, 
+                          do.plot = FALSE)
+```
+
+
+
+### Start of Identifying Cell Types
+
+#### Scaling
+
+This part is where you mean center the data, substract the mean.  You also divide by the standard deviation to make everything to a 'standard normal', where the mean is zero and the standard deviation is 1.
+
+```{r, eval = FALSE}
+pbmc <- ScaleData(object = pbmc, vars.to.regress = c("batch", "percent.mito"))
+```
+
+Try Regressing Other Variables
+```{r, eval = FALSE}
+## batch_ids <- read.csv('file_with_batch_ids.csv')
+
+## randomly making a batch id data.frame
+batch_ids <- data.frame(barcode = rownames(pbmc@meta.data), 
+                        batch_id = sample(0:2, 80, replace = TRUE),
+                        stringsAsFactors = FALSE)
+
+
+row.names(batch_ids) <- row.names(pbmc@meta.data)
+
+pbmc <- AddMetaData(object = pbmc, metadata = batch_ids, col.name = "batch_id")
+
+pbmc <- ScaleData(object = pbmc, vars.to.regress = 'batch_id')
+```
+
+#### Running PCA
+
+This will run pca on the 
+
+```{r, eval = FALSE}
+pbmc <- RunPCA(object = pbmc, 
+               pc.genes = pbmc@var.genes, 
+               do.print = TRUE, 
+               pcs.print = 1:5, 
+               genes.print = 5)
+```
+
+
+#### Running ICA
+
+Try running Independent Component Analysis.  If you need help with the inputs try using the ?RunICA menu.  
+
+
+```{r, eval = FALSE}
+pbmc <- RunICA(pbmc, ics.compute=5)
+```
+
+
+#### Visualizing PCA in Different Ways
+
+```{r, eval = FALSE}
+VizPCA(object = pbmc, pcs.use = 1:2)
+```
+
+#### Visualizing ICA in Different Ways
+
+```{r, eval = FALSE}
+
+VizICA(object = pbmc, ics.use=1:3)
+```
+
+
+
+```{r, eval = FALSE}
+PCAPlot(object = pbmc, dim.1 = 1, dim.2 = 2)
+```
+
+
+
+```{r, eval = FALSE}
+# ProjectPCA scores each gene in the dataset (including genes not included
+# in the PCA) based on their correlation with the calculated components.
+# Though we don't use this further here, it can be used to identify markers
+# that are strongly correlated with cellular heterogeneity, but may not have
+# passed through variable gene selection.  The results of the projected PCA
+# can be explored by setting use.full=T in the functions above
+pbmc <- ProjectPCA(object = pbmc, do.print = FALSE)
+```
+
+#### Genes by PCs
+
+```{r, eval = FALSE}
+PCHeatmap(object = pbmc, 
+          pc.use = 1:10, 
+          cells.use = 50, 
+          do.balanced = TRUE, 
+          label.columns = FALSE)
+```
+
+
+Check other PCs to plot
+
+```{r, eval = FALSE}
+PCHeatmap()
+```
+
+
+
+```{r, eval = FALSE}
+PCElbowPlot(object = pbmc, num.pc = 10)
+```
+
+```{r, eval = FALSE}
+# save.SNN = T saves the SNN so that the clustering algorithm can be rerun
+# using the same graph but with a different resolution value (see docs for
+# full details)
+set.seed(2019)
+pbmc <- FindClusters(object = pbmc, 
+                     reduction.type = "pca", 
+                     dims.use = 1:10, 
+                     resolution = 1, 
+                     print.output = 0)
+```
+
+
+```{r, eval = FALSE}
+set.seed(runif(100))
+pbmc <-RunTSNE(pbmc, reduction.use = "pca", dims.use = 1:10, perplexity=10)
+
+# note that you can set do.label=T to help label individual clusters
+TSNEPlot(object = pbmc)
+```
+
+
+```{r, eval = FALSE}
+# find all markers of cluster 1
+cluster1.markers <- FindMarkers(object = pbmc, ident.1 = 1, min.pct = 0.25)
+print(x = head(x = cluster1.markers, n = 5))
+```
+
+
+```{r, eval = FALSE}
+# find all markers distinguishing cluster 2 from clusters 0 and 1
+cluster2.markers <- FindMarkers(object = pbmc, ident.1 = 2, ident.2 = c(0, 1), min.pct = 0.25)
+print(x = head(x = cluster5.markers, n = 5))
+```
+
+
+```{r, eval = FALSE}
+# find markers for every cluster compared to all remaining cells, report
+# only the positive ones
+pbmc.markers <- FindAllMarkers(object = pbmc, only.pos = TRUE, min.pct = 0.25, thresh.use = 0.25)
+pbmc.markers %>% group_by(cluster) %>% top_n(2, avg_logFC)
+```
+
+#### Find Marker Genes
+
+```{r, eval = FALSE}
+cluster1.markers <- FindMarkers(object = pbmc, 
+                                ident.1 = 0, 
+                                thresh.use = 0.25, 
+                                test.use = "roc", 
+                                only.pos = TRUE)
+
+
+VlnPlot(object = pbmc, features.plot = c("MS4A1", "CD79A"))
+```
+
+```{r, eval = FALSE}
+# you can plot raw UMI counts as well
+VlnPlot(object = pbmc, 
+        features.plot = c("NKG7", "PF4"), 
+        use.raw = TRUE, 
+        y.log = TRUE)
+```
+
+
+
+
+```{r, eval = FALSE}
+FeaturePlot(object = pbmc, 
+            features.plot = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A"),
+            cols.use = c("grey", "blue"), 
+            sreduction.use = "tsne")
+```
+
+
+
+```{r, eval = FALSE}
+top10 <- pbmc.markers %>% group_by(cluster) %>% top_n(10, avg_logFC)
+# setting slim.col.label to TRUE will print just the cluster IDS instead of
+# every cell name
+DoHeatmap(object = pbmc, genes.use = top10$gene, slim.col.label = TRUE, remove.key = TRUE)
+```
+
+```{r, eval = FALSE}
+current.cluster.ids <- c(0, 1, 2, 3, 4, 5, 6, 7)
+new.cluster.ids <- c("CD4 T cells", "CD14+ Monocytes", "B cells", "CD8 T cells", "FCGR3A+ Monocytes", "NK cells", "Dendritic cells", "Megakaryocytes")
+pbmc@ident <- plyr::mapvalues(x = pbmc@ident, from = current.cluster.ids, to = new.cluster.ids)
+TSNEPlot(object = pbmc, do.label = TRUE, pt.size = 0.5)
+```
+
+
+
+
+#### Further subdivisions within cell types
+If you perturb some of our parameter choices above (for example, setting resolution=0.8 or changing the number of PCs), you might see the CD4 T cells subdivide into two groups. You can explore this subdivision to find markers separating the two T cell subsets. However, before reclustering (which will overwrite object@ident), we can stash our renamed identities to be easily recovered later.
+
+```{r, eval = FALSE}
+# First lets stash our identities for later
+pbmc <- StashIdent(object = pbmc, save.name = "ClusterNames_0.6")
+# Note that if you set save.snn=T above, you don't need to recalculate the
+# SNN, and can simply put: pbmc <- FindClusters(pbmc,resolution = 0.8)
+pbmc <- FindClusters(object = pbmc, 
+                     reduction.type = "pca", 
+                     dims.use = 1:10, 
+                     resolution = 0.8, 
+                     print.output = FALSE)
+```
+
+
+```{r, eval = FALSE}
+## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type
+## = reduction.type, : Build parameters exactly match those of already
+## computed and stored SNN. To force recalculation, set force.recalc to TRUE.
+# Demonstration of how to plot two tSNE plots side by side, and how to color
+# points based on different criteria
+plot1 <- TSNEPlot(object = pbmc, 
+                  do.return = TRUE, 
+                  no.legend = TRUE, 
+                  do.label = TRUE)
+
+plot2 <- TSNEPlot(object = pbmc, 
+                  do.return = TRUE, 
+                  group.by = "ClusterNames_0.6", 
+                  no.legend = TRUE, 
+                  do.label = TRUE)
+
+plot_grid(plot1, plot2)
+```
+
+
+
+```{r, eval = FALSE}
+# Find discriminating markers
+tcell.markers <- FindMarkers(object = pbmc, ident.1 = 0, ident.2 = 1)
+
+# Most of the markers tend to be expressed in C1 (i.e. S100A4). However, we
+# can see that CCR7 is upregulated in C0, strongly indicating that we can
+# differentiate memory from naive CD4 cells.  cols.use demarcates the color
+# palette from low to high expression
+FeaturePlot(object = pbmc, features.plot = c("S100A4", "CCR7"), cols.use = c("green", "blue"))
+```
+
+
+## Feature Selection
+
+### Differential Expression Analysis
+
+
+#### Differential Expression Tests
+
+  One of the most commonly performed tasks for RNA-seq data is differential gene expression (DE) analysis. Although well- established tools exist for such analysis in bulk RNA-seq data6–8, methods for scRNA-seq data are just emerging. Given the special characteristics of scRNA-seq data, including generally low library sizes, high noise levels and a large fraction of so-called ‘dropout’ events, it is unclear whether DE methods that have been devel- oped for bulk RNA-seq are suitable also for scRNA-seq
+
+```{r, eval = FALSE}
+## Differential expression using DESeq2
+DESeq2DETest(object = pbmc, 
+             cells.1, 
+             cells.2, 
+             genes.use = NULL, 
+             assay.type = "RNA")
+```
+
+```{r, eval = FALSE}
+## Likelihood ratio test for zero-inflated data
+DiffExpTest(object = pbmc, 
+            cells.1, 
+            cells.2, 
+            assay.type = "RNA", 
+            genes.use = NULL,
+            print.bar = TRUE)
+```
+
+
+```{r, eval = FALSE}
+## t-test
+DiffTTest(object = pbmc, 
+          cells.1, 
+          cells.2, 
+          genes.use = NULL, 
+          print.bar = TRUE,
+          assay.type = "RNA")
+```
+
+
+### Dimensionality Reduction
+
+#### Principal Components Analysis (PCA)
+
+```{r, eval = FALSE}
+RunPCA()
+```
+
+### Independent Components Analysis (ICA)
+
+```{r, eval = FALSE}
+RunICA()
+```
+
+
+### Clustering
+
+#### Kmeans
+```{r, eval = FALSE}
+DoKMeans(object, genes.use = NULL, k.genes = NULL, k.cells = 0,
+k.seed = 1, do.plot = FALSE, data.cut = 2.5,
+k.cols = PurpleAndYellow(), set.ident = TRUE, do.constrained = FALSE,
+assay.type = "RNA", ...)
+```
+
+#### Louvain
+
+```{r, eval = FALSE}
+
+##  Neighborhood graph
+BuildSNN(object, genes.use = NULL, reduction.type = "pca",
+dims.use = NULL, k.param = 10, plot.SNN = FALSE, prune.SNN = 1/15,
+print.output = TRUE, distance.matrix = NULL, force.recalc = FALSE,
+filename = NULL, save.SNN = TRUE, nn.eps = 0)
+
+FindClusters(object, genes.use = NULL, reduction.type = "pca",
+dims.use = NULL, k.param = 30, plot.SNN = FALSE, prune.SNN = 1/15,
+print.output = TRUE, distance.matrix = NULL, save.SNN = FALSE,
+reuse.SNN = FALSE, force.recalc = FALSE, nn.eps = 0,
+modularity.fxn = 1, resolution = 0.8, algorithm = 1, n.start = 100,
+n.iter = 10, random.seed = 0, temp.file.location = NULL,
+edge.file.name = NULL)
+```
+
+
+
+#### Probabilistic (LDA)
+
+```{r, eval = FALSE, echo = FALSE}
+library(CountClust)
+library(singleCellRNASeqMouseDeng2014)
+deng.counts <- exprs(Deng2014MouseESC)
+deng.meta_data <- pData(Deng2014MouseESC)
+deng.gene_names <- rownames(deng.counts)
+
+FitGoM(t(deng.counts), K=3, path_rda="data/MouseDeng2014.FitGoM.rda")
+```
+
+```{r, eval = FALSE, echo = FALSE}
+data("MouseDeng2014.FitGoM")
+names(MouseDeng2014.FitGoM)
+omega <- MouseDeng2014.FitGoM$clust_6$omega
+
+
+annotation <- data.frame(
+  sample_id = paste0("X", c(1:NROW(omega))),
+  tissue_label = factor(rownames(omega),
+                        levels = rev( c("zy", "early2cell",
+                                        "mid2cell", "late2cell",
+                                        "4cell", "8cell", "16cell",
+                                        "earlyblast","midblast",
+                                         "lateblast") ) ) )
+
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(8, "Accent"),
+                yaxis_label = "Amplification batch",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+```
+
+
+```{r, eval = FALSE}
+set.seed(2019)
+## Set Cluster Identity to the clustering using a resolution of 1 (res.1) 
+SetIdent(pbmc_small, ident.use = 'res.1')
+
+pbmc_counts <- as.matrix(pbmc_small@data)
+pbmc_meta <- pbmc_small@meta.data
+gene_names <- rownames(pbmc_counts)
+
+
+pbmc_FitGoM <- FitGoM(t(pbmc_counts), K=4)
+
+
+omega <- pbmc_FitGoM$fit$omega
+
+annotation <- data.frame(sample_id = rownames(omega),
+                         tissue_label = paste0("topic", 1:4))
+
+colnames(omega) <- paste0("topic", 1:4)
+rownames(omega) <- annotation$sample_id;
+
+StructureGGplot(omega = omega,
+                annotation = annotation,
+                palette = RColorBrewer::brewer.pal(4, "Dark2"),
+                yaxis_label = "Cells",
+                order_sample = TRUE,
+                axis_tick = list(axis_ticks_length = .1,
+                                 axis_ticks_lwd_y = .1,
+                                 axis_ticks_lwd_x = .1,
+                                 axis_label_size = 7,
+                                 axis_label_face = "bold"))
+
+
+## Add Topic Scores to Meta Data Part of the Seurat Object
+pbmc_small@meta.data <- cbind(pbmc_meta, omega)
+```
+
+```{r, eval = FALSE}
+pbmc_small@meta.data %>% 
+  group_by(res.1) %>% 
+  summarise(topic1 = mean(topic1),
+            topic2 = mean(topic2),
+            topic3 = mean(topic3),
+            topic4 = mean(topic4))
+```
+
+
+```{r, eval = FALSE}
+## ggplot object, you can add layers
+p1 <- TSNEPlot(pbmc_small, do.return = TRUE) + labs(title = "Resolution 1") ## return ggplot object
+p1
+```
+
+```{r, eval = FALSE}
+p2 <- FeaturePlot(object = pbmc_small, 
+                  features.plot = c("topic1", "topic2", "topic3", "topic4"), 
+                  cols.use = c("grey", "blue"), 
+                  reduction.use = "tsne", do.return = TRUE) ## return ggplot object
+
+p2
+```
+
+
+```{r, eval = FALSE}
+plot_grid(p1, p2)
+```
+
+```{r, eval = FALSE}
+class(p2)
+```
+
+```{r, eval = FALSE}
+plot_grid(p1, p2[[1]], p2[[2]], p2[[3]], p2[[4]])
+```
+
+
+#### Extract Top Feature
+
+```{r, eval = FALSE}
+
+theta_mat <- pbmc_FitGoM$fit$theta
+
+top_features <- ExtractTopFeatures(theta_mat, 
+                                   top_features=100,
+                                   method="poisson", 
+                                   options="min")
+
+gene_list <- do.call(rbind, 
+                     lapply(1:dim(top_features$indices)[1],
+                            function(x) gene_names[top_features$indices[x,]]))
+```
+
+
+We tabulate the top $5$ genes for these $6$ clusters.
+
+```{r, eval = FALSE}
+tmp <- do.call(rbind, lapply(1:5, function(i) toString(gene_list[,i])))
+rownames(tmp) <- paste("Cluster", c(1:5))
+tmp %>%
+  kable("html") %>%
+  kable_styling()
+```
+
+
+### Check Clusters
+
+Use Classifier to predict cell cluster.  See how it predicts using hold out data.
+```{r, eval = FALSE}
+test.pbmc <- SubsetData(object = pbmc_small, cells.use = pbmc_small@cell.names[1:10])
+train.pbmc <- SubsetData(object = pbmc_small, cells.use = pbmc_small@cell.names[11:80])
+predicted.classes <- ClassifyCells(
+  object = train.pbmc,
+  training.classes = train.pbmc@ident,
+  new.data = test.pbmc@data
+)
+
+
+table(predicted.classes, test.pbmc@ident)
+```
+
+
+Visually check by comparing centroids of clusters in gene space and embedding space.
+```{r, eval = FALSE}
+pmbc_small <- GetCentroids(pbmc_small, cells.use=pbmc_small@cell.names)
+```
+
+### Practice Visualizing/Embedding
+
+#### tSNE
+
+Change the parameter settings for tSNE
+
+```{r, eval = FALSE}
+RunTSNE()
+```
+
+#### UMAP
+
+Change the parameter settings for UMAP
+
+```{r, eval = FALSE}
+RunUMAP()
+```
+
+
+
+
+

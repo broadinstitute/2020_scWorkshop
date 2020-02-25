@@ -1,0 +1,313 @@
+---
+title: "14-Functional-Analysis"
+output: html_document
+---
+
+# Functional Analysis
+
+## Google Slides
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6PPJ9MLfG9Ri71Tn_BG0Ko8te2WPPf5pgeaMaopRwdfGqv3WkKWiuxXD86rXpR-5DSA62QvmOKJd4/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+## Gene sets and signatures
+
+### Cell Cycle
+
+```{r score_cycle, eval=FALSE}
+marrow <- CellCycleScoring(object = marrow, s.genes = s.genes, g2m.genes = g2m.genes, 
+    set.ident = TRUE)
+
+# view cell cycle scores and phase assignments
+head(x = marrow@meta.data)
+```
+
+
+```{r vis_cycle, eval=FALSE}
+# Visualize the distribution of cell cycle markers across
+RidgePlot(object = marrow, features.plot = c("PCNA", "TOP2A", "MCM6", "MKI67"), nCol = 2)
+```
+
+
+
+```{r pca_cycle, eval=FALSE}
+# Running a PCA on cell cycle genes reveals, unsurprisingly, that cells
+# separate entirely by phase
+marrow <- RunPCA(object = marrow, pc.genes = c(s.genes, g2m.genes), do.print = FALSE)
+PCAPlot(object = marrow)
+```
+
+
+## Pathway analysis
+
+
+
+
+
+
+
+
+## inferCNV / honeybadger
+[Github Page](https://github.com/broadinstitute/inferCNV)
+
+
+### Create the InferCNV Object
+
+Reading in the raw counts matrix and meta data, populating the infercnv object
+
+```{r, eval=FALSE}
+infercnv_obj = CreateInfercnvObject(
+  raw_counts_matrix="../example/oligodendroglioma_expression_downsampled.counts.matrix",
+  annotations_file="../example/oligodendroglioma_annotations_downsampled.txt",
+  delim="\t",
+  gene_order_file="../example/gencode_downsampled.txt",
+  ref_group_names=c("Microglia/Macrophage","Oligodendrocytes (non-malignant)"))
+```
+
+
+### Filtering genes
+
+Removing those genes that are very lowly expressed or present in very few cells
+
+
+```{r, eval=FALSE}
+# filter out low expressed genes
+cutoff=1
+infercnv_obj <- require_above_min_mean_expr_cutoff(infercnv_obj, cutoff)
+# filter out bad cells
+min_cells_per_gene=3
+infercnv_obj <- require_above_min_cells_ref(infercnv_obj, min_cells_per_gene=min_cells_per_gene)
+## for safe keeping
+infercnv_orig_filtered = infercnv_obj
+#plot_mean_chr_expr_lineplot(infercnv_obj)
+save('infercnv_obj', file = '../example_output/infercnv_obj.orig_filtered')
+```
+
+
+### Normalize each cell's counts for sequencing depth
+
+```{r, eval=FALSE}
+infercnv_obj <- infercnv:::normalize_counts_by_seq_depth(infercnv_obj)
+```
+
+
+### Perform Anscombe normalization
+
+Suggested by Matan for removing noisy variation at low counts
+
+```{r, eval=FALSE}
+infercnv_obj <- infercnv:::anscombe_transform(infercnv_obj)
+```
+<!--save('infercnv_obj', file='../example_output/infercnv_obj.anscombe')
+```-->
+
+
+### Log transform the normalized counts:
+
+```{r, eval=FALSE}
+infercnv_obj <- log2xplus1(infercnv_obj)
+```
+<!--save('infercnv_obj', file='../example_output/infercnv_obj.log_transformed')
+```-->
+
+### Apply maximum bounds to the expression data to reduce outlier effects
+```{r, eval=FALSE}
+threshold = mean(abs(get_average_bounds(infercnv_obj)))
+infercnv_obj <- apply_max_threshold_bounds(infercnv_obj, threshold=threshold)
+```
+
+### Initial view, before inferCNV operations:
+
+```{r, results="hide", eval=FALSE}
+plot_cnv(infercnv_obj,
+         out_dir='../example_output/', 
+         output_filename='infercnv.logtransf', 
+         x.range="auto", 
+         title = "Before InferCNV (filtered & log2 transformed)", 
+         color_safe_pal = FALSE, 
+         x.center = mean(infercnv_obj@expr.data))
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.logtransf.png")
+```
+
+
+
+### Perform smoothing across chromosomes
+
+```{r, eval=FALSE}
+infercnv_obj = smooth_by_chromosome(infercnv_obj, window_length=101, smooth_ends=TRUE)
+```
+<!--# save('infercnv_obj', file='../example_output/infercnv_obj.smooth_by_chr')-->
+
+```{r, eval=FALSE}
+# re-center each cell
+infercnv_obj <- center_cell_expr_across_chromosome(infercnv_obj, method = "median")
+```
+<!--# save('infercnv_obj', file='../example_output/infercnv_obj.cells_recentered')-->
+
+
+```{r, results='hide', eval=FALSE }
+plot_cnv(infercnv_obj, 
+         out_dir='../example_output/',
+         output_filename='infercnv.chr_smoothed', 
+         x.range="auto", 
+         title = "chr smoothed and cells re-centered", 
+         color_safe_pal = FALSE)
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.chr_smoothed.png")
+```
+
+
+
+### Subtract the reference values from observations, now have log(fold change) values
+
+```{r, eval=FALSE}
+infercnv_obj <- subtract_ref_expr_from_obs(infercnv_obj, inv_log=TRUE)
+```
+<!--
+save('infercnv_obj', file='../example_output/infercnv_obj.ref_subtracted')
+```-->
+
+```{r, results="hide", eval=FALSE}
+plot_cnv(infercnv_obj,
+         out_dir='../example_output/',
+         output_filename='infercnv.ref_subtracted', 
+         x.range="auto", 
+         title="ref subtracted", 
+         color_safe_pal = FALSE)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.ref_subtracted.png")
+```
+
+
+### Invert log values
+
+Converting the log(FC) values to regular fold change values, centered at 1 (no fold change)
+
+This is important because we want (1/2)x to be symmetrical to 1.5x, representing loss/gain of one chromosome region.
+
+```{r, eval=FALSE}
+infercnv_obj <- invert_log2(infercnv_obj)
+```
+<!--save('infercnv_obj', file='../example_output/infercnv_obj.inverted_log')
+```-->
+
+
+```{r, results="hide", eval=FALSE}
+plot_cnv(infercnv_obj, 
+         out_dir='../example_output/',
+         output_filename='infercnv.inverted', 
+         color_safe_pal = FALSE, 
+         x.range="auto", 
+         x.center=1, 
+         title = "inverted log FC to FC")
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.inverted.png")
+```
+
+
+### Removing noise
+
+```{r, eval=FALSE}
+infercnv_obj <- clear_noise_via_ref_mean_sd(infercnv_obj, sd_amplifier = 1.5)
+```
+<!--save('infercnv_obj', file='../example_output/infercnv_obj.denoised')
+```-->
+
+
+```{r, results="hide", eval=FALSE}
+plot_cnv(infercnv_obj,
+         out_dir='../example_output/',
+         output_filename='infercnv.denoised', 
+         x.range="auto", 
+         x.center=1, 
+         title="denoised", 
+         color_safe_pal = FALSE)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.denoised.png")
+```
+
+### Remove outlier data points
+
+This generally improves on the visualization
+
+```{r, eval=FALSE}
+infercnv_obj = remove_outliers_norm(infercnv_obj)
+```
+<!--save('infercnv_obj', file="../example_output/infercnv_obj.outliers_removed")
+```-->
+
+
+```{r, results="hide", eval=FALSE}
+    plot_cnv(infercnv_obj, 
+         out_dir='../example_output/',
+         output_filename='infercnv.outliers_removed', 
+         color_safe_pal = FALSE, 
+         x.range="auto", 
+         x.center=1, 
+         title = "outliers removed")
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.outliers_removed.png")
+```
+
+
+
+### Find DE genes by comparing the mutant types to normal types, BASIC
+
+Runs a t-Test comparing tumor/normal for each patient and normal sample, and masks out those genes that are not significantly DE.
+
+```{r, eval=FALSE}
+plot_data = infercnv_obj@expr.data
+high_threshold = max(abs(quantile(plot_data[plot_data != 0], c(0.05, 0.95))))  
+low_threshold = -1 * high_threshold 
+infercnv_obj2 <- infercnv:::mask_non_DE_genes_basic(infercnv_obj, test.use = 't', center_val=1)
+```
+
+
+```{r, results="hide", eval=FALSE}
+plot_cnv(infercnv_obj2, 
+         out_dir='../example_output/',
+         output_filename='infercnv.non-DE-genes-masked', 
+         color_safe_pal = FALSE, 
+         x.range=c(low_threshold, high_threshold), 
+         x.center=1, 
+         title = "non-DE-genes-masked")
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::include_graphics("../example_output/infercnv.non-DE-genes-masked.png")
+```
+
+### Additional Information
+#### Online Documentation
+
+For additional explanations on files, usage, and a tutorial please visit the [wiki](https://github.com/broadinstitute/inferCNV/wiki).
+
+
+#### TrinityCTAT
+This tool is a part of the TrinityCTAT toolkit focused on leveraging the use of RNA-Seq to better understand cancer transcriptomes. To find out more please visit [TrinityCTAT](https://github.com/NCIP/Trinity_CTAT/wiki)
+
+
+#### Applications
+
+This methodology was used in:
+
+[Anoop P. Patel et al. Single-cell RNA-seq highlights intratumoral heterogeneity in primary glioblastoma. Science. 2014 Jun 20: 1396-1401](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4123637/)
+
+[Tirosh I et al.Dissecting the multicellular ecosystem of metastatic melanoma by single-cell RNA-seq. Science. 2016 Apr 8;352(6282):189-96](http://www.ncbi.nlm.nih.gov/pubmed/27124452)

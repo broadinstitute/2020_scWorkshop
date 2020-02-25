@@ -1,0 +1,325 @@
+---
+title: "18-CITE-seq-scATAC-seq"
+output: html_document
+---
+
+# CITE-seq and scATAC-seq
+
+In this lab, we will look at how single cell RNA-seq and single cell protein expression measurement datasets can be jointly analyzed, as part of a CITE-Seq experiment. To learn more about how the antibody barcode matrix is computationally generated from the sequencing data, please visit [CITE-seq-Count](https://hoohm.github.io/CITE-seq-Count/). To learn more about CITE-Seq and feature barcoding, please visit the [CITE-seq site](https://cite-seq.com/).
+
+Note: you can increase the system memory available to Docker by going to Docker -> Preferences -> Advanced and shifting the Memory slider.
+
+## Load settings and packages
+
+```{r setup_citeseq, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(Seurat)
+library(Matrix)
+library(dplyr)
+library(plyr)
+
+# Set folder location for saving output files. This is also the same location as input data.
+# mydir <- "/mydir/src/citeseq/"
+# mydir <- "/Users/orr/Documents/physalia/src/citeseq/"
+mydir <- 'scWorkshopDropbox/cite_seq/'
+
+Rda.RNA.path <- paste0(mydir, "citeseq_RNA.Rda")  # cbmc clustered using RNA
+Rda.protein.path <- paste0(mydir, "citeseq_protein.Rda")  # cbmc clustered using protein
+```
+
+## Load in the data
+This vignette demonstrates new features that allow users to analyze and explore multi-modal data with Seurat. While this represents an initial release, we are excited to release significant new functionality for multi-modal datasets in the future.
+
+Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT). You can download the ADT file here and the RNA file here
+
+```{r load_rna_umi}
+# Load in the RNA UMI matrix
+
+# Note that this dataset also contains ~5% of mouse cells, which we can use
+# as negative controls for the protein measurements. For this reason, the
+# gene expression matrix has HUMAN_ or MOUSE_ appended to the beginning of
+# each gene.
+cbmc.rna <- read.csv(paste0(mydir, "GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1)
+cbmc.rna[20400:20403,1:2]
+
+# To make life a bit easier going forward, we're going to discard all but
+# the top 100 most highly expressed mouse genes, and remove the 'HUMAN_'
+# from the CITE-seq prefix
+cbmc.rna.collapsed <- CollapseSpeciesExpressionMatrix(cbmc.rna)
+rm(cbmc.rna)  # free up memory
+
+# Load in the ADT UMI matrix
+cbmc.adt <- read.csv(paste0(mydir, "GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1)
+
+# To avoid any confusion where genes and proteins might have the same name,
+# we'll append 'CITE_' to each of the ADT rownames. This is not strictly
+# necessary, but it helps for clarity
+cbmc.citeseq <- cbmc.adt
+rownames(cbmc.citeseq) <- paste0("CITE_", rownames(cbmc.adt))
+
+# Lastly, we observed poor enrichments for CCR5, CCR7, and CD10 - and
+# therefore remove them from the matrix.
+cbmc.citeseq <- cbmc.citeseq[setdiff(rownames(cbmc.citeseq), c("CITE_CCR5", "CITE_CCR7", "CITE_CD10")), ]
+
+# Look at structure of ADT matrix.
+cbmc.adt[1:10,1:3]
+
+# What fraction of cells in the ADT and RNA matrix overlap?
+length(intersect(colnames(cbmc.rna.collapsed), colnames(cbmc.citeseq))) / length(union(colnames(cbmc.rna.collapsed), colnames(cbmc.citeseq)))
+```
+
+## Setup a Seurat object, and cluster cells based on RNA expression
+The steps below represent a quick clustering of the PBMCs based on the scRNA-seq data. For more detail on individual steps or more advanced options, see our PBMC clustering guided tutorial here
+
+```{r process_scrna, eval = FALSE}
+cbmc <- CreateSeuratObject(counts = cbmc.rna.collapsed)
+
+# This code sub-samples the data in order to speed up calculations and not use too much memory.
+# cbmc <- SetAllIdent(cbmc, id = "orig.ident")
+# cbmc <- SubsetData(cbmc, max.cells.per.ident = 2000, random.seed = 1)
+# cbmc.citeseq <- cbmc.citeseq[, cbmc@cell.names]
+
+# standard log-normalization
+cbmc <- NormalizeData(cbmc)
+
+# choose ~1k variable genes
+cbmc <- FindVariableFeatures(cbmc, do.plot = FALSE, y.cutoff = 0.5)
+
+# standard scaling 
+cbmc <- ScaleData(cbmc, display.progress = FALSE)
+
+# Run PCA, select 13 PCs for tSNE visualization and graph-based clustering
+cbmc <- RunPCA(cbmc, pcs.print = 0)
+## PCElbowPlot(cbmc)
+
+# Cluster the cells using the first 13 principal components.
+cbmc <- FindClusters(cbmc, dims.use = 1:13, print.output = FALSE)
+cbmc <- RunTSNE(cbmc, dims.use = 1:13)
+
+# Find the markers that define each cluster, and use these to annotate the
+# clusters, we use max.cells.per.ident to speed up the process
+cbmc.rna.markers <- FindAllMarkers(cbmc, max.cells.per.ident = 100, logfc.threshold = log(2), only.pos = TRUE, min.diff.pct = 0.3, do.print = F)
+
+# Examine top marker genes and identify cell types.
+cbmc.rna.markers %>% group_by(cluster) %>% top_n(5)
+genes <- c("CD3D", "CD4", "CD8A", "CD14", "MS4A1", "KLRB1", "CD34")
+FeaturePlot(cbmc, genes, cols.use = c("lightgrey", "blue"))
+
+# Which cluster consists of mouse cells?
+cbmc.rna.markers %>% filter(cluster == 3)
+
+current.cluster.ids <- 0:15
+# Note, for simplicity we are merging two CD14+ Mono clusters (that differ
+# in the expression of HLA-DR genes), and two NK clusters (that differ in
+# cell cycle stage)
+new.cluster.ids <- c("CD4 T", "CD14+ Mono", "CD14+ Mono", "NK", "Mouse", "B", "CD8 T", "CD16+ Mono", "Unknown", "CD34+", "Mk", "Eryth", "DC", "Mouse", "pDC", "NK")
+cbmc@ident <- plyr::mapvalues(x = cbmc@ident, from = current.cluster.ids, to = new.cluster.ids)
+
+TSNEPlot(cbmc, do.label = TRUE, pt.size = 0.5)
+
+# Save current progress.
+# save(cbmc, cbmc.rna.markers, file = Rda.RNA.path)
+# To load the data, run the following command.
+# load(Rda.RNA.path)
+```
+
+## Add the protein expression levels to the Seurat object
+Seurat v2.1 allows you to store information from multiple assays in the same object, as long as the data is multi-modal (collected on the same set of cells). You can use the SetAssayData and GetAssayData accessor functions to add and fetch data from additional assays.
+
+```{r add_proteinsexp, eval = FALSE}
+# We will define a CITE assay, and store raw data for it. Note that it's
+# convenient, but not required, to use the same name as the rowname prefix
+# we defined earlier.
+
+# If you are interested in how these data are internally stored, you can
+# check out the @assay slot, and the assay class, which is defined in
+# multimodal.R Note that RNA data is still stored in its normal slots, but
+# can also be accessed using GetAssayData and SetAssayData, using the 'RNA'
+# assay
+
+cbmc <- SetAssayData(cbmc, assay.type = "CITE", slot = "raw.data", new.data = cbmc.citeseq)
+GetAssayData(cbmc, assay.type = "CITE", slot = "raw.data")[1:3,1:3]
+cbmc@assay$CITE@raw.data[1:3,1:3]
+
+# Now we can repeat the preprocessing (normalization and scaling) steps that
+# we typically run with RNA, but modifying the 'assay.type' argument.  For
+# CITE-seq data, we do not recommend typical LogNormalization. Instead, we
+# use a centered log-ratio (CLR) normalization, computed independently for
+# each gene.  This is a slightly improved procedure from the original
+# publication, and we will release more advanced versions of CITE-seq
+# normalizations soon.
+cbmc <- NormalizeData(cbmc, assay.type = "CITE", normalization.method = "genesCLR")
+GetAssayData(cbmc, assay.type = "CITE", slot = "data")[1:3,1:3]
+
+cbmc <- ScaleData(cbmc, assay.type = "CITE", display.progress = FALSE)
+cbmc@assay$CITE@scale.data[1:3,1:3]
+```
+
+## Visualize protein levels on RNA clusters
+You can use the names of any ADT markers, (i.e. “CITE_CD4”), in FetchData, FeaturePlot, RidgePlot, GenePlot, DoHeatmap, or any other visualization features
+
+```{r vis_protein, eval = FALSE}
+# In this plot, protein (ADT) levels are on top, and RNA levels are on bottom
+FeaturePlot(cbmc, features.plot = c("CITE_CD3", "CITE_CD11c", "CITE_CD8", "CITE_CD16", 
+    "CD3E", "ITGAX", "CD8A", "FCGR3A"), min.cutoff = "q05", max.cutoff = "q95", 
+    nCol = 4, cols.use = c("lightgrey", "blue"), pt.size = 0.5)
+# How do the gene and protein expression levels compare to one another?
+
+# Compare gene and protein expression levels for the other 6 antibodies.
+FeaturePlot(cbmc, features.plot = c("CITE_CD4", "CITE_CD45RA", "CITE_CD56", "CITE_CD14", "CITE_CD19", "CITE_CD34", "CD4", "PTPRC", "NCAM1", "CD14", "CD19", "CD34"), min.cutoff = "q05", max.cutoff = "q95", nCol = 6, cols.use = c("lightgrey", "blue"), pt.size = 0.5)
+
+# Ridge plots are another useful visualization.
+RidgePlot(cbmc, features.plot = c("CITE_CD3", "CITE_CD11c", "CITE_CD8", "CITE_CD16"), 
+    nCol = 2)
+
+par(mfrow = c(1, 2))
+# Draw ADT scatter plots (like biaxial plots for FACS). Note that you can
+# even 'gate' cells if desired by setting do.identify = TRUE or 
+# interact with cells by setting do.hover = TRUE
+GenePlot(cbmc, gene1 = "CITE_CD19", gene2 = "CITE_CD3", cex = 0.5)
+
+# view relationship between protein and RNA
+GenePlot(cbmc, gene1 = "CITE_CD3", gene2 = "CD3E", cex.use = 0.5)
+
+# Let's plot CD4 vs CD8 levels in T cells
+tcells <- SubsetData(cbmc, ident.use = c("CD4 T", "CD8 T"))
+
+par(mfrow = c(1, 2))
+GenePlot(tcells, gene1 = "CITE_CD4", gene2 = "CITE_CD8", cex = 0.5)
+
+# Let's look at the raw (non-normalized) ADT counts. You can see the values
+# are quite high, particularly in comparison to RNA values. This is due to
+# the significantl higher protein copy number in cells, which significantly
+# reduces 'drop-out' in ADT data
+GenePlot(tcells, gene1 = "CITE_CD4", gene2 = "CITE_CD8", use.raw = TRUE, cex = 0.5)
+
+# If you look a bit more closely, you'll see that our CD8 T cell cluster is
+# enriched for CD8 T cells, but still contains many CD4+ CD8- T cells.  This
+# is because Naive CD4 and CD8 T cells are quite similar transcriptomically,
+# and the RNA dropout levels for CD4 and CD8 are quite high.  This
+# demonstrates the challenge of defining subtle immune cell differences from
+# scRNA-seq data alone.
+
+# What fraction of T cells are double negative in gene expression? (CD4- and CD8-)
+# You can use an interactive plot to gate on the cells (do.identify = T) or use 
+# Boolean conditions on CD4 and CD8A expression to find double negative cells.
+# cells <- GenePlot(tcells, gene1 = "CD4", gene2 = "CD8A", cex = 0.5, do.identify = T)
+# length(cells) / length(tcells@cell.names)
+length(which(tcells@data["CD4", ] == 0 & tcells@data["CD8A", ] == 0))
+
+# What fraction of T cells are double negative in protein expression? (CD4- and CD8-)
+# cells <- GenePlot(tcells, gene1 = "CITE_CD4", gene2 = "CITE_CD8", cex = 0.5, do.identify = T)
+# length(cells) / length(tcells@cell.names)
+length(which(tcells@assay$CITE@data["CITE_CD4", ] < 1 & 
+               tcells@assay$CITE@data["CITE_CD8", ] < 1))
+```
+
+## Identify differentially expressed proteins between clusters
+```{r ident_de, eval = FALSE}
+mono.markers <- FindMarkers(cbmc, "CD14+ Mono", "CD16+ Mono", assay.type = "CITE", logfc.threshold = log(1.5))
+head(mono.markers)
+
+# Plot the expression of the monocyte markers you identified.
+FeaturePlot(cbmc, features.plot = c("CITE_CD14", "CITE_CD16"), min.cutoff = "q05", max.cutoff = "q95", nCol = 4, cols.use = c("lightgrey", "blue"), pt.size = 0.5)
+
+# Note that we observe CD14 protein expression only on CD4+ T cells, as has
+# been previously observed in the literature
+tcell.markers <- FindMarkers(cbmc, ident.1 = "CD4 T", ident.2 = "CD8 T", assay.type = "CITE", logfc.threshold = log(1.5))
+head(tcell.markers)
+
+# Downsample the clusters to a maximum of 300 cells each (makes the heatmap
+# easier to see for small clusters)
+cbmc.small <- SubsetData(cbmc, max.cells.per.ident = 300)
+# Find protein markers for all clusters, and draw a heatmap
+adt.markers <- FindAllMarkers(cbmc.small, assay.type = "CITE", only.pos = TRUE, 
+    print.bar = F)
+
+DoHeatmap(cbmc.small, genes.use = unique(adt.markers$gene), assay.type = "CITE", 
+    slim.col.label = TRUE, remove.key = TRUE, group.label.rot = TRUE)
+
+# You can see that our unknown cells co-express both myeloid and lymphoid
+# markers (true at the RNA level as well). They are likely cell clumps
+# (multiplets) that should be discarded. We'll remove the mouse cells now as
+# well
+cbmc <- SubsetData(cbmc, ident.remove = c("Unknown", "Mouse"))
+```
+
+## Cluster directly on protein levels
+You can also run dimensional reduction and graph-based clustering directly on CITE-seq data
+```{r clust_protein, eval = FALSE}
+# We will store the results in a new object, cbmc_cite.
+cbmc_cite <- RunPCA(cbmc, pc.genes = rownames(cbmc.citeseq), assay.type = "CITE", pcs.print = 0)
+PCAPlot(cbmc_cite, pt.size = 0.5)
+
+# Since we only have 10 markers, instead of doing PCA, we'll just use a
+# standard euclidean distance matrix here.  Also, this provides a good
+# opportunity to demonstrate how to do visualization and clustering using a
+# custom distance matrix in Seurat.
+adt.data <- GetAssayData(cbmc_cite, assay.type = "CITE", slot = "data")
+adt.dist <- as.matrix(dist(t(adt.data)))
+# Why do we not use PCA to do dimensionality reduction here?
+# Is Euclidean distance a good distance metric in this case?
+PCElbowPlot(cbmc_cite)
+
+# Before we recluster the data on ADT levels, we'll stash the RNA cluster
+# IDs for later
+cbmc_cite <- StashIdent(cbmc_cite, "rnaClusterID")
+
+# Now, we rerun tSNE using our distance matrix defined only on ADT (protein)
+# levels.
+cbmc_cite <- RunTSNE(cbmc_cite, distance.matrix = adt.dist)
+
+# We can also rerun clustering using the same distance matrix. We'll start
+# with a very coarse clustering (resolution=0.2)
+cbmc_cite <- FindClusters(cbmc_cite, distance.matrix = adt.dist, print.output = FALSE, resolution = 0.2)
+
+# We can compare the RNA and protein clustering, and use this to annotate
+# the protein clustering (we could also of course use FindMarkers)
+clustering.table <- table(cbmc_cite@ident, cbmc_cite@meta.data$rnaClusterID)
+
+current.cluster.ids <- 0:10
+# Note, for simplicity we are merging two CD14+ Mono clusters (that differ
+# in the expression of HLA-DR genes), and two NK clusters (that differ in
+# cell cycle stage)
+new.cluster.ids <- c("CD4 T", "CD14+ Mono", "NK", "B", "CD8 T", "CD34+", "Unknown1", 
+    "CD16+ Mono", "Unknown2", "pDC", "Unknown3")
+cbmc_cite@ident <- plyr::mapvalues(x = cbmc_cite@ident, from = current.cluster.ids, 
+    to = new.cluster.ids)
+
+tsne_rnaClusters <- TSNEPlot(cbmc_cite, do.return = TRUE, group.by = "rnaClusterID", 
+    pt.size = 0.5, do.label = T)
+tsne_rnaClusters <- tsne_rnaClusters + ggtitle("Clustering based on scRNA-seq") + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+tsne_adtClusters <- TSNEPlot(cbmc_cite, do.return = TRUE, pt.size = 0.5, do.label = T)
+tsne_adtClusters <- tsne_adtClusters + ggtitle("Clustering based on ADT signal") + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+# Note: for this comparison, both the RNA and protein clustering are
+# visualized on a tSNE generated using the ADT distance matrix.
+plot_grid(tsne_rnaClusters, tsne_adtClusters, ncol = 2)
+
+# What differences if any do you see between the clustering based on scRNA-seq
+# and the clustering based on ADT signal?
+# How could we combine these datasets in a joint, integrative analysis?
+
+# Save current progress.
+# save(cbmc_cite, file = Rda.protein.path)
+# To load the data, run the following command.
+# load(Rda.protein.path)
+```
+
+The ADT-based clustering yields similar results, but with a few differences
+
+- Clustering is improved for CD4/CD8 T cell populations, based on the robust ADT data for CD4, CD8, CD14, and CD45RA
+- However, some clusters for which the ADT data does not contain good distinguishing protein markers (i.e. Mk/Ery/DC) lose separation
+- Notably, our unknown populations again correspond to rare populations that co-express markers for different lineages
+- Unknown 1 (Myeloid/CD4), (Myeloid/CD8), and 3 (B/CD4) likely correspond to additional doublets, whose signal was too subtle to cluster separately in scRNA-seq
+- You can verify this using FindMarkers at the RNA level, as well
+
+## Additional exploration: another example of multi-modal analysis
+For another nice example of multi-modal analysis, please explore this [single cell ATAC-Seq vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html)
+
+## Acknowledgements
+This document is largely a tutorial from Seurat website, with some small modifications. The official vignette is available at [CITE-Seq Seurat](https://satijalab.org/seurat/multimodal_vignette.html).
