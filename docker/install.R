@@ -1,5 +1,4 @@
 ## CRAN Packages
-install.packages("Seurat", dependencies = TRUE)
 install.packages('umap')
 # install.packages("ggplot2")
 # install.packages("gam")
@@ -26,6 +25,7 @@ install.packages('umap')
 
 
 ## Github Packages
+devtools::install_github("satijalab/seurat", upgrade = "never")
 #devtools::install_github("broadinstitute/inferCNV")
 #devtools::install_github("velocyto-team/velocyto.R")
 #devtools::install_github('MacoskoLab/liger')
