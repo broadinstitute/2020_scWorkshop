@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 Feature Selection and Cluster Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 Feature Selection and Cluster Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
+  <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 Feature Selection and Cluster Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+
+<meta name="author" content="Orr Ashenberg" />
+<meta name="author" content="Dana Silverbush" />
+<meta name="author" content="Kirk Gosik" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="identifying-cell-populations.html"/>
+<link rel="next" href="batch-effects.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> COURSE OVERVIEW</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#targeted-audience-assumed-background"><i class="fa fa-check"></i><b>1.2</b> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#course-format"><i class="fa fa-check"></i><b>1.3</b> COURSE FORMAT</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>1.4</b> Getting Started</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#session-content"><i class="fa fa-check"></i><b>1.5</b> SESSION CONTENT</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#monday-classes-from-0930-to-1730-lunch-break-1-hr-40-min-of-total-coffee-breaks"><i class="fa fa-check"></i><b>1.5.1</b> Monday – Classes from 09:30 to 17:30 (lunch break-1 hr, 40 min of total coffee breaks)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#tuesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.2</b> Tuesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#wednesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.3</b> Wednesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#thursday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.4</b> Thursday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 09:30 to 17:30</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#template-example"><i class="fa fa-check"></i><b>1.6</b> Template Example</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#make-object"><i class="fa fa-check"></i><b>1.7</b> Make Object</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#process-object"><i class="fa fa-check"></i><b>1.8</b> Process Object</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lecture-section-title.html"><a href="lecture-section-title.html"><i class="fa fa-check"></i><b>2</b> Lecture Section Title</a></li>
+<li class="chapter" data-level="3" data-path="scrna-seq-experimental-design.html"><a href="scrna-seq-experimental-design.html"><i class="fa fa-check"></i><b>3</b> scRNA-Seq Experimental Design</a></li>
+<li class="chapter" data-level="4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>4</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>4.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>4.1.1</b> Getting into AWS Instance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>4.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>4.2.1</b> Common Linux Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>4.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="4.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>4.3.2</b> View BAM Files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>4.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>4.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="4.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>4.4.2</b> GEO</a></li>
+<li class="chapter" data-level="4.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>4.4.3</b> Single Cell Portal</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>5</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="6" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>6</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>6.1</b> Goal</a></li>
+<li class="chapter" data-level="6.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>6.2</b> Further reading</a></li>
+<li class="chapter" data-level="6.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastqc"><i class="fa fa-check"></i><b>6.3</b> FastQC</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>6.3.1</b> Fastq file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>6.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>6.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="6.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>6.4.2</b> Bam file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>6.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html"><i class="fa fa-check"></i><b>7</b> Transcriptome Quantification</a></li>
+<li class="chapter" data-level="8" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>8</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="8.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>8.1</b> Start Environment</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>8.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>8.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="8.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>8.2.2</b> Github</a></li>
+<li class="chapter" data-level="8.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>8.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>8.2.4</b> Source</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>8.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>8.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="8.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>8.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="8.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>8.3.3</b> Detour to S3/S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>8.4</b> More information</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>8.4.1</b> Checking for help for any function!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>8.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="8.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>8.5.2</b> Principles of ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>8.6</b> Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="expression-qc-and-normalization.html"><a href="expression-qc-and-normalization.html"><i class="fa fa-check"></i><b>9</b> Expression QC and Normalization</a></li>
+<li class="chapter" data-level="10" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>10</b> Data Wrangling scRNAseq</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>10.1</b> Goal</a></li>
+<li class="chapter" data-level="10.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-1"><i class="fa fa-check"></i><b>10.2</b> Introduction</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>10.2.1</b> Load necessary packages</a></li>
+<li class="chapter" data-level="10.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>10.2.2</b> Read in NSCLC counts matrix.</a></li>
+<li class="chapter" data-level="10.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>10.2.3</b> Let’s examine the sparse counts matrix</a></li>
+<li class="chapter" data-level="10.2.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-big-is-the-matrix"><i class="fa fa-check"></i><b>10.2.4</b> How big is the matrix?</a></li>
+<li class="chapter" data-level="10.2.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-much-memory-does-a-sparse-matrix-take-up-relative-to-a-dense-matrix"><i class="fa fa-check"></i><b>10.2.5</b> How much memory does a sparse matrix take up relative to a dense matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#filtering-low-quality-cells"><i class="fa fa-check"></i><b>10.3</b> Filtering low-quality cells</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#look-at-the-summary-counts-for-genes-and-cells"><i class="fa fa-check"></i><b>10.3.1</b> Look at the summary counts for genes and cells</a></li>
+<li class="chapter" data-level="10.3.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#plot-cells-ranked-by-their-number-of-detected-genes."><i class="fa fa-check"></i><b>10.3.2</b> Plot cells ranked by their number of detected genes.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#beginning-with-seurat-httpsatijalab.orgseurat"><i class="fa fa-check"></i><b>10.4</b> Beginning with Seurat: <span>http://satijalab.org/seurat/</span></a><ul>
+<li class="chapter" data-level="10.4.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#creating-a-seurat-object"><i class="fa fa-check"></i><b>10.4.1</b> Creating a seurat object</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-1-filter-out-low-quality-cells"><i class="fa fa-check"></i><b>10.5</b> Preprocessing step 1 : Filter out low-quality cells</a></li>
+<li class="chapter" data-level="10.6" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#examine-contents-of-seurat-object"><i class="fa fa-check"></i><b>10.6</b> Examine contents of Seurat object</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-2-expression-normalization"><i class="fa fa-check"></i><b>10.6.1</b> Preprocessing step 2 : Expression normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#detection-of-variable-genes-across-the-single-cells"><i class="fa fa-check"></i><b>10.7</b> Detection of variable genes across the single cells</a></li>
+<li class="chapter" data-level="10.8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#gene-set-expression-across-cells"><i class="fa fa-check"></i><b>10.8</b> Gene set expression across cells</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>11</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="11.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>11.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>12</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial"><i class="fa fa-check"></i><b>12.2</b> Seurat Tutorial</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>12.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="12.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>12.2.2</b> Start of Identifying Cell Types</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>12.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>12.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="12.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#dimensionality-reduction"><i class="fa fa-check"></i><b>12.3.2</b> Dimensionality Reduction</a></li>
+<li class="chapter" data-level="12.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#independent-components-analysis-ica"><i class="fa fa-check"></i><b>12.3.3</b> Independent Components Analysis (ICA)</a></li>
+<li class="chapter" data-level="12.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#clustering"><i class="fa fa-check"></i><b>12.3.4</b> Clustering</a></li>
+<li class="chapter" data-level="12.3.5" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>12.3.5</b> Check Clusters</a></li>
+<li class="chapter" data-level="12.3.6" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>12.3.6</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>13</b> Batch Effects</a></li>
+<li class="chapter" data-level="14" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html"><i class="fa fa-check"></i><b>14</b> Correcting Batch Effects</a><ul>
+<li class="chapter" data-level="14.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#load-settings-and-packages"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="14.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>14.2</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="14.3" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>14.3</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-canonical-correlation-analysis-cca-using-seurat"><i class="fa fa-check"></i><b>14.3.1</b> Batch correction: canonical correlation analysis (CCA) using Seurat</a></li>
+<li class="chapter" data-level="14.3.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>14.3.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>14.4</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="14.5" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>14.5</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="14.6" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>14.6</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="14.7" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#acknowledgements"><i class="fa fa-check"></i><b>14.7</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="functional-analysis.html"><a href="functional-analysis.html"><i class="fa fa-check"></i><b>15</b> Functional Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="functional-analysis.html"><a href="functional-analysis.html#google-slides-1"><i class="fa fa-check"></i><b>15.1</b> Google Slides</a></li>
+<li class="chapter" data-level="15.2" data-path="functional-analysis.html"><a href="functional-analysis.html#gene-sets-and-signatures"><i class="fa fa-check"></i><b>15.2</b> Gene sets and signatures</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="functional-analysis.html"><a href="functional-analysis.html#cell-cycle"><i class="fa fa-check"></i><b>15.2.1</b> Cell Cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="functional-analysis.html"><a href="functional-analysis.html#pathway-analysis"><i class="fa fa-check"></i><b>15.3</b> Pathway analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="functional-analysis.html"><a href="functional-analysis.html#infercnv-honeybadger"><i class="fa fa-check"></i><b>15.4</b> inferCNV / honeybadger</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="functional-analysis.html"><a href="functional-analysis.html#create-the-infercnv-object"><i class="fa fa-check"></i><b>15.4.1</b> Create the InferCNV Object</a></li>
+<li class="chapter" data-level="15.4.2" data-path="functional-analysis.html"><a href="functional-analysis.html#filtering-genes"><i class="fa fa-check"></i><b>15.4.2</b> Filtering genes</a></li>
+<li class="chapter" data-level="15.4.3" data-path="functional-analysis.html"><a href="functional-analysis.html#normalize-each-cells-counts-for-sequencing-depth"><i class="fa fa-check"></i><b>15.4.3</b> Normalize each cell’s counts for sequencing depth</a></li>
+<li class="chapter" data-level="15.4.4" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-anscombe-normalization"><i class="fa fa-check"></i><b>15.4.4</b> Perform Anscombe normalization</a></li>
+<li class="chapter" data-level="15.4.5" data-path="functional-analysis.html"><a href="functional-analysis.html#log-transform-the-normalized-counts"><i class="fa fa-check"></i><b>15.4.5</b> Log transform the normalized counts:</a></li>
+<li class="chapter" data-level="15.4.6" data-path="functional-analysis.html"><a href="functional-analysis.html#apply-maximum-bounds-to-the-expression-data-to-reduce-outlier-effects"><i class="fa fa-check"></i><b>15.4.6</b> Apply maximum bounds to the expression data to reduce outlier effects</a></li>
+<li class="chapter" data-level="15.4.7" data-path="functional-analysis.html"><a href="functional-analysis.html#initial-view-before-infercnv-operations"><i class="fa fa-check"></i><b>15.4.7</b> Initial view, before inferCNV operations:</a></li>
+<li class="chapter" data-level="15.4.8" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-smoothing-across-chromosomes"><i class="fa fa-check"></i><b>15.4.8</b> Perform smoothing across chromosomes</a></li>
+<li class="chapter" data-level="15.4.9" data-path="functional-analysis.html"><a href="functional-analysis.html#subtract-the-reference-values-from-observations-now-have-logfold-change-values"><i class="fa fa-check"></i><b>15.4.9</b> Subtract the reference values from observations, now have log(fold change) values</a></li>
+<li class="chapter" data-level="15.4.10" data-path="functional-analysis.html"><a href="functional-analysis.html#invert-log-values"><i class="fa fa-check"></i><b>15.4.10</b> Invert log values</a></li>
+<li class="chapter" data-level="15.4.11" data-path="functional-analysis.html"><a href="functional-analysis.html#removing-noise"><i class="fa fa-check"></i><b>15.4.11</b> Removing noise</a></li>
+<li class="chapter" data-level="15.4.12" data-path="functional-analysis.html"><a href="functional-analysis.html#remove-outlier-data-points"><i class="fa fa-check"></i><b>15.4.12</b> Remove outlier data points</a></li>
+<li class="chapter" data-level="15.4.13" data-path="functional-analysis.html"><a href="functional-analysis.html#find-de-genes-by-comparing-the-mutant-types-to-normal-types-basic"><i class="fa fa-check"></i><b>15.4.13</b> Find DE genes by comparing the mutant types to normal types, BASIC</a></li>
+<li class="chapter" data-level="15.4.14" data-path="functional-analysis.html"><a href="functional-analysis.html#additional-information"><i class="fa fa-check"></i><b>15.4.14</b> Additional Information</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>16</b> Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="16.1" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#google-slides-2"><i class="fa fa-check"></i><b>16.1</b> Google Slides</a></li>
+<li class="chapter" data-level="16.2" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#comparison-abstract"><i class="fa fa-check"></i><b>16.2</b> Comparison Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html"><i class="fa fa-check"></i><b>17</b> Functional Pseudotime Analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>17.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="17.2" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>17.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="17.3" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>17.3</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="17.4" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>17.4</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="17.5" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>17.5</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="17.6" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>17.6</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="17.7" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>17.7</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="17.8" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>17.8</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-multiomic-technologies.html"><a href="single-cell-multiomic-technologies.html"><i class="fa fa-check"></i><b>18</b> Single Cell Multiomic Technologies</a></li>
+<li class="chapter" data-level="19" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html"><i class="fa fa-check"></i><b>19</b> CITE-seq and scATAC-seq</a><ul>
+<li class="chapter" data-level="19.1" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>19.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="19.2" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>19.2</b> Load in the data</a></li>
+<li class="chapter" data-level="19.3" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>19.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="19.4" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>19.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="19.5" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>19.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="19.6" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>19.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="19.7" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>19.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="19.8" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>19.8</b> Additional exploration: another example of multi-modal analysis</a></li>
+<li class="chapter" data-level="19.9" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>19.9</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>20</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="20.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>20.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="20.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>20.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="20.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>20.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="20.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>20.4</b> Online courses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="feature-selection-and-cluster-analysis" class="section level1">
+<h1><span class="header-section-number">12</span> Feature Selection and Cluster Analysis</h1>
+<div id="abstract" class="section level2">
+<h2><span class="header-section-number">12.1</span> Abstract</h2>
+<p>Many methods have been used to determine differential gene expression from single-cell RNA (scRNA)-seq data. We evaluated 36 approaches using experimental and synthetic data and found considerable differences in the number and characteristics of the genes that are called differentially expressed. Prefiltering of lowly expressed genes has important effects, particularly for some of the methods developed for bulk RNA-seq data analysis. However, we found that bulk RNA-seq analysis methods do not generally perform worse than those developed specifically for scRNA-seq. We also present conquer, a repository of consistently processed, analysis-ready public scRNA-seq data sets that is aimed at simplifying method evaluation and reanalysis of published results. Each data set provides abundance estimates for both genes and transcripts, as well as quality control and exploratory analysis reports. <span class="citation">(<span class="citeproc-not-found" data-reference-id="soneson2018bias"><strong>???</strong></span>)</span></p>
+<p>Cells are the basic building blocks of organisms and each cell is unique. Single-cell RNA sequencing has emerged as an indispensable tool to dissect the cellular heterogeneity and decompose tissues into cell types and/or cell states, which offers enormous potential for de novo discovery. Single-cell transcriptomic atlases provide unprecedented resolution to reveal complex cellular events and deepen our understanding of biological systems. In this review, we summarize and compare single-cell RNA sequencing technologies, that were developed since 2009, to facilitate a well-informed choice of method. The applications of these methods in different biological contexts are also discussed. We anticipate an ever-increasing role of single-cell RNA sequencing in biology with further improvement in providing spatial information and coupling to other cellular modalities. In the future, such biological findings will greatly benefit medical research. <span class="citation">(<span class="citeproc-not-found" data-reference-id="hedlund2018single"><strong>???</strong></span>)</span></p>
+</div>
+<div id="seurat-tutorial" class="section level2">
+<h2><span class="header-section-number">12.2</span> Seurat Tutorial</h2>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="feature-selection-and-cluster-analysis.html#cb185-1"></a><span class="kw">library</span>(Seurat)</span>
+<span id="cb185-2"><a href="feature-selection-and-cluster-analysis.html#cb185-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb185-3"><a href="feature-selection-and-cluster-analysis.html#cb185-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb185-4"><a href="feature-selection-and-cluster-analysis.html#cb185-4"></a><span class="kw">library</span>(CountClust)</span>
+<span id="cb185-5"><a href="feature-selection-and-cluster-analysis.html#cb185-5"></a></span>
+<span id="cb185-6"><a href="feature-selection-and-cluster-analysis.html#cb185-6"></a>pbmc &lt;-<span class="st"> </span>pbmc_small</span>
+<span id="cb185-7"><a href="feature-selection-and-cluster-analysis.html#cb185-7"></a>pbmc<span class="op">@</span>meta.data<span class="op">$</span>barcode &lt;-<span class="st"> </span><span class="kw">row.names</span>(pbmc<span class="op">@</span>meta.data)</span>
+<span id="cb185-8"><a href="feature-selection-and-cluster-analysis.html#cb185-8"></a><span class="co"># pbmc@ident &lt;- factor()</span></span></code></pre></div>
+<div id="preprocessing-steps" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Preprocessing Steps</h3>
+<p>This was all covered in the last Lab!</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="feature-selection-and-cluster-analysis.html#cb186-1"></a><span class="co"># The number of genes and UMIs (nGene and nUMI) are automatically calculated</span></span>
+<span id="cb186-2"><a href="feature-selection-and-cluster-analysis.html#cb186-2"></a><span class="co"># for every object by Seurat.  For non-UMI data, nUMI represents the sum of</span></span>
+<span id="cb186-3"><a href="feature-selection-and-cluster-analysis.html#cb186-3"></a><span class="co"># the non-normalized values within a cell We calculate the percentage of</span></span>
+<span id="cb186-4"><a href="feature-selection-and-cluster-analysis.html#cb186-4"></a><span class="co"># mitochondrial genes here and store it in percent.mito using AddMetaData.</span></span>
+<span id="cb186-5"><a href="feature-selection-and-cluster-analysis.html#cb186-5"></a><span class="co"># We use object@raw.data since this represents non-transformed and</span></span>
+<span id="cb186-6"><a href="feature-selection-and-cluster-analysis.html#cb186-6"></a><span class="co"># non-log-normalized counts The % of UMI mapping to MT-genes is a common</span></span>
+<span id="cb186-7"><a href="feature-selection-and-cluster-analysis.html#cb186-7"></a><span class="co"># scRNA-seq QC metric.</span></span>
+<span id="cb186-8"><a href="feature-selection-and-cluster-analysis.html#cb186-8"></a>mito.genes &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;^MT-&quot;</span>, <span class="dt">x =</span> <span class="kw">rownames</span>(<span class="dt">x =</span> pbmc<span class="op">@</span>data), <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb186-9"><a href="feature-selection-and-cluster-analysis.html#cb186-9"></a>percent.mito &lt;-<span class="st"> </span>Matrix<span class="op">::</span><span class="kw">colSums</span>(pbmc<span class="op">@</span>raw.data[mito.genes, ])<span class="op">/</span>Matrix<span class="op">::</span><span class="kw">colSums</span>(pbmc<span class="op">@</span>raw.data)</span>
+<span id="cb186-10"><a href="feature-selection-and-cluster-analysis.html#cb186-10"></a></span>
+<span id="cb186-11"><a href="feature-selection-and-cluster-analysis.html#cb186-11"></a><span class="co"># AddMetaData adds columns to object@meta.data, and is a great place to</span></span>
+<span id="cb186-12"><a href="feature-selection-and-cluster-analysis.html#cb186-12"></a><span class="co"># stash QC stats</span></span>
+<span id="cb186-13"><a href="feature-selection-and-cluster-analysis.html#cb186-13"></a>pbmc &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> pbmc, <span class="dt">metadata =</span> percent.mito, <span class="dt">col.name =</span> <span class="st">&quot;percent.mito&quot;</span>)</span>
+<span id="cb186-14"><a href="feature-selection-and-cluster-analysis.html#cb186-14"></a><span class="co">##VlnPlot(object = pbmc, features.plot = c(&quot;nGene&quot;, &quot;nUMI&quot;), &quot;percent.mito&quot;), nCol = 3)</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="feature-selection-and-cluster-analysis.html#cb187-1"></a><span class="co"># GenePlot is typically used to visualize gene-gene relationships, but can</span></span>
+<span id="cb187-2"><a href="feature-selection-and-cluster-analysis.html#cb187-2"></a><span class="co"># be used for anything calculated by the object, i.e. columns in</span></span>
+<span id="cb187-3"><a href="feature-selection-and-cluster-analysis.html#cb187-3"></a><span class="co"># object@meta.data, PC scores etc.  Since there is a rare subset of cells</span></span>
+<span id="cb187-4"><a href="feature-selection-and-cluster-analysis.html#cb187-4"></a><span class="co"># with an outlier level of high mitochondrial percentage and also low UMI</span></span>
+<span id="cb187-5"><a href="feature-selection-and-cluster-analysis.html#cb187-5"></a><span class="co"># content, we filter these as well</span></span>
+<span id="cb187-6"><a href="feature-selection-and-cluster-analysis.html#cb187-6"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb187-7"><a href="feature-selection-and-cluster-analysis.html#cb187-7"></a><span class="kw">GenePlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">gene1 =</span> <span class="st">&quot;nUMI&quot;</span>, <span class="dt">gene2 =</span> <span class="st">&quot;percent.mito&quot;</span>)</span>
+<span id="cb187-8"><a href="feature-selection-and-cluster-analysis.html#cb187-8"></a><span class="kw">GenePlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">gene1 =</span> <span class="st">&quot;nUMI&quot;</span>, <span class="dt">gene2 =</span> <span class="st">&quot;nGene&quot;</span>)</span></code></pre></div>
+<p><strong>Already A Subset of the Data</strong></p>
+<p>This is not run becuase we are already working with a subset. This is here for reference.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="feature-selection-and-cluster-analysis.html#cb188-1"></a><span class="co"># We filter out cells that have unique gene counts over 2,500 or less than</span></span>
+<span id="cb188-2"><a href="feature-selection-and-cluster-analysis.html#cb188-2"></a><span class="co"># 200 Note that low.thresholds and high.thresholds are used to define a</span></span>
+<span id="cb188-3"><a href="feature-selection-and-cluster-analysis.html#cb188-3"></a><span class="co"># &#39;gate&#39;.  -Inf and Inf should be used if you don&#39;t want a lower or upper</span></span>
+<span id="cb188-4"><a href="feature-selection-and-cluster-analysis.html#cb188-4"></a><span class="co"># threshold.</span></span>
+<span id="cb188-5"><a href="feature-selection-and-cluster-analysis.html#cb188-5"></a></span>
+<span id="cb188-6"><a href="feature-selection-and-cluster-analysis.html#cb188-6"></a>pbmc &lt;-<span class="st"> </span><span class="kw">FilterCells</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb188-7"><a href="feature-selection-and-cluster-analysis.html#cb188-7"></a>                    <span class="dt">subset.names =</span> <span class="kw">c</span>(<span class="st">&quot;nGene&quot;</span>, <span class="st">&quot;percent.mito&quot;</span>), </span>
+<span id="cb188-8"><a href="feature-selection-and-cluster-analysis.html#cb188-8"></a>                    <span class="dt">low.thresholds =</span> <span class="kw">c</span>(<span class="dv">200</span>, <span class="op">-</span><span class="ot">Inf</span>), </span>
+<span id="cb188-9"><a href="feature-selection-and-cluster-analysis.html#cb188-9"></a>                    <span class="dt">high.thresholds =</span> <span class="kw">c</span>(<span class="dv">2500</span>, <span class="fl">0.1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="feature-selection-and-cluster-analysis.html#cb189-1"></a>pbmc &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> pbmc, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="feature-selection-and-cluster-analysis.html#cb190-1"></a>pbmc &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb190-2"><a href="feature-selection-and-cluster-analysis.html#cb190-2"></a>                          <span class="dt">mean.function =</span> ExpMean, </span>
+<span id="cb190-3"><a href="feature-selection-and-cluster-analysis.html#cb190-3"></a>                          <span class="dt">dispersion.function =</span> LogVMR, </span>
+<span id="cb190-4"><a href="feature-selection-and-cluster-analysis.html#cb190-4"></a>                          <span class="dt">do.plot =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="start-of-identifying-cell-types" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Start of Identifying Cell Types</h3>
+<div id="scaling" class="section level4">
+<h4><span class="header-section-number">12.2.2.1</span> Scaling</h4>
+<p>This part is where you mean center the data, substract the mean. You also divide by the standard deviation to make everything to a ‘standard normal’, where the mean is zero and the standard deviation is 1.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="feature-selection-and-cluster-analysis.html#cb191-1"></a>pbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> pbmc, <span class="dt">vars.to.regress =</span> <span class="kw">c</span>(<span class="st">&quot;batch&quot;</span>, <span class="st">&quot;percent.mito&quot;</span>))</span></code></pre></div>
+<p>Try Regressing Other Variables</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="feature-selection-and-cluster-analysis.html#cb192-1"></a><span class="co">## batch_ids &lt;- read.csv(&#39;file_with_batch_ids.csv&#39;)</span></span>
+<span id="cb192-2"><a href="feature-selection-and-cluster-analysis.html#cb192-2"></a></span>
+<span id="cb192-3"><a href="feature-selection-and-cluster-analysis.html#cb192-3"></a><span class="co">## randomly making a batch id data.frame</span></span>
+<span id="cb192-4"><a href="feature-selection-and-cluster-analysis.html#cb192-4"></a>batch_ids &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">barcode =</span> <span class="kw">rownames</span>(pbmc<span class="op">@</span>meta.data), </span>
+<span id="cb192-5"><a href="feature-selection-and-cluster-analysis.html#cb192-5"></a>                        <span class="dt">batch_id =</span> <span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">80</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb192-6"><a href="feature-selection-and-cluster-analysis.html#cb192-6"></a>                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb192-7"><a href="feature-selection-and-cluster-analysis.html#cb192-7"></a></span>
+<span id="cb192-8"><a href="feature-selection-and-cluster-analysis.html#cb192-8"></a></span>
+<span id="cb192-9"><a href="feature-selection-and-cluster-analysis.html#cb192-9"></a><span class="kw">row.names</span>(batch_ids) &lt;-<span class="st"> </span><span class="kw">row.names</span>(pbmc<span class="op">@</span>meta.data)</span>
+<span id="cb192-10"><a href="feature-selection-and-cluster-analysis.html#cb192-10"></a></span>
+<span id="cb192-11"><a href="feature-selection-and-cluster-analysis.html#cb192-11"></a>pbmc &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> pbmc, <span class="dt">metadata =</span> batch_ids, <span class="dt">col.name =</span> <span class="st">&quot;batch_id&quot;</span>)</span>
+<span id="cb192-12"><a href="feature-selection-and-cluster-analysis.html#cb192-12"></a></span>
+<span id="cb192-13"><a href="feature-selection-and-cluster-analysis.html#cb192-13"></a>pbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> pbmc, <span class="dt">vars.to.regress =</span> <span class="st">&#39;batch_id&#39;</span>)</span></code></pre></div>
+</div>
+<div id="running-pca" class="section level4">
+<h4><span class="header-section-number">12.2.2.2</span> Running PCA</h4>
+<p>This will run pca on the</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="feature-selection-and-cluster-analysis.html#cb193-1"></a>pbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb193-2"><a href="feature-selection-and-cluster-analysis.html#cb193-2"></a>               <span class="dt">pc.genes =</span> pbmc<span class="op">@</span>var.genes, </span>
+<span id="cb193-3"><a href="feature-selection-and-cluster-analysis.html#cb193-3"></a>               <span class="dt">do.print =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb193-4"><a href="feature-selection-and-cluster-analysis.html#cb193-4"></a>               <span class="dt">pcs.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb193-5"><a href="feature-selection-and-cluster-analysis.html#cb193-5"></a>               <span class="dt">genes.print =</span> <span class="dv">5</span>)</span></code></pre></div>
+</div>
+<div id="running-ica" class="section level4">
+<h4><span class="header-section-number">12.2.2.3</span> Running ICA</h4>
+<p>Try running Independent Component Analysis. If you need help with the inputs try using the ?RunICA menu.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="feature-selection-and-cluster-analysis.html#cb194-1"></a>pbmc &lt;-<span class="st"> </span><span class="kw">RunICA</span>(pbmc, <span class="dt">ics.compute=</span><span class="dv">5</span>)</span></code></pre></div>
+</div>
+<div id="visualizing-pca-in-different-ways" class="section level4">
+<h4><span class="header-section-number">12.2.2.4</span> Visualizing PCA in Different Ways</h4>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="feature-selection-and-cluster-analysis.html#cb195-1"></a><span class="kw">VizPCA</span>(<span class="dt">object =</span> pbmc, <span class="dt">pcs.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div id="visualizing-ica-in-different-ways" class="section level4">
+<h4><span class="header-section-number">12.2.2.5</span> Visualizing ICA in Different Ways</h4>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="feature-selection-and-cluster-analysis.html#cb196-1"></a><span class="kw">VizICA</span>(<span class="dt">object =</span> pbmc, <span class="dt">ics.use=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="feature-selection-and-cluster-analysis.html#cb197-1"></a><span class="kw">PCAPlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="feature-selection-and-cluster-analysis.html#cb198-1"></a><span class="co"># ProjectPCA scores each gene in the dataset (including genes not included</span></span>
+<span id="cb198-2"><a href="feature-selection-and-cluster-analysis.html#cb198-2"></a><span class="co"># in the PCA) based on their correlation with the calculated components.</span></span>
+<span id="cb198-3"><a href="feature-selection-and-cluster-analysis.html#cb198-3"></a><span class="co"># Though we don&#39;t use this further here, it can be used to identify markers</span></span>
+<span id="cb198-4"><a href="feature-selection-and-cluster-analysis.html#cb198-4"></a><span class="co"># that are strongly correlated with cellular heterogeneity, but may not have</span></span>
+<span id="cb198-5"><a href="feature-selection-and-cluster-analysis.html#cb198-5"></a><span class="co"># passed through variable gene selection.  The results of the projected PCA</span></span>
+<span id="cb198-6"><a href="feature-selection-and-cluster-analysis.html#cb198-6"></a><span class="co"># can be explored by setting use.full=T in the functions above</span></span>
+<span id="cb198-7"><a href="feature-selection-and-cluster-analysis.html#cb198-7"></a>pbmc &lt;-<span class="st"> </span><span class="kw">ProjectPCA</span>(<span class="dt">object =</span> pbmc, <span class="dt">do.print =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="genes-by-pcs" class="section level4">
+<h4><span class="header-section-number">12.2.2.6</span> Genes by PCs</h4>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="feature-selection-and-cluster-analysis.html#cb199-1"></a><span class="kw">PCHeatmap</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb199-2"><a href="feature-selection-and-cluster-analysis.html#cb199-2"></a>          <span class="dt">pc.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
+<span id="cb199-3"><a href="feature-selection-and-cluster-analysis.html#cb199-3"></a>          <span class="dt">cells.use =</span> <span class="dv">50</span>, </span>
+<span id="cb199-4"><a href="feature-selection-and-cluster-analysis.html#cb199-4"></a>          <span class="dt">do.balanced =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb199-5"><a href="feature-selection-and-cluster-analysis.html#cb199-5"></a>          <span class="dt">label.columns =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>Check other PCs to plot</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="feature-selection-and-cluster-analysis.html#cb200-1"></a><span class="kw">PCHeatmap</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="feature-selection-and-cluster-analysis.html#cb201-1"></a><span class="kw">PCElbowPlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">num.pc =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="feature-selection-and-cluster-analysis.html#cb202-1"></a><span class="co"># save.SNN = T saves the SNN so that the clustering algorithm can be rerun</span></span>
+<span id="cb202-2"><a href="feature-selection-and-cluster-analysis.html#cb202-2"></a><span class="co"># using the same graph but with a different resolution value (see docs for</span></span>
+<span id="cb202-3"><a href="feature-selection-and-cluster-analysis.html#cb202-3"></a><span class="co"># full details)</span></span>
+<span id="cb202-4"><a href="feature-selection-and-cluster-analysis.html#cb202-4"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb202-5"><a href="feature-selection-and-cluster-analysis.html#cb202-5"></a>pbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb202-6"><a href="feature-selection-and-cluster-analysis.html#cb202-6"></a>                     <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>, </span>
+<span id="cb202-7"><a href="feature-selection-and-cluster-analysis.html#cb202-7"></a>                     <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
+<span id="cb202-8"><a href="feature-selection-and-cluster-analysis.html#cb202-8"></a>                     <span class="dt">resolution =</span> <span class="dv">1</span>, </span>
+<span id="cb202-9"><a href="feature-selection-and-cluster-analysis.html#cb202-9"></a>                     <span class="dt">print.output =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="feature-selection-and-cluster-analysis.html#cb203-1"></a><span class="kw">set.seed</span>(<span class="kw">runif</span>(<span class="dv">100</span>))</span>
+<span id="cb203-2"><a href="feature-selection-and-cluster-analysis.html#cb203-2"></a>pbmc &lt;-<span class="kw">RunTSNE</span>(pbmc, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">perplexity=</span><span class="dv">10</span>)</span>
+<span id="cb203-3"><a href="feature-selection-and-cluster-analysis.html#cb203-3"></a></span>
+<span id="cb203-4"><a href="feature-selection-and-cluster-analysis.html#cb203-4"></a><span class="co"># note that you can set do.label=T to help label individual clusters</span></span>
+<span id="cb203-5"><a href="feature-selection-and-cluster-analysis.html#cb203-5"></a><span class="kw">TSNEPlot</span>(<span class="dt">object =</span> pbmc)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="feature-selection-and-cluster-analysis.html#cb204-1"></a><span class="co"># find all markers of cluster 1</span></span>
+<span id="cb204-2"><a href="feature-selection-and-cluster-analysis.html#cb204-2"></a>cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> pbmc, <span class="dt">ident.1 =</span> <span class="dv">1</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>)</span>
+<span id="cb204-3"><a href="feature-selection-and-cluster-analysis.html#cb204-3"></a><span class="kw">print</span>(<span class="dt">x =</span> <span class="kw">head</span>(<span class="dt">x =</span> cluster1.markers, <span class="dt">n =</span> <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="feature-selection-and-cluster-analysis.html#cb205-1"></a><span class="co"># find all markers distinguishing cluster 2 from clusters 0 and 1</span></span>
+<span id="cb205-2"><a href="feature-selection-and-cluster-analysis.html#cb205-2"></a>cluster2.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> pbmc, <span class="dt">ident.1 =</span> <span class="dv">2</span>, <span class="dt">ident.2 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">min.pct =</span> <span class="fl">0.25</span>)</span>
+<span id="cb205-3"><a href="feature-selection-and-cluster-analysis.html#cb205-3"></a><span class="kw">print</span>(<span class="dt">x =</span> <span class="kw">head</span>(<span class="dt">x =</span> cluster5.markers, <span class="dt">n =</span> <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="feature-selection-and-cluster-analysis.html#cb206-1"></a><span class="co"># find markers for every cluster compared to all remaining cells, report</span></span>
+<span id="cb206-2"><a href="feature-selection-and-cluster-analysis.html#cb206-2"></a><span class="co"># only the positive ones</span></span>
+<span id="cb206-3"><a href="feature-selection-and-cluster-analysis.html#cb206-3"></a>pbmc.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(<span class="dt">object =</span> pbmc, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>, <span class="dt">thresh.use =</span> <span class="fl">0.25</span>)</span>
+<span id="cb206-4"><a href="feature-selection-and-cluster-analysis.html#cb206-4"></a>pbmc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">2</span>, avg_logFC)</span></code></pre></div>
+</div>
+<div id="find-marker-genes" class="section level4">
+<h4><span class="header-section-number">12.2.2.7</span> Find Marker Genes</h4>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="feature-selection-and-cluster-analysis.html#cb207-1"></a>cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb207-2"><a href="feature-selection-and-cluster-analysis.html#cb207-2"></a>                                <span class="dt">ident.1 =</span> <span class="dv">0</span>, </span>
+<span id="cb207-3"><a href="feature-selection-and-cluster-analysis.html#cb207-3"></a>                                <span class="dt">thresh.use =</span> <span class="fl">0.25</span>, </span>
+<span id="cb207-4"><a href="feature-selection-and-cluster-analysis.html#cb207-4"></a>                                <span class="dt">test.use =</span> <span class="st">&quot;roc&quot;</span>, </span>
+<span id="cb207-5"><a href="feature-selection-and-cluster-analysis.html#cb207-5"></a>                                <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb207-6"><a href="feature-selection-and-cluster-analysis.html#cb207-6"></a></span>
+<span id="cb207-7"><a href="feature-selection-and-cluster-analysis.html#cb207-7"></a></span>
+<span id="cb207-8"><a href="feature-selection-and-cluster-analysis.html#cb207-8"></a><span class="kw">VlnPlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="feature-selection-and-cluster-analysis.html#cb208-1"></a><span class="co"># you can plot raw UMI counts as well</span></span>
+<span id="cb208-2"><a href="feature-selection-and-cluster-analysis.html#cb208-2"></a><span class="kw">VlnPlot</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb208-3"><a href="feature-selection-and-cluster-analysis.html#cb208-3"></a>        <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), </span>
+<span id="cb208-4"><a href="feature-selection-and-cluster-analysis.html#cb208-4"></a>        <span class="dt">use.raw =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb208-5"><a href="feature-selection-and-cluster-analysis.html#cb208-5"></a>        <span class="dt">y.log =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="feature-selection-and-cluster-analysis.html#cb209-1"></a><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb209-2"><a href="feature-selection-and-cluster-analysis.html#cb209-2"></a>            <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>, <span class="st">&quot;CD8A&quot;</span>),</span>
+<span id="cb209-3"><a href="feature-selection-and-cluster-analysis.html#cb209-3"></a>            <span class="dt">cols.use =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </span>
+<span id="cb209-4"><a href="feature-selection-and-cluster-analysis.html#cb209-4"></a>            <span class="dt">sreduction.use =</span> <span class="st">&quot;tsne&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="feature-selection-and-cluster-analysis.html#cb210-1"></a>top10 &lt;-<span class="st"> </span>pbmc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>, avg_logFC)</span>
+<span id="cb210-2"><a href="feature-selection-and-cluster-analysis.html#cb210-2"></a><span class="co"># setting slim.col.label to TRUE will print just the cluster IDS instead of</span></span>
+<span id="cb210-3"><a href="feature-selection-and-cluster-analysis.html#cb210-3"></a><span class="co"># every cell name</span></span>
+<span id="cb210-4"><a href="feature-selection-and-cluster-analysis.html#cb210-4"></a><span class="kw">DoHeatmap</span>(<span class="dt">object =</span> pbmc, <span class="dt">genes.use =</span> top10<span class="op">$</span>gene, <span class="dt">slim.col.label =</span> <span class="ot">TRUE</span>, <span class="dt">remove.key =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="feature-selection-and-cluster-analysis.html#cb211-1"></a>current.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb211-2"><a href="feature-selection-and-cluster-analysis.html#cb211-2"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CD4 T cells&quot;</span>, <span class="st">&quot;CD14+ Monocytes&quot;</span>, <span class="st">&quot;B cells&quot;</span>, <span class="st">&quot;CD8 T cells&quot;</span>, <span class="st">&quot;FCGR3A+ Monocytes&quot;</span>, <span class="st">&quot;NK cells&quot;</span>, <span class="st">&quot;Dendritic cells&quot;</span>, <span class="st">&quot;Megakaryocytes&quot;</span>)</span>
+<span id="cb211-3"><a href="feature-selection-and-cluster-analysis.html#cb211-3"></a>pbmc<span class="op">@</span>ident &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(<span class="dt">x =</span> pbmc<span class="op">@</span>ident, <span class="dt">from =</span> current.cluster.ids, <span class="dt">to =</span> new.cluster.ids)</span>
+<span id="cb211-4"><a href="feature-selection-and-cluster-analysis.html#cb211-4"></a><span class="kw">TSNEPlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">do.label =</span> <span class="ot">TRUE</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+</div>
+<div id="further-subdivisions-within-cell-types" class="section level4">
+<h4><span class="header-section-number">12.2.2.8</span> Further subdivisions within cell types</h4>
+<p>If you perturb some of our parameter choices above (for example, setting resolution=0.8 or changing the number of PCs), you might see the CD4 T cells subdivide into two groups. You can explore this subdivision to find markers separating the two T cell subsets. However, before reclustering (which will overwrite <a href="mailto:object@ident" class="email">object@ident</a>), we can stash our renamed identities to be easily recovered later.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="feature-selection-and-cluster-analysis.html#cb212-1"></a><span class="co"># First lets stash our identities for later</span></span>
+<span id="cb212-2"><a href="feature-selection-and-cluster-analysis.html#cb212-2"></a>pbmc &lt;-<span class="st"> </span><span class="kw">StashIdent</span>(<span class="dt">object =</span> pbmc, <span class="dt">save.name =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>)</span>
+<span id="cb212-3"><a href="feature-selection-and-cluster-analysis.html#cb212-3"></a><span class="co"># Note that if you set save.snn=T above, you don&#39;t need to recalculate the</span></span>
+<span id="cb212-4"><a href="feature-selection-and-cluster-analysis.html#cb212-4"></a><span class="co"># SNN, and can simply put: pbmc &lt;- FindClusters(pbmc,resolution = 0.8)</span></span>
+<span id="cb212-5"><a href="feature-selection-and-cluster-analysis.html#cb212-5"></a>pbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb212-6"><a href="feature-selection-and-cluster-analysis.html#cb212-6"></a>                     <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>, </span>
+<span id="cb212-7"><a href="feature-selection-and-cluster-analysis.html#cb212-7"></a>                     <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
+<span id="cb212-8"><a href="feature-selection-and-cluster-analysis.html#cb212-8"></a>                     <span class="dt">resolution =</span> <span class="fl">0.8</span>, </span>
+<span id="cb212-9"><a href="feature-selection-and-cluster-analysis.html#cb212-9"></a>                     <span class="dt">print.output =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="feature-selection-and-cluster-analysis.html#cb213-1"></a><span class="co">## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type</span></span>
+<span id="cb213-2"><a href="feature-selection-and-cluster-analysis.html#cb213-2"></a><span class="co">## = reduction.type, : Build parameters exactly match those of already</span></span>
+<span id="cb213-3"><a href="feature-selection-and-cluster-analysis.html#cb213-3"></a><span class="co">## computed and stored SNN. To force recalculation, set force.recalc to TRUE.</span></span>
+<span id="cb213-4"><a href="feature-selection-and-cluster-analysis.html#cb213-4"></a><span class="co"># Demonstration of how to plot two tSNE plots side by side, and how to color</span></span>
+<span id="cb213-5"><a href="feature-selection-and-cluster-analysis.html#cb213-5"></a><span class="co"># points based on different criteria</span></span>
+<span id="cb213-6"><a href="feature-selection-and-cluster-analysis.html#cb213-6"></a>plot1 &lt;-<span class="st"> </span><span class="kw">TSNEPlot</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb213-7"><a href="feature-selection-and-cluster-analysis.html#cb213-7"></a>                  <span class="dt">do.return =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb213-8"><a href="feature-selection-and-cluster-analysis.html#cb213-8"></a>                  <span class="dt">no.legend =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb213-9"><a href="feature-selection-and-cluster-analysis.html#cb213-9"></a>                  <span class="dt">do.label =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb213-10"><a href="feature-selection-and-cluster-analysis.html#cb213-10"></a></span>
+<span id="cb213-11"><a href="feature-selection-and-cluster-analysis.html#cb213-11"></a>plot2 &lt;-<span class="st"> </span><span class="kw">TSNEPlot</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb213-12"><a href="feature-selection-and-cluster-analysis.html#cb213-12"></a>                  <span class="dt">do.return =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb213-13"><a href="feature-selection-and-cluster-analysis.html#cb213-13"></a>                  <span class="dt">group.by =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>, </span>
+<span id="cb213-14"><a href="feature-selection-and-cluster-analysis.html#cb213-14"></a>                  <span class="dt">no.legend =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb213-15"><a href="feature-selection-and-cluster-analysis.html#cb213-15"></a>                  <span class="dt">do.label =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb213-16"><a href="feature-selection-and-cluster-analysis.html#cb213-16"></a></span>
+<span id="cb213-17"><a href="feature-selection-and-cluster-analysis.html#cb213-17"></a><span class="kw">plot_grid</span>(plot1, plot2)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="feature-selection-and-cluster-analysis.html#cb214-1"></a><span class="co"># Find discriminating markers</span></span>
+<span id="cb214-2"><a href="feature-selection-and-cluster-analysis.html#cb214-2"></a>tcell.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> pbmc, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>)</span>
+<span id="cb214-3"><a href="feature-selection-and-cluster-analysis.html#cb214-3"></a></span>
+<span id="cb214-4"><a href="feature-selection-and-cluster-analysis.html#cb214-4"></a><span class="co"># Most of the markers tend to be expressed in C1 (i.e. S100A4). However, we</span></span>
+<span id="cb214-5"><a href="feature-selection-and-cluster-analysis.html#cb214-5"></a><span class="co"># can see that CCR7 is upregulated in C0, strongly indicating that we can</span></span>
+<span id="cb214-6"><a href="feature-selection-and-cluster-analysis.html#cb214-6"></a><span class="co"># differentiate memory from naive CD4 cells.  cols.use demarcates the color</span></span>
+<span id="cb214-7"><a href="feature-selection-and-cluster-analysis.html#cb214-7"></a><span class="co"># palette from low to high expression</span></span>
+<span id="cb214-8"><a href="feature-selection-and-cluster-analysis.html#cb214-8"></a><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc, <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;S100A4&quot;</span>, <span class="st">&quot;CCR7&quot;</span>), <span class="dt">cols.use =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="feature-selection" class="section level2">
+<h2><span class="header-section-number">12.3</span> Feature Selection</h2>
+<div id="differential-expression-analysis" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Differential Expression Analysis</h3>
+<div id="differential-expression-tests" class="section level4">
+<h4><span class="header-section-number">12.3.1.1</span> Differential Expression Tests</h4>
+<p>One of the most commonly performed tasks for RNA-seq data is differential gene expression (DE) analysis. Although well- established tools exist for such analysis in bulk RNA-seq data6–8, methods for scRNA-seq data are just emerging. Given the special characteristics of scRNA-seq data, including generally low library sizes, high noise levels and a large fraction of so-called ‘dropout’ events, it is unclear whether DE methods that have been devel- oped for bulk RNA-seq are suitable also for scRNA-seq</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="feature-selection-and-cluster-analysis.html#cb215-1"></a><span class="co">## Differential expression using DESeq2</span></span>
+<span id="cb215-2"><a href="feature-selection-and-cluster-analysis.html#cb215-2"></a><span class="kw">DESeq2DETest</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb215-3"><a href="feature-selection-and-cluster-analysis.html#cb215-3"></a>             cells<span class="fl">.1</span>, </span>
+<span id="cb215-4"><a href="feature-selection-and-cluster-analysis.html#cb215-4"></a>             cells<span class="fl">.2</span>, </span>
+<span id="cb215-5"><a href="feature-selection-and-cluster-analysis.html#cb215-5"></a>             <span class="dt">genes.use =</span> <span class="ot">NULL</span>, </span>
+<span id="cb215-6"><a href="feature-selection-and-cluster-analysis.html#cb215-6"></a>             <span class="dt">assay.type =</span> <span class="st">&quot;RNA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="feature-selection-and-cluster-analysis.html#cb216-1"></a><span class="co">## Likelihood ratio test for zero-inflated data</span></span>
+<span id="cb216-2"><a href="feature-selection-and-cluster-analysis.html#cb216-2"></a><span class="kw">DiffExpTest</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb216-3"><a href="feature-selection-and-cluster-analysis.html#cb216-3"></a>            cells<span class="fl">.1</span>, </span>
+<span id="cb216-4"><a href="feature-selection-and-cluster-analysis.html#cb216-4"></a>            cells<span class="fl">.2</span>, </span>
+<span id="cb216-5"><a href="feature-selection-and-cluster-analysis.html#cb216-5"></a>            <span class="dt">assay.type =</span> <span class="st">&quot;RNA&quot;</span>, </span>
+<span id="cb216-6"><a href="feature-selection-and-cluster-analysis.html#cb216-6"></a>            <span class="dt">genes.use =</span> <span class="ot">NULL</span>,</span>
+<span id="cb216-7"><a href="feature-selection-and-cluster-analysis.html#cb216-7"></a>            <span class="dt">print.bar =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="feature-selection-and-cluster-analysis.html#cb217-1"></a><span class="co">## t-test</span></span>
+<span id="cb217-2"><a href="feature-selection-and-cluster-analysis.html#cb217-2"></a><span class="kw">DiffTTest</span>(<span class="dt">object =</span> pbmc, </span>
+<span id="cb217-3"><a href="feature-selection-and-cluster-analysis.html#cb217-3"></a>          cells<span class="fl">.1</span>, </span>
+<span id="cb217-4"><a href="feature-selection-and-cluster-analysis.html#cb217-4"></a>          cells<span class="fl">.2</span>, </span>
+<span id="cb217-5"><a href="feature-selection-and-cluster-analysis.html#cb217-5"></a>          <span class="dt">genes.use =</span> <span class="ot">NULL</span>, </span>
+<span id="cb217-6"><a href="feature-selection-and-cluster-analysis.html#cb217-6"></a>          <span class="dt">print.bar =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb217-7"><a href="feature-selection-and-cluster-analysis.html#cb217-7"></a>          <span class="dt">assay.type =</span> <span class="st">&quot;RNA&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="dimensionality-reduction" class="section level3">
+<h3><span class="header-section-number">12.3.2</span> Dimensionality Reduction</h3>
+<div id="principal-components-analysis-pca" class="section level4">
+<h4><span class="header-section-number">12.3.2.1</span> Principal Components Analysis (PCA)</h4>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="feature-selection-and-cluster-analysis.html#cb218-1"></a><span class="kw">RunPCA</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="independent-components-analysis-ica" class="section level3">
+<h3><span class="header-section-number">12.3.3</span> Independent Components Analysis (ICA)</h3>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="feature-selection-and-cluster-analysis.html#cb219-1"></a><span class="kw">RunICA</span>()</span></code></pre></div>
+</div>
+<div id="clustering" class="section level3">
+<h3><span class="header-section-number">12.3.4</span> Clustering</h3>
+<div id="kmeans" class="section level4">
+<h4><span class="header-section-number">12.3.4.1</span> Kmeans</h4>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="feature-selection-and-cluster-analysis.html#cb220-1"></a><span class="kw">DoKMeans</span>(object, <span class="dt">genes.use =</span> <span class="ot">NULL</span>, <span class="dt">k.genes =</span> <span class="ot">NULL</span>, <span class="dt">k.cells =</span> <span class="dv">0</span>,</span>
+<span id="cb220-2"><a href="feature-selection-and-cluster-analysis.html#cb220-2"></a><span class="dt">k.seed =</span> <span class="dv">1</span>, <span class="dt">do.plot =</span> <span class="ot">FALSE</span>, <span class="dt">data.cut =</span> <span class="fl">2.5</span>,</span>
+<span id="cb220-3"><a href="feature-selection-and-cluster-analysis.html#cb220-3"></a><span class="dt">k.cols =</span> <span class="kw">PurpleAndYellow</span>(), <span class="dt">set.ident =</span> <span class="ot">TRUE</span>, <span class="dt">do.constrained =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb220-4"><a href="feature-selection-and-cluster-analysis.html#cb220-4"></a><span class="dt">assay.type =</span> <span class="st">&quot;RNA&quot;</span>, ...)</span></code></pre></div>
+</div>
+<div id="louvain" class="section level4">
+<h4><span class="header-section-number">12.3.4.2</span> Louvain</h4>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="feature-selection-and-cluster-analysis.html#cb221-1"></a><span class="co">##  Neighborhood graph</span></span>
+<span id="cb221-2"><a href="feature-selection-and-cluster-analysis.html#cb221-2"></a><span class="kw">BuildSNN</span>(object, <span class="dt">genes.use =</span> <span class="ot">NULL</span>, <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>,</span>
+<span id="cb221-3"><a href="feature-selection-and-cluster-analysis.html#cb221-3"></a><span class="dt">dims.use =</span> <span class="ot">NULL</span>, <span class="dt">k.param =</span> <span class="dv">10</span>, <span class="dt">plot.SNN =</span> <span class="ot">FALSE</span>, <span class="dt">prune.SNN =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">15</span>,</span>
+<span id="cb221-4"><a href="feature-selection-and-cluster-analysis.html#cb221-4"></a><span class="dt">print.output =</span> <span class="ot">TRUE</span>, <span class="dt">distance.matrix =</span> <span class="ot">NULL</span>, <span class="dt">force.recalc =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb221-5"><a href="feature-selection-and-cluster-analysis.html#cb221-5"></a><span class="dt">filename =</span> <span class="ot">NULL</span>, <span class="dt">save.SNN =</span> <span class="ot">TRUE</span>, <span class="dt">nn.eps =</span> <span class="dv">0</span>)</span>
+<span id="cb221-6"><a href="feature-selection-and-cluster-analysis.html#cb221-6"></a></span>
+<span id="cb221-7"><a href="feature-selection-and-cluster-analysis.html#cb221-7"></a><span class="kw">FindClusters</span>(object, <span class="dt">genes.use =</span> <span class="ot">NULL</span>, <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>,</span>
+<span id="cb221-8"><a href="feature-selection-and-cluster-analysis.html#cb221-8"></a><span class="dt">dims.use =</span> <span class="ot">NULL</span>, <span class="dt">k.param =</span> <span class="dv">30</span>, <span class="dt">plot.SNN =</span> <span class="ot">FALSE</span>, <span class="dt">prune.SNN =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">15</span>,</span>
+<span id="cb221-9"><a href="feature-selection-and-cluster-analysis.html#cb221-9"></a><span class="dt">print.output =</span> <span class="ot">TRUE</span>, <span class="dt">distance.matrix =</span> <span class="ot">NULL</span>, <span class="dt">save.SNN =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb221-10"><a href="feature-selection-and-cluster-analysis.html#cb221-10"></a><span class="dt">reuse.SNN =</span> <span class="ot">FALSE</span>, <span class="dt">force.recalc =</span> <span class="ot">FALSE</span>, <span class="dt">nn.eps =</span> <span class="dv">0</span>,</span>
+<span id="cb221-11"><a href="feature-selection-and-cluster-analysis.html#cb221-11"></a><span class="dt">modularity.fxn =</span> <span class="dv">1</span>, <span class="dt">resolution =</span> <span class="fl">0.8</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">n.start =</span> <span class="dv">100</span>,</span>
+<span id="cb221-12"><a href="feature-selection-and-cluster-analysis.html#cb221-12"></a><span class="dt">n.iter =</span> <span class="dv">10</span>, <span class="dt">random.seed =</span> <span class="dv">0</span>, <span class="dt">temp.file.location =</span> <span class="ot">NULL</span>,</span>
+<span id="cb221-13"><a href="feature-selection-and-cluster-analysis.html#cb221-13"></a><span class="dt">edge.file.name =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+</div>
+<div id="probabilistic-lda" class="section level4">
+<h4><span class="header-section-number">12.3.4.3</span> Probabilistic (LDA)</h4>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="feature-selection-and-cluster-analysis.html#cb222-1"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb222-2"><a href="feature-selection-and-cluster-analysis.html#cb222-2"></a><span class="co">## Set Cluster Identity to the clustering using a resolution of 1 (res.1) </span></span>
+<span id="cb222-3"><a href="feature-selection-and-cluster-analysis.html#cb222-3"></a><span class="kw">SetIdent</span>(pbmc_small, <span class="dt">ident.use =</span> <span class="st">&#39;res.1&#39;</span>)</span>
+<span id="cb222-4"><a href="feature-selection-and-cluster-analysis.html#cb222-4"></a></span>
+<span id="cb222-5"><a href="feature-selection-and-cluster-analysis.html#cb222-5"></a>pbmc_counts &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(pbmc_small<span class="op">@</span>data)</span>
+<span id="cb222-6"><a href="feature-selection-and-cluster-analysis.html#cb222-6"></a>pbmc_meta &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>meta.data</span>
+<span id="cb222-7"><a href="feature-selection-and-cluster-analysis.html#cb222-7"></a>gene_names &lt;-<span class="st"> </span><span class="kw">rownames</span>(pbmc_counts)</span>
+<span id="cb222-8"><a href="feature-selection-and-cluster-analysis.html#cb222-8"></a></span>
+<span id="cb222-9"><a href="feature-selection-and-cluster-analysis.html#cb222-9"></a></span>
+<span id="cb222-10"><a href="feature-selection-and-cluster-analysis.html#cb222-10"></a>pbmc_FitGoM &lt;-<span class="st"> </span><span class="kw">FitGoM</span>(<span class="kw">t</span>(pbmc_counts), <span class="dt">K=</span><span class="dv">4</span>)</span>
+<span id="cb222-11"><a href="feature-selection-and-cluster-analysis.html#cb222-11"></a></span>
+<span id="cb222-12"><a href="feature-selection-and-cluster-analysis.html#cb222-12"></a></span>
+<span id="cb222-13"><a href="feature-selection-and-cluster-analysis.html#cb222-13"></a>omega &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>omega</span>
+<span id="cb222-14"><a href="feature-selection-and-cluster-analysis.html#cb222-14"></a></span>
+<span id="cb222-15"><a href="feature-selection-and-cluster-analysis.html#cb222-15"></a>annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sample_id =</span> <span class="kw">rownames</span>(omega),</span>
+<span id="cb222-16"><a href="feature-selection-and-cluster-analysis.html#cb222-16"></a>                         <span class="dt">tissue_label =</span> <span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</span>
+<span id="cb222-17"><a href="feature-selection-and-cluster-analysis.html#cb222-17"></a></span>
+<span id="cb222-18"><a href="feature-selection-and-cluster-analysis.html#cb222-18"></a><span class="kw">colnames</span>(omega) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb222-19"><a href="feature-selection-and-cluster-analysis.html#cb222-19"></a><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</span>
+<span id="cb222-20"><a href="feature-selection-and-cluster-analysis.html#cb222-20"></a></span>
+<span id="cb222-21"><a href="feature-selection-and-cluster-analysis.html#cb222-21"></a><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</span>
+<span id="cb222-22"><a href="feature-selection-and-cluster-analysis.html#cb222-22"></a>                <span class="dt">annotation =</span> annotation,</span>
+<span id="cb222-23"><a href="feature-selection-and-cluster-analysis.html#cb222-23"></a>                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Dark2&quot;</span>),</span>
+<span id="cb222-24"><a href="feature-selection-and-cluster-analysis.html#cb222-24"></a>                <span class="dt">yaxis_label =</span> <span class="st">&quot;Cells&quot;</span>,</span>
+<span id="cb222-25"><a href="feature-selection-and-cluster-analysis.html#cb222-25"></a>                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb222-26"><a href="feature-selection-and-cluster-analysis.html#cb222-26"></a>                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</span>
+<span id="cb222-27"><a href="feature-selection-and-cluster-analysis.html#cb222-27"></a>                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</span>
+<span id="cb222-28"><a href="feature-selection-and-cluster-analysis.html#cb222-28"></a>                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</span>
+<span id="cb222-29"><a href="feature-selection-and-cluster-analysis.html#cb222-29"></a>                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</span>
+<span id="cb222-30"><a href="feature-selection-and-cluster-analysis.html#cb222-30"></a>                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb222-31"><a href="feature-selection-and-cluster-analysis.html#cb222-31"></a></span>
+<span id="cb222-32"><a href="feature-selection-and-cluster-analysis.html#cb222-32"></a></span>
+<span id="cb222-33"><a href="feature-selection-and-cluster-analysis.html#cb222-33"></a><span class="co">## Add Topic Scores to Meta Data Part of the Seurat Object</span></span>
+<span id="cb222-34"><a href="feature-selection-and-cluster-analysis.html#cb222-34"></a>pbmc_small<span class="op">@</span>meta.data &lt;-<span class="st"> </span><span class="kw">cbind</span>(pbmc_meta, omega)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="feature-selection-and-cluster-analysis.html#cb223-1"></a>pbmc_small<span class="op">@</span>meta.data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb223-2"><a href="feature-selection-and-cluster-analysis.html#cb223-2"></a><span class="st">  </span><span class="kw">group_by</span>(res<span class="fl">.1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb223-3"><a href="feature-selection-and-cluster-analysis.html#cb223-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">topic1 =</span> <span class="kw">mean</span>(topic1),</span>
+<span id="cb223-4"><a href="feature-selection-and-cluster-analysis.html#cb223-4"></a>            <span class="dt">topic2 =</span> <span class="kw">mean</span>(topic2),</span>
+<span id="cb223-5"><a href="feature-selection-and-cluster-analysis.html#cb223-5"></a>            <span class="dt">topic3 =</span> <span class="kw">mean</span>(topic3),</span>
+<span id="cb223-6"><a href="feature-selection-and-cluster-analysis.html#cb223-6"></a>            <span class="dt">topic4 =</span> <span class="kw">mean</span>(topic4))</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="feature-selection-and-cluster-analysis.html#cb224-1"></a><span class="co">## ggplot object, you can add layers</span></span>
+<span id="cb224-2"><a href="feature-selection-and-cluster-analysis.html#cb224-2"></a>p1 &lt;-<span class="st"> </span><span class="kw">TSNEPlot</span>(pbmc_small, <span class="dt">do.return =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resolution 1&quot;</span>) <span class="co">## return ggplot object</span></span>
+<span id="cb224-3"><a href="feature-selection-and-cluster-analysis.html#cb224-3"></a>p1</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="feature-selection-and-cluster-analysis.html#cb225-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc_small, </span>
+<span id="cb225-2"><a href="feature-selection-and-cluster-analysis.html#cb225-2"></a>                  <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;topic1&quot;</span>, <span class="st">&quot;topic2&quot;</span>, <span class="st">&quot;topic3&quot;</span>, <span class="st">&quot;topic4&quot;</span>), </span>
+<span id="cb225-3"><a href="feature-selection-and-cluster-analysis.html#cb225-3"></a>                  <span class="dt">cols.use =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </span>
+<span id="cb225-4"><a href="feature-selection-and-cluster-analysis.html#cb225-4"></a>                  <span class="dt">reduction.use =</span> <span class="st">&quot;tsne&quot;</span>, <span class="dt">do.return =</span> <span class="ot">TRUE</span>) <span class="co">## return ggplot object</span></span>
+<span id="cb225-5"><a href="feature-selection-and-cluster-analysis.html#cb225-5"></a></span>
+<span id="cb225-6"><a href="feature-selection-and-cluster-analysis.html#cb225-6"></a>p2</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="feature-selection-and-cluster-analysis.html#cb226-1"></a><span class="kw">plot_grid</span>(p1, p2)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="feature-selection-and-cluster-analysis.html#cb227-1"></a><span class="kw">class</span>(p2)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="feature-selection-and-cluster-analysis.html#cb228-1"></a><span class="kw">plot_grid</span>(p1, p2[[<span class="dv">1</span>]], p2[[<span class="dv">2</span>]], p2[[<span class="dv">3</span>]], p2[[<span class="dv">4</span>]])</span></code></pre></div>
+</div>
+<div id="extract-top-feature" class="section level4">
+<h4><span class="header-section-number">12.3.4.4</span> Extract Top Feature</h4>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="feature-selection-and-cluster-analysis.html#cb229-1"></a>theta_mat &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>theta</span>
+<span id="cb229-2"><a href="feature-selection-and-cluster-analysis.html#cb229-2"></a></span>
+<span id="cb229-3"><a href="feature-selection-and-cluster-analysis.html#cb229-3"></a>top_features &lt;-<span class="st"> </span><span class="kw">ExtractTopFeatures</span>(theta_mat, </span>
+<span id="cb229-4"><a href="feature-selection-and-cluster-analysis.html#cb229-4"></a>                                   <span class="dt">top_features=</span><span class="dv">100</span>,</span>
+<span id="cb229-5"><a href="feature-selection-and-cluster-analysis.html#cb229-5"></a>                                   <span class="dt">method=</span><span class="st">&quot;poisson&quot;</span>, </span>
+<span id="cb229-6"><a href="feature-selection-and-cluster-analysis.html#cb229-6"></a>                                   <span class="dt">options=</span><span class="st">&quot;min&quot;</span>)</span>
+<span id="cb229-7"><a href="feature-selection-and-cluster-analysis.html#cb229-7"></a></span>
+<span id="cb229-8"><a href="feature-selection-and-cluster-analysis.html#cb229-8"></a>gene_list &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, </span>
+<span id="cb229-9"><a href="feature-selection-and-cluster-analysis.html#cb229-9"></a>                     <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(top_features<span class="op">$</span>indices)[<span class="dv">1</span>],</span>
+<span id="cb229-10"><a href="feature-selection-and-cluster-analysis.html#cb229-10"></a>                            <span class="cf">function</span>(x) gene_names[top_features<span class="op">$</span>indices[x,]]))</span></code></pre></div>
+<p>We tabulate the top <span class="math inline">\(5\)</span> genes for these <span class="math inline">\(6\)</span> clusters.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="feature-selection-and-cluster-analysis.html#cb230-1"></a>tmp &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(i) <span class="kw">toString</span>(gene_list[,i])))</span>
+<span id="cb230-2"><a href="feature-selection-and-cluster-analysis.html#cb230-2"></a><span class="kw">rownames</span>(tmp) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Cluster&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</span>
+<span id="cb230-3"><a href="feature-selection-and-cluster-analysis.html#cb230-3"></a>tmp <span class="op">%&gt;%</span></span>
+<span id="cb230-4"><a href="feature-selection-and-cluster-analysis.html#cb230-4"></a><span class="st">  </span><span class="kw">kable</span>(<span class="st">&quot;html&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb230-5"><a href="feature-selection-and-cluster-analysis.html#cb230-5"></a><span class="st">  </span><span class="kw">kable_styling</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="check-clusters" class="section level3">
+<h3><span class="header-section-number">12.3.5</span> Check Clusters</h3>
+<p>Use Classifier to predict cell cluster. See how it predicts using hold out data.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="feature-selection-and-cluster-analysis.html#cb231-1"></a>test.pbmc &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">cells.use =</span> pbmc_small<span class="op">@</span>cell.names[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</span>
+<span id="cb231-2"><a href="feature-selection-and-cluster-analysis.html#cb231-2"></a>train.pbmc &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">cells.use =</span> pbmc_small<span class="op">@</span>cell.names[<span class="dv">11</span><span class="op">:</span><span class="dv">80</span>])</span>
+<span id="cb231-3"><a href="feature-selection-and-cluster-analysis.html#cb231-3"></a>predicted.classes &lt;-<span class="st"> </span><span class="kw">ClassifyCells</span>(</span>
+<span id="cb231-4"><a href="feature-selection-and-cluster-analysis.html#cb231-4"></a>  <span class="dt">object =</span> train.pbmc,</span>
+<span id="cb231-5"><a href="feature-selection-and-cluster-analysis.html#cb231-5"></a>  <span class="dt">training.classes =</span> train.pbmc<span class="op">@</span>ident,</span>
+<span id="cb231-6"><a href="feature-selection-and-cluster-analysis.html#cb231-6"></a>  <span class="dt">new.data =</span> test.pbmc<span class="op">@</span>data</span>
+<span id="cb231-7"><a href="feature-selection-and-cluster-analysis.html#cb231-7"></a>)</span>
+<span id="cb231-8"><a href="feature-selection-and-cluster-analysis.html#cb231-8"></a></span>
+<span id="cb231-9"><a href="feature-selection-and-cluster-analysis.html#cb231-9"></a></span>
+<span id="cb231-10"><a href="feature-selection-and-cluster-analysis.html#cb231-10"></a><span class="kw">table</span>(predicted.classes, test.pbmc<span class="op">@</span>ident)</span></code></pre></div>
+<p>Visually check by comparing centroids of clusters in gene space and embedding space.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="feature-selection-and-cluster-analysis.html#cb232-1"></a>pmbc_small &lt;-<span class="st"> </span><span class="kw">GetCentroids</span>(pbmc_small, <span class="dt">cells.use=</span>pbmc_small<span class="op">@</span>cell.names)</span></code></pre></div>
+</div>
+<div id="practice-visualizingembedding" class="section level3">
+<h3><span class="header-section-number">12.3.6</span> Practice Visualizing/Embedding</h3>
+<div id="tsne" class="section level4">
+<h4><span class="header-section-number">12.3.6.1</span> tSNE</h4>
+<p>Change the parameter settings for tSNE</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="feature-selection-and-cluster-analysis.html#cb233-1"></a><span class="kw">RunTSNE</span>()</span></code></pre></div>
+</div>
+<div id="umap" class="section level4">
+<h4><span class="header-section-number">12.3.6.2</span> UMAP</h4>
+<p>Change the parameter settings for UMAP</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="feature-selection-and-cluster-analysis.html#cb234-1"></a><span class="kw">RunUMAP</span>()</span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="identifying-cell-populations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="batch-effects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["2020_scWorkshop.pdf", "2020_scWorkshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

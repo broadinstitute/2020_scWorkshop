@@ -24,15 +24,14 @@ RUN cp $(which tar) $(which tar)~ \
     && ln -sf $(which bsdtar) $(which tar)
 
 
-## Get Course Materials
-RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git \
-  /home/rstudio/2020_scWorkshop/
+## Get Course Materials https://github.com/broadinstitute/2020_scWorkshop.git
+RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git /home/rstudio/2020_scWorkshop/
 
 
 # ## Install R packages
-# COPY install.R /usr/local/src
+COPY install.R /usr/local/src
 # ## install necessary R packages
-# RUN Rscript /usr/local/src/install.R
+RUN Rscript /usr/local/src/install.R
 # RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
 
 # ## Install Python Requirements

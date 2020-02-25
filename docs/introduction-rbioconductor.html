@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Introduction R/Bioconductor | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Introduction R/Bioconductor | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
+  <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Introduction R/Bioconductor | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+
+<meta name="author" content="Orr Ashenberg" />
+<meta name="author" content="Dana Silverbush" />
+<meta name="author" content="Kirk Gosik" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="transcriptome-quantification.html"/>
+<link rel="next" href="expression-qc-and-normalization.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> COURSE OVERVIEW</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#targeted-audience-assumed-background"><i class="fa fa-check"></i><b>1.2</b> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#course-format"><i class="fa fa-check"></i><b>1.3</b> COURSE FORMAT</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>1.4</b> Getting Started</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#session-content"><i class="fa fa-check"></i><b>1.5</b> SESSION CONTENT</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#monday-classes-from-0930-to-1730-lunch-break-1-hr-40-min-of-total-coffee-breaks"><i class="fa fa-check"></i><b>1.5.1</b> Monday – Classes from 09:30 to 17:30 (lunch break-1 hr, 40 min of total coffee breaks)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#tuesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.2</b> Tuesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#wednesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.3</b> Wednesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#thursday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.4</b> Thursday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 09:30 to 17:30</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#template-example"><i class="fa fa-check"></i><b>1.6</b> Template Example</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#make-object"><i class="fa fa-check"></i><b>1.7</b> Make Object</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#process-object"><i class="fa fa-check"></i><b>1.8</b> Process Object</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lecture-section-title.html"><a href="lecture-section-title.html"><i class="fa fa-check"></i><b>2</b> Lecture Section Title</a></li>
+<li class="chapter" data-level="3" data-path="scrna-seq-experimental-design.html"><a href="scrna-seq-experimental-design.html"><i class="fa fa-check"></i><b>3</b> scRNA-Seq Experimental Design</a></li>
+<li class="chapter" data-level="4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>4</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>4.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>4.1.1</b> Getting into AWS Instance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>4.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>4.2.1</b> Common Linux Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>4.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="4.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>4.3.2</b> View BAM Files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>4.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>4.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="4.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>4.4.2</b> GEO</a></li>
+<li class="chapter" data-level="4.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>4.4.3</b> Single Cell Portal</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>5</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="6" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>6</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>6.1</b> Goal</a></li>
+<li class="chapter" data-level="6.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>6.2</b> Further reading</a></li>
+<li class="chapter" data-level="6.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastqc"><i class="fa fa-check"></i><b>6.3</b> FastQC</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>6.3.1</b> Fastq file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>6.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>6.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="6.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>6.4.2</b> Bam file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>6.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html"><i class="fa fa-check"></i><b>7</b> Transcriptome Quantification</a></li>
+<li class="chapter" data-level="8" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>8</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="8.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>8.1</b> Start Environment</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>8.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>8.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="8.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>8.2.2</b> Github</a></li>
+<li class="chapter" data-level="8.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>8.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>8.2.4</b> Source</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>8.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>8.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="8.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>8.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="8.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>8.3.3</b> Detour to S3/S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>8.4</b> More information</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>8.4.1</b> Checking for help for any function!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>8.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="8.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>8.5.2</b> Principles of ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>8.6</b> Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="expression-qc-and-normalization.html"><a href="expression-qc-and-normalization.html"><i class="fa fa-check"></i><b>9</b> Expression QC and Normalization</a></li>
+<li class="chapter" data-level="10" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>10</b> Data Wrangling scRNAseq</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>10.1</b> Goal</a></li>
+<li class="chapter" data-level="10.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-1"><i class="fa fa-check"></i><b>10.2</b> Introduction</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>10.2.1</b> Load necessary packages</a></li>
+<li class="chapter" data-level="10.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>10.2.2</b> Read in NSCLC counts matrix.</a></li>
+<li class="chapter" data-level="10.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>10.2.3</b> Let’s examine the sparse counts matrix</a></li>
+<li class="chapter" data-level="10.2.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-big-is-the-matrix"><i class="fa fa-check"></i><b>10.2.4</b> How big is the matrix?</a></li>
+<li class="chapter" data-level="10.2.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-much-memory-does-a-sparse-matrix-take-up-relative-to-a-dense-matrix"><i class="fa fa-check"></i><b>10.2.5</b> How much memory does a sparse matrix take up relative to a dense matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#filtering-low-quality-cells"><i class="fa fa-check"></i><b>10.3</b> Filtering low-quality cells</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#look-at-the-summary-counts-for-genes-and-cells"><i class="fa fa-check"></i><b>10.3.1</b> Look at the summary counts for genes and cells</a></li>
+<li class="chapter" data-level="10.3.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#plot-cells-ranked-by-their-number-of-detected-genes."><i class="fa fa-check"></i><b>10.3.2</b> Plot cells ranked by their number of detected genes.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#beginning-with-seurat-httpsatijalab.orgseurat"><i class="fa fa-check"></i><b>10.4</b> Beginning with Seurat: <span>http://satijalab.org/seurat/</span></a><ul>
+<li class="chapter" data-level="10.4.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#creating-a-seurat-object"><i class="fa fa-check"></i><b>10.4.1</b> Creating a seurat object</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-1-filter-out-low-quality-cells"><i class="fa fa-check"></i><b>10.5</b> Preprocessing step 1 : Filter out low-quality cells</a></li>
+<li class="chapter" data-level="10.6" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#examine-contents-of-seurat-object"><i class="fa fa-check"></i><b>10.6</b> Examine contents of Seurat object</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-2-expression-normalization"><i class="fa fa-check"></i><b>10.6.1</b> Preprocessing step 2 : Expression normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#detection-of-variable-genes-across-the-single-cells"><i class="fa fa-check"></i><b>10.7</b> Detection of variable genes across the single cells</a></li>
+<li class="chapter" data-level="10.8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#gene-set-expression-across-cells"><i class="fa fa-check"></i><b>10.8</b> Gene set expression across cells</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>11</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="11.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>11.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>12</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial"><i class="fa fa-check"></i><b>12.2</b> Seurat Tutorial</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>12.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="12.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>12.2.2</b> Start of Identifying Cell Types</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>12.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>12.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="12.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#dimensionality-reduction"><i class="fa fa-check"></i><b>12.3.2</b> Dimensionality Reduction</a></li>
+<li class="chapter" data-level="12.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#independent-components-analysis-ica"><i class="fa fa-check"></i><b>12.3.3</b> Independent Components Analysis (ICA)</a></li>
+<li class="chapter" data-level="12.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#clustering"><i class="fa fa-check"></i><b>12.3.4</b> Clustering</a></li>
+<li class="chapter" data-level="12.3.5" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>12.3.5</b> Check Clusters</a></li>
+<li class="chapter" data-level="12.3.6" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>12.3.6</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>13</b> Batch Effects</a></li>
+<li class="chapter" data-level="14" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html"><i class="fa fa-check"></i><b>14</b> Correcting Batch Effects</a><ul>
+<li class="chapter" data-level="14.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#load-settings-and-packages"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="14.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>14.2</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="14.3" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>14.3</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-canonical-correlation-analysis-cca-using-seurat"><i class="fa fa-check"></i><b>14.3.1</b> Batch correction: canonical correlation analysis (CCA) using Seurat</a></li>
+<li class="chapter" data-level="14.3.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>14.3.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>14.4</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="14.5" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>14.5</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="14.6" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>14.6</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="14.7" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#acknowledgements"><i class="fa fa-check"></i><b>14.7</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="functional-analysis.html"><a href="functional-analysis.html"><i class="fa fa-check"></i><b>15</b> Functional Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="functional-analysis.html"><a href="functional-analysis.html#google-slides-1"><i class="fa fa-check"></i><b>15.1</b> Google Slides</a></li>
+<li class="chapter" data-level="15.2" data-path="functional-analysis.html"><a href="functional-analysis.html#gene-sets-and-signatures"><i class="fa fa-check"></i><b>15.2</b> Gene sets and signatures</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="functional-analysis.html"><a href="functional-analysis.html#cell-cycle"><i class="fa fa-check"></i><b>15.2.1</b> Cell Cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="functional-analysis.html"><a href="functional-analysis.html#pathway-analysis"><i class="fa fa-check"></i><b>15.3</b> Pathway analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="functional-analysis.html"><a href="functional-analysis.html#infercnv-honeybadger"><i class="fa fa-check"></i><b>15.4</b> inferCNV / honeybadger</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="functional-analysis.html"><a href="functional-analysis.html#create-the-infercnv-object"><i class="fa fa-check"></i><b>15.4.1</b> Create the InferCNV Object</a></li>
+<li class="chapter" data-level="15.4.2" data-path="functional-analysis.html"><a href="functional-analysis.html#filtering-genes"><i class="fa fa-check"></i><b>15.4.2</b> Filtering genes</a></li>
+<li class="chapter" data-level="15.4.3" data-path="functional-analysis.html"><a href="functional-analysis.html#normalize-each-cells-counts-for-sequencing-depth"><i class="fa fa-check"></i><b>15.4.3</b> Normalize each cell’s counts for sequencing depth</a></li>
+<li class="chapter" data-level="15.4.4" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-anscombe-normalization"><i class="fa fa-check"></i><b>15.4.4</b> Perform Anscombe normalization</a></li>
+<li class="chapter" data-level="15.4.5" data-path="functional-analysis.html"><a href="functional-analysis.html#log-transform-the-normalized-counts"><i class="fa fa-check"></i><b>15.4.5</b> Log transform the normalized counts:</a></li>
+<li class="chapter" data-level="15.4.6" data-path="functional-analysis.html"><a href="functional-analysis.html#apply-maximum-bounds-to-the-expression-data-to-reduce-outlier-effects"><i class="fa fa-check"></i><b>15.4.6</b> Apply maximum bounds to the expression data to reduce outlier effects</a></li>
+<li class="chapter" data-level="15.4.7" data-path="functional-analysis.html"><a href="functional-analysis.html#initial-view-before-infercnv-operations"><i class="fa fa-check"></i><b>15.4.7</b> Initial view, before inferCNV operations:</a></li>
+<li class="chapter" data-level="15.4.8" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-smoothing-across-chromosomes"><i class="fa fa-check"></i><b>15.4.8</b> Perform smoothing across chromosomes</a></li>
+<li class="chapter" data-level="15.4.9" data-path="functional-analysis.html"><a href="functional-analysis.html#subtract-the-reference-values-from-observations-now-have-logfold-change-values"><i class="fa fa-check"></i><b>15.4.9</b> Subtract the reference values from observations, now have log(fold change) values</a></li>
+<li class="chapter" data-level="15.4.10" data-path="functional-analysis.html"><a href="functional-analysis.html#invert-log-values"><i class="fa fa-check"></i><b>15.4.10</b> Invert log values</a></li>
+<li class="chapter" data-level="15.4.11" data-path="functional-analysis.html"><a href="functional-analysis.html#removing-noise"><i class="fa fa-check"></i><b>15.4.11</b> Removing noise</a></li>
+<li class="chapter" data-level="15.4.12" data-path="functional-analysis.html"><a href="functional-analysis.html#remove-outlier-data-points"><i class="fa fa-check"></i><b>15.4.12</b> Remove outlier data points</a></li>
+<li class="chapter" data-level="15.4.13" data-path="functional-analysis.html"><a href="functional-analysis.html#find-de-genes-by-comparing-the-mutant-types-to-normal-types-basic"><i class="fa fa-check"></i><b>15.4.13</b> Find DE genes by comparing the mutant types to normal types, BASIC</a></li>
+<li class="chapter" data-level="15.4.14" data-path="functional-analysis.html"><a href="functional-analysis.html#additional-information"><i class="fa fa-check"></i><b>15.4.14</b> Additional Information</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>16</b> Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="16.1" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#google-slides-2"><i class="fa fa-check"></i><b>16.1</b> Google Slides</a></li>
+<li class="chapter" data-level="16.2" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#comparison-abstract"><i class="fa fa-check"></i><b>16.2</b> Comparison Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html"><i class="fa fa-check"></i><b>17</b> Functional Pseudotime Analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>17.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="17.2" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>17.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="17.3" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>17.3</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="17.4" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>17.4</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="17.5" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>17.5</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="17.6" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>17.6</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="17.7" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>17.7</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="17.8" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>17.8</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-multiomic-technologies.html"><a href="single-cell-multiomic-technologies.html"><i class="fa fa-check"></i><b>18</b> Single Cell Multiomic Technologies</a></li>
+<li class="chapter" data-level="19" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html"><i class="fa fa-check"></i><b>19</b> CITE-seq and scATAC-seq</a><ul>
+<li class="chapter" data-level="19.1" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>19.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="19.2" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>19.2</b> Load in the data</a></li>
+<li class="chapter" data-level="19.3" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>19.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="19.4" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>19.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="19.5" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>19.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="19.6" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>19.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="19.7" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>19.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="19.8" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>19.8</b> Additional exploration: another example of multi-modal analysis</a></li>
+<li class="chapter" data-level="19.9" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>19.9</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>20</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="20.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>20.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="20.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>20.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="20.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>20.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="20.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>20.4</b> Online courses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-rbioconductor" class="section level1">
+<h1><span class="header-section-number">8</span> Introduction R/Bioconductor</h1>
+<div id="start-environment" class="section level2">
+<h2><span class="header-section-number">8.1</span> Start Environment</h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="introduction-rbioconductor.html#cb38-1"></a><span class="co">## maybe take away the --rm so they can save the container for later</span></span>
+<span id="cb38-2"><a href="introduction-rbioconductor.html#cb38-2"></a><span class="co">## run from your home directory</span></span>
+<span id="cb38-3"><a href="introduction-rbioconductor.html#cb38-3"></a><span class="bu">cd</span> </span>
+<span id="cb38-4"><a href="introduction-rbioconductor.html#cb38-4"></a></span>
+<span id="cb38-5"><a href="introduction-rbioconductor.html#cb38-5"></a><span class="co">## example for user99</span></span>
+<span id="cb38-6"><a href="introduction-rbioconductor.html#cb38-6"></a><span class="ex">docker</span> run --rm -it -e PASSWORD=train \</span>
+<span id="cb38-7"><a href="introduction-rbioconductor.html#cb38-7"></a>  -v <span class="va">$PWD</span>/Share:/Share \</span>
+<span id="cb38-8"><a href="introduction-rbioconductor.html#cb38-8"></a>  -v <span class="va">$PWD</span>:/mydir \</span>
+<span id="cb38-9"><a href="introduction-rbioconductor.html#cb38-9"></a>  -p 9099:8787 kdgosik/scellbern2019</span></code></pre></div>
+<p><strong>Explaination of commands</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="introduction-rbioconductor.html#cb39-1"></a>  <span class="ex">-</span> docker: command to run docker</span>
+<span id="cb39-2"><a href="introduction-rbioconductor.html#cb39-2"></a>  <span class="ex">-</span> run: asking docker to run a container</span>
+<span id="cb39-3"><a href="introduction-rbioconductor.html#cb39-3"></a>  <span class="ex">-</span> --rm: flag to remove the container when you exit from it</span>
+<span id="cb39-4"><a href="introduction-rbioconductor.html#cb39-4"></a>      <span class="ex">-</span> nothing will be saved from your session to access again later</span>
+<span id="cb39-5"><a href="introduction-rbioconductor.html#cb39-5"></a>      <span class="ex">-</span> this flag can be removed to keep container</span>
+<span id="cb39-6"><a href="introduction-rbioconductor.html#cb39-6"></a>  <span class="ex">-</span> -it: flag to run the container interactively</span>
+<span id="cb39-7"><a href="introduction-rbioconductor.html#cb39-7"></a>  <span class="ex">-</span> - this will keep all session output displaying on the terminal</span>
+<span id="cb39-8"><a href="introduction-rbioconductor.html#cb39-8"></a>  <span class="ex">-</span> - to stop container go to terminal and press Crtl+c</span>
+<span id="cb39-9"><a href="introduction-rbioconductor.html#cb39-9"></a>  <span class="ex">-</span> -v <span class="va">$PWD</span>/Share:/Share: map the share directory from AWS to Share inside docker container</span>
+<span id="cb39-10"><a href="introduction-rbioconductor.html#cb39-10"></a>  <span class="ex">-</span> -v <span class="va">$PWD</span>:/mydir: map your home directory to a directory inside docker container called home</span>
+<span id="cb39-11"><a href="introduction-rbioconductor.html#cb39-11"></a>  <span class="ex">-</span> -p 9017:8787: map docker container port of 8787(rstudio port default) <span class="ex">to</span> your computer port 9017</span>
+<span id="cb39-12"><a href="introduction-rbioconductor.html#cb39-12"></a>  <span class="ex">-</span> kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer</span>
+<span id="cb39-13"><a href="introduction-rbioconductor.html#cb39-13"></a>    <span class="ex">-</span> [image link](https://hub.docker.com/r/kdgosik/scellbern2019)</span></code></pre></div>
+<ul>
+<li><p><a href="https://localhost:9099">localhost:9099</a> or on AWS</p></li>
+<li><p><a href="https://:9099"><AWS PUBLIC IP ADDRESS>:9099</a></p></li>
+<li><p>ec2-<AWS PUBLIC IP ADDRESS>.us-west-2.compute.amazonaws.com:$PORT_NUMBER</p></li>
+<li><p>ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9099</p></li>
+<li><p>R/Rstudio parts</p></li>
+<li><p>Data Types and classes</p></li>
+<li><p>Packages and where to get them</p></li>
+<li><p>S3 vs S4</p></li>
+<li><p>Visualizations and ggplot</p></li>
+<li><p>Installing packages</p></li>
+<li><p>Data-types</p></li>
+<li><p>Data manipulation, slicing</p></li>
+<li><p>Strings manipulations</p></li>
+<li><p>Introducing object oriented programming / S4 objects</p></li>
+<li><p>Visualization tools</p></li>
+<li><p>Bonus create FeaturePlot from Seurat in base ggplot</p></li>
+<li><p>Bonus: run RSEM on Dana’s bam files if you are bored</p></li>
+</ul>
+</div>
+<div id="installing-packages" class="section level2">
+<h2><span class="header-section-number">8.2</span> Installing packages</h2>
+<div id="cran" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> CRAN</h3>
+<p>The Comprehensive R Archive Network <a href="https://cran.r-project.org/">CRAN</a> is the biggest archive of R packages. There are few requirements for uploading packages besides building and installing succesfully, hence documentation and support is often minimal and figuring how to use these packages can be a challenge it itself. CRAN is the default repository R will search to find packages to install:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-rbioconductor.html#cb40-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb40-2"><a href="introduction-rbioconductor.html#cb40-2"></a></span>
+<span id="cb40-3"><a href="introduction-rbioconductor.html#cb40-3"></a><span class="co"># or multiple packages</span></span>
+<span id="cb40-4"><a href="introduction-rbioconductor.html#cb40-4"></a></span>
+<span id="cb40-5"><a href="introduction-rbioconductor.html#cb40-5"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;stringr&quot;</span>))</span></code></pre></div>
+</div>
+<div id="github" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Github</h3>
+<p><a href="https://github.com/">Github</a> isn’t specific to R, any code of any type in any state can be uploaded. There is no guarantee a package uploaded to github will even install, nevermind do what it claims to do. R packages can be downloaded and installed directly from github using the “devtools” package installed above.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-rbioconductor.html#cb41-1"></a><span class="co">## username/repository</span></span>
+<span id="cb41-2"><a href="introduction-rbioconductor.html#cb41-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;satijalab/seurat&quot;</span>) <span class="co"># latest stable version of Seurat package</span></span></code></pre></div>
+<p>Github is also a version control system which stores multiple versions of any package. By default the most recent “master” version of the package is installed. If you want an older version or the development branch this can be specified using the “ref” parameter:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-rbioconductor.html#cb42-1"></a><span class="co"># different branch</span></span>
+<span id="cb42-2"><a href="introduction-rbioconductor.html#cb42-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;satijalab/seurat&quot;</span>, <span class="dt">ref=</span><span class="st">&quot;release3.0&quot;</span>)</span>
+<span id="cb42-3"><a href="introduction-rbioconductor.html#cb42-3"></a></span>
+<span id="cb42-4"><a href="introduction-rbioconductor.html#cb42-4"></a><span class="co"># previous commit</span></span>
+<span id="cb42-5"><a href="introduction-rbioconductor.html#cb42-5"></a><span class="co">## Merge branch &#39;develop&#39; into feat/MultiModal</span></span>
+<span id="cb42-6"><a href="introduction-rbioconductor.html#cb42-6"></a><span class="co">##  - Shiwei Zheng committed on Jul 2, 2018</span></span>
+<span id="cb42-7"><a href="introduction-rbioconductor.html#cb42-7"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tallulandrews/M3Drop&quot;</span>, <span class="dt">ref=</span><span class="st">&quot;551014f488770627ab154a62e59d49df5df98a3f&quot;</span>)</span></code></pre></div>
+<p>Note: make sure you re-install the M3Drop master branch for later in the course.</p>
+</div>
+<div id="bioconductor" class="section level3">
+<h3><span class="header-section-number">8.2.3</span> Bioconductor</h3>
+<p>Bioconductor is a repository of R-packages specifically for biological analyses. It has the strictest requirements for submission, including installation on every platform and full documentation with a tutorial (called a vignette) explaining how the package should be used. Bioconductor also encourages utilization of standard data structures/classes and coding style/naming conventions, so that, in theory, packages and analyses can be combined into large pipelines or workflows.</p>
+<p>Bioconductor also requires creators to support their packages and has a regular 6-month release schedule. Make sure you are using the most recent release of bioconductor before trying to install packages for the course.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="introduction-rbioconductor.html#cb43-1"></a><span class="co">## &gt;= R 3.5.0</span></span>
+<span id="cb43-2"><a href="introduction-rbioconductor.html#cb43-2"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb43-3"><a href="introduction-rbioconductor.html#cb43-3"></a>    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb43-4"><a href="introduction-rbioconductor.html#cb43-4"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;Rsamtools&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;3.8&quot;</span>, <span class="dt">ask =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="source" class="section level3">
+<h3><span class="header-section-number">8.2.4</span> Source</h3>
+<p>The final way to install packages is directly from source. In this case you have to download a fully built source code file, usually packagename.tar.gz, or clone the github repository and rebuild the package yourself. Generally this will only be done if you want to edit a package yourself, or if for some reason the former methods have failed. You can also get previous packages that aren’t supported any more on the <a href="https://cran.r-project.org/">CRAN package archive</a></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="introduction-rbioconductor.html#cb44-1"></a><span class="co">## Get an old package and install from source</span></span>
+<span id="cb44-2"><a href="introduction-rbioconductor.html#cb44-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;GenABEL_1.8-0.tar.gz&quot;</span>, <span class="dt">type=</span><span class="st">&quot;source&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="installation-instructions" class="section level2">
+<h2><span class="header-section-number">8.3</span> Installation instructions:</h2>
+<p>All the packages necessary for this course are available <a href="https://github.com/broadinstitute/2019_scWorkshop">here</a>. A list of the packages will be on the README.md for the repository. A script is also available inside the docker/install.R file.</p>
+<div id="classestypes" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Classes/Types</h3>
+<p>R is a high level language so the underlying data-type is generally not important. The exception if you are accessing R data directly using another language such as C, but that is beyond the scope of this course. Instead we will consider the basic data classes: numeric, integer, logical, and character, and the higher level data class called “factor”. You can check what class your data is using the “class()” function.</p>
+<div id="integer" class="section level4">
+<h4><span class="header-section-number">8.3.1.1</span> Integer</h4>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="introduction-rbioconductor.html#cb45-1"></a>x &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co">## assign value of 4 to x</span></span>
+<span id="cb45-2"><a href="introduction-rbioconductor.html#cb45-2"></a></span>
+<span id="cb45-3"><a href="introduction-rbioconductor.html#cb45-3"></a><span class="kw">class</span>(x) <span class="co">## check class of x</span></span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="introduction-rbioconductor.html#cb47-1"></a><span class="kw">is.integer</span>(x) <span class="co">## check if x is an integer</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-rbioconductor.html#cb49-1"></a><span class="kw">is.numeric</span>(x) <span class="co">## check if x is numeric</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introduction-rbioconductor.html#cb51-1"></a>x &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(x) <span class="co">## assign y to be an numeric</span></span>
+<span id="cb51-2"><a href="introduction-rbioconductor.html#cb51-2"></a></span>
+<span id="cb51-3"><a href="introduction-rbioconductor.html#cb51-3"></a><span class="kw">is.numeric</span>(x) <span class="co">## check if the assignment worked</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction-rbioconductor.html#cb53-1"></a><span class="kw">class</span>(x) <span class="co">## check if the assignment worked</span></span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-rbioconductor.html#cb55-1"></a>x <span class="co">## check value of x</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="numeric" class="section level4">
+<h4><span class="header-section-number">8.3.1.2</span> Numeric</h4>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-rbioconductor.html#cb57-1"></a><span class="co">## assign value of 1.414 to y</span></span>
+<span id="cb57-2"><a href="introduction-rbioconductor.html#cb57-2"></a>y &lt;-<span class="st"> </span><span class="fl">1.414</span></span>
+<span id="cb57-3"><a href="introduction-rbioconductor.html#cb57-3"></a><span class="co">## check class of y</span></span>
+<span id="cb57-4"><a href="introduction-rbioconductor.html#cb57-4"></a><span class="kw">class</span>(y)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-rbioconductor.html#cb59-1"></a><span class="co">## check if y is numeric</span></span>
+<span id="cb59-2"><a href="introduction-rbioconductor.html#cb59-2"></a><span class="kw">is.numeric</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-rbioconductor.html#cb61-1"></a><span class="co">## check if y is an integer</span></span>
+<span id="cb61-2"><a href="introduction-rbioconductor.html#cb61-2"></a><span class="kw">is.integer</span>(y)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-rbioconductor.html#cb63-1"></a><span class="co">## assign y to be an integer</span></span>
+<span id="cb63-2"><a href="introduction-rbioconductor.html#cb63-2"></a>y &lt;-<span class="st"> </span><span class="kw">as.integer</span>(y)</span>
+<span id="cb63-3"><a href="introduction-rbioconductor.html#cb63-3"></a><span class="co">## check if the assignment worked</span></span>
+<span id="cb63-4"><a href="introduction-rbioconductor.html#cb63-4"></a><span class="kw">is.integer</span>(y)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-rbioconductor.html#cb65-1"></a><span class="co">## check value of y</span></span>
+<span id="cb65-2"><a href="introduction-rbioconductor.html#cb65-2"></a>y</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="logical-boolean" class="section level4">
+<h4><span class="header-section-number">8.3.1.3</span> Logical/ Boolean</h4>
+<p>The <code>logical</code> class stores boolean truth values, i.e. TRUE and FALSE. It is used for storing the results of logical operations and conditional statements will be coerced to this class. Most other data-types can be coerced to boolean without triggering (or “throwing”) error messages, which may cause unexpected behaviour.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-rbioconductor.html#cb67-1"></a>z &lt;-<span class="st"> </span><span class="ot">TRUE</span> <span class="co">## assign value of TRUE to z</span></span>
+<span id="cb67-2"><a href="introduction-rbioconductor.html#cb67-2"></a><span class="kw">class</span>(z) <span class="co">## check class of z</span></span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-rbioconductor.html#cb69-1"></a><span class="kw">is.logical</span>(z) <span class="co">## check if z is of logical type</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="data-structures" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> Data structures</h3>
+<ul>
+<li>Homogeneous
+<ul>
+<li>1D: atomic vector</li>
+<li>2D: matrix</li>
+<li>nD: array</li>
+</ul></li>
+<li>Heterogeneous
+<ul>
+<li>1D: list</li>
+<li>2D: data.frame</li>
+</ul></li>
+</ul>
+<div id="character-vectors" class="section level4">
+<h4><span class="header-section-number">8.3.2.1</span> Character Vectors</h4>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="introduction-rbioconductor.html#cb71-1"></a><span class="co">## assign a character vector with c() operator</span></span>
+<span id="cb71-2"><a href="introduction-rbioconductor.html#cb71-2"></a>character_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;T&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;T&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;T&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>)</span>
+<span id="cb71-3"><a href="introduction-rbioconductor.html#cb71-3"></a></span>
+<span id="cb71-4"><a href="introduction-rbioconductor.html#cb71-4"></a><span class="co">## check class</span></span>
+<span id="cb71-5"><a href="introduction-rbioconductor.html#cb71-5"></a><span class="kw">class</span>(character_vector)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="introduction-rbioconductor.html#cb73-1"></a><span class="co">## access the 3rd element with [] operator</span></span>
+<span id="cb73-2"><a href="introduction-rbioconductor.html#cb73-2"></a><span class="co">## *note*: R is index starts at 1 (other programming languages start at 0)</span></span>
+<span id="cb73-3"><a href="introduction-rbioconductor.html#cb73-3"></a>character_vector[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;T&quot;</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-rbioconductor.html#cb75-1"></a><span class="co">## access 3rd through 6th elemenet</span></span>
+<span id="cb75-2"><a href="introduction-rbioconductor.html#cb75-2"></a>character_vector[<span class="dv">3</span><span class="op">:</span><span class="dv">6</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;T&quot; &quot;G&quot; &quot;C&quot; &quot;T&quot;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="introduction-rbioconductor.html#cb77-1"></a><span class="co">## access the elements 1,4,7,10 with c()</span></span>
+<span id="cb77-2"><a href="introduction-rbioconductor.html#cb77-2"></a>character_vector[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">10</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;G&quot; &quot;G&quot; &quot;A&quot;</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="introduction-rbioconductor.html#cb79-1"></a><span class="co">## access all the A&#39;s</span></span>
+<span id="cb79-2"><a href="introduction-rbioconductor.html#cb79-2"></a>character_vector[<span class="kw">grep</span>(<span class="st">&quot;A&quot;</span>, character_vector)]</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot;</code></pre>
+</div>
+<div id="numeric-vector" class="section level4">
+<h4><span class="header-section-number">8.3.2.2</span> Numeric Vector</h4>
+<p>The “numeric” class is the default class for storing any numeric data - integers, decimal numbers, numbers in scientific notation, etc…</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="introduction-rbioconductor.html#cb81-1"></a><span class="co">## assign a character vector with c() operator</span></span>
+<span id="cb81-2"><a href="introduction-rbioconductor.html#cb81-2"></a>numeric_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">21</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">35</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
+<span id="cb81-3"><a href="introduction-rbioconductor.html#cb81-3"></a></span>
+<span id="cb81-4"><a href="introduction-rbioconductor.html#cb81-4"></a><span class="co">## check class</span></span>
+<span id="cb81-5"><a href="introduction-rbioconductor.html#cb81-5"></a><span class="kw">class</span>(numeric_vector)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introduction-rbioconductor.html#cb83-1"></a><span class="co">## access the 5th element with [] operator</span></span>
+<span id="cb83-2"><a href="introduction-rbioconductor.html#cb83-2"></a>numeric_vector[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 98</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="introduction-rbioconductor.html#cb85-1"></a><span class="co">## access 2nd through 4th elemenet</span></span>
+<span id="cb85-2"><a href="introduction-rbioconductor.html#cb85-2"></a>numeric_vector[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1]  5 21 17</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-rbioconductor.html#cb87-1"></a><span class="co">## backticks ` ` allow you to give names with non-typical characters</span></span>
+<span id="cb87-2"><a href="introduction-rbioconductor.html#cb87-2"></a><span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">21</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">35</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
+<span id="cb87-3"><a href="introduction-rbioconductor.html#cb87-3"></a></span>
+<span id="cb87-4"><a href="introduction-rbioconductor.html#cb87-4"></a><span class="co">## check vector</span></span>
+<span id="cb87-5"><a href="introduction-rbioconductor.html#cb87-5"></a><span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span></span></code></pre></div>
+<pre><code>## [1] &quot;A&quot;  &quot;1&quot;  &quot;5&quot;  &quot;21&quot; &quot;17&quot; &quot;98&quot; &quot;35&quot; &quot;11&quot; &quot;13&quot;</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="introduction-rbioconductor.html#cb89-1"></a><span class="co">## check class (Notice the quotation marks on the numbers!)</span></span>
+<span id="cb89-2"><a href="introduction-rbioconductor.html#cb89-2"></a><span class="kw">class</span>(<span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+</div>
+<div id="factor-vector" class="section level4">
+<h4><span class="header-section-number">8.3.2.3</span> Factor Vector</h4>
+<p>String/Character data is very memory inefficient to store, each letter generally requires the same amount of memory as any integer. Thus when storing a vector of strings with repeated elements it is more efficient assign each element to an integer and store the vector as integers and an additional string-to-integer association table. Thus, by default R will read in text columns of a data table as factors.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-rbioconductor.html#cb91-1"></a>factor_vector &lt;-<span class="st"> </span><span class="kw">factor</span>(numeric_vector)</span>
+<span id="cb91-2"><a href="introduction-rbioconductor.html#cb91-2"></a>factor_vector</span></code></pre></div>
+<pre><code>## [1] 1  5  21 17 98 35 11 13
+## Levels: 1 5 11 13 17 21 35 98</code></pre>
+</div>
+<div id="named-vector" class="section level4">
+<h4><span class="header-section-number">8.3.2.4</span> Named Vector</h4>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-rbioconductor.html#cb93-1"></a><span class="kw">names</span>(numeric_vector) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Patient&quot;</span>, <span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="kw">length</span>(numeric_vector))</span>
+<span id="cb93-2"><a href="introduction-rbioconductor.html#cb93-2"></a>numeric_vector</span></code></pre></div>
+<pre><code>## Patient1 Patient2 Patient3 Patient4 Patient5 Patient6 Patient7 Patient8 
+##        1        5       21       17       98       35       11       13</code></pre>
+</div>
+<div id="list" class="section level4">
+<h4><span class="header-section-number">8.3.2.5</span> List</h4>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="introduction-rbioconductor.html#cb95-1"></a><span class="co">## change the c() operator to list() operator</span></span>
+<span id="cb95-2"><a href="introduction-rbioconductor.html#cb95-2"></a>new_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">21</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">35</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
+<span id="cb95-3"><a href="introduction-rbioconductor.html#cb95-3"></a>new_list</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;A&quot;
+## 
+## [[2]]
+## [1] 1
+## 
+## [[3]]
+## [1] 5
+## 
+## [[4]]
+## [1] 21
+## 
+## [[5]]
+## [1] 17
+## 
+## [[6]]
+## [1] 98
+## 
+## [[7]]
+## [1] 35
+## 
+## [[8]]
+## [1] 11
+## 
+## [[9]]
+## [1] 13</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="introduction-rbioconductor.html#cb97-1"></a><span class="co">## get 2nd element of list</span></span>
+<span id="cb97-2"><a href="introduction-rbioconductor.html#cb97-2"></a>new_list[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="introduction-rbioconductor.html#cb99-1"></a><span class="kw">names</span>(new_list) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Patient&quot;</span>, <span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="kw">length</span>(new_list))</span>
+<span id="cb99-2"><a href="introduction-rbioconductor.html#cb99-2"></a>new_list</span></code></pre></div>
+<pre><code>## $Patient1
+## [1] &quot;A&quot;
+## 
+## $Patient2
+## [1] 1
+## 
+## $Patient3
+## [1] 5
+## 
+## $Patient4
+## [1] 21
+## 
+## $Patient5
+## [1] 17
+## 
+## $Patient6
+## [1] 98
+## 
+## $Patient7
+## [1] 35
+## 
+## $Patient8
+## [1] 11
+## 
+## $Patient9
+## [1] 13</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="introduction-rbioconductor.html#cb101-1"></a><span class="co">## get 2nd element of list</span></span>
+<span id="cb101-2"><a href="introduction-rbioconductor.html#cb101-2"></a>new_list[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<ul>
+<li>2D</li>
+</ul>
+</div>
+<div id="matrix" class="section level4">
+<h4><span class="header-section-number">8.3.2.6</span> matrix</h4>
+<p><strong>Create Matrix</strong></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="introduction-rbioconductor.html#cb103-1"></a><span class="co">## create numeric matrix</span></span>
+<span id="cb103-2"><a href="introduction-rbioconductor.html#cb103-2"></a>numeric_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), <span class="dt">nrow =</span> <span class="dv">10</span>, <span class="dt">ncol =</span> <span class="dv">10</span>)</span>
+<span id="cb103-3"><a href="introduction-rbioconductor.html#cb103-3"></a><span class="kw">class</span>(numeric_matrix) <span class="co">## check class</span></span></code></pre></div>
+<pre><code>## [1] &quot;matrix&quot;</code></pre>
+<p><strong>Check Structure</strong></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="introduction-rbioconductor.html#cb105-1"></a><span class="kw">str</span>(numeric_matrix)</span></code></pre></div>
+<pre><code>##  int [1:10, 1:10] 7 4 3 10 7 3 2 5 10 6 ...</code></pre>
+<p><strong>Get 3rd Row</strong></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-rbioconductor.html#cb107-1"></a><span class="co">## get 3rd row</span></span>
+<span id="cb107-2"><a href="introduction-rbioconductor.html#cb107-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
+<pre><code>##  [1] 3 4 5 1 3 4 5 9 9 2</code></pre>
+<p><strong>Get 4th Column</strong></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-rbioconductor.html#cb109-1"></a><span class="co">## get 4th colum</span></span>
+<span id="cb109-2"><a href="introduction-rbioconductor.html#cb109-2"></a>numeric_matrix[, <span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##  [1]  6  1  1  7 10  6  6  6 10  6</code></pre>
+</div>
+<div id="data.frame" class="section level4">
+<h4><span class="header-section-number">8.3.2.7</span> data.frame</h4>
+<p><strong>Get data.frame</strong></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-rbioconductor.html#cb111-1"></a><span class="co">## built in R data.frame iris</span></span>
+<span id="cb111-2"><a href="introduction-rbioconductor.html#cb111-2"></a><span class="kw">head</span>(iris)</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p><strong>Check Class</strong></p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-rbioconductor.html#cb113-1"></a><span class="kw">class</span>(iris)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p><strong>Check Structure</strong></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-rbioconductor.html#cb115-1"></a><span class="kw">str</span>(iris)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p><strong>Get 3rd Row</strong></p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-rbioconductor.html#cb117-1"></a><span class="co">## get 3rd row</span></span>
+<span id="cb117-2"><a href="introduction-rbioconductor.html#cb117-2"></a>iris[<span class="dv">3</span>,]</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 3          4.7         3.2          1.3         0.2  setosa</code></pre>
+<p><strong>Get 4th Column</strong></p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-rbioconductor.html#cb119-1"></a><span class="co">## get 4th colum</span></span>
+<span id="cb119-2"><a href="introduction-rbioconductor.html#cb119-2"></a>iris[,<span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##   [1] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 0.2 0.2 0.1 0.1 0.2 0.4 0.4 0.3 0.3
+##  [20] 0.3 0.2 0.4 0.2 0.5 0.2 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.1 0.2 0.2 0.2 0.2 0.1
+##  [39] 0.2 0.2 0.3 0.3 0.2 0.6 0.4 0.3 0.2 0.2 0.2 0.2 1.4 1.5 1.5 1.3 1.5 1.3 1.6
+##  [58] 1.0 1.3 1.4 1.0 1.5 1.0 1.4 1.3 1.4 1.5 1.0 1.5 1.1 1.8 1.3 1.5 1.2 1.3 1.4
+##  [77] 1.4 1.7 1.5 1.0 1.1 1.0 1.2 1.6 1.5 1.6 1.5 1.3 1.3 1.3 1.2 1.4 1.2 1.0 1.3
+##  [96] 1.2 1.3 1.3 1.1 1.3 2.5 1.9 2.1 1.8 2.2 2.1 1.7 1.8 1.8 2.5 2.0 1.9 2.1 2.0
+## [115] 2.4 2.3 1.8 2.2 2.3 1.5 2.3 2.0 2.0 1.8 2.1 1.8 1.8 1.8 2.1 1.6 1.9 2.0 2.2
+## [134] 1.5 1.4 2.3 2.4 1.8 1.8 2.1 2.4 2.3 1.9 2.3 2.5 2.3 1.9 2.0 2.3 1.8</code></pre>
+<p><strong>Get 3rd Row</strong></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-rbioconductor.html#cb121-1"></a><span class="co">## get 3rd row</span></span>
+<span id="cb121-2"><a href="introduction-rbioconductor.html#cb121-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
+<pre><code>##  [1] 3 4 5 1 3 4 5 9 9 2</code></pre>
+<p><strong>Get Species Variable</strong></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="introduction-rbioconductor.html#cb123-1"></a><span class="co">## get variable</span></span>
+<span id="cb123-2"><a href="introduction-rbioconductor.html#cb123-2"></a>iris<span class="op">$</span>Species</span></code></pre></div>
+<pre><code>##   [1] setosa     setosa     setosa     setosa     setosa     setosa    
+##   [7] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [13] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [19] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [25] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [31] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [37] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [43] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [49] setosa     setosa     versicolor versicolor versicolor versicolor
+##  [55] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [61] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [67] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [73] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [79] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [85] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [91] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [97] versicolor versicolor versicolor versicolor virginica  virginica 
+## [103] virginica  virginica  virginica  virginica  virginica  virginica 
+## [109] virginica  virginica  virginica  virginica  virginica  virginica 
+## [115] virginica  virginica  virginica  virginica  virginica  virginica 
+## [121] virginica  virginica  virginica  virginica  virginica  virginica 
+## [127] virginica  virginica  virginica  virginica  virginica  virginica 
+## [133] virginica  virginica  virginica  virginica  virginica  virginica 
+## [139] virginica  virginica  virginica  virginica  virginica  virginica 
+## [145] virginica  virginica  virginica  virginica  virginica  virginica 
+## Levels: setosa versicolor virginica</code></pre>
+</div>
+</div>
+<div id="detour-to-s3s4" class="section level3">
+<h3><span class="header-section-number">8.3.3</span> Detour to S3/S4</h3>
+<ul>
+<li>S3 most of R uses</li>
+<li>Bioconductor requires R packages to be written as S4 objects</li>
+<li>OO field <a href="http://adv-r.had.co.nz/OO-essentials.html">guide</a></li>
+<li>Closer to a typical programming language
+<ul>
+<li>Classes/Methods and Generics</li>
+<li>Lots of Generics implemented for Bioinformatics!</li>
+</ul></li>
+</ul>
+<p>Different way to access values. Need to use the @ symbol instead of $</p>
+<ul>
+<li>(@ is equivalent to $, and slot() to [[.)</li>
+</ul>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="introduction-rbioconductor.html#cb125-1"></a><span class="co">## example</span></span>
+<span id="cb125-2"><a href="introduction-rbioconductor.html#cb125-2"></a>object<span class="op">@</span></span></code></pre></div>
+<div id="sparse-matrix" class="section level4">
+<h4><span class="header-section-number">8.3.3.1</span> Sparse Matrix</h4>
+<p>Triplet format for storing a matrix
+row, column, value
+i, p, x</p>
+<p>Different from base R. Uses the S4 methods that Bioconductor uses.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="introduction-rbioconductor.html#cb126-1"></a>sparse_matrix &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>data[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</span>
+<span id="cb126-2"><a href="introduction-rbioconductor.html#cb126-2"></a><span class="kw">class</span>(sparse_matrix)</span></code></pre></div>
+<p><strong>ith row - 1</strong></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="introduction-rbioconductor.html#cb127-1"></a>sparse_matrix<span class="op">@</span>i</span></code></pre></div>
+<p><strong>pth column - 1</strong></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="introduction-rbioconductor.html#cb128-1"></a>sparse_matrix<span class="op">@</span>p</span></code></pre></div>
+<p><strong>value</strong></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="introduction-rbioconductor.html#cb129-1"></a>sparse_matrix<span class="op">@</span>x</span></code></pre></div>
+<p><strong>Get First Value</strong></p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="introduction-rbioconductor.html#cb130-1"></a>sparse_matrix[<span class="dv">2</span>,<span class="dv">1</span>]</span></code></pre></div>
+<p><strong>dense matrix</strong></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="introduction-rbioconductor.html#cb131-1"></a>dense_matrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(sparse_matrix)</span>
+<span id="cb131-2"><a href="introduction-rbioconductor.html#cb131-2"></a><span class="kw">class</span>(dense_matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="introduction-rbioconductor.html#cb132-1"></a><span class="kw">str</span>(dense_matrix)</span></code></pre></div>
+<p><strong>Get First Value</strong></p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="introduction-rbioconductor.html#cb133-1"></a>dense_matrix[<span class="dv">2</span>,<span class="dv">1</span>]</span></code></pre></div>
+</div>
+<div id="functions" class="section level4">
+<h4><span class="header-section-number">8.3.3.2</span> Functions</h4>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="introduction-rbioconductor.html#cb134-1"></a>create_function &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
+<span id="cb134-2"><a href="introduction-rbioconductor.html#cb134-2"></a>  </span>
+<span id="cb134-3"><a href="introduction-rbioconductor.html#cb134-3"></a>}</span></code></pre></div>
+</div>
+<div id="reading-files" class="section level4">
+<h4><span class="header-section-number">8.3.3.3</span> Reading Files</h4>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-rbioconductor.html#cb135-1"></a><span class="co">## read csv files</span></span>
+<span id="cb135-2"><a href="introduction-rbioconductor.html#cb135-2"></a><span class="kw">read.csv</span>(<span class="st">&quot;PATH/TO/FILENAME.csv&quot;</span>)</span>
+<span id="cb135-3"><a href="introduction-rbioconductor.html#cb135-3"></a></span>
+<span id="cb135-4"><a href="introduction-rbioconductor.html#cb135-4"></a><span class="co">## read tsv files</span></span>
+<span id="cb135-5"><a href="introduction-rbioconductor.html#cb135-5"></a><span class="kw">read.delim</span>(<span class="st">&quot;PATH/TO/FILENAME.tsv&quot;</span>, <span class="dt">sep =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="more-information" class="section level2">
+<h2><span class="header-section-number">8.4</span> More information</h2>
+<p>You can get more information about any R commands relevant to these datatypes using by typing <code>?function</code> in an interactive session.</p>
+<div id="checking-for-help-for-any-function" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> Checking for help for any function!</h3>
+<ul>
+<li>start with a ? (this indicates you need the help menu)</li>
+<li>then the function name to get help on</li>
+</ul>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="introduction-rbioconductor.html#cb136-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb136-2"><a href="introduction-rbioconductor.html#cb136-2"></a></span>
+<span id="cb136-3"><a href="introduction-rbioconductor.html#cb136-3"></a>?ggplot  <span class="co">## ggplot is a function, how do we use it?</span></span></code></pre></div>
+</div>
+</div>
+<div id="grammer-of-graphics-ggplot2" class="section level2">
+<h2><span class="header-section-number">8.5</span> Grammer of Graphics (ggplot2)</h2>
+<div id="what-is-ggplot2" class="section level3">
+<h3><span class="header-section-number">8.5.1</span> What is ggplot2?</h3>
+<p>ggplot2 is an R package designed by Hadley Wickham which facilitates data plotting. In this lab, we will touch briefly on some of the features of the package. If you would like to learn more about how to use ggplot2, we would recommend reading “ggplot2 Elegant graphics for data analysis”, by Hadley Wickham or checking out his original paper on the <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">package</a></p>
+<ul>
+<li>Data: Always start with the data, identify the dimensions you want to visualize.</li>
+<li>Aesthetics: Confirm the axes based on the data dimensions, positions of various data points in the plot. Also check if any form of encoding is needed including size, shape, color and so on which are useful for plotting multiple data dimensions.</li>
+<li>Scale: Do we need to scale the potential values, use a specific scale to represent multiple values or a range?</li>
+<li>Geometric objects: These are popularly known as ‘geoms’. This would cover the way we would depict the data points on the visualization. Should it be points, bars, lines and so on?</li>
+<li>Statistics: Do we need to show some statistical measures in the visualization like measures of central tendency, spread, confidence intervals?</li>
+<li>Facets: Do we need to create subplots based on specific data dimensions?</li>
+<li>Coordinate system: What kind of a coordinate system should the visualization be based on — should it be cartesian or polar?</li>
+</ul>
+<p><img src="images/components_grammar_graphics.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="principles-of-ggplot2" class="section level3">
+<h3><span class="header-section-number">8.5.2</span> Principles of ggplot2</h3>
+<ul>
+<li><p>Your data must be a dataframe if you want to plot it using ggplot2.</p></li>
+<li><p>Use the <code>aes</code> mapping function to specify how variables in the dataframe map to features on your plot</p></li>
+<li><p>Use geoms to specify how your data should be represented on your graph eg. as a scatterplot, a barplot, a boxplot etc.</p>
+<ul>
+<li>Data: Always start with the data, identify the dimensions you want to visualize.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="introduction-rbioconductor.html#cb137-1"></a><span class="kw">library</span>(Seurat)</span>
+<span id="cb137-2"><a href="introduction-rbioconductor.html#cb137-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb137-3"><a href="introduction-rbioconductor.html#cb137-3"></a></span>
+<span id="cb137-4"><a href="introduction-rbioconductor.html#cb137-4"></a>gbm &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data</span>
+<span id="cb137-5"><a href="introduction-rbioconductor.html#cb137-5"></a></span>
+<span id="cb137-6"><a href="introduction-rbioconductor.html#cb137-6"></a>gbm &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(<span class="kw">t</span>(gbm)))</span>
+<span id="cb137-7"><a href="introduction-rbioconductor.html#cb137-7"></a></span>
+<span id="cb137-8"><a href="introduction-rbioconductor.html#cb137-8"></a>new_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gbm)</span></code></pre></div>
+<ul>
+<li>Aesthetics: Confirm the axes based on the data dimensions, positions of various data points in the plot. Also check if any form of encoding is needed including size, shape, color and so on which are useful for plotting multiple data dimensions.</li>
+</ul>
+<p><strong>1D Plots</strong></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="introduction-rbioconductor.html#cb138-1"></a>new_plot_1dx &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(<span class="dt">x =</span> MS4A1))</span>
+<span id="cb138-2"><a href="introduction-rbioconductor.html#cb138-2"></a>new_plot_1dx</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/1d_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Scale: Do we need to scale the potential values, use a specific scale to represent multiple values or a range?</p></li>
+<li><p>Geometric objects: These are popularly known as ‘geoms’. This would cover the way we would depict the data points on the visualization. Should it be points, bars, lines and so on?</p></li>
+</ul>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="introduction-rbioconductor.html#cb139-1"></a><span class="co">## ggplot(gbm, aes(x = MS4A1)) + geom_histogram()</span></span>
+<span id="cb139-2"><a href="introduction-rbioconductor.html#cb139-2"></a><span class="co">## or</span></span>
+<span id="cb139-3"><a href="introduction-rbioconductor.html#cb139-3"></a><span class="co">## new_plot_1dx &lt;- new_plot_1dx + geom_histogram()  ## reassign</span></span>
+<span id="cb139-4"><a href="introduction-rbioconductor.html#cb139-4"></a>new_plot_1dx <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/1dx_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div id="lab-a" class="section level4">
+<h4><span class="header-section-number">8.5.2.1</span> Lab A</h4>
+<p>Use different geom_ to make a different plots
+- try _bar()
+- try _density()</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="introduction-rbioconductor.html#cb141-1"></a>new_plot_1dx <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/dense_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Statistics: Do we need to show some statistical measures in the visualization like measures of central tendency, spread, confidence intervals?</li>
+</ul>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="introduction-rbioconductor.html#cb142-1"></a><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(<span class="dt">x =</span> MS4A1)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span><span class="kw">stat_bin</span>(<span class="dt">bins =</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/hist_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><strong>2D Plots</strong></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="introduction-rbioconductor.html#cb144-1"></a>new_plot_2d &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(<span class="dt">x =</span> MS4A1, <span class="dt">y =</span> CD79B))</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="introduction-rbioconductor.html#cb145-1"></a><span class="co">## scatter plot</span></span>
+<span id="cb145-2"><a href="introduction-rbioconductor.html#cb145-2"></a>new_plot_2d <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/scatter_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="lab-b" class="section level4">
+<h4><span class="header-section-number">8.5.2.2</span> Lab B</h4>
+<p>Use different geom_ to make a different plots
+- try _bar_abline()
+- try _bin2d()</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="introduction-rbioconductor.html#cb146-1"></a>new_plot_2d</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/2d_exer-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Adding Statisitics in 2D plots
+<ul>
+<li>Regression line (lm - linear model using OLS regression)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="introduction-rbioconductor.html#cb147-1"></a><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(MS4A1, CD79B)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/2d_exer_2-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Adding Text Labels</li>
+</ul>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="introduction-rbioconductor.html#cb148-1"></a><span class="co">## notice plus `+` at the end of each line, adding a new layer!</span></span>
+<span id="cb148-2"><a href="introduction-rbioconductor.html#cb148-2"></a><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(MS4A1, CD79B)) <span class="op">+</span><span class="st">            </span><span class="co">## Data layer</span></span>
+<span id="cb148-3"><a href="introduction-rbioconductor.html#cb148-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">                            </span><span class="co">## Geometry layer</span></span>
+<span id="cb148-4"><a href="introduction-rbioconductor.html#cb148-4"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span><span class="st">              </span><span class="co">## </span></span>
+<span id="cb148-5"><a href="introduction-rbioconductor.html#cb148-5"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">rownames</span>(gbm)))</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/add_text-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="lab-c" class="section level4">
+<h4><span class="header-section-number">8.5.2.3</span> Lab C</h4>
+<p>Play arund with ggplot2. See what geoms to add and layers to include.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="introduction-rbioconductor.html#cb149-1"></a><span class="kw">ggplot</span>(gbm, <span class="kw">aes</span>(<span class="dt">x =</span> MS4A1, <span class="dt">y =</span> CD79B))</span></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/labc-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="reference" class="section level2">
+<h2><span class="header-section-number">8.6</span> Reference</h2>
+<ul>
+<li><a href="https://r4ds.had.co.nz/">R for Data Science</a></li>
+<li><a href="http://adv-r.had.co.nz/">Advanced R</a></li>
+<li><a href="http://bioconductor.org/packages/release/BiocViews.html#___Workflow">Bioconductor Workflows</a></li>
+<li><a href="http://www.bioconductor.org/help/course-materials/2010/AdvancedR/S4InBioconductor.pdf">Bioconductor Presentation</a></li>
+<li><a href="http://vita.had.co.nz/papers/layered-grammar.pdf">Original ggplot2 paper</a></li>
+<li><a href="https://ggplot2.tidyverse.org/reference/index.html">ggplot2 reference</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf">ggplot2 cheatsheet</a></li>
+<li><a href="https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149">blog post</a></li>
+<li><a href="https://hemberg-lab.github.io/scRNA.seq.course/introduction-to-rbioconductor.html#an-introduction-to-ggplot2">Hemberg Lab</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="transcriptome-quantification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="expression-qc-and-normalization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["2020_scWorkshop.pdf", "2020_scWorkshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

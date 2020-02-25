@@ -1,0 +1,17 @@
+---
+title: "01-template-lecture"
+author: "Kirk Gosik"
+date: "2/25/2020"
+output: html_document
+---
+
+# Lecture Section Title
+
+To get the link to paste into the iframe open up slides in Google Slides and go to,
+  - File -> Publish to the Web
+  - Select the Embed tab section
+  - Hit Publish
+  - Copy and Paste the link in between the quotations in the <iframe src=""  part
+
+
+<iframe src="https://docs.google.com/a/broadinstitute.org/presentation/......" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

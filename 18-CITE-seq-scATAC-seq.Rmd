@@ -11,7 +11,7 @@ Note: you can increase the system memory available to Docker by going to Docker 
 
 ## Load settings and packages
 
-```{r setup_citeseq, include=FALSE}
+```{r setup_citeseq, include=FALSE, eval=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(Seurat)
@@ -33,7 +33,7 @@ This vignette demonstrates new features that allow users to analyze and explore 
 
 Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT). You can download the ADT file here and the RNA file here
 
-```{r load_rna_umi}
+```{r load_rna_umi, eval=FALSE}
 # Load in the RNA UMI matrix
 
 # Note that this dataset also contains ~5% of mouse cells, which we can use

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Correcting Batch Effects | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 Correcting Batch Effects | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
+  <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 Correcting Batch Effects | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+
+<meta name="author" content="Orr Ashenberg" />
+<meta name="author" content="Dana Silverbush" />
+<meta name="author" content="Kirk Gosik" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="batch-effects.html"/>
+<link rel="next" href="functional-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> COURSE OVERVIEW</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#targeted-audience-assumed-background"><i class="fa fa-check"></i><b>1.2</b> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#course-format"><i class="fa fa-check"></i><b>1.3</b> COURSE FORMAT</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>1.4</b> Getting Started</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#session-content"><i class="fa fa-check"></i><b>1.5</b> SESSION CONTENT</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#monday-classes-from-0930-to-1730-lunch-break-1-hr-40-min-of-total-coffee-breaks"><i class="fa fa-check"></i><b>1.5.1</b> Monday – Classes from 09:30 to 17:30 (lunch break-1 hr, 40 min of total coffee breaks)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#tuesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.2</b> Tuesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#wednesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.3</b> Wednesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#thursday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.4</b> Thursday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 09:30 to 17:30</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#template-example"><i class="fa fa-check"></i><b>1.6</b> Template Example</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#make-object"><i class="fa fa-check"></i><b>1.7</b> Make Object</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#process-object"><i class="fa fa-check"></i><b>1.8</b> Process Object</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lecture-section-title.html"><a href="lecture-section-title.html"><i class="fa fa-check"></i><b>2</b> Lecture Section Title</a></li>
+<li class="chapter" data-level="3" data-path="scrna-seq-experimental-design.html"><a href="scrna-seq-experimental-design.html"><i class="fa fa-check"></i><b>3</b> scRNA-Seq Experimental Design</a></li>
+<li class="chapter" data-level="4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>4</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>4.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>4.1.1</b> Getting into AWS Instance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>4.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>4.2.1</b> Common Linux Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>4.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="4.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>4.3.2</b> View BAM Files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>4.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>4.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="4.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>4.4.2</b> GEO</a></li>
+<li class="chapter" data-level="4.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>4.4.3</b> Single Cell Portal</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>5</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="6" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>6</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>6.1</b> Goal</a></li>
+<li class="chapter" data-level="6.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>6.2</b> Further reading</a></li>
+<li class="chapter" data-level="6.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastqc"><i class="fa fa-check"></i><b>6.3</b> FastQC</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>6.3.1</b> Fastq file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>6.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>6.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="6.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>6.4.2</b> Bam file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>6.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html"><i class="fa fa-check"></i><b>7</b> Transcriptome Quantification</a></li>
+<li class="chapter" data-level="8" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>8</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="8.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>8.1</b> Start Environment</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>8.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>8.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="8.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>8.2.2</b> Github</a></li>
+<li class="chapter" data-level="8.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>8.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>8.2.4</b> Source</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>8.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>8.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="8.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>8.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="8.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>8.3.3</b> Detour to S3/S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>8.4</b> More information</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>8.4.1</b> Checking for help for any function!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>8.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="8.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>8.5.2</b> Principles of ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>8.6</b> Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="expression-qc-and-normalization.html"><a href="expression-qc-and-normalization.html"><i class="fa fa-check"></i><b>9</b> Expression QC and Normalization</a></li>
+<li class="chapter" data-level="10" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>10</b> Data Wrangling scRNAseq</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>10.1</b> Goal</a></li>
+<li class="chapter" data-level="10.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-1"><i class="fa fa-check"></i><b>10.2</b> Introduction</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>10.2.1</b> Load necessary packages</a></li>
+<li class="chapter" data-level="10.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>10.2.2</b> Read in NSCLC counts matrix.</a></li>
+<li class="chapter" data-level="10.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>10.2.3</b> Let’s examine the sparse counts matrix</a></li>
+<li class="chapter" data-level="10.2.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-big-is-the-matrix"><i class="fa fa-check"></i><b>10.2.4</b> How big is the matrix?</a></li>
+<li class="chapter" data-level="10.2.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-much-memory-does-a-sparse-matrix-take-up-relative-to-a-dense-matrix"><i class="fa fa-check"></i><b>10.2.5</b> How much memory does a sparse matrix take up relative to a dense matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#filtering-low-quality-cells"><i class="fa fa-check"></i><b>10.3</b> Filtering low-quality cells</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#look-at-the-summary-counts-for-genes-and-cells"><i class="fa fa-check"></i><b>10.3.1</b> Look at the summary counts for genes and cells</a></li>
+<li class="chapter" data-level="10.3.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#plot-cells-ranked-by-their-number-of-detected-genes."><i class="fa fa-check"></i><b>10.3.2</b> Plot cells ranked by their number of detected genes.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#beginning-with-seurat-httpsatijalab.orgseurat"><i class="fa fa-check"></i><b>10.4</b> Beginning with Seurat: <span>http://satijalab.org/seurat/</span></a><ul>
+<li class="chapter" data-level="10.4.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#creating-a-seurat-object"><i class="fa fa-check"></i><b>10.4.1</b> Creating a seurat object</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-1-filter-out-low-quality-cells"><i class="fa fa-check"></i><b>10.5</b> Preprocessing step 1 : Filter out low-quality cells</a></li>
+<li class="chapter" data-level="10.6" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#examine-contents-of-seurat-object"><i class="fa fa-check"></i><b>10.6</b> Examine contents of Seurat object</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-2-expression-normalization"><i class="fa fa-check"></i><b>10.6.1</b> Preprocessing step 2 : Expression normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#detection-of-variable-genes-across-the-single-cells"><i class="fa fa-check"></i><b>10.7</b> Detection of variable genes across the single cells</a></li>
+<li class="chapter" data-level="10.8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#gene-set-expression-across-cells"><i class="fa fa-check"></i><b>10.8</b> Gene set expression across cells</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>11</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="11.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>11.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>12</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial"><i class="fa fa-check"></i><b>12.2</b> Seurat Tutorial</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>12.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="12.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>12.2.2</b> Start of Identifying Cell Types</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>12.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>12.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="12.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#dimensionality-reduction"><i class="fa fa-check"></i><b>12.3.2</b> Dimensionality Reduction</a></li>
+<li class="chapter" data-level="12.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#independent-components-analysis-ica"><i class="fa fa-check"></i><b>12.3.3</b> Independent Components Analysis (ICA)</a></li>
+<li class="chapter" data-level="12.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#clustering"><i class="fa fa-check"></i><b>12.3.4</b> Clustering</a></li>
+<li class="chapter" data-level="12.3.5" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>12.3.5</b> Check Clusters</a></li>
+<li class="chapter" data-level="12.3.6" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>12.3.6</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>13</b> Batch Effects</a></li>
+<li class="chapter" data-level="14" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html"><i class="fa fa-check"></i><b>14</b> Correcting Batch Effects</a><ul>
+<li class="chapter" data-level="14.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#load-settings-and-packages"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="14.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>14.2</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="14.3" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>14.3</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-canonical-correlation-analysis-cca-using-seurat"><i class="fa fa-check"></i><b>14.3.1</b> Batch correction: canonical correlation analysis (CCA) using Seurat</a></li>
+<li class="chapter" data-level="14.3.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>14.3.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>14.4</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="14.5" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>14.5</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="14.6" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>14.6</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="14.7" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#acknowledgements"><i class="fa fa-check"></i><b>14.7</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="functional-analysis.html"><a href="functional-analysis.html"><i class="fa fa-check"></i><b>15</b> Functional Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="functional-analysis.html"><a href="functional-analysis.html#google-slides-1"><i class="fa fa-check"></i><b>15.1</b> Google Slides</a></li>
+<li class="chapter" data-level="15.2" data-path="functional-analysis.html"><a href="functional-analysis.html#gene-sets-and-signatures"><i class="fa fa-check"></i><b>15.2</b> Gene sets and signatures</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="functional-analysis.html"><a href="functional-analysis.html#cell-cycle"><i class="fa fa-check"></i><b>15.2.1</b> Cell Cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="functional-analysis.html"><a href="functional-analysis.html#pathway-analysis"><i class="fa fa-check"></i><b>15.3</b> Pathway analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="functional-analysis.html"><a href="functional-analysis.html#infercnv-honeybadger"><i class="fa fa-check"></i><b>15.4</b> inferCNV / honeybadger</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="functional-analysis.html"><a href="functional-analysis.html#create-the-infercnv-object"><i class="fa fa-check"></i><b>15.4.1</b> Create the InferCNV Object</a></li>
+<li class="chapter" data-level="15.4.2" data-path="functional-analysis.html"><a href="functional-analysis.html#filtering-genes"><i class="fa fa-check"></i><b>15.4.2</b> Filtering genes</a></li>
+<li class="chapter" data-level="15.4.3" data-path="functional-analysis.html"><a href="functional-analysis.html#normalize-each-cells-counts-for-sequencing-depth"><i class="fa fa-check"></i><b>15.4.3</b> Normalize each cell’s counts for sequencing depth</a></li>
+<li class="chapter" data-level="15.4.4" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-anscombe-normalization"><i class="fa fa-check"></i><b>15.4.4</b> Perform Anscombe normalization</a></li>
+<li class="chapter" data-level="15.4.5" data-path="functional-analysis.html"><a href="functional-analysis.html#log-transform-the-normalized-counts"><i class="fa fa-check"></i><b>15.4.5</b> Log transform the normalized counts:</a></li>
+<li class="chapter" data-level="15.4.6" data-path="functional-analysis.html"><a href="functional-analysis.html#apply-maximum-bounds-to-the-expression-data-to-reduce-outlier-effects"><i class="fa fa-check"></i><b>15.4.6</b> Apply maximum bounds to the expression data to reduce outlier effects</a></li>
+<li class="chapter" data-level="15.4.7" data-path="functional-analysis.html"><a href="functional-analysis.html#initial-view-before-infercnv-operations"><i class="fa fa-check"></i><b>15.4.7</b> Initial view, before inferCNV operations:</a></li>
+<li class="chapter" data-level="15.4.8" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-smoothing-across-chromosomes"><i class="fa fa-check"></i><b>15.4.8</b> Perform smoothing across chromosomes</a></li>
+<li class="chapter" data-level="15.4.9" data-path="functional-analysis.html"><a href="functional-analysis.html#subtract-the-reference-values-from-observations-now-have-logfold-change-values"><i class="fa fa-check"></i><b>15.4.9</b> Subtract the reference values from observations, now have log(fold change) values</a></li>
+<li class="chapter" data-level="15.4.10" data-path="functional-analysis.html"><a href="functional-analysis.html#invert-log-values"><i class="fa fa-check"></i><b>15.4.10</b> Invert log values</a></li>
+<li class="chapter" data-level="15.4.11" data-path="functional-analysis.html"><a href="functional-analysis.html#removing-noise"><i class="fa fa-check"></i><b>15.4.11</b> Removing noise</a></li>
+<li class="chapter" data-level="15.4.12" data-path="functional-analysis.html"><a href="functional-analysis.html#remove-outlier-data-points"><i class="fa fa-check"></i><b>15.4.12</b> Remove outlier data points</a></li>
+<li class="chapter" data-level="15.4.13" data-path="functional-analysis.html"><a href="functional-analysis.html#find-de-genes-by-comparing-the-mutant-types-to-normal-types-basic"><i class="fa fa-check"></i><b>15.4.13</b> Find DE genes by comparing the mutant types to normal types, BASIC</a></li>
+<li class="chapter" data-level="15.4.14" data-path="functional-analysis.html"><a href="functional-analysis.html#additional-information"><i class="fa fa-check"></i><b>15.4.14</b> Additional Information</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>16</b> Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="16.1" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#google-slides-2"><i class="fa fa-check"></i><b>16.1</b> Google Slides</a></li>
+<li class="chapter" data-level="16.2" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#comparison-abstract"><i class="fa fa-check"></i><b>16.2</b> Comparison Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html"><i class="fa fa-check"></i><b>17</b> Functional Pseudotime Analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>17.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="17.2" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>17.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="17.3" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>17.3</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="17.4" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>17.4</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="17.5" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>17.5</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="17.6" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>17.6</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="17.7" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>17.7</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="17.8" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>17.8</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-multiomic-technologies.html"><a href="single-cell-multiomic-technologies.html"><i class="fa fa-check"></i><b>18</b> Single Cell Multiomic Technologies</a></li>
+<li class="chapter" data-level="19" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html"><i class="fa fa-check"></i><b>19</b> CITE-seq and scATAC-seq</a><ul>
+<li class="chapter" data-level="19.1" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>19.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="19.2" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>19.2</b> Load in the data</a></li>
+<li class="chapter" data-level="19.3" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>19.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="19.4" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>19.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="19.5" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>19.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="19.6" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>19.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="19.7" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>19.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="19.8" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>19.8</b> Additional exploration: another example of multi-modal analysis</a></li>
+<li class="chapter" data-level="19.9" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>19.9</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>20</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="20.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>20.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="20.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>20.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="20.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>20.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="20.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>20.4</b> Online courses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="correcting-batch-effects" class="section level1">
+<h1><span class="header-section-number">14</span> Correcting Batch Effects</h1>
+<p>In this lab, we will look at different single cell RNA-seq datasets collected from pancreatic islets. We will look at how different batch correction methods affect our data analysis.</p>
+<p>Note: you can increase the system memory available to Docker by going to Docker -&gt; Preferences -&gt; Advanced and shifting the Memory slider.</p>
+<div id="load-settings-and-packages" class="section level2">
+<h2><span class="header-section-number">14.1</span> Load settings and packages</h2>
+</div>
+<div id="preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction" class="section level2">
+<h2><span class="header-section-number">14.2</span> Preparing the individual Seurat objects for each pancreas dataset without batch correction</h2>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="correcting-batch-effects.html#cb235-1"></a><span class="co"># What is the size of each single cell RNA-seq dataset? </span></span>
+<span id="cb235-2"><a href="correcting-batch-effects.html#cb235-2"></a><span class="co"># Briefly describe the technology used to collect each dataset.</span></span>
+<span id="cb235-3"><a href="correcting-batch-effects.html#cb235-3"></a><span class="co"># Which datasets do you expect to be different and which do you expect to be similar?</span></span>
+<span id="cb235-4"><a href="correcting-batch-effects.html#cb235-4"></a><span class="kw">dim</span>(celseq.data)</span>
+<span id="cb235-5"><a href="correcting-batch-effects.html#cb235-5"></a><span class="kw">dim</span>(celseq2.data)</span>
+<span id="cb235-6"><a href="correcting-batch-effects.html#cb235-6"></a><span class="kw">dim</span>(fluidigmc1.data)</span>
+<span id="cb235-7"><a href="correcting-batch-effects.html#cb235-7"></a><span class="kw">dim</span>(smartseq2.data)</span>
+<span id="cb235-8"><a href="correcting-batch-effects.html#cb235-8"></a></span>
+<span id="cb235-9"><a href="correcting-batch-effects.html#cb235-9"></a><span class="co"># Create and setup Seurat objects for each dataset with the following 6 steps.</span></span>
+<span id="cb235-10"><a href="correcting-batch-effects.html#cb235-10"></a><span class="co"># 1. CreateSeuratObject</span></span>
+<span id="cb235-11"><a href="correcting-batch-effects.html#cb235-11"></a><span class="co"># 2. FilterCells</span></span>
+<span id="cb235-12"><a href="correcting-batch-effects.html#cb235-12"></a><span class="co"># 3. NormalizeData</span></span>
+<span id="cb235-13"><a href="correcting-batch-effects.html#cb235-13"></a><span class="co"># 4. FindVariableGenes</span></span>
+<span id="cb235-14"><a href="correcting-batch-effects.html#cb235-14"></a><span class="co"># 5. ScaleData </span></span>
+<span id="cb235-15"><a href="correcting-batch-effects.html#cb235-15"></a><span class="co"># 6. Update @meta.data slot in Seurat object with tech column (celseq, celseq2, fluidigmc1, smartseq2)</span></span>
+<span id="cb235-16"><a href="correcting-batch-effects.html#cb235-16"></a><span class="co"># Look at the distributions of number of genes per cell before and after FilterCells.</span></span>
+<span id="cb235-17"><a href="correcting-batch-effects.html#cb235-17"></a></span>
+<span id="cb235-18"><a href="correcting-batch-effects.html#cb235-18"></a><span class="co"># CEL-seq (https://www.cell.com/cell-reports/fulltext/S2211-1247(12)00228-8)</span></span>
+<span id="cb235-19"><a href="correcting-batch-effects.html#cb235-19"></a><span class="co"># In FilterCells, use low.thresholds = 1750</span></span>
+<span id="cb235-20"><a href="correcting-batch-effects.html#cb235-20"></a>celseq &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> celseq.data)</span>
+<span id="cb235-21"><a href="correcting-batch-effects.html#cb235-21"></a><span class="kw">VlnPlot</span>(celseq, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-22"><a href="correcting-batch-effects.html#cb235-22"></a>celseq &lt;-<span class="st"> </span><span class="kw">FilterCells</span>(celseq, <span class="dt">subset.names =</span> <span class="st">&quot;nGene&quot;</span>, <span class="dt">low.thresholds =</span> <span class="dv">1750</span>)</span>
+<span id="cb235-23"><a href="correcting-batch-effects.html#cb235-23"></a><span class="kw">VlnPlot</span>(celseq, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-24"><a href="correcting-batch-effects.html#cb235-24"></a>celseq &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(celseq)</span>
+<span id="cb235-25"><a href="correcting-batch-effects.html#cb235-25"></a>celseq &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(celseq, <span class="dt">do.plot =</span> F, <span class="dt">display.progress =</span> F)</span>
+<span id="cb235-26"><a href="correcting-batch-effects.html#cb235-26"></a>celseq &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(celseq)</span>
+<span id="cb235-27"><a href="correcting-batch-effects.html#cb235-27"></a>celseq<span class="op">@</span>meta.data<span class="op">$</span>tech &lt;-<span class="st"> &quot;celseq&quot;</span></span>
+<span id="cb235-28"><a href="correcting-batch-effects.html#cb235-28"></a></span>
+<span id="cb235-29"><a href="correcting-batch-effects.html#cb235-29"></a><span class="co"># CEL-Seq2 https://www.cell.com/molecular-cell/fulltext/S1097-2765(09)00641-8</span></span>
+<span id="cb235-30"><a href="correcting-batch-effects.html#cb235-30"></a><span class="co"># In FilterCells, use low.thresholds = 2500.</span></span>
+<span id="cb235-31"><a href="correcting-batch-effects.html#cb235-31"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> celseq2.data)</span>
+<span id="cb235-32"><a href="correcting-batch-effects.html#cb235-32"></a><span class="kw">VlnPlot</span>(celseq2, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-33"><a href="correcting-batch-effects.html#cb235-33"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">FilterCells</span>(celseq2, <span class="dt">subset.names =</span> <span class="st">&quot;nGene&quot;</span>, <span class="dt">low.thresholds =</span> <span class="dv">2500</span>)</span>
+<span id="cb235-34"><a href="correcting-batch-effects.html#cb235-34"></a><span class="kw">VlnPlot</span>(celseq2, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-35"><a href="correcting-batch-effects.html#cb235-35"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(celseq2)</span>
+<span id="cb235-36"><a href="correcting-batch-effects.html#cb235-36"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(celseq2, <span class="dt">do.plot =</span> F, <span class="dt">display.progress =</span> F)</span>
+<span id="cb235-37"><a href="correcting-batch-effects.html#cb235-37"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(celseq2)</span>
+<span id="cb235-38"><a href="correcting-batch-effects.html#cb235-38"></a>celseq2<span class="op">@</span>meta.data<span class="op">$</span>tech &lt;-<span class="st"> &quot;celseq2&quot;</span></span>
+<span id="cb235-39"><a href="correcting-batch-effects.html#cb235-39"></a></span>
+<span id="cb235-40"><a href="correcting-batch-effects.html#cb235-40"></a><span class="co"># Fluidigm C1</span></span>
+<span id="cb235-41"><a href="correcting-batch-effects.html#cb235-41"></a><span class="co"># Omit FilterCells function call because cells are already high quality.</span></span>
+<span id="cb235-42"><a href="correcting-batch-effects.html#cb235-42"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> fluidigmc1.data)</span>
+<span id="cb235-43"><a href="correcting-batch-effects.html#cb235-43"></a><span class="kw">VlnPlot</span>(fluidigmc1, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-44"><a href="correcting-batch-effects.html#cb235-44"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(fluidigmc1)</span>
+<span id="cb235-45"><a href="correcting-batch-effects.html#cb235-45"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(fluidigmc1, <span class="dt">do.plot =</span> F, <span class="dt">display.progress =</span> F)</span>
+<span id="cb235-46"><a href="correcting-batch-effects.html#cb235-46"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(fluidigmc1)</span>
+<span id="cb235-47"><a href="correcting-batch-effects.html#cb235-47"></a>fluidigmc1<span class="op">@</span>meta.data<span class="op">$</span>tech &lt;-<span class="st"> &quot;fluidigmc1&quot;</span></span>
+<span id="cb235-48"><a href="correcting-batch-effects.html#cb235-48"></a></span>
+<span id="cb235-49"><a href="correcting-batch-effects.html#cb235-49"></a><span class="co"># SMART-Seq2</span></span>
+<span id="cb235-50"><a href="correcting-batch-effects.html#cb235-50"></a><span class="co"># In FilterCells, use low.thresholds = 2500.</span></span>
+<span id="cb235-51"><a href="correcting-batch-effects.html#cb235-51"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> smartseq2.data)</span>
+<span id="cb235-52"><a href="correcting-batch-effects.html#cb235-52"></a><span class="kw">VlnPlot</span>(smartseq2, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-53"><a href="correcting-batch-effects.html#cb235-53"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">FilterCells</span>(smartseq2, <span class="dt">subset.names =</span> <span class="st">&quot;nGene&quot;</span>, <span class="dt">low.thresholds =</span> <span class="dv">2500</span>)</span>
+<span id="cb235-54"><a href="correcting-batch-effects.html#cb235-54"></a><span class="kw">VlnPlot</span>(smartseq2, <span class="st">&quot;nGene&quot;</span>)</span>
+<span id="cb235-55"><a href="correcting-batch-effects.html#cb235-55"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(smartseq2)</span>
+<span id="cb235-56"><a href="correcting-batch-effects.html#cb235-56"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(smartseq2, <span class="dt">do.plot =</span> F, <span class="dt">display.progress =</span> F)</span>
+<span id="cb235-57"><a href="correcting-batch-effects.html#cb235-57"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(smartseq2)</span>
+<span id="cb235-58"><a href="correcting-batch-effects.html#cb235-58"></a>smartseq2<span class="op">@</span>meta.data<span class="op">$</span>tech &lt;-<span class="st"> &quot;smartseq2&quot;</span></span>
+<span id="cb235-59"><a href="correcting-batch-effects.html#cb235-59"></a></span>
+<span id="cb235-60"><a href="correcting-batch-effects.html#cb235-60"></a><span class="co"># This code sub-samples the data in order to speed up calculations and not use too much memory.</span></span>
+<span id="cb235-61"><a href="correcting-batch-effects.html#cb235-61"></a>celseq &lt;-<span class="st"> </span><span class="kw">SetAllIdent</span>(celseq, <span class="dt">id =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb235-62"><a href="correcting-batch-effects.html#cb235-62"></a>celseq &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(celseq, <span class="dt">max.cells.per.ident =</span> <span class="dv">500</span>, <span class="dt">random.seed =</span> <span class="dv">1</span>)</span>
+<span id="cb235-63"><a href="correcting-batch-effects.html#cb235-63"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">SetAllIdent</span>(celseq2, <span class="dt">id =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb235-64"><a href="correcting-batch-effects.html#cb235-64"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(celseq2, <span class="dt">max.cells.per.ident =</span> <span class="dv">500</span>, <span class="dt">random.seed =</span> <span class="dv">1</span>)</span>
+<span id="cb235-65"><a href="correcting-batch-effects.html#cb235-65"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">SetAllIdent</span>(fluidigmc1, <span class="dt">id =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb235-66"><a href="correcting-batch-effects.html#cb235-66"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(fluidigmc1, <span class="dt">max.cells.per.ident =</span> <span class="dv">500</span>, <span class="dt">random.seed =</span> <span class="dv">1</span>)</span>
+<span id="cb235-67"><a href="correcting-batch-effects.html#cb235-67"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">SetAllIdent</span>(smartseq2, <span class="dt">id =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb235-68"><a href="correcting-batch-effects.html#cb235-68"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">SubsetData</span>(smartseq2, <span class="dt">max.cells.per.ident =</span> <span class="dv">500</span>, <span class="dt">random.seed =</span> <span class="dv">1</span>)</span>
+<span id="cb235-69"><a href="correcting-batch-effects.html#cb235-69"></a></span>
+<span id="cb235-70"><a href="correcting-batch-effects.html#cb235-70"></a><span class="co"># Save the sub-sampled Seurat objects</span></span>
+<span id="cb235-71"><a href="correcting-batch-effects.html#cb235-71"></a><span class="co"># save(celseq, celseq2, fluidigmc1, smartseq2, file = Rda.sparse.path)</span></span></code></pre></div>
+</div>
+<div id="cluster-pancreatic-datasets-without-batch-correction" class="section level2">
+<h2><span class="header-section-number">14.3</span> Cluster pancreatic datasets without batch correction</h2>
+<p>Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="correcting-batch-effects.html#cb236-1"></a><span class="co"># Merge Seurat objects by making a list of the 4 Seurat objects and using MergeMultipleSeuratObjects.</span></span>
+<span id="cb236-2"><a href="correcting-batch-effects.html#cb236-2"></a><span class="co"># The documentation for this function is in the first code chunk.</span></span>
+<span id="cb236-3"><a href="correcting-batch-effects.html#cb236-3"></a>gcdata &lt;-<span class="st"> </span><span class="kw">MergeMultipleSeuratObjects</span>(<span class="kw">list</span>(<span class="st">&quot;celseq&quot;</span> =<span class="st"> </span>celseq, <span class="st">&quot;celseq2&quot;</span> =<span class="st"> </span>celseq2, <span class="st">&quot;fluidigmc1&quot;</span> =<span class="st"> </span>fluidigmc1, <span class="st">&quot;smartseq2&quot;</span> =<span class="st"> </span>smartseq2), <span class="dt">project =</span> <span class="st">&quot;pancreas&quot;</span>)</span>
+<span id="cb236-4"><a href="correcting-batch-effects.html#cb236-4"></a></span>
+<span id="cb236-5"><a href="correcting-batch-effects.html#cb236-5"></a><span class="co"># Look at how the number of cells per gene varies across the different technologies.</span></span>
+<span id="cb236-6"><a href="correcting-batch-effects.html#cb236-6"></a><span class="kw">VlnPlot</span>(gcdata, <span class="st">&quot;nGene&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb236-7"><a href="correcting-batch-effects.html#cb236-7"></a></span>
+<span id="cb236-8"><a href="correcting-batch-effects.html#cb236-8"></a><span class="co"># The merged data must be normalized and scaled (but you only need to scale the variable genes). </span></span>
+<span id="cb236-9"><a href="correcting-batch-effects.html#cb236-9"></a><span class="co"># Let us also find the variable genes again this time using all the pancreas data.</span></span>
+<span id="cb236-10"><a href="correcting-batch-effects.html#cb236-10"></a>gcdata &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> gcdata)</span>
+<span id="cb236-11"><a href="correcting-batch-effects.html#cb236-11"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(gcdata, <span class="dt">do.plot =</span> F, <span class="dt">display.progress =</span> F)</span>
+<span id="cb236-12"><a href="correcting-batch-effects.html#cb236-12"></a>gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(gcdata, <span class="dt">genes.use =</span> gcdata<span class="op">@</span>var.genes)</span>
+<span id="cb236-13"><a href="correcting-batch-effects.html#cb236-13"></a></span>
+<span id="cb236-14"><a href="correcting-batch-effects.html#cb236-14"></a><span class="co"># Do PCA on data including only the variable genes.</span></span>
+<span id="cb236-15"><a href="correcting-batch-effects.html#cb236-15"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(gcdata, <span class="dt">pc.genes =</span> gcdata<span class="op">@</span>var.genes, <span class="dt">pcs.compute =</span> <span class="dv">30</span>, <span class="dt">do.print =</span> <span class="ot">TRUE</span>, <span class="dt">pcs.print =</span> <span class="dv">5</span>, <span class="dt">genes.print =</span> <span class="dv">5</span>)</span>
+<span id="cb236-16"><a href="correcting-batch-effects.html#cb236-16"></a></span>
+<span id="cb236-17"><a href="correcting-batch-effects.html#cb236-17"></a><span class="co"># Color the PC biplot by the scRNA-seq technology. Hint: use DimPlot</span></span>
+<span id="cb236-18"><a href="correcting-batch-effects.html#cb236-18"></a><span class="co"># Which technologies look similar to one another?</span></span>
+<span id="cb236-19"><a href="correcting-batch-effects.html#cb236-19"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb236-20"><a href="correcting-batch-effects.html#cb236-20"></a></span>
+<span id="cb236-21"><a href="correcting-batch-effects.html#cb236-21"></a><span class="co"># Cluster the cells using the first twenty principal components.</span></span>
+<span id="cb236-22"><a href="correcting-batch-effects.html#cb236-22"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">print.output =</span> F, <span class="dt">save.SNN =</span> T, <span class="dt">force.recalc =</span> T, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
+<span id="cb236-23"><a href="correcting-batch-effects.html#cb236-23"></a></span>
+<span id="cb236-24"><a href="correcting-batch-effects.html#cb236-24"></a><span class="co"># Create a tSNE visualization. </span></span>
+<span id="cb236-25"><a href="correcting-batch-effects.html#cb236-25"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(gcdata, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">do.fast =</span> T, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">perplexity =</span> <span class="dv">30</span>)</span>
+<span id="cb236-26"><a href="correcting-batch-effects.html#cb236-26"></a></span>
+<span id="cb236-27"><a href="correcting-batch-effects.html#cb236-27"></a><span class="co"># Visualize the Louvain clustering and the batches on the tSNE. </span></span>
+<span id="cb236-28"><a href="correcting-batch-effects.html#cb236-28"></a><span class="co"># Remember, the clustering is stored in @meta.data in column res.0.8 and the technology is</span></span>
+<span id="cb236-29"><a href="correcting-batch-effects.html#cb236-29"></a><span class="co"># stored in the column tech. Remember you can also use DimPlot</span></span>
+<span id="cb236-30"><a href="correcting-batch-effects.html#cb236-30"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction.use =</span> <span class="st">&quot;tsne&quot;</span>, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>, <span class="dt">group.by =</span> <span class="st">&quot;res.0.8&quot;</span>)</span>
+<span id="cb236-31"><a href="correcting-batch-effects.html#cb236-31"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction.use =</span> <span class="st">&quot;tsne&quot;</span>, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb236-32"><a href="correcting-batch-effects.html#cb236-32"></a></span>
+<span id="cb236-33"><a href="correcting-batch-effects.html#cb236-33"></a><span class="co"># Are you surprised by the results? Compare to your expectations from the PC biplot.</span></span>
+<span id="cb236-34"><a href="correcting-batch-effects.html#cb236-34"></a></span>
+<span id="cb236-35"><a href="correcting-batch-effects.html#cb236-35"></a><span class="co"># Adjusted rand index test for overlap between technology and cluster labelings. </span></span>
+<span id="cb236-36"><a href="correcting-batch-effects.html#cb236-36"></a><span class="co"># This goes between 0 (completely dissimilar clustering) to 1 (identical clustering). </span></span>
+<span id="cb236-37"><a href="correcting-batch-effects.html#cb236-37"></a><span class="co"># The adjustment corrects for chance grouping between cluster elements.</span></span>
+<span id="cb236-38"><a href="correcting-batch-effects.html#cb236-38"></a><span class="co"># https://davetang.org/muse/2017/09/21/adjusted-rand-index/</span></span>
+<span id="cb236-39"><a href="correcting-batch-effects.html#cb236-39"></a>ari &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(gcdata<span class="op">@</span>meta.data, tech, res.<span class="fl">0.8</span>)</span>
+<span id="cb236-40"><a href="correcting-batch-effects.html#cb236-40"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb236-41"><a href="correcting-batch-effects.html#cb236-41"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>res.<span class="fl">0.8</span>))</span>
+<span id="cb236-42"><a href="correcting-batch-effects.html#cb236-42"></a></span>
+<span id="cb236-43"><a href="correcting-batch-effects.html#cb236-43"></a><span class="co"># Save current progress.</span></span>
+<span id="cb236-44"><a href="correcting-batch-effects.html#cb236-44"></a><span class="co"># save(gcdata, file = Rda.path)</span></span>
+<span id="cb236-45"><a href="correcting-batch-effects.html#cb236-45"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb236-46"><a href="correcting-batch-effects.html#cb236-46"></a><span class="co"># load(Rda.path)</span></span></code></pre></div>
+<div id="batch-correction-canonical-correlation-analysis-cca-using-seurat" class="section level3">
+<h3><span class="header-section-number">14.3.1</span> Batch correction: canonical correlation analysis (CCA) using Seurat</h3>
+<p>Here we use canonical correlation analysis to see to what extent it can remove potential batch effects.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="correcting-batch-effects.html#cb237-1"></a><span class="co"># The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.</span></span>
+<span id="cb237-2"><a href="correcting-batch-effects.html#cb237-2"></a><span class="co"># Why would we implement such a requirement?</span></span>
+<span id="cb237-3"><a href="correcting-batch-effects.html#cb237-3"></a>ob.list &lt;-<span class="st"> </span><span class="kw">list</span>(celseq, celseq2, fluidigmc1, smartseq2)</span>
+<span id="cb237-4"><a href="correcting-batch-effects.html#cb237-4"></a>genes.use &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb237-5"><a href="correcting-batch-effects.html#cb237-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ob.list)) {</span>
+<span id="cb237-6"><a href="correcting-batch-effects.html#cb237-6"></a>  genes.use &lt;-<span class="st"> </span><span class="kw">c</span>(genes.use, <span class="kw">head</span>(<span class="kw">rownames</span>(ob.list[[i]]<span class="op">@</span>hvg.info), <span class="dv">1000</span>))</span>
+<span id="cb237-7"><a href="correcting-batch-effects.html#cb237-7"></a>}</span>
+<span id="cb237-8"><a href="correcting-batch-effects.html#cb237-8"></a>genes.use &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">table</span>(genes.use) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb237-9"><a href="correcting-batch-effects.html#cb237-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ob.list)) {</span>
+<span id="cb237-10"><a href="correcting-batch-effects.html#cb237-10"></a>  genes.use &lt;-<span class="st"> </span>genes.use[genes.use <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(ob.list[[i]]<span class="op">@</span>scale.data)]</span>
+<span id="cb237-11"><a href="correcting-batch-effects.html#cb237-11"></a>}</span>
+<span id="cb237-12"><a href="correcting-batch-effects.html#cb237-12"></a></span>
+<span id="cb237-13"><a href="correcting-batch-effects.html#cb237-13"></a><span class="co"># Run multi-set CCA on the 4 pancreatic islet datasets. </span></span>
+<span id="cb237-14"><a href="correcting-batch-effects.html#cb237-14"></a><span class="co"># Use the variable genes above, and calculate 15 canonical components.</span></span>
+<span id="cb237-15"><a href="correcting-batch-effects.html#cb237-15"></a>gcdata.CCA &lt;-<span class="st"> </span><span class="kw">RunMultiCCA</span>(ob.list, <span class="dt">genes.use =</span> genes.use, <span class="dt">num.ccs =</span> <span class="dv">15</span>)</span>
+<span id="cb237-16"><a href="correcting-batch-effects.html#cb237-16"></a></span>
+<span id="cb237-17"><a href="correcting-batch-effects.html#cb237-17"></a><span class="co"># Visualize CCA results. First plot CC1 versus CC2 with cells grouped by tech. </span></span>
+<span id="cb237-18"><a href="correcting-batch-effects.html#cb237-18"></a><span class="kw">DimPlot</span>(gcdata.CCA, <span class="dt">reduction.use =</span> <span class="st">&quot;cca&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>)</span>
+<span id="cb237-19"><a href="correcting-batch-effects.html#cb237-19"></a></span>
+<span id="cb237-20"><a href="correcting-batch-effects.html#cb237-20"></a><span class="co"># Visualize CCA results. Second, look at a violin plot of CC1 scores with cells grouped by tech.</span></span>
+<span id="cb237-21"><a href="correcting-batch-effects.html#cb237-21"></a><span class="kw">VlnPlot</span>(gcdata.CCA, <span class="dt">features.plot =</span> <span class="kw">c</span>(<span class="st">&quot;CC1&quot;</span>, <span class="st">&quot;CC2&quot;</span>), <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb237-22"><a href="correcting-batch-effects.html#cb237-22"></a></span>
+<span id="cb237-23"><a href="correcting-batch-effects.html#cb237-23"></a><span class="co"># We can also look at the genes important in the first few canonical components.</span></span>
+<span id="cb237-24"><a href="correcting-batch-effects.html#cb237-24"></a><span class="kw">DimHeatmap</span>(<span class="dt">object =</span> gcdata.CCA, <span class="dt">reduction.type =</span> <span class="st">&quot;cca&quot;</span>, <span class="dt">cells.use =</span> <span class="dv">500</span>, </span>
+<span id="cb237-25"><a href="correcting-batch-effects.html#cb237-25"></a>    <span class="dt">dim.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">do.balanced =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb237-26"><a href="correcting-batch-effects.html#cb237-26"></a></span>
+<span id="cb237-27"><a href="correcting-batch-effects.html#cb237-27"></a><span class="co"># Read the documentation for MetageneBicorPlot and </span></span>
+<span id="cb237-28"><a href="correcting-batch-effects.html#cb237-28"></a><span class="co"># also read https://en.wikipedia.org/wiki/Biweight_midcorrelation</span></span>
+<span id="cb237-29"><a href="correcting-batch-effects.html#cb237-29"></a><span class="co"># Use this function to determine how many canonical components to select.</span></span>
+<span id="cb237-30"><a href="correcting-batch-effects.html#cb237-30"></a><span class="co"># Remember to use the appropriate grouping variable.</span></span>
+<span id="cb237-31"><a href="correcting-batch-effects.html#cb237-31"></a><span class="co"># Try evaluating the first 15 canonical components.</span></span>
+<span id="cb237-32"><a href="correcting-batch-effects.html#cb237-32"></a><span class="kw">MetageneBicorPlot</span>(gcdata.CCA, <span class="dt">grouping.var =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">dims.eval =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">15</span>)</span>
+<span id="cb237-33"><a href="correcting-batch-effects.html#cb237-33"></a></span>
+<span id="cb237-34"><a href="correcting-batch-effects.html#cb237-34"></a><span class="co"># Based on the previous heatmaps and the midcorrelation plot, how many CCs will you select?</span></span>
+<span id="cb237-35"><a href="correcting-batch-effects.html#cb237-35"></a></span>
+<span id="cb237-36"><a href="correcting-batch-effects.html#cb237-36"></a><span class="co"># Next we can align the CCA subspaces across the 4 datasets. This will generate a new </span></span>
+<span id="cb237-37"><a href="correcting-batch-effects.html#cb237-37"></a><span class="co"># dimensional reduction called cca.aligned. The cells from all the datasets can then</span></span>
+<span id="cb237-38"><a href="correcting-batch-effects.html#cb237-38"></a><span class="co"># be clustered in this new space.</span></span>
+<span id="cb237-39"><a href="correcting-batch-effects.html#cb237-39"></a><span class="co"># Use AlignSubspace, specifying which variable to group by and the number of CCs to align</span></span>
+<span id="cb237-40"><a href="correcting-batch-effects.html#cb237-40"></a>gcdata.CCA &lt;-<span class="st"> </span><span class="kw">AlignSubspace</span>(gcdata.CCA, <span class="dt">grouping.var =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">dims.align =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)</span>
+<span id="cb237-41"><a href="correcting-batch-effects.html#cb237-41"></a></span>
+<span id="cb237-42"><a href="correcting-batch-effects.html#cb237-42"></a><span class="co"># Visualize the distribution of the aligned canonical correlation vectors (ACC1, ACC2) </span></span>
+<span id="cb237-43"><a href="correcting-batch-effects.html#cb237-43"></a><span class="co"># using VlnPlot.</span></span>
+<span id="cb237-44"><a href="correcting-batch-effects.html#cb237-44"></a><span class="kw">VlnPlot</span>(gcdata.CCA, <span class="dt">features.plot =</span> <span class="st">&quot;ACC1&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb237-45"><a href="correcting-batch-effects.html#cb237-45"></a><span class="kw">VlnPlot</span>(gcdata.CCA, <span class="dt">features.plot =</span> <span class="st">&quot;ACC2&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;orig.ident&quot;</span>, <span class="dt">do.return =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb237-46"><a href="correcting-batch-effects.html#cb237-46"></a><span class="co"># How does this compare to the distributions of the canonical components (CC1, CC2)?</span></span>
+<span id="cb237-47"><a href="correcting-batch-effects.html#cb237-47"></a></span>
+<span id="cb237-48"><a href="correcting-batch-effects.html#cb237-48"></a><span class="co"># Clustering. Choose the dimensional reduction type to use and the number of aligned </span></span>
+<span id="cb237-49"><a href="correcting-batch-effects.html#cb237-49"></a><span class="co"># canonical correlation vectors to use.</span></span>
+<span id="cb237-50"><a href="correcting-batch-effects.html#cb237-50"></a>gcdata.CCA &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata.CCA, <span class="dt">reduction.type =</span> <span class="st">&quot;cca.aligned&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">save.SNN =</span> T, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
+<span id="cb237-51"><a href="correcting-batch-effects.html#cb237-51"></a></span>
+<span id="cb237-52"><a href="correcting-batch-effects.html#cb237-52"></a><span class="co"># tSNE. Choose the dimensional reduction type to use and the number of aligned </span></span>
+<span id="cb237-53"><a href="correcting-batch-effects.html#cb237-53"></a><span class="co"># canonical correlation vectors to use.</span></span>
+<span id="cb237-54"><a href="correcting-batch-effects.html#cb237-54"></a>gcdata.CCA &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(gcdata.CCA, <span class="dt">reduction.use =</span> <span class="st">&quot;cca.aligned&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">do.fast =</span> <span class="ot">TRUE</span>, <span class="dt">seed.use =</span> <span class="dv">1</span>)</span>
+<span id="cb237-55"><a href="correcting-batch-effects.html#cb237-55"></a><span class="co"># gcdata.CCA &lt;- RunTNSE()</span></span>
+<span id="cb237-56"><a href="correcting-batch-effects.html#cb237-56"></a></span>
+<span id="cb237-57"><a href="correcting-batch-effects.html#cb237-57"></a><span class="co"># Visualize the Louvain clustering and the batches on the tSNE. </span></span>
+<span id="cb237-58"><a href="correcting-batch-effects.html#cb237-58"></a><span class="co"># Remember, the clustering is stored in @meta.data in column res.0.8 and the technology is</span></span>
+<span id="cb237-59"><a href="correcting-batch-effects.html#cb237-59"></a><span class="co"># stored in the column tech. Remember you can also use DimPlot</span></span>
+<span id="cb237-60"><a href="correcting-batch-effects.html#cb237-60"></a>p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(gcdata.CCA, <span class="dt">reduction.use =</span> <span class="st">&quot;tsne&quot;</span>, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>, <span class="dt">group.by =</span> <span class="st">&quot;res.0.8&quot;</span>, <span class="dt">do.return =</span> T)</span>
+<span id="cb237-61"><a href="correcting-batch-effects.html#cb237-61"></a>p2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(gcdata.CCA, <span class="dt">reduction.use =</span> <span class="st">&quot;tsne&quot;</span>, <span class="dt">dim.1 =</span> <span class="dv">1</span>, <span class="dt">dim.2 =</span> <span class="dv">2</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">do.return =</span> T)</span>
+<span id="cb237-62"><a href="correcting-batch-effects.html#cb237-62"></a><span class="kw">plot_grid</span>(p1, p2)</span>
+<span id="cb237-63"><a href="correcting-batch-effects.html#cb237-63"></a></span>
+<span id="cb237-64"><a href="correcting-batch-effects.html#cb237-64"></a><span class="co"># Let&#39;s look to see how the adjusted rand index changed compared to using no batch correction.</span></span>
+<span id="cb237-65"><a href="correcting-batch-effects.html#cb237-65"></a>ari &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(gcdata.CCA<span class="op">@</span>meta.data, tech, res.<span class="fl">0.8</span>)</span>
+<span id="cb237-66"><a href="correcting-batch-effects.html#cb237-66"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb237-67"><a href="correcting-batch-effects.html#cb237-67"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>res.<span class="fl">0.8</span>))</span>
+<span id="cb237-68"><a href="correcting-batch-effects.html#cb237-68"></a></span>
+<span id="cb237-69"><a href="correcting-batch-effects.html#cb237-69"></a><span class="co"># We can also identify conserved marker genes across the batches. Differential gene expression is</span></span>
+<span id="cb237-70"><a href="correcting-batch-effects.html#cb237-70"></a><span class="co"># done across each batch, and the p-values are combined.</span></span>
+<span id="cb237-71"><a href="correcting-batch-effects.html#cb237-71"></a>markers &lt;-<span class="st"> </span><span class="kw">FindConservedMarkers</span>(gcdata.CCA, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">grouping.var =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">print.bar =</span> T)</span>
+<span id="cb237-72"><a href="correcting-batch-effects.html#cb237-72"></a><span class="kw">head</span>(markers)</span>
+<span id="cb237-73"><a href="correcting-batch-effects.html#cb237-73"></a></span>
+<span id="cb237-74"><a href="correcting-batch-effects.html#cb237-74"></a><span class="co"># Visualize the expression of the first 5 marker genes on tSNE across the different batches</span></span>
+<span id="cb237-75"><a href="correcting-batch-effects.html#cb237-75"></a><span class="co"># using FeatureHeatmap.</span></span>
+<span id="cb237-76"><a href="correcting-batch-effects.html#cb237-76"></a><span class="kw">FeatureHeatmap</span>(gcdata.CCA, <span class="dt">features.plot =</span> <span class="kw">rownames</span>(markers)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.25</span>, <span class="dt">key.position =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">max.exp =</span> <span class="dv">3</span>)</span>
+<span id="cb237-77"><a href="correcting-batch-effects.html#cb237-77"></a></span>
+<span id="cb237-78"><a href="correcting-batch-effects.html#cb237-78"></a><span class="co"># Save current progress.</span></span>
+<span id="cb237-79"><a href="correcting-batch-effects.html#cb237-79"></a><span class="co"># save(gcdata.CCA, file = Rda.CCA.path)</span></span>
+<span id="cb237-80"><a href="correcting-batch-effects.html#cb237-80"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb237-81"><a href="correcting-batch-effects.html#cb237-81"></a><span class="co"># load(Rda.CCA.path)</span></span></code></pre></div>
+</div>
+<div id="batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger" class="section level3">
+<h3><span class="header-section-number">14.3.2</span> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</h3>
+<p>Here we use integrative non-negative matrix factorization to see to what extent it can remove potential batch effects.</p>
+<p>The important parameters in the batch correction are the number of factors (k), the penalty parameter (lambda), and the clustering resolution. The number of factors sets the number of factors (consisting of shared and dataset-specific factors) used in factorizing the matrix. The penalty parameter sets the balance between factors shared across the batches and factors specific to the individual batches. The default setting of lambda=5.0 is usually used by the Macosko lab. Resolution=1.0 is used in the Louvain clustering of the shared neighbor factors that have been quantile normalized.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="correcting-batch-effects.html#cb238-1"></a><span class="co"># The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.</span></span>
+<span id="cb238-2"><a href="correcting-batch-effects.html#cb238-2"></a>ob.list &lt;-<span class="st"> </span><span class="kw">list</span>(celseq, celseq2, fluidigmc1, smartseq2)</span>
+<span id="cb238-3"><a href="correcting-batch-effects.html#cb238-3"></a>genes.use &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb238-4"><a href="correcting-batch-effects.html#cb238-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ob.list)) {</span>
+<span id="cb238-5"><a href="correcting-batch-effects.html#cb238-5"></a>  genes.use &lt;-<span class="st"> </span><span class="kw">c</span>(genes.use, <span class="kw">head</span>(<span class="kw">rownames</span>(ob.list[[i]]<span class="op">@</span>hvg.info), <span class="dv">1000</span>))</span>
+<span id="cb238-6"><a href="correcting-batch-effects.html#cb238-6"></a>}</span>
+<span id="cb238-7"><a href="correcting-batch-effects.html#cb238-7"></a>genes.use &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">which</span>(<span class="kw">table</span>(genes.use) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb238-8"><a href="correcting-batch-effects.html#cb238-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ob.list)) {</span>
+<span id="cb238-9"><a href="correcting-batch-effects.html#cb238-9"></a>  genes.use &lt;-<span class="st"> </span>genes.use[genes.use <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(ob.list[[i]]<span class="op">@</span>scale.data)]</span>
+<span id="cb238-10"><a href="correcting-batch-effects.html#cb238-10"></a>}</span>
+<span id="cb238-11"><a href="correcting-batch-effects.html#cb238-11"></a></span>
+<span id="cb238-12"><a href="correcting-batch-effects.html#cb238-12"></a><span class="co"># Next we create a LIGER object with raw counts data from each batch.</span></span>
+<span id="cb238-13"><a href="correcting-batch-effects.html#cb238-13"></a>ob.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;celseq&quot;</span> =<span class="st"> </span>celseq.data, <span class="st">&quot;celseq2&quot;</span> =<span class="st"> </span>celseq2.data, <span class="st">&quot;fluidigmc1&quot;</span> =<span class="st"> </span>fluidigmc1.data, <span class="st">&quot;smartseq2&quot;</span> =<span class="st"> </span>smartseq2.data)</span>
+<span id="cb238-14"><a href="correcting-batch-effects.html#cb238-14"></a>data.liger &lt;-<span class="st"> </span><span class="kw">createLiger</span>(ob.list) </span>
+<span id="cb238-15"><a href="correcting-batch-effects.html#cb238-15"></a></span>
+<span id="cb238-16"><a href="correcting-batch-effects.html#cb238-16"></a><span class="co"># Normalize gene expression for each batch.</span></span>
+<span id="cb238-17"><a href="correcting-batch-effects.html#cb238-17"></a>data.liger &lt;-<span class="st"> </span>liger<span class="op">::</span><span class="kw">normalize</span>(data.liger)</span>
+<span id="cb238-18"><a href="correcting-batch-effects.html#cb238-18"></a></span>
+<span id="cb238-19"><a href="correcting-batch-effects.html#cb238-19"></a><span class="co"># For variable gene selection, we can either use those we identified in the earlier CCA </span></span>
+<span id="cb238-20"><a href="correcting-batch-effects.html#cb238-20"></a><span class="co"># batch correction analysis (genes.use) or we can use the LIGER function selectGenes().</span></span>
+<span id="cb238-21"><a href="correcting-batch-effects.html#cb238-21"></a><span class="co"># data.liger &lt;- selectGenes(data.liger, var.thresh = 0.1)</span></span>
+<span id="cb238-22"><a href="correcting-batch-effects.html#cb238-22"></a>data.liger<span class="op">@</span>var.genes &lt;-<span class="st"> </span>genes.use</span>
+<span id="cb238-23"><a href="correcting-batch-effects.html#cb238-23"></a></span>
+<span id="cb238-24"><a href="correcting-batch-effects.html#cb238-24"></a><span class="co"># Print out the number of variable genes for LIGER analysis.</span></span>
+<span id="cb238-25"><a href="correcting-batch-effects.html#cb238-25"></a><span class="kw">print</span>(<span class="kw">length</span>(data.liger<span class="op">@</span>var.genes))</span>
+<span id="cb238-26"><a href="correcting-batch-effects.html#cb238-26"></a></span>
+<span id="cb238-27"><a href="correcting-batch-effects.html#cb238-27"></a><span class="co"># Scale the gene expression across the datasets. </span></span>
+<span id="cb238-28"><a href="correcting-batch-effects.html#cb238-28"></a><span class="co"># Why does LIGER not center the data? Hint, think about the use of </span></span>
+<span id="cb238-29"><a href="correcting-batch-effects.html#cb238-29"></a><span class="co"># non-negative matrix factorization and the constraints that this imposes.</span></span>
+<span id="cb238-30"><a href="correcting-batch-effects.html#cb238-30"></a>data.liger &lt;-<span class="st"> </span><span class="kw">scaleNotCenter</span>(data.liger)</span>
+<span id="cb238-31"><a href="correcting-batch-effects.html#cb238-31"></a></span>
+<span id="cb238-32"><a href="correcting-batch-effects.html#cb238-32"></a><span class="co"># These two steps take 10-20 min. Only run them if you finish with the rest of the code.</span></span>
+<span id="cb238-33"><a href="correcting-batch-effects.html#cb238-33"></a><span class="co"># Use the `suggestK` function to determine the appropriate number of factors to use.</span></span>
+<span id="cb238-34"><a href="correcting-batch-effects.html#cb238-34"></a><span class="co"># Use the `suggestLambda` function to find the smallest lambda for which the alignment metric stabilizes.</span></span>
+<span id="cb238-35"><a href="correcting-batch-effects.html#cb238-35"></a><span class="co"># suggestK(data.liger)</span></span>
+<span id="cb238-36"><a href="correcting-batch-effects.html#cb238-36"></a><span class="co"># suggestLambda(ligerex, k = 20)</span></span>
+<span id="cb238-37"><a href="correcting-batch-effects.html#cb238-37"></a></span>
+<span id="cb238-38"><a href="correcting-batch-effects.html#cb238-38"></a><span class="co"># Use alternating least squares (ALS) to factorize the matrix.</span></span>
+<span id="cb238-39"><a href="correcting-batch-effects.html#cb238-39"></a>k.suggest &lt;-<span class="st"> </span><span class="dv">20</span>  <span class="co"># with this line, we do not use the suggested k by suggestK()</span></span>
+<span id="cb238-40"><a href="correcting-batch-effects.html#cb238-40"></a>data.liger &lt;-<span class="st"> </span><span class="kw">optimizeALS</span>(data.liger, <span class="dt">k =</span> k.suggest, <span class="dt">rand.seed =</span> <span class="dv">1</span>) </span>
+<span id="cb238-41"><a href="correcting-batch-effects.html#cb238-41"></a></span>
+<span id="cb238-42"><a href="correcting-batch-effects.html#cb238-42"></a><span class="co"># What do matrices H, V, and W represent, and what are their dimensions?</span></span>
+<span id="cb238-43"><a href="correcting-batch-effects.html#cb238-43"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>H<span class="op">$</span>celseq)</span>
+<span id="cb238-44"><a href="correcting-batch-effects.html#cb238-44"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>V<span class="op">$</span>celseq)</span>
+<span id="cb238-45"><a href="correcting-batch-effects.html#cb238-45"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>W)</span>
+<span id="cb238-46"><a href="correcting-batch-effects.html#cb238-46"></a></span>
+<span id="cb238-47"><a href="correcting-batch-effects.html#cb238-47"></a><span class="co"># Let&#39;s see what the integrated data looks like mapped onto a tSNE visualization.</span></span>
+<span id="cb238-48"><a href="correcting-batch-effects.html#cb238-48"></a>data.liger &lt;-<span class="st"> </span><span class="kw">runTSNE</span>(data.liger, <span class="dt">use.raw =</span> T)</span>
+<span id="cb238-49"><a href="correcting-batch-effects.html#cb238-49"></a>p &lt;-<span class="st"> </span><span class="kw">plotByDatasetAndCluster</span>(data.liger, <span class="dt">return.plots =</span> T)</span>
+<span id="cb238-50"><a href="correcting-batch-effects.html#cb238-50"></a><span class="kw">print</span>(p[[<span class="dv">1</span>]])  <span class="co"># plot by dataset</span></span>
+<span id="cb238-51"><a href="correcting-batch-effects.html#cb238-51"></a></span>
+<span id="cb238-52"><a href="correcting-batch-effects.html#cb238-52"></a><span class="co"># Next, do clustering of cells in shared nearest factor space, and then quantile alignment.</span></span>
+<span id="cb238-53"><a href="correcting-batch-effects.html#cb238-53"></a>data.liger &lt;-<span class="st"> </span><span class="kw">quantileAlignSNF</span>(data.liger, <span class="dt">resolution =</span> <span class="fl">1.0</span>) <span class="co"># SNF clustering and quantile alignment</span></span>
+<span id="cb238-54"><a href="correcting-batch-effects.html#cb238-54"></a></span>
+<span id="cb238-55"><a href="correcting-batch-effects.html#cb238-55"></a><span class="co"># What are the dimensions of H.norm. What does this represent? </span></span>
+<span id="cb238-56"><a href="correcting-batch-effects.html#cb238-56"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>H.norm)</span>
+<span id="cb238-57"><a href="correcting-batch-effects.html#cb238-57"></a></span>
+<span id="cb238-58"><a href="correcting-batch-effects.html#cb238-58"></a><span class="co"># Visualize liger batch correction results.</span></span>
+<span id="cb238-59"><a href="correcting-batch-effects.html#cb238-59"></a>data.liger &lt;-<span class="st"> </span><span class="kw">runTSNE</span>(data.liger)</span>
+<span id="cb238-60"><a href="correcting-batch-effects.html#cb238-60"></a>p &lt;-<span class="st"> </span><span class="kw">plotByDatasetAndCluster</span>(data.liger, <span class="dt">return.plots =</span> T) </span>
+<span id="cb238-61"><a href="correcting-batch-effects.html#cb238-61"></a><span class="kw">print</span>(p[[<span class="dv">1</span>]])  <span class="co"># plot by dataset</span></span>
+<span id="cb238-62"><a href="correcting-batch-effects.html#cb238-62"></a><span class="kw">plot_grid</span>(p[[<span class="dv">1</span>]], p[[<span class="dv">2</span>]])</span>
+<span id="cb238-63"><a href="correcting-batch-effects.html#cb238-63"></a></span>
+<span id="cb238-64"><a href="correcting-batch-effects.html#cb238-64"></a><span class="co"># Let&#39;s look to see how the adjusted rand index changed compared to using no batch correction.</span></span>
+<span id="cb238-65"><a href="correcting-batch-effects.html#cb238-65"></a>tech &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(data.liger<span class="op">@</span>H), <span class="cf">function</span>(x) { </span>
+<span id="cb238-66"><a href="correcting-batch-effects.html#cb238-66"></a>  <span class="kw">rep</span>(<span class="kw">names</span>(data.liger<span class="op">@</span>H)[x], <span class="kw">nrow</span>(data.liger<span class="op">@</span>H[[x]]))}))</span>
+<span id="cb238-67"><a href="correcting-batch-effects.html#cb238-67"></a>clusters &lt;-<span class="st"> </span>data.liger<span class="op">@</span>alignment.clusters</span>
+<span id="cb238-68"><a href="correcting-batch-effects.html#cb238-68"></a>ari &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;tech&quot;</span> =<span class="st"> </span>tech, <span class="st">&quot;clusters&quot;</span> =<span class="st"> </span>clusters)</span>
+<span id="cb238-69"><a href="correcting-batch-effects.html#cb238-69"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb238-70"><a href="correcting-batch-effects.html#cb238-70"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>clusters))</span>
+<span id="cb238-71"><a href="correcting-batch-effects.html#cb238-71"></a></span>
+<span id="cb238-72"><a href="correcting-batch-effects.html#cb238-72"></a><span class="co"># Look at proportion of each batch in each cluster, and look at factor loadings across clusters</span></span>
+<span id="cb238-73"><a href="correcting-batch-effects.html#cb238-73"></a><span class="kw">plotClusterProportions</span>(data.liger)</span>
+<span id="cb238-74"><a href="correcting-batch-effects.html#cb238-74"></a><span class="kw">plotClusterFactors</span>(data.liger, <span class="dt">use.aligned =</span> T)</span>
+<span id="cb238-75"><a href="correcting-batch-effects.html#cb238-75"></a></span>
+<span id="cb238-76"><a href="correcting-batch-effects.html#cb238-76"></a><span class="co"># Look at genes that are specific to a dataset and shared across datasets.</span></span>
+<span id="cb238-77"><a href="correcting-batch-effects.html#cb238-77"></a><span class="co"># Use the plotWordClouds function and choose 2 datasets.</span></span>
+<span id="cb238-78"><a href="correcting-batch-effects.html#cb238-78"></a><span class="kw">pdf</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;word_clouds.pdf&quot;</span>))</span>
+<span id="cb238-79"><a href="correcting-batch-effects.html#cb238-79"></a><span class="kw">plotWordClouds</span>(data.liger, <span class="dt">dataset1 =</span> <span class="st">&quot;celseq2&quot;</span>, <span class="dt">dataset2 =</span> <span class="st">&quot;smartseq2&quot;</span>)</span>
+<span id="cb238-80"><a href="correcting-batch-effects.html#cb238-80"></a><span class="kw">dev.off</span>()</span>
+<span id="cb238-81"><a href="correcting-batch-effects.html#cb238-81"></a></span>
+<span id="cb238-82"><a href="correcting-batch-effects.html#cb238-82"></a><span class="co"># Look at factor loadings for each cell using plotFactors. </span></span>
+<span id="cb238-83"><a href="correcting-batch-effects.html#cb238-83"></a><span class="kw">pdf</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;plot_factors.pdf&quot;</span>))</span>
+<span id="cb238-84"><a href="correcting-batch-effects.html#cb238-84"></a><span class="kw">plotFactors</span>(data.liger)</span>
+<span id="cb238-85"><a href="correcting-batch-effects.html#cb238-85"></a><span class="kw">dev.off</span>()</span>
+<span id="cb238-86"><a href="correcting-batch-effects.html#cb238-86"></a></span>
+<span id="cb238-87"><a href="correcting-batch-effects.html#cb238-87"></a><span class="co"># Identify shared and batch-specific marker genes from liger factorization.</span></span>
+<span id="cb238-88"><a href="correcting-batch-effects.html#cb238-88"></a><span class="co"># Use the getFactorMarkers function and choose 2 datasets.</span></span>
+<span id="cb238-89"><a href="correcting-batch-effects.html#cb238-89"></a><span class="co"># Then plot some genes of interest using plotGene and plotGeneViolin.</span></span>
+<span id="cb238-90"><a href="correcting-batch-effects.html#cb238-90"></a>markers &lt;-<span class="st"> </span><span class="kw">getFactorMarkers</span>(data.liger, <span class="dt">dataset1 =</span> <span class="st">&quot;celseq2&quot;</span>, <span class="dt">dataset2 =</span> <span class="st">&quot;smartseq2&quot;</span>, <span class="dt">num.genes =</span> <span class="dv">10</span>)</span>
+<span id="cb238-91"><a href="correcting-batch-effects.html#cb238-91"></a><span class="kw">plotGene</span>(data.liger, <span class="dt">gene =</span> <span class="st">&quot;INS&quot;</span>)</span>
+<span id="cb238-92"><a href="correcting-batch-effects.html#cb238-92"></a><span class="kw">plotGeneViolin</span>(data.liger, <span class="dt">gene =</span> <span class="st">&quot;INS&quot;</span>)</span>
+<span id="cb238-93"><a href="correcting-batch-effects.html#cb238-93"></a></span>
+<span id="cb238-94"><a href="correcting-batch-effects.html#cb238-94"></a><span class="co"># Save current progress.</span></span>
+<span id="cb238-95"><a href="correcting-batch-effects.html#cb238-95"></a><span class="co"># save(data.liger, file = Rda.liger.path)</span></span>
+<span id="cb238-96"><a href="correcting-batch-effects.html#cb238-96"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb238-97"><a href="correcting-batch-effects.html#cb238-97"></a><span class="co"># load(Rda.liger.path)</span></span></code></pre></div>
+</div>
+</div>
+<div id="additional-exploration-regressing-out-unwanted-covariates" class="section level2">
+<h2><span class="header-section-number">14.4</span> Additional exploration: Regressing out unwanted covariates</h2>
+<p>Learn how to regress out different technical covariates (number of UMIs, number of genes, percent mitochondrial reads) by studying <a href="https://satijalab.org/seurat/pbmc3k_tutorial.html">Seurat’s PBMC tutorial</a> and the ScaleData() function.</p>
+</div>
+<div id="additional-exploration-kbet" class="section level2">
+<h2><span class="header-section-number">14.5</span> Additional exploration: kBET</h2>
+<p>Within your RStudio session, install <a href="https://github.com/theislab/kBET">k-nearest neighbour batch effect test</a> and learn how to use its functionality to quantify batch effects in the pancreatic data.</p>
+</div>
+<div id="additional-exploration-seurat-3" class="section level2">
+<h2><span class="header-section-number">14.6</span> Additional exploration: Seurat 3</h2>
+<p>Read how new version of Seurat does <a href="https://satijalab.org/seurat/pancreas_integration_label_transfer.html">data integration</a></p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2><span class="header-section-number">14.7</span> Acknowledgements</h2>
+<p>This document builds off a tutorial from the <a href="https://www.dropbox.com/s/aji4ielg8gc70vj/multiple_pancreas_workflow.R?dl=1">Seurat website</a> and a tutorial from the <a href="https://github.com/MacoskoLab/liger/blob/master/vignettes/liger-vignette.html">LIGER website</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="batch-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functional-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["2020_scWorkshop.pdf", "2020_scWorkshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

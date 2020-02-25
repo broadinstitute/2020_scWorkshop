@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>17 Functional Pseudotime Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="17 Functional Pseudotime Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
+  <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="17 Functional Pseudotime Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+
+<meta name="author" content="Orr Ashenberg" />
+<meta name="author" content="Dana Silverbush" />
+<meta name="author" content="Kirk Gosik" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pseudotime-cell-trajectories.html"/>
+<link rel="next" href="single-cell-multiomic-technologies.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> COURSE OVERVIEW</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#targeted-audience-assumed-background"><i class="fa fa-check"></i><b>1.2</b> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#course-format"><i class="fa fa-check"></i><b>1.3</b> COURSE FORMAT</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>1.4</b> Getting Started</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#session-content"><i class="fa fa-check"></i><b>1.5</b> SESSION CONTENT</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#monday-classes-from-0930-to-1730-lunch-break-1-hr-40-min-of-total-coffee-breaks"><i class="fa fa-check"></i><b>1.5.1</b> Monday – Classes from 09:30 to 17:30 (lunch break-1 hr, 40 min of total coffee breaks)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#tuesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.2</b> Tuesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#wednesday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.3</b> Wednesday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#thursday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.4</b> Thursday – Classes from 09:30 to 17:30</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0930-to-1730"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 09:30 to 17:30</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#template-example"><i class="fa fa-check"></i><b>1.6</b> Template Example</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#make-object"><i class="fa fa-check"></i><b>1.7</b> Make Object</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#process-object"><i class="fa fa-check"></i><b>1.8</b> Process Object</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lecture-section-title.html"><a href="lecture-section-title.html"><i class="fa fa-check"></i><b>2</b> Lecture Section Title</a></li>
+<li class="chapter" data-level="3" data-path="scrna-seq-experimental-design.html"><a href="scrna-seq-experimental-design.html"><i class="fa fa-check"></i><b>3</b> scRNA-Seq Experimental Design</a></li>
+<li class="chapter" data-level="4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>4</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>4.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>4.1.1</b> Getting into AWS Instance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>4.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>4.2.1</b> Common Linux Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>4.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="4.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>4.3.2</b> View BAM Files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>4.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>4.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="4.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>4.4.2</b> GEO</a></li>
+<li class="chapter" data-level="4.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>4.4.3</b> Single Cell Portal</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-preprocessing.html"><a href="data-preprocessing.html"><i class="fa fa-check"></i><b>5</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="6" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>6</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>6.1</b> Goal</a></li>
+<li class="chapter" data-level="6.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>6.2</b> Further reading</a></li>
+<li class="chapter" data-level="6.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastqc"><i class="fa fa-check"></i><b>6.3</b> FastQC</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>6.3.1</b> Fastq file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>6.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>6.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="6.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>6.4.2</b> Bam file format</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>6.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html"><i class="fa fa-check"></i><b>7</b> Transcriptome Quantification</a></li>
+<li class="chapter" data-level="8" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>8</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="8.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>8.1</b> Start Environment</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>8.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>8.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="8.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>8.2.2</b> Github</a></li>
+<li class="chapter" data-level="8.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>8.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>8.2.4</b> Source</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>8.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>8.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="8.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>8.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="8.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>8.3.3</b> Detour to S3/S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>8.4</b> More information</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>8.4.1</b> Checking for help for any function!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>8.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>8.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="8.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>8.5.2</b> Principles of ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>8.6</b> Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="expression-qc-and-normalization.html"><a href="expression-qc-and-normalization.html"><i class="fa fa-check"></i><b>9</b> Expression QC and Normalization</a></li>
+<li class="chapter" data-level="10" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>10</b> Data Wrangling scRNAseq</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>10.1</b> Goal</a></li>
+<li class="chapter" data-level="10.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-1"><i class="fa fa-check"></i><b>10.2</b> Introduction</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>10.2.1</b> Load necessary packages</a></li>
+<li class="chapter" data-level="10.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>10.2.2</b> Read in NSCLC counts matrix.</a></li>
+<li class="chapter" data-level="10.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>10.2.3</b> Let’s examine the sparse counts matrix</a></li>
+<li class="chapter" data-level="10.2.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-big-is-the-matrix"><i class="fa fa-check"></i><b>10.2.4</b> How big is the matrix?</a></li>
+<li class="chapter" data-level="10.2.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-much-memory-does-a-sparse-matrix-take-up-relative-to-a-dense-matrix"><i class="fa fa-check"></i><b>10.2.5</b> How much memory does a sparse matrix take up relative to a dense matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#filtering-low-quality-cells"><i class="fa fa-check"></i><b>10.3</b> Filtering low-quality cells</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#look-at-the-summary-counts-for-genes-and-cells"><i class="fa fa-check"></i><b>10.3.1</b> Look at the summary counts for genes and cells</a></li>
+<li class="chapter" data-level="10.3.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#plot-cells-ranked-by-their-number-of-detected-genes."><i class="fa fa-check"></i><b>10.3.2</b> Plot cells ranked by their number of detected genes.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#beginning-with-seurat-httpsatijalab.orgseurat"><i class="fa fa-check"></i><b>10.4</b> Beginning with Seurat: <span>http://satijalab.org/seurat/</span></a><ul>
+<li class="chapter" data-level="10.4.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#creating-a-seurat-object"><i class="fa fa-check"></i><b>10.4.1</b> Creating a seurat object</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-1-filter-out-low-quality-cells"><i class="fa fa-check"></i><b>10.5</b> Preprocessing step 1 : Filter out low-quality cells</a></li>
+<li class="chapter" data-level="10.6" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#examine-contents-of-seurat-object"><i class="fa fa-check"></i><b>10.6</b> Examine contents of Seurat object</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-2-expression-normalization"><i class="fa fa-check"></i><b>10.6.1</b> Preprocessing step 2 : Expression normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#detection-of-variable-genes-across-the-single-cells"><i class="fa fa-check"></i><b>10.7</b> Detection of variable genes across the single cells</a></li>
+<li class="chapter" data-level="10.8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#gene-set-expression-across-cells"><i class="fa fa-check"></i><b>10.8</b> Gene set expression across cells</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>11</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="11.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>11.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>12</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial"><i class="fa fa-check"></i><b>12.2</b> Seurat Tutorial</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>12.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="12.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>12.2.2</b> Start of Identifying Cell Types</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>12.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>12.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="12.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#dimensionality-reduction"><i class="fa fa-check"></i><b>12.3.2</b> Dimensionality Reduction</a></li>
+<li class="chapter" data-level="12.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#independent-components-analysis-ica"><i class="fa fa-check"></i><b>12.3.3</b> Independent Components Analysis (ICA)</a></li>
+<li class="chapter" data-level="12.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#clustering"><i class="fa fa-check"></i><b>12.3.4</b> Clustering</a></li>
+<li class="chapter" data-level="12.3.5" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>12.3.5</b> Check Clusters</a></li>
+<li class="chapter" data-level="12.3.6" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>12.3.6</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>13</b> Batch Effects</a></li>
+<li class="chapter" data-level="14" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html"><i class="fa fa-check"></i><b>14</b> Correcting Batch Effects</a><ul>
+<li class="chapter" data-level="14.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#load-settings-and-packages"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="14.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>14.2</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="14.3" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>14.3</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-canonical-correlation-analysis-cca-using-seurat"><i class="fa fa-check"></i><b>14.3.1</b> Batch correction: canonical correlation analysis (CCA) using Seurat</a></li>
+<li class="chapter" data-level="14.3.2" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>14.3.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>14.4</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="14.5" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>14.5</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="14.6" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>14.6</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="14.7" data-path="correcting-batch-effects.html"><a href="correcting-batch-effects.html#acknowledgements"><i class="fa fa-check"></i><b>14.7</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="functional-analysis.html"><a href="functional-analysis.html"><i class="fa fa-check"></i><b>15</b> Functional Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="functional-analysis.html"><a href="functional-analysis.html#google-slides-1"><i class="fa fa-check"></i><b>15.1</b> Google Slides</a></li>
+<li class="chapter" data-level="15.2" data-path="functional-analysis.html"><a href="functional-analysis.html#gene-sets-and-signatures"><i class="fa fa-check"></i><b>15.2</b> Gene sets and signatures</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="functional-analysis.html"><a href="functional-analysis.html#cell-cycle"><i class="fa fa-check"></i><b>15.2.1</b> Cell Cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="functional-analysis.html"><a href="functional-analysis.html#pathway-analysis"><i class="fa fa-check"></i><b>15.3</b> Pathway analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="functional-analysis.html"><a href="functional-analysis.html#infercnv-honeybadger"><i class="fa fa-check"></i><b>15.4</b> inferCNV / honeybadger</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="functional-analysis.html"><a href="functional-analysis.html#create-the-infercnv-object"><i class="fa fa-check"></i><b>15.4.1</b> Create the InferCNV Object</a></li>
+<li class="chapter" data-level="15.4.2" data-path="functional-analysis.html"><a href="functional-analysis.html#filtering-genes"><i class="fa fa-check"></i><b>15.4.2</b> Filtering genes</a></li>
+<li class="chapter" data-level="15.4.3" data-path="functional-analysis.html"><a href="functional-analysis.html#normalize-each-cells-counts-for-sequencing-depth"><i class="fa fa-check"></i><b>15.4.3</b> Normalize each cell’s counts for sequencing depth</a></li>
+<li class="chapter" data-level="15.4.4" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-anscombe-normalization"><i class="fa fa-check"></i><b>15.4.4</b> Perform Anscombe normalization</a></li>
+<li class="chapter" data-level="15.4.5" data-path="functional-analysis.html"><a href="functional-analysis.html#log-transform-the-normalized-counts"><i class="fa fa-check"></i><b>15.4.5</b> Log transform the normalized counts:</a></li>
+<li class="chapter" data-level="15.4.6" data-path="functional-analysis.html"><a href="functional-analysis.html#apply-maximum-bounds-to-the-expression-data-to-reduce-outlier-effects"><i class="fa fa-check"></i><b>15.4.6</b> Apply maximum bounds to the expression data to reduce outlier effects</a></li>
+<li class="chapter" data-level="15.4.7" data-path="functional-analysis.html"><a href="functional-analysis.html#initial-view-before-infercnv-operations"><i class="fa fa-check"></i><b>15.4.7</b> Initial view, before inferCNV operations:</a></li>
+<li class="chapter" data-level="15.4.8" data-path="functional-analysis.html"><a href="functional-analysis.html#perform-smoothing-across-chromosomes"><i class="fa fa-check"></i><b>15.4.8</b> Perform smoothing across chromosomes</a></li>
+<li class="chapter" data-level="15.4.9" data-path="functional-analysis.html"><a href="functional-analysis.html#subtract-the-reference-values-from-observations-now-have-logfold-change-values"><i class="fa fa-check"></i><b>15.4.9</b> Subtract the reference values from observations, now have log(fold change) values</a></li>
+<li class="chapter" data-level="15.4.10" data-path="functional-analysis.html"><a href="functional-analysis.html#invert-log-values"><i class="fa fa-check"></i><b>15.4.10</b> Invert log values</a></li>
+<li class="chapter" data-level="15.4.11" data-path="functional-analysis.html"><a href="functional-analysis.html#removing-noise"><i class="fa fa-check"></i><b>15.4.11</b> Removing noise</a></li>
+<li class="chapter" data-level="15.4.12" data-path="functional-analysis.html"><a href="functional-analysis.html#remove-outlier-data-points"><i class="fa fa-check"></i><b>15.4.12</b> Remove outlier data points</a></li>
+<li class="chapter" data-level="15.4.13" data-path="functional-analysis.html"><a href="functional-analysis.html#find-de-genes-by-comparing-the-mutant-types-to-normal-types-basic"><i class="fa fa-check"></i><b>15.4.13</b> Find DE genes by comparing the mutant types to normal types, BASIC</a></li>
+<li class="chapter" data-level="15.4.14" data-path="functional-analysis.html"><a href="functional-analysis.html#additional-information"><i class="fa fa-check"></i><b>15.4.14</b> Additional Information</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>16</b> Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="16.1" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#google-slides-2"><i class="fa fa-check"></i><b>16.1</b> Google Slides</a></li>
+<li class="chapter" data-level="16.2" data-path="pseudotime-cell-trajectories.html"><a href="pseudotime-cell-trajectories.html#comparison-abstract"><i class="fa fa-check"></i><b>16.2</b> Comparison Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html"><i class="fa fa-check"></i><b>17</b> Functional Pseudotime Analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>17.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="17.2" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>17.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="17.3" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>17.3</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="17.4" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>17.4</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="17.5" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>17.5</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="17.6" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>17.6</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="17.7" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>17.7</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="17.8" data-path="functional-pseudotime-analysis.html"><a href="functional-pseudotime-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>17.8</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-multiomic-technologies.html"><a href="single-cell-multiomic-technologies.html"><i class="fa fa-check"></i><b>18</b> Single Cell Multiomic Technologies</a></li>
+<li class="chapter" data-level="19" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html"><i class="fa fa-check"></i><b>19</b> CITE-seq and scATAC-seq</a><ul>
+<li class="chapter" data-level="19.1" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>19.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="19.2" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>19.2</b> Load in the data</a></li>
+<li class="chapter" data-level="19.3" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>19.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="19.4" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>19.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="19.5" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>19.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="19.6" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>19.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="19.7" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>19.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="19.8" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>19.8</b> Additional exploration: another example of multi-modal analysis</a></li>
+<li class="chapter" data-level="19.9" data-path="cite-seq-and-scatac-seq.html"><a href="cite-seq-and-scatac-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>19.9</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>20</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="20.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>20.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="20.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>20.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="20.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>20.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="20.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>20.4</b> Online courses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="functional-pseudotime-analysis" class="section level1">
+<h1><span class="header-section-number">17</span> Functional Pseudotime Analysis</h1>
+<p>In this lab, we will analyze a single cell RNA-seq dataset that will teach us about several methods to infer the differentiation trajectory of a set of cells. These methods can order a set of individual cells along a path / trajectory / lineage, and assign a pseudotime value to each cell that represents where the cell is along that path. This can be a starting point for further analysis to determine gene expression programs driving interesting cell phenotypes. As you are running the code, think about how the algorithms work and what you like and do not like about the assumptions and utilities provided by the algorithm.</p>
+<p>Note: you can increase the system memory available to Docker by going to Docker -&gt; Preferences -&gt; Advanced and shifting the Memory slider.</p>
+<div id="load-settings-and-packages-1" class="section level2">
+<h2><span class="header-section-number">17.1</span> Load settings and packages</h2>
+</div>
+<div id="first-look-at-the-differentiation-data-from-deng-et-al." class="section level2">
+<h2><span class="header-section-number">17.2</span> First look at the differentiation data from Deng et al.</h2>
+<p>We will use a nice SMART-Seq2 single cell RNA-seq data from <a href="http://science.sciencemag.org/content/343/6167/193">Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells</a>. Here is one relevant detail from their paper: “To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)”</p>
+<p>Let us take a first look at the Deng data. One simple approach to ordering cells in pseudotime is to use PCA. By carrying out PCA and labeling the cells by the stage at which they were collected, we can see how well the principal components separate cells along a differentiation trajectory.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="functional-pseudotime-analysis.html#cb263-1"></a><span class="co"># Read in single cell data.</span></span>
+<span id="cb263-2"><a href="functional-pseudotime-analysis.html#cb263-2"></a>path.deng &lt;-<span class="st"> </span><span class="kw">paste0</span>(mydir, <span class="st">&quot;deng-reads.rds&quot;</span>)</span>
+<span id="cb263-3"><a href="functional-pseudotime-analysis.html#cb263-3"></a>deng_SCE &lt;-<span class="st"> </span><span class="kw">readRDS</span>(path.deng)</span>
+<span id="cb263-4"><a href="functional-pseudotime-analysis.html#cb263-4"></a></span>
+<span id="cb263-5"><a href="functional-pseudotime-analysis.html#cb263-5"></a><span class="co"># What class is the deng_SCE object, and how is it organized?</span></span>
+<span id="cb263-6"><a href="functional-pseudotime-analysis.html#cb263-6"></a><span class="kw">class</span>(deng_SCE)</span>
+<span id="cb263-7"><a href="functional-pseudotime-analysis.html#cb263-7"></a><span class="kw">structure</span>(deng_SCE)</span>
+<span id="cb263-8"><a href="functional-pseudotime-analysis.html#cb263-8"></a></span>
+<span id="cb263-9"><a href="functional-pseudotime-analysis.html#cb263-9"></a><span class="co"># How many mouse cells are at each stage?</span></span>
+<span id="cb263-10"><a href="functional-pseudotime-analysis.html#cb263-10"></a><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type1)</span>
+<span id="cb263-11"><a href="functional-pseudotime-analysis.html#cb263-11"></a><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type2)</span>
+<span id="cb263-12"><a href="functional-pseudotime-analysis.html#cb263-12"></a></span>
+<span id="cb263-13"><a href="functional-pseudotime-analysis.html#cb263-13"></a><span class="co"># Re-order the levels of the factor storing the cell developmental stage.</span></span>
+<span id="cb263-14"><a href="functional-pseudotime-analysis.html#cb263-14"></a>deng_SCE<span class="op">$</span>cell_type2 &lt;-<span class="st"> </span><span class="kw">factor</span>(deng_SCE<span class="op">$</span>cell_type2,</span>
+<span id="cb263-15"><a href="functional-pseudotime-analysis.html#cb263-15"></a>                              <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>, </span>
+<span id="cb263-16"><a href="functional-pseudotime-analysis.html#cb263-16"></a>                                         <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>, <span class="st">&quot;midblast&quot;</span>,</span>
+<span id="cb263-17"><a href="functional-pseudotime-analysis.html#cb263-17"></a>                                         <span class="st">&quot;lateblast&quot;</span>))</span>
+<span id="cb263-18"><a href="functional-pseudotime-analysis.html#cb263-18"></a></span>
+<span id="cb263-19"><a href="functional-pseudotime-analysis.html#cb263-19"></a><span class="co"># Run PCA on Deng data. Use the runPCA function from the SingleCellExperiment package.</span></span>
+<span id="cb263-20"><a href="functional-pseudotime-analysis.html#cb263-20"></a>deng_SCE &lt;-<span class="st"> </span><span class="kw">runPCA</span>(deng_SCE, <span class="dt">ncomponents =</span> <span class="dv">50</span>)</span>
+<span id="cb263-21"><a href="functional-pseudotime-analysis.html#cb263-21"></a></span>
+<span id="cb263-22"><a href="functional-pseudotime-analysis.html#cb263-22"></a><span class="co"># Use the reducedDim function to access the PCA and store the results. </span></span>
+<span id="cb263-23"><a href="functional-pseudotime-analysis.html#cb263-23"></a>pca &lt;-<span class="st"> </span><span class="kw">reducedDim</span>(deng_SCE, <span class="st">&quot;PCA&quot;</span>)</span>
+<span id="cb263-24"><a href="functional-pseudotime-analysis.html#cb263-24"></a></span>
+<span id="cb263-25"><a href="functional-pseudotime-analysis.html#cb263-25"></a><span class="co"># Describe how the PCA is stored in a matrix. Why does it have this structure?</span></span>
+<span id="cb263-26"><a href="functional-pseudotime-analysis.html#cb263-26"></a><span class="kw">head</span>(pca)</span>
+<span id="cb263-27"><a href="functional-pseudotime-analysis.html#cb263-27"></a><span class="kw">dim</span>(pca)</span>
+<span id="cb263-28"><a href="functional-pseudotime-analysis.html#cb263-28"></a></span>
+<span id="cb263-29"><a href="functional-pseudotime-analysis.html#cb263-29"></a><span class="co"># Add PCA data to the deng_SCE object.</span></span>
+<span id="cb263-30"><a href="functional-pseudotime-analysis.html#cb263-30"></a>deng_SCE<span class="op">$</span>PC1 &lt;-<span class="st"> </span>pca[, <span class="dv">1</span>]</span>
+<span id="cb263-31"><a href="functional-pseudotime-analysis.html#cb263-31"></a>deng_SCE<span class="op">$</span>PC2 &lt;-<span class="st"> </span>pca[, <span class="dv">2</span>]</span>
+<span id="cb263-32"><a href="functional-pseudotime-analysis.html#cb263-32"></a></span>
+<span id="cb263-33"><a href="functional-pseudotime-analysis.html#cb263-33"></a><span class="co"># Plot PC biplot with cells colored by cell_type2. </span></span>
+<span id="cb263-34"><a href="functional-pseudotime-analysis.html#cb263-34"></a><span class="co"># colData(deng_SCE) accesses the cell metadata DataFrame object for deng_SCE.</span></span>
+<span id="cb263-35"><a href="functional-pseudotime-analysis.html#cb263-35"></a><span class="co"># Look at Figure 1A of the paper as a comparison to your PC biplot.</span></span>
+<span id="cb263-36"><a href="functional-pseudotime-analysis.html#cb263-36"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2, <span class="dt">color =</span> cell_type2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb263-37"><a href="functional-pseudotime-analysis.html#cb263-37"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb263-38"><a href="functional-pseudotime-analysis.html#cb263-38"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;PC2&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;PC biplot&quot;</span>)</span>
+<span id="cb263-39"><a href="functional-pseudotime-analysis.html#cb263-39"></a></span>
+<span id="cb263-40"><a href="functional-pseudotime-analysis.html#cb263-40"></a><span class="co"># PCA is a simple approach and can be good to compare to more complex algorithms </span></span>
+<span id="cb263-41"><a href="functional-pseudotime-analysis.html#cb263-41"></a><span class="co"># designed to capture differentiation processes. As a simple measure of pseudotime </span></span>
+<span id="cb263-42"><a href="functional-pseudotime-analysis.html#cb263-42"></a><span class="co"># we can use the coordinates of PC1.</span></span>
+<span id="cb263-43"><a href="functional-pseudotime-analysis.html#cb263-43"></a><span class="co"># Plot PC1 vs cell_type2. </span></span>
+<span id="cb263-44"><a href="functional-pseudotime-analysis.html#cb263-44"></a>deng_SCE<span class="op">$</span>pseudotime_PC1 &lt;-<span class="st"> </span><span class="kw">rank</span>(deng_SCE<span class="op">$</span>PC1)  <span class="co"># rank cells by their PC1 score</span></span>
+<span id="cb263-45"><a href="functional-pseudotime-analysis.html#cb263-45"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_PC1, <span class="dt">y =</span> cell_type2, </span>
+<span id="cb263-46"><a href="functional-pseudotime-analysis.html#cb263-46"></a>                                             <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></span>
+<span id="cb263-47"><a href="functional-pseudotime-analysis.html#cb263-47"></a><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb263-48"><a href="functional-pseudotime-analysis.html#cb263-48"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb263-49"><a href="functional-pseudotime-analysis.html#cb263-49"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></span>
+<span id="cb263-50"><a href="functional-pseudotime-analysis.html#cb263-50"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by first principal component&quot;</span>)</span>
+<span id="cb263-51"><a href="functional-pseudotime-analysis.html#cb263-51"></a><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_PC1.png&quot;</span>))</span>
+<span id="cb263-52"><a href="functional-pseudotime-analysis.html#cb263-52"></a></span>
+<span id="cb263-53"><a href="functional-pseudotime-analysis.html#cb263-53"></a><span class="co"># Try separating the cell types using other PCs. How does the separation look?</span></span></code></pre></div>
+</div>
+<div id="diffusion-map-pseudotime" class="section level2">
+<h2><span class="header-section-number">17.3</span> Diffusion map pseudotime</h2>
+<p>Let us see how a more advance trajectory inference method, diffusion maps and diffusion pseudotime, performs at placing cells along the expected differentiation trajectory.</p>
+<p><a href="https://en.wikipedia.org/wiki/Diffusion_map">Diffusion maps</a> were introduced by <a href="http://www.sciencedirect.com/science/article/pii/S1063520306000546">Ronald Coifman and Stephane Lafon</a>, and the underlying idea is to assume that the data are samples from a diffusion process. The method infers the low-dimensional manifold by estimating the eigenvalues and eigenvectors for the diffusion operator related to the data.</p>
+<p><a href="https://academic.oup.com/bioinformatics/article/32/8/1241/1744143">Angerer et al</a> have applied the diffusion maps concept to the analysis of single-cell RNA-seq data to create an R package called <a href="http://bioconductor.org/packages/destiny">destiny</a>.</p>
+<p>We will use two forms of pseudotime: the first diffusion component and the diffusion pseudotime.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="functional-pseudotime-analysis.html#cb264-1"></a><span class="co">#  Prepare a counts matrix with labeled rows and columns. </span></span>
+<span id="cb264-2"><a href="functional-pseudotime-analysis.html#cb264-2"></a>deng &lt;-<span class="st"> </span><span class="kw">logcounts</span>(deng_SCE)  <span class="co"># access log-transformed counts matrix</span></span>
+<span id="cb264-3"><a href="functional-pseudotime-analysis.html#cb264-3"></a>cellLabels &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>cell_type2</span>
+<span id="cb264-4"><a href="functional-pseudotime-analysis.html#cb264-4"></a><span class="kw">colnames</span>(deng) &lt;-<span class="st"> </span>cellLabels</span>
+<span id="cb264-5"><a href="functional-pseudotime-analysis.html#cb264-5"></a></span>
+<span id="cb264-6"><a href="functional-pseudotime-analysis.html#cb264-6"></a><span class="co"># Make a diffusion map.</span></span>
+<span id="cb264-7"><a href="functional-pseudotime-analysis.html#cb264-7"></a>dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(<span class="kw">t</span>(deng))</span>
+<span id="cb264-8"><a href="functional-pseudotime-analysis.html#cb264-8"></a></span>
+<span id="cb264-9"><a href="functional-pseudotime-analysis.html#cb264-9"></a><span class="co"># Optional: Try different sigma values when making diffusion map.</span></span>
+<span id="cb264-10"><a href="functional-pseudotime-analysis.html#cb264-10"></a><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = &quot;local&quot;)  # use local option to set sigma</span></span>
+<span id="cb264-11"><a href="functional-pseudotime-analysis.html#cb264-11"></a><span class="co"># sigmas &lt;- find_sigmas(t(deng), verbose = FALSE)  # find optimal sigma</span></span>
+<span id="cb264-12"><a href="functional-pseudotime-analysis.html#cb264-12"></a><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = optimal_sigma(sigmas))  </span></span>
+<span id="cb264-13"><a href="functional-pseudotime-analysis.html#cb264-13"></a></span>
+<span id="cb264-14"><a href="functional-pseudotime-analysis.html#cb264-14"></a><span class="co"># Plot diffusion component 1 vs diffusion component 2 (DC1 vs DC2). </span></span>
+<span id="cb264-15"><a href="functional-pseudotime-analysis.html#cb264-15"></a>tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>],</span>
+<span id="cb264-16"><a href="functional-pseudotime-analysis.html#cb264-16"></a>                  <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>],</span>
+<span id="cb264-17"><a href="functional-pseudotime-analysis.html#cb264-17"></a>                  <span class="dt">Timepoint =</span> deng_SCE<span class="op">$</span>cell_type2)</span>
+<span id="cb264-18"><a href="functional-pseudotime-analysis.html#cb264-18"></a><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">colour =</span> Timepoint)) <span class="op">+</span></span>
+<span id="cb264-19"><a href="functional-pseudotime-analysis.html#cb264-19"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb264-20"><a href="functional-pseudotime-analysis.html#cb264-20"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb264-21"><a href="functional-pseudotime-analysis.html#cb264-21"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Diffusion component 2&quot;</span>) <span class="op">+</span></span>
+<span id="cb264-22"><a href="functional-pseudotime-analysis.html#cb264-22"></a><span class="st">    </span><span class="kw">theme_classic</span>()</span>
+<span id="cb264-23"><a href="functional-pseudotime-analysis.html#cb264-23"></a></span>
+<span id="cb264-24"><a href="functional-pseudotime-analysis.html#cb264-24"></a><span class="co"># Try plotting higher diffusion components against one another.</span></span>
+<span id="cb264-25"><a href="functional-pseudotime-analysis.html#cb264-25"></a></span>
+<span id="cb264-26"><a href="functional-pseudotime-analysis.html#cb264-26"></a><span class="co"># Next, let us use the first diffusion component (DC1) as a measure of pseudotime.</span></span>
+<span id="cb264-27"><a href="functional-pseudotime-analysis.html#cb264-27"></a><span class="co"># How does the separation by cell stage look?</span></span>
+<span id="cb264-28"><a href="functional-pseudotime-analysis.html#cb264-28"></a>deng_SCE<span class="op">$</span>pseudotime_diffusionmap &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="kw">eigenvectors</span>(dm)[,<span class="dv">1</span>])    <span class="co"># rank cells by their dpt</span></span>
+<span id="cb264-29"><a href="functional-pseudotime-analysis.html#cb264-29"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </span>
+<span id="cb264-30"><a href="functional-pseudotime-analysis.html#cb264-30"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_diffusionmap, </span>
+<span id="cb264-31"><a href="functional-pseudotime-analysis.html#cb264-31"></a>           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></span>
+<span id="cb264-32"><a href="functional-pseudotime-analysis.html#cb264-32"></a><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb264-33"><a href="functional-pseudotime-analysis.html#cb264-33"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb264-34"><a href="functional-pseudotime-analysis.html#cb264-34"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1 (DC1)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></span>
+<span id="cb264-35"><a href="functional-pseudotime-analysis.html#cb264-35"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by DC1&quot;</span>)</span>
+<span id="cb264-36"><a href="functional-pseudotime-analysis.html#cb264-36"></a><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_DC1.png&quot;</span>))</span>
+<span id="cb264-37"><a href="functional-pseudotime-analysis.html#cb264-37"></a></span>
+<span id="cb264-38"><a href="functional-pseudotime-analysis.html#cb264-38"></a><span class="co"># Plot eigenvalues of diffusion distance matrix. How many diffusion components would you use?</span></span>
+<span id="cb264-39"><a href="functional-pseudotime-analysis.html#cb264-39"></a><span class="co"># This is analagous to the PC elbow plot (scree plot) that we previously used to assess how </span></span>
+<span id="cb264-40"><a href="functional-pseudotime-analysis.html#cb264-40"></a><span class="co"># many PCs to use in downstream applications like clustering.</span></span>
+<span id="cb264-41"><a href="functional-pseudotime-analysis.html#cb264-41"></a><span class="kw">plot</span>(<span class="kw">eigenvalues</span>(dm), <span class="dt">ylim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">xlab =</span> <span class="st">&#39;Diffusion component (DC)&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Eigenvalue&#39;</span>)</span>
+<span id="cb264-42"><a href="functional-pseudotime-analysis.html#cb264-42"></a></span>
+<span id="cb264-43"><a href="functional-pseudotime-analysis.html#cb264-43"></a><span class="co"># What happens if you run the diffusion map on the PCs? Why would one do this?</span></span>
+<span id="cb264-44"><a href="functional-pseudotime-analysis.html#cb264-44"></a><span class="kw">rownames</span>(pca) &lt;-<span class="st"> </span>cellLabels</span>
+<span id="cb264-45"><a href="functional-pseudotime-analysis.html#cb264-45"></a>dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(pca)</span>
+<span id="cb264-46"><a href="functional-pseudotime-analysis.html#cb264-46"></a></span>
+<span id="cb264-47"><a href="functional-pseudotime-analysis.html#cb264-47"></a><span class="co"># Diffusion pseudotime calculation. </span></span>
+<span id="cb264-48"><a href="functional-pseudotime-analysis.html#cb264-48"></a><span class="co"># Set index or tip of pseudotime calculation to be a zygotic cell (cell 268). </span></span>
+<span id="cb264-49"><a href="functional-pseudotime-analysis.html#cb264-49"></a>dpt &lt;-<span class="st"> </span><span class="kw">DPT</span>(dm, <span class="dt">tips =</span> <span class="dv">268</span>)</span>
+<span id="cb264-50"><a href="functional-pseudotime-analysis.html#cb264-50"></a></span>
+<span id="cb264-51"><a href="functional-pseudotime-analysis.html#cb264-51"></a><span class="co"># Plot DC1 vs DC2 and color the cells by their inferred diffusion pseudotime.</span></span>
+<span id="cb264-52"><a href="functional-pseudotime-analysis.html#cb264-52"></a><span class="co"># We can accesss diffusion pseudotime via dpt$dpt.</span></span>
+<span id="cb264-53"><a href="functional-pseudotime-analysis.html#cb264-53"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>], <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>], </span>
+<span id="cb264-54"><a href="functional-pseudotime-analysis.html#cb264-54"></a>                 <span class="dt">dptval =</span> dpt<span class="op">$</span>dpt, <span class="dt">cell_type2 =</span> deng_SCE<span class="op">$</span>cell_type2)</span>
+<span id="cb264-55"><a href="functional-pseudotime-analysis.html#cb264-55"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> dptval))</span>
+<span id="cb264-56"><a href="functional-pseudotime-analysis.html#cb264-56"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> cell_type2))</span>
+<span id="cb264-57"><a href="functional-pseudotime-analysis.html#cb264-57"></a>p &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(p1, p2)</span>
+<span id="cb264-58"><a href="functional-pseudotime-analysis.html#cb264-58"></a>p</span>
+<span id="cb264-59"><a href="functional-pseudotime-analysis.html#cb264-59"></a><span class="kw">save_plot</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/dpt_celltype.png&quot;</span>), p, <span class="dt">base_height =</span> <span class="dv">5</span>, <span class="dt">base_aspect_ratio =</span> <span class="dv">2</span>)</span>
+<span id="cb264-60"><a href="functional-pseudotime-analysis.html#cb264-60"></a></span>
+<span id="cb264-61"><a href="functional-pseudotime-analysis.html#cb264-61"></a><span class="co"># Plot diffusion pseudotime vs timepoint. </span></span>
+<span id="cb264-62"><a href="functional-pseudotime-analysis.html#cb264-62"></a><span class="co"># Which separates the data better, DC1 or diffusion pseudotime?</span></span>
+<span id="cb264-63"><a href="functional-pseudotime-analysis.html#cb264-63"></a>deng_SCE<span class="op">$</span>pseudotime_dpt &lt;-<span class="st"> </span><span class="kw">rank</span>(dpt<span class="op">$</span>dpt) </span>
+<span id="cb264-64"><a href="functional-pseudotime-analysis.html#cb264-64"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </span>
+<span id="cb264-65"><a href="functional-pseudotime-analysis.html#cb264-65"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_dpt, </span>
+<span id="cb264-66"><a href="functional-pseudotime-analysis.html#cb264-66"></a>           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></span>
+<span id="cb264-67"><a href="functional-pseudotime-analysis.html#cb264-67"></a><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb264-68"><a href="functional-pseudotime-analysis.html#cb264-68"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb264-69"><a href="functional-pseudotime-analysis.html#cb264-69"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion map pseudotime (dpt)&quot;</span>) <span class="op">+</span></span>
+<span id="cb264-70"><a href="functional-pseudotime-analysis.html#cb264-70"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></span>
+<span id="cb264-71"><a href="functional-pseudotime-analysis.html#cb264-71"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by diffusion map pseudotime&quot;</span>)</span>
+<span id="cb264-72"><a href="functional-pseudotime-analysis.html#cb264-72"></a><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_dpt.png&quot;</span>))</span>
+<span id="cb264-73"><a href="functional-pseudotime-analysis.html#cb264-73"></a></span>
+<span id="cb264-74"><a href="functional-pseudotime-analysis.html#cb264-74"></a><span class="co"># Save current progress.</span></span>
+<span id="cb264-75"><a href="functional-pseudotime-analysis.html#cb264-75"></a><span class="co"># save(deng_SCE, file = Rda.destiny.path)</span></span>
+<span id="cb264-76"><a href="functional-pseudotime-analysis.html#cb264-76"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb264-77"><a href="functional-pseudotime-analysis.html#cb264-77"></a><span class="co"># load(Rda.destiny.path)</span></span></code></pre></div>
+</div>
+<div id="slingshot-map-pseudotime" class="section level2">
+<h2><span class="header-section-number">17.4</span> Slingshot map pseudotime</h2>
+<p>Let us see how another advance trajectory inference method, Slingshot, performs at placing cells along the expected differentiation trajectory.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="functional-pseudotime-analysis.html#cb265-1"></a><span class="kw">library</span>(slingshot)</span>
+<span id="cb265-2"><a href="functional-pseudotime-analysis.html#cb265-2"></a><span class="kw">library</span>(Seurat)</span>
+<span id="cb265-3"><a href="functional-pseudotime-analysis.html#cb265-3"></a></span>
+<span id="cb265-4"><a href="functional-pseudotime-analysis.html#cb265-4"></a><span class="co"># Read the Slingshot documentation (?slingshot) and then run Slingshot below. </span></span>
+<span id="cb265-5"><a href="functional-pseudotime-analysis.html#cb265-5"></a><span class="co"># Given your understanding of the algorithm and the documentation, what is one </span></span>
+<span id="cb265-6"><a href="functional-pseudotime-analysis.html#cb265-6"></a><span class="co"># major set of parameters we omitted here when running Slingshot?</span></span>
+<span id="cb265-7"><a href="functional-pseudotime-analysis.html#cb265-7"></a>sce &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)  <span class="co"># no clusters</span></span>
+<span id="cb265-8"><a href="functional-pseudotime-analysis.html#cb265-8"></a></span>
+<span id="cb265-9"><a href="functional-pseudotime-analysis.html#cb265-9"></a><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></span>
+<span id="cb265-10"><a href="functional-pseudotime-analysis.html#cb265-10"></a>colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb265-11"><a href="functional-pseudotime-analysis.html#cb265-11"></a><span class="kw">plot</span>(<span class="kw">reducedDims</span>(sce)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb265-12"><a href="functional-pseudotime-analysis.html#cb265-12"></a><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(sce), <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb265-13"><a href="functional-pseudotime-analysis.html#cb265-13"></a></span>
+<span id="cb265-14"><a href="functional-pseudotime-analysis.html#cb265-14"></a><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></span>
+<span id="cb265-15"><a href="functional-pseudotime-analysis.html#cb265-15"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </span>
+<span id="cb265-16"><a href="functional-pseudotime-analysis.html#cb265-16"></a>                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></span>
+<span id="cb265-17"><a href="functional-pseudotime-analysis.html#cb265-17"></a><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb265-18"><a href="functional-pseudotime-analysis.html#cb265-18"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb265-19"><a href="functional-pseudotime-analysis.html#cb265-19"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></span>
+<span id="cb265-20"><a href="functional-pseudotime-analysis.html#cb265-20"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</span>
+<span id="cb265-21"><a href="functional-pseudotime-analysis.html#cb265-21"></a></span>
+<span id="cb265-22"><a href="functional-pseudotime-analysis.html#cb265-22"></a><span class="co"># Cluster cells using the Seurat workflow below.</span></span>
+<span id="cb265-23"><a href="functional-pseudotime-analysis.html#cb265-23"></a>gcdata &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> <span class="kw">counts</span>(deng_SCE), <span class="dt">min.cells =</span> <span class="dv">0</span>, <span class="dt">min.genes =</span> <span class="dv">0</span>, <span class="dt">project =</span> <span class="st">&quot;slingshot&quot;</span>)</span>
+<span id="cb265-24"><a href="functional-pseudotime-analysis.html#cb265-24"></a>gcdata &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> gcdata, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, </span>
+<span id="cb265-25"><a href="functional-pseudotime-analysis.html#cb265-25"></a>    <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
+<span id="cb265-26"><a href="functional-pseudotime-analysis.html#cb265-26"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindVariableGenes</span>(<span class="dt">object =</span> gcdata, <span class="dt">mean.function =</span> ExpMean, <span class="dt">dispersion.function =</span> LogVMR, <span class="dt">x.low.cutoff =</span> <span class="fl">0.1</span>, <span class="dt">x.high.cutoff =</span> <span class="dv">3</span>, <span class="dt">y.cutoff =</span> <span class="fl">0.5</span>)</span>
+<span id="cb265-27"><a href="functional-pseudotime-analysis.html#cb265-27"></a>gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> gcdata, <span class="dt">do.center =</span> T, <span class="dt">do.scale =</span> F)</span>
+<span id="cb265-28"><a href="functional-pseudotime-analysis.html#cb265-28"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> gcdata, <span class="dt">pc.genes =</span> gcdata<span class="op">@</span>var.genes, <span class="dt">do.print =</span> <span class="ot">TRUE</span>, <span class="dt">pcs.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb265-29"><a href="functional-pseudotime-analysis.html#cb265-29"></a>    <span class="dt">genes.print =</span> <span class="dv">5</span>)</span>
+<span id="cb265-30"><a href="functional-pseudotime-analysis.html#cb265-30"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> gcdata, <span class="dt">reduction.type =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, </span>
+<span id="cb265-31"><a href="functional-pseudotime-analysis.html#cb265-31"></a>    <span class="dt">resolution =</span> <span class="fl">0.6</span>, <span class="dt">print.output =</span> <span class="dv">0</span>, <span class="dt">save.SNN =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb265-32"><a href="functional-pseudotime-analysis.html#cb265-32"></a></span>
+<span id="cb265-33"><a href="functional-pseudotime-analysis.html#cb265-33"></a><span class="co"># Add clustering information from Seurat to the deng_SCE object</span></span>
+<span id="cb265-34"><a href="functional-pseudotime-analysis.html#cb265-34"></a><span class="co"># Then run Slingshot using these cluster assignments.</span></span>
+<span id="cb265-35"><a href="functional-pseudotime-analysis.html#cb265-35"></a>deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># remove old slingshot pseudotime data</span></span>
+<span id="cb265-36"><a href="functional-pseudotime-analysis.html#cb265-36"></a><span class="kw">colData</span>(deng_SCE)<span class="op">$</span>Seurat_clusters &lt;-<span class="st"> </span><span class="kw">as.character</span>(gcdata<span class="op">@</span>ident)  <span class="co"># go from factor to character</span></span>
+<span id="cb265-37"><a href="functional-pseudotime-analysis.html#cb265-37"></a>deng_SCE &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">clusterLabels =</span> <span class="st">&#39;Seurat_clusters&#39;</span>, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)</span>
+<span id="cb265-38"><a href="functional-pseudotime-analysis.html#cb265-38"></a></span>
+<span id="cb265-39"><a href="functional-pseudotime-analysis.html#cb265-39"></a><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></span>
+<span id="cb265-40"><a href="functional-pseudotime-analysis.html#cb265-40"></a>colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb265-41"><a href="functional-pseudotime-analysis.html#cb265-41"></a><span class="kw">plot</span>(<span class="kw">reducedDims</span>(deng_SCE)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb265-42"><a href="functional-pseudotime-analysis.html#cb265-42"></a><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(deng_SCE), <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb265-43"><a href="functional-pseudotime-analysis.html#cb265-43"></a></span>
+<span id="cb265-44"><a href="functional-pseudotime-analysis.html#cb265-44"></a><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></span>
+<span id="cb265-45"><a href="functional-pseudotime-analysis.html#cb265-45"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </span>
+<span id="cb265-46"><a href="functional-pseudotime-analysis.html#cb265-46"></a>                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></span>
+<span id="cb265-47"><a href="functional-pseudotime-analysis.html#cb265-47"></a><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb265-48"><a href="functional-pseudotime-analysis.html#cb265-48"></a><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb265-49"><a href="functional-pseudotime-analysis.html#cb265-49"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></span>
+<span id="cb265-50"><a href="functional-pseudotime-analysis.html#cb265-50"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</span>
+<span id="cb265-51"><a href="functional-pseudotime-analysis.html#cb265-51"></a><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_slingshot.png&quot;</span>))</span>
+<span id="cb265-52"><a href="functional-pseudotime-analysis.html#cb265-52"></a></span>
+<span id="cb265-53"><a href="functional-pseudotime-analysis.html#cb265-53"></a><span class="co"># Save current progress.</span></span>
+<span id="cb265-54"><a href="functional-pseudotime-analysis.html#cb265-54"></a><span class="co"># save(deng_SCE, file = Rda.slingshot.path)</span></span>
+<span id="cb265-55"><a href="functional-pseudotime-analysis.html#cb265-55"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb265-56"><a href="functional-pseudotime-analysis.html#cb265-56"></a><span class="co"># load(Rda.slingshot.path)</span></span></code></pre></div>
+</div>
+<div id="find-temporally-expressed-genes" class="section level2">
+<h2><span class="header-section-number">17.5</span> Find temporally expressed genes</h2>
+<p>In this final analysis code chunk, we will identify temporally expressed genes, ie those genes whose expression is changing in a continuous manner over pseudotime. To do this, we will fit a GAM with a LOESS term for pseudotime. Functions for fitting and working with generalized additive models, as described in “Generalized Additive Models” (Hastie and Tibshirani, 1990).
+<a href="https://multithreaded.stitchfix.com/blog/2015/07/30/gam/">Read more about GAMs</a></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="functional-pseudotime-analysis.html#cb266-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;gam&quot;</span>)</span>
+<span id="cb266-2"><a href="functional-pseudotime-analysis.html#cb266-2"></a><span class="kw">library</span>(gam)</span>
+<span id="cb266-3"><a href="functional-pseudotime-analysis.html#cb266-3"></a></span>
+<span id="cb266-4"><a href="functional-pseudotime-analysis.html#cb266-4"></a><span class="co"># Only look at the 1,000 most variable genes when identifying temporally expressesd genes.</span></span>
+<span id="cb266-5"><a href="functional-pseudotime-analysis.html#cb266-5"></a><span class="co"># Identify the variable genes by ranking all genes by their variance.</span></span>
+<span id="cb266-6"><a href="functional-pseudotime-analysis.html#cb266-6"></a>Y &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">counts</span>(deng_SCE) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb266-7"><a href="functional-pseudotime-analysis.html#cb266-7"></a>var1K &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(Y, <span class="dv">1</span>, var),<span class="dt">decreasing =</span> <span class="ot">TRUE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>]</span>
+<span id="cb266-8"><a href="functional-pseudotime-analysis.html#cb266-8"></a>Y &lt;-<span class="st"> </span>Y[var1K, ]  <span class="co"># only counts for variable genes</span></span>
+<span id="cb266-9"><a href="functional-pseudotime-analysis.html#cb266-9"></a></span>
+<span id="cb266-10"><a href="functional-pseudotime-analysis.html#cb266-10"></a><span class="co"># Fit GAM for each gene using pseudotime as independent variable.</span></span>
+<span id="cb266-11"><a href="functional-pseudotime-analysis.html#cb266-11"></a>t &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span></span>
+<span id="cb266-12"><a href="functional-pseudotime-analysis.html#cb266-12"></a>gam.pval &lt;-<span class="st"> </span><span class="kw">apply</span>(Y, <span class="dv">1</span>, <span class="cf">function</span>(z){</span>
+<span id="cb266-13"><a href="functional-pseudotime-analysis.html#cb266-13"></a>  d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">z=</span>z, <span class="dt">t=</span>t)</span>
+<span id="cb266-14"><a href="functional-pseudotime-analysis.html#cb266-14"></a>  tmp &lt;-<span class="st"> </span><span class="kw">gam</span>(z <span class="op">~</span><span class="st"> </span><span class="kw">lo</span>(t), <span class="dt">data=</span>d)</span>
+<span id="cb266-15"><a href="functional-pseudotime-analysis.html#cb266-15"></a>  p &lt;-<span class="st"> </span><span class="kw">summary</span>(tmp)[<span class="dv">4</span>][[<span class="dv">1</span>]][<span class="dv">1</span>,<span class="dv">5</span>]</span>
+<span id="cb266-16"><a href="functional-pseudotime-analysis.html#cb266-16"></a>  p</span>
+<span id="cb266-17"><a href="functional-pseudotime-analysis.html#cb266-17"></a>})</span>
+<span id="cb266-18"><a href="functional-pseudotime-analysis.html#cb266-18"></a></span>
+<span id="cb266-19"><a href="functional-pseudotime-analysis.html#cb266-19"></a><span class="co"># Identify genes with the most significant time-dependent model fit.</span></span>
+<span id="cb266-20"><a href="functional-pseudotime-analysis.html#cb266-20"></a>topgenes &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(gam.pval, <span class="dt">decreasing =</span> <span class="ot">FALSE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>]  </span>
+<span id="cb266-21"><a href="functional-pseudotime-analysis.html#cb266-21"></a></span>
+<span id="cb266-22"><a href="functional-pseudotime-analysis.html#cb266-22"></a><span class="co"># Prepare and plot a heatmap of the top genes that vary their expression over pseudotime.</span></span>
+<span id="cb266-23"><a href="functional-pseudotime-analysis.html#cb266-23"></a><span class="kw">require</span>(clusterExperiment)</span>
+<span id="cb266-24"><a href="functional-pseudotime-analysis.html#cb266-24"></a>heatdata &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(gcdata<span class="op">@</span>data[<span class="kw">rownames</span>(gcdata<span class="op">@</span>data) <span class="op">%in%</span><span class="st"> </span>topgenes, <span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)])</span>
+<span id="cb266-25"><a href="functional-pseudotime-analysis.html#cb266-25"></a>heatclus &lt;-<span class="st"> </span>gcdata<span class="op">@</span>ident[<span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)]</span>
+<span id="cb266-26"><a href="functional-pseudotime-analysis.html#cb266-26"></a><span class="kw">png</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;heatmap_time_genes.png&quot;</span>), <span class="dt">width=</span><span class="dv">10</span>, <span class="dt">height=</span><span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">res=</span><span class="dv">200</span>)</span>
+<span id="cb266-27"><a href="functional-pseudotime-analysis.html#cb266-27"></a>ce &lt;-<span class="st"> </span><span class="kw">ClusterExperiment</span>(heatdata, heatclus, <span class="dt">transformation =</span> log1p)</span>
+<span id="cb266-28"><a href="functional-pseudotime-analysis.html#cb266-28"></a>clusterExperiment<span class="op">::</span><span class="kw">plotHeatmap</span>(ce, <span class="dt">clusterSamplesData =</span> <span class="st">&quot;orderSamplesValue&quot;</span>, <span class="dt">visualizeData =</span> <span class="st">&#39;transformed&#39;</span>, <span class="dt">cexRow =</span> <span class="fl">1.5</span>, <span class="dt">fontsize =</span> <span class="dv">15</span>)</span>
+<span id="cb266-29"><a href="functional-pseudotime-analysis.html#cb266-29"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+</div>
+<div id="comparison-of-the-different-trajectory-inference-methods" class="section level2">
+<h2><span class="header-section-number">17.6</span> Comparison of the different trajectory inference methods</h2>
+<p>How do the trajectories inferred by PCA, diffusion pseudotime, and slingshot pseudotime compare to one another?</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="functional-pseudotime-analysis.html#cb267-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;corrplot&quot;</span>)</span>
+<span id="cb267-2"><a href="functional-pseudotime-analysis.html#cb267-2"></a><span class="kw">library</span>(corrplot)</span>
+<span id="cb267-3"><a href="functional-pseudotime-analysis.html#cb267-3"></a></span>
+<span id="cb267-4"><a href="functional-pseudotime-analysis.html#cb267-4"></a><span class="co"># Prepare data frame with different pseudotime measures.</span></span>
+<span id="cb267-5"><a href="functional-pseudotime-analysis.html#cb267-5"></a>df_pseudotime &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)[, <span class="kw">c</span>(<span class="st">&quot;pseudotime_PC1&quot;</span>, <span class="st">&quot;pseudotime_dpt&quot;</span>, <span class="st">&quot;slingPseudotime_1&quot;</span>)])</span>
+<span id="cb267-6"><a href="functional-pseudotime-analysis.html#cb267-6"></a><span class="kw">colnames</span>(df_pseudotime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PC1&quot;</span>, <span class="st">&quot;diffusion&quot;</span>, <span class="st">&quot;slingshot&quot;</span>)</span>
+<span id="cb267-7"><a href="functional-pseudotime-analysis.html#cb267-7"></a></span>
+<span id="cb267-8"><a href="functional-pseudotime-analysis.html#cb267-8"></a><span class="co"># Plot correlation between different pseudotime measures.</span></span>
+<span id="cb267-9"><a href="functional-pseudotime-analysis.html#cb267-9"></a><span class="kw">corrplot.mixed</span>(<span class="kw">cor</span>(df_pseudotime, <span class="dt">use =</span> <span class="st">&quot;na.or.complete&quot;</span>), </span>
+<span id="cb267-10"><a href="functional-pseudotime-analysis.html#cb267-10"></a>               <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb267-11"><a href="functional-pseudotime-analysis.html#cb267-11"></a>               <span class="dt">main =</span> <span class="st">&quot;Correlation matrix for pseudotime results&quot;</span>,</span>
+<span id="cb267-12"><a href="functional-pseudotime-analysis.html#cb267-12"></a>               <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">3.1</span>, <span class="dv">0</span>))</span></code></pre></div>
+</div>
+<div id="plots-of-gene-expression-over-time." class="section level2">
+<h2><span class="header-section-number">17.7</span> Plots of gene expression over time.</h2>
+<p>Visualize how some of the temporally expressed genes change in time.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="functional-pseudotime-analysis.html#cb268-1"></a><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, </span>
+<span id="cb268-2"><a href="functional-pseudotime-analysis.html#cb268-2"></a>               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb268-3"><a href="functional-pseudotime-analysis.html#cb268-3"></a>               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb268-4"><a href="functional-pseudotime-analysis.html#cb268-4"></a></span>
+<span id="cb268-5"><a href="functional-pseudotime-analysis.html#cb268-5"></a><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;pseudotime_dpt&quot;</span>, </span>
+<span id="cb268-6"><a href="functional-pseudotime-analysis.html#cb268-6"></a>               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb268-7"><a href="functional-pseudotime-analysis.html#cb268-7"></a>               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb268-8"><a href="functional-pseudotime-analysis.html#cb268-8"></a></span>
+<span id="cb268-9"><a href="functional-pseudotime-analysis.html#cb268-9"></a><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;slingPseudotime_1&quot;</span>, </span>
+<span id="cb268-10"><a href="functional-pseudotime-analysis.html#cb268-10"></a>               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb268-11"><a href="functional-pseudotime-analysis.html#cb268-11"></a>               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="acknowledgements-1" class="section level2">
+<h2><span class="header-section-number">17.8</span> Acknowledgements</h2>
+<p>This document builds off chapter 8.4 from the <a href="http://hemberg-lab.github.io/scRNA.seq.course/biological-analysis.html#pseudotime-analysis">Hemberg lab single cell RNA-seq course</a>, from the <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html">Destiny vignette</a> and from the <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/slingshot/inst/doc/slingshot.html">Slingshot vignette</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pseudotime-cell-trajectories.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="single-cell-multiomic-technologies.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["2020_scWorkshop.pdf", "2020_scWorkshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
