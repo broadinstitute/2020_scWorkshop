@@ -1,7 +1,18 @@
-# Intro
+## Intro
 
 In recent years single cell RNA-seq (scRNA-seq) has become widely used for transcriptome analysis in many areas of biology. In contrast to bulk RNA-seq, scRNA-seq provides quantitative measurements of the expression of every gene in a single cell. However, to analyze scRNA-seq data, novel methods are required and some of the underlying assumptions for the methods developed for bulk RNA-seq experiments are no longer valid. In this course we will cover all steps of the scRNA-seq processing, starting from the raw reads coming off the sequencer. The course includes common analysis strategies, using state-of-the-art methods and we also discuss the central biological questions that can be addressed using scRNA-seq.
 [Course Webiste](https://broadinstitute.github.io/2020_scWorkshop/)
+
+## Quick Start
+
+If you have the repository cloned and docker installed on your computer already you can simple run the script `run_docker.sh` in the docker directory of the repository to start the rstudio session.  It should pull the container to your computer if you do not have it already and then run the docker command to start rstudio.  You can then access rstudio and the course content within the docker container at [localhost:8787](localhost:8787)
+
+```{bash}
+# you may need to give the script execution permission
+# chmod 755 docker/run_docker.sh
+
+./docker/run_docker.sh
+```
 
 
 ## Docker Usage
@@ -39,8 +50,8 @@ docker pull kdgosik/2020scworkshop:latest
 ### Running Rstudio in Docker locally on your computer
 
 ```{bash}
-docker run --rm -ti -e DISABLE_AUTH=true \
--v $PWD:/home/rstudio \
+docker run --rm -ti \
+-e DISABLE_AUTH=true \
 -p 9000:8787 kdgosik/2020scworkshop
 
 ```
@@ -52,8 +63,8 @@ docker run --rm -ti -e DISABLE_AUTH=true \
 ### Running Rstudio in Docker AWS
 
 ```{bash}
-docker run --rm -it -e PASSWORD=train \
--v $PWD:/home/rstudio \
+docker run --rm -it \
+-e PASSWORD=train \
 -p 9000:8787 kdgosik/2020scworkshop
 ```
   - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
@@ -126,7 +137,7 @@ devtools::install_github('MacoskoLab/liger')
 Same command as above but add the option bash at the end to access the terminal in the docker container.
 
 ```{bash}
-docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+docker run --rm -it kdgosik/2020scworkshop bash
 ```
 
 

@@ -5,7 +5,7 @@ date: "2/25/2020"
 output: html_document
 ---
 
-# Lecture Section Title
+# Lecture Template
 
 To get the link to paste into the iframe open up slides in Google Slides and go to,
   - File -> Publish to the Web
