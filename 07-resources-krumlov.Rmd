@@ -1,0 +1,25 @@
+---
+title: "07-resources"
+output: html_document
+---
+
+# Single Cell Resources
+
+## Comprehensive list of single-cell resources
+  - https://github.com/seandavi/awesome-single-cell
+
+## Computational packages for single-cell analysis
+  - http://bioconductor.org/packages/devel/workflows/html/simpleSingleCell.html
+  - https://satijalab.org/seurat/
+  - https://scanpy.readthedocs.io/
+
+## eLife Commentary on the Human Cell Atlas 
+[link](https://elifesciences.org/articles/27041)
+  - Nature Commentary on the Human Cell Atlas 
+  - https://www.nature.com/news/the-human-cell-atlas-from-vision-to-reality-1.22854
+
+## Online courses
+  - https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
+  - https://broadinstitute.github.io/2019_scWorkshop/
+  - https://github.com/SingleCellTranscriptomics
+  - https://r4ds.had.co.nz/

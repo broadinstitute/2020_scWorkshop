@@ -1,0 +1,10 @@
+---
+title: "02-Transcriptome-quantification"
+output: html_document
+---
+
+# Transcriptome Quantification
+
+## Google Slides
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vStgqAHpNPQcrZjuNOcu9b5Yt3AE-kRQu_z-VfW60cmdNAO5tGMAT5mBo-StH2KprKm1XSFQGQenpJj/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
