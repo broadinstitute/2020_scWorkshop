@@ -149,3 +149,48 @@ Once you have docker running and you are in the terminal you can pull the course
 ```{bash}
 git clone https://github.com/broadinstitute/2020_scWorkshop.git
 ```
+
+
+## Update Course Material
+
+  1. Create a Fork  - Click on the “fork” button of the repository page on GitHub.
+
+For example to fork to my github page it would copy from broadinstitute/2020_scWorkshop to kdgosik/2020_scWorksop.
+
+  2. Clone your Fork
+The standard clone command creates a local git repository from your remote fork on GitHub.
+
+```{bash}
+git clone https://github.com/USERNAME/REPOSITORY.git
+
+
+## keeping with my username example
+git clone https://github.com/kdgosik/2020_scWorkshop.git
+```
+
+  3. Modify the Code  - In your local clone, modify the code and commit them to your local clone using the git commit command.
+
+```{bash}
+cd 2020_scWorkshop
+```
+Add files and/or modify course material.
+
+
+  4. Push your Changes - use the git push command to upload your changes to your remote fork on GitHub.
+
+```{bash}
+git add --all
+git commit -m "Updated course materials"
+git push 
+```
+
+  5. Create a Pull Request
+On the GitHub page of your remote fork, click the “pull request” button. Wait for the owner to merge or comment your changes and be proud when it is merged :). If the owner suggests some changes before merging, you can simply push these changes into your fork by repeating steps #3 and #4 and the pull request is updated automatically.
+
+
+
+#### Pull Request References
+
+  - [Github's Fork & Pull Workflow for Git Beginners](https://reflectoring.io/github-fork-and-pull/)
+  - [Github Forking](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+  - [About Pull Requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
