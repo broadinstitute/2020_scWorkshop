@@ -8,10 +8,12 @@ In recent years single cell RNA-seq (scRNA-seq) has become widely used for trans
 If you have the repository cloned and docker installed on your computer already you can simple run the script `run_docker.sh` in the docker directory of the repository to start the rstudio session.  It should pull the container to your computer if you do not have it already and then run the docker command to start rstudio.  You can then access rstudio and the course content within the docker container at [localhost:8787](http://localhost:8787/)
 
 ```{bash}
-# you may need to give the script execution permission
-# chmod 755 docker/run_docker.sh
+## clone repository
 git clone https://github.com/broadinstitute/2020_scWorkshop.git
 cd 2020_scWorkshop
+
+# you may need to give the script execution permission
+# chmod 755 docker/run_docker.sh
 ./docker/run_docker.sh
 ```
 
