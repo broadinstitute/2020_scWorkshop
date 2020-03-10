@@ -10,7 +10,8 @@ If you have the repository cloned and docker installed on your computer already 
 ```{bash}
 # you may need to give the script execution permission
 # chmod 755 docker/run_docker.sh
-
+git clone https://github.com/broadinstitute/2020_scWorkshop.git
+cd 2020_scWorkshop
 ./docker/run_docker.sh
 ```
 
@@ -51,12 +52,13 @@ docker pull kdgosik/2020scworkshop:latest
 
 ```{bash}
 docker run --rm -ti \
+-v $PWD:/home/rstudio \
 -e DISABLE_AUTH=true \
--p 9000:8787 kdgosik/2020scworkshop
+-p 8787:8787 kdgosik/2020scworkshop
 
 ```
-  - You can choose any port (in this exmaple above the PORT NUMBER is 9000)
-  - Go to your web browser at [localhost:9000](http://localhost:9000)
+  - You can choose any port (in this exmaple above the PORT NUMBER is 8787)
+  - Go to your web browser at [localhost:8787](http://localhost:8787)
     - Generic webiste http://localhost:$PORT_NUMBER
   
 
@@ -65,11 +67,11 @@ docker run --rm -ti \
 ```{bash}
 docker run --rm -it \
 -e PASSWORD=train \
--p 9000:8787 kdgosik/2020scworkshop
+-p 9001:8787 kdgosik/2020scworkshop
 ```
   - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
-  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9000
+  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
 
 
 **Explaination of commands**
@@ -82,10 +84,10 @@ docker run --rm -it \
     - this will keep all session output displaying on the terminal
     - to stop container go to terminal and press Crtl+c
   - -e PASSWORD=train: password assignment you will need to access rstudio when you login
-  - -p 9000:8787: flag to assign port mapping.
+  - -p 9001:8787: flag to assign port mapping.
     - rstudio runs on port 8787 inside the container
-    - you will access rstudio by going to port 9000 on your computer (localhost:9000 in your browser)
-    - 9000 can be any port you would like.  We will change this up for each student in the class
+    - you will access rstudio by going to port 9000 on your computer (localhost:9001 in your browser)
+    - 9001 can be any port you would like.  We will change this up for each student in the class
   - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 
@@ -93,7 +95,7 @@ docker run --rm -it \
 
 #### Accessing Rstudio
 
-Once you run the docker run command above, you can go to your browser at localhost:9000.  This will bring you to a log-in screen for rstudio.  Enter the username: rstudio and password: train.  This will log you into Rstudio where you can do your analysis.  After this you can install whichever R packages you would like.  
+Once you run the docker run command above, you can go to your browser at localhost:9001.  This will bring you to a log-in screen for rstudio.  Enter the username: rstudio and password: train.  This will log you into Rstudio where you can do your analysis.  After this you can install whichever R packages you would like.  
 
 
 **examples**

@@ -1,2 +1,3 @@
 0.0.1: initial rebuild of docker container from 2019_scWorkshop
 0.0.2: adding git clone and R packages installation
+0.0.3: add fastqc and cellranger

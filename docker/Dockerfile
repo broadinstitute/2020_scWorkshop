@@ -25,21 +25,24 @@ RUN cp $(which tar) $(which tar)~ \
 
 
 ## Get Course Materials https://github.com/broadinstitute/2020_scWorkshop.git
-RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git /home/rstudio/2020_scWorkshop/
+# RUN git clone https://github.com/broadinstitute/2020_scWorkshop.git /home/rstudio/2020_scWorkshop/
 
 
 # ## Install R packages
-RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
+# RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
+COPY install.R /usr/local/src
+RUN Rscript /usr/local/src/install.R
+
 
 # ## Install Python Requirements
-# COPY requirements.txt /usr/local/src
-# RUN pip3 install -r /usr/local/src/requirements.txt
+COPY requirements.txt /usr/local/src
+RUN pip3 install -r /usr/local/src/requirements.txt
 
 # ## FASTQC
-# COPY fastqc_v0.11.8.zip /usr/local/src/fastqc_v0.11.8.zip
-# RUN cd /usr/local/src/ && \
-#   unzip fastqc_v0.11.8.zip && \
-#   cd /
+COPY fastqc_v0.11.8.zip /usr/local/src/fastqc_v0.11.8.zip
+RUN cd /usr/local/src/ && \
+  unzip fastqc_v0.11.8.zip && \
+  cd /
 
 
 # ## IGViewer
@@ -50,10 +53,10 @@ RUN Rscript /home/rstudio/2020_scWorkshop/docker/install.R
 
 
 # ## cellranger
-# COPY cellranger-3.0.2.tar.gz /usr/local/src
-# RUN cd /usr/local/src && \
-#   tar -xvzf cellranger-3.0.2.tar.gz && \
-#   cd /
+COPY cellranger-3.1.0.tar.gz /usr/local/src
+RUN cd /usr/local/src && \
+  tar -xvzf cellranger-3.1.0.tar.gz && \
+  cd /
 
 # COPY cellranger_count_3.0.2.sh /usr/local/src
 
