@@ -22,8 +22,8 @@ cd 2020_scWorkshop
 
 There is a docker image that goes along with this course.  The following explains how to use the docker image and what software it contains.  To rebuild the image from scratch please see this subdirectory labeled docker. 
 
-[More about docker](https://www.youtube.com/watch?v=6aBsjT5HoGY)
-[Docker for beginners](https://docker-curriculum.com/)
+  - [More about docker](https://www.youtube.com/watch?v=6aBsjT5HoGY)
+  - [Docker for beginners](https://docker-curriculum.com/)
 ### Installing Docker
 
 Make sure to have docker installed on your computer. Go to the docker getting started [website](https://www.docker.com/get-started) and select the download for your operating system.  
