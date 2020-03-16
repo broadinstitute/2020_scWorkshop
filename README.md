@@ -1,6 +1,7 @@
 ## Introduction
 
 In recent years single cell RNA-seq (scRNA-seq) has become widely used for transcriptome analysis in many areas of biology. In contrast to bulk RNA-seq, scRNA-seq provides quantitative measurements of the expression of every gene in a single cell. However, to analyze scRNA-seq data, novel methods are required and some of the underlying assumptions for the methods developed for bulk RNA-seq experiments are no longer valid. In this course we will cover all steps of the scRNA-seq processing, starting from the raw reads coming off the sequencer. The course includes common analysis strategies, using state-of-the-art methods and we also discuss the central biological questions that can be addressed using scRNA-seq.
+
 [Course Webiste](https://broadinstitute.github.io/2020_scWorkshop/)
 
 ## Quick Start
@@ -21,7 +22,7 @@ cd 2020_scWorkshop
 This command will take a long time to run the first time you run it.  Once you see in `[services.d] done` in the terminal you can go to your web browser to http://localhost:8787/ to access Rstudio.  This will bring up Rstudio inside your web browser.
 
 
-## Docker Usage
+## Docker Usage (Detailed Explanation)
 
 If you have got the Quick Start part working for you, you do not need to do anything else.  The following are more detailed instructions on the software and how to access them.  
 

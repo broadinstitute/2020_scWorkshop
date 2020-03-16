@@ -1,0 +1,269 @@
+---
+title: "03-Understanding-Sequencing-Raw-Data"
+output: html_document
+---
+
+# Understanding Sequencing Raw Data
+
+
+**NEEDS UPDATED commands and docker explanations!**
+
+
+
+## Class Environment
+
+### Getting into AWS Instance
+
+```{bash, eval = FALSE}
+## Example
+ssh -i berlin.pem ubuntu@<PUBLIC IP ADDRESS> (e.g.34.219.254.245)
+
+## Actual Command
+ssh -i berlin.pem ubuntu@34.213.180.241
+```
+
+<!--
+### Rstudio
+
+```{bash, eval = FALSE, echo = FALSE}
+## maybe take away the --rm so they can save the container for later
+## or whatever port
+docker run --rm -it -e PASSWORD=train -p 9000:8787 kdgosik/scellbern2019
+
+sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data -v $PWD/userfolders/Dana:/mydir kdgosik/scellbern2019
+```
+-->
+
+## Shell and Unix commands
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSavPAPY3WXe2EiqaRXJmAajFTeGcRbD1qJq4Sp4YlcF1_m7I1X89D1uC-8jDDGinqFLNO2oJNALbNx/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+
+### Common Linux Commands
+
+#### Lab 1a
+
+  - check the your present directory
+```{bash, eval = FALSE}
+pwd
+```
+
+  - check history
+```{bash, eval = FALSE}
+history
+```
+
+  - pipe history to grep to search for the cd command
+```{bash, eval = FALSE}
+history | grep cd
+```
+
+  - put history into a history.txt file
+```{bash, eval = FALSE}
+history > history.txt
+```
+
+  - make a directory called data
+```{bash, eval = FALSE}
+mkdir data
+```
+
+  - change into data directory
+```{bash, eval = FALSE}
+cd data
+```
+
+  - move history.txt file into data directory
+```{bash, eval = FALSE}
+mv ../history.txt ./
+```
+
+  - check manual page of wget command
+```{bash, eval = FALSE}
+man wget
+```
+
+  - redirect wget maunual page output into a file called wget.txt
+```{bash, eval = FALSE}
+man wget > wget.txt
+```
+
+  - return the lines that contain output in the wget.txt file
+```{bash, eval = FALSE}
+cat wget.txt | grep output
+```
+
+```{bash, eval = FALSE}
+grep -i output wget.txt
+```
+
+  - Compress wget.txt file
+```{bash, eval = FALSE}
+gzip wget.txt
+```
+
+  - View Compressed file
+```{bash, eval = FALSE}
+cat wget.txt.qz
+```
+  
+
+```{bash, eval = FALSE}
+zcat wget.txt.qz
+```
+
+
+```{bash, eval = FALSE}
+zcat wget.txt.qz | less
+```
+
+
+
+
+
+#### Docker Commands
+
+Consistent compute enviornment to ensure all software that you need is on the machine and able to be used. 
+
+  - change directory to your user directory
+  - run following command to start docker
+
+```{bash, eval = FALSE, echo = FALSE}
+## maybe take away the --rm so they can save the container for later
+## or whatever port for your user number
+docker run --rm -it -e PASSWORD=train -p 9000:8787 kdgosik/scellbern2019 bash
+
+sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data kdgosik/scellbern2019 bash
+
+sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data -v $PWD/userfolders/Dana:/mydir kdgosik/scellbern2019 bash
+```
+
+```{bash, eval = FALSE}
+## maybe take away the --rm so you can save the container for later
+## run from your home directory
+cd 
+docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 bash
+```
+
+**Explaination of commands**
+```{bash, eval = FALSE}
+  - docker: command to run docker
+  - run: asking docker to run a container
+  - --rm: flag to remove the container when you exit from it
+      - nothing will be saved from your session to access again later
+      - this flag can be removed to keep container
+  - -it: flag to run the container interactively
+    - this will keep all session output displaying on the terminal
+    - to stop container go to terminal and press Crtl+c
+    -v $PWD/Share:/Share: map the share directory from AWS to Share inside docker container
+    -v $PWD:/mydir: map your home directory to a directory inside docker container called home
+  - kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/scellbern2019)
+```
+
+## File formats
+
+  - bcl
+  - fastq
+  - bam
+  - mtx, tsv
+  - hdf5 (.h5, .h5ad)
+  
+### View FASTQ Files
+
+#### Viewing entire file
+```{bash, eval = FALSE}
+cat /Share/data/Teichmann_2i_2_2_2.fastq
+```
+
+#### Viewing first 10 lines
+
+```{bash, eval = FALSE}
+head /Share/data/Teichmann_2i_2_2_2.fastq
+```
+
+#### Stream Viewing with less command
+
+```{bash, eval = FALSE}
+less /Share/data/Teichmann_2i_2_2_2.fastq
+```
+
+
+### View BAM Files
+
+#### Viewing first 10 lines
+
+```{bash, eval = FALSE}
+samtools view /Share/data/pbmc_1k_protein_v3_possorted_genome_bam.bam | head
+```
+
+#### Stream Viewing with less command
+
+```{bash, eval = FALSE}
+samtools view /Share/data/pbmc_1k_protein_v3_possorted_genome_bam.bam | less
+```
+
+
+## Public data repositories
+
+### Cellranger/10x
+
+#### Lab 1b
+
+10x PBMC data are hosted in https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
+
+
+  - change directory into the data directory
+  - get 10x PBMC data
+  - unzip data
+  - explore directory
+  - explore files
+
+
+```{bash, eval = FALSE}
+mkdir data
+wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd ..
+```
+
+
+### GEO
+
+ - https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81905
+
+
+#### Lab 1c
+
+**Get GEO Data**
+  - ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz
+  - ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL17021_series_matrix.txt.gz
+
+
+ - make a directory for the files or use data directory
+ - go into that directory
+ - get files and place them in the directory
+ - View files (try keeping in compressed format and view that way)
+ 
+ ```{bash, eval = FALSE}
+cd data
+wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz
+cd data; tar -xzf GSE81905-GPL19057_series_matrix.txt.gz
+cd ..
+```
+
+### Single Cell Portal
+
+  - https://portals.broadinstitute.org/single_cell
+  - Study: Salk Institute - Single-cell Methylome Sequencing Identifies Distinct Neuronal Populations in Mouse Frontal Cortex
+
+#### Lab 1d
+
+  - Get R2 fastq file from the Salk Institute study 
+  - Look at files
+  
+  
+#### Lab 1e
+
+  - Get Docker on your local computer for you to have 
+  - Explore Single Cell Portal
+  - Explore GEO
