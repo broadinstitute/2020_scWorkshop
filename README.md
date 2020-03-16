@@ -14,18 +14,22 @@ cd 2020_scWorkshop
 
 # you may need to give the script execution permission
 # chmod 755 docker/run_docker.sh
+# if first time, this could take 10-20 minutes depending on internet connection.
 ./docker/run_docker.sh
 ```
 
-This command will take a long time to run the first time you run it.  Once you see in [services.d] done in the terminal you can go to your web browser to http://localhost:8787/ to access Rstudio.
+This command will take a long time to run the first time you run it.  Once you see in `[services.d] done` in the terminal you can go to your web browser to http://localhost:8787/ to access Rstudio.  This will bring up Rstudio inside your web browser.
 
 
 ## Docker Usage
+
+If you have got the Quick Start part working for you, you do not need to do anything else.  The following are more detailed instructions on the software and how to access them.  
 
 There is a docker image that goes along with this course.  The following explains how to use the docker image and what software it contains.  To rebuild the image from scratch please see this subdirectory labeled docker. 
 
   - [More about docker](https://www.youtube.com/watch?v=6aBsjT5HoGY)
   - [Docker for beginners](https://docker-curriculum.com/)
+  
 ### Installing Docker
 
 Make sure to have docker installed on your computer. Go to the docker getting started [website](https://www.docker.com/get-started) and select the download for your operating system.  

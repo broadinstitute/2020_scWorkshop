@@ -19,8 +19,6 @@ output: html_document
   - https://www.nature.com/news/the-human-cell-atlas-from-vision-to-reality-1.22854
 
 ## Online courses
-  - [Analysis of single cell RNA-seq data](https://scrnaseq-course.cog.sanger.ac.uk/website/index.html)
-  - [Single Cell Genomics Day](https://satijalab.org/scgd/)
-  - [Simple Single Cell](https://bioconductor.org/packages/release/workflows/html/simpleSingleCell.html)
-  - [Single Cell Transcriptomics](https://github.com/SingleCellTranscriptomics)
-  - [R for Data Sciences](https://r4ds.had.co.nz/)
+  - https://hemberg-lab.github.io/scRNA.seq.course/
+  - https://github.com/SingleCellTranscriptomics
+  - https://r4ds.had.co.nz/
