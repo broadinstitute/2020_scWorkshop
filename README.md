@@ -17,6 +17,8 @@ cd 2020_scWorkshop
 ./docker/run_docker.sh
 ```
 
+This command will take a long time to run the first time you run it.  Once you see in [services.d] done in the terminal you can go to your web browser to http://localhost:8787/ to access Rstudio.
+
 
 ## Docker Usage
 

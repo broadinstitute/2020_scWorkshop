@@ -62,10 +62,10 @@ RUN cd /usr/local/src && \
 
 
 # ## Alternatively, get STAR source using git
-# RUN git clone https://github.com/alexdobin/STAR.git usr/local/src/STAR && \
-#   cd /usr/local/src/STAR/source && \
-#   make STAR && \
-#   cd /
+RUN git clone https://github.com/alexdobin/STAR.git usr/local/src/STAR && \
+  cd /usr/local/src/STAR/source && \
+  make STAR && \
+  cd /
 
 
 # RUN wget -O /usr/local/src/samtools-1.9.tar.bz2 https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && \
