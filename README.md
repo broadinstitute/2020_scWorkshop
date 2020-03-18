@@ -73,14 +73,31 @@ docker run --rm -ti \
 
 ### Running Rstudio in Docker AWS
 
+After running the below command go to your web browser at the link indicated.  Log into Rstudio by using,
+username: rstudio
+password: train 
+
+The password is only set so outside people will not be able to access it by snooping. This can be changed to whatever you desire by changing the `-e PASSWORD=train` in the command. 
+
+**quick start script**
 ```{bash}
-docker run --rm -it \
+./docker/run_docker_aws.sh 9001
+```
+  - 9001 is the PORT NUMBER
+  - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
+  - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
+    - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
+
+**full command**
+```{bash}
+sudo docker run --rm -it \
+-v $PWD:/home/rstudio \
 -e PASSWORD=train \
 -p 9001:8787 kdgosik/2020scworkshop
 ```
   - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
-  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
+    - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
 
 
 **Explaination of commands**
@@ -92,12 +109,13 @@ docker run --rm -it \
   - -it: flag to run the container interactively
     - this will keep all session output displaying on the terminal
     - to stop container go to terminal and press Crtl+c
+  - -v $PWD:/home/rstudio: map the present directory to the rstudio home directory
   - -e PASSWORD=train: password assignment you will need to access rstudio when you login
   - -p 9001:8787: flag to assign port mapping.
     - rstudio runs on port 8787 inside the container
-    - you will access rstudio by going to port 9000 on your computer (localhost:9001 in your browser)
+    - you will access rstudio by going to port 9001 on your computer (localhost:9001 in your browser)
     - 9001 can be any port you would like.  We will change this up for each student in the class
-  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
+  - kdgosik/2020scworkshop: the image to run to make the container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 
 

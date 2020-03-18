@@ -1,0 +1,18 @@
+0:library(Seurat)
+0:counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices")
+0:counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices/GRCh38")
+0:?Read10X
+0:counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices/GRCh38")
+0:dir("data")
+0:counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices/GRCh38")
+0:rm(counts)
+0:counts <- Read10X(data.dir = "data/filtered_gene_bc_matrices/GRCh38")
+0:bookdown::render_book('.')
+0:bookdown::render_book('.')
+0:getwd()
+0:bookdown::render_book('.')
+0:bookdown::render_book('.')
+0:bookdown::render_book('.')
+0:?install.packages
+0:?devtools::install_github
+0:bookdown::render_book('.')
