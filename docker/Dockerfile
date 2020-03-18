@@ -8,10 +8,11 @@ RUN apt-get update && apt-get install -y gcc g++ perl python3 python3-pip python
                                         automake make cmake less vim nano fort77 \
                                         wget git curl bsdtar bzip2 gfortran unzip ftp \
                                         libpng-dev libjpeg-dev \
-                                        texlive-latex-base default-jre build-essential
+                                        texlive-latex-base default-jre build-essential \
+                                        libbz2-dev liblzma-dev
                                         # libdb-dev libglu1-mesa-dev zlib1g-dev  \
                                         # libncurses5-dev libghc-zlib-dev libncurses-dev \
-                                        # libbz2-dev liblzma-dev libpcre3-dev libxml2-dev \
+                                        # libpcre3-dev libxml2-dev \
                                         # libblas-dev libzmq3-dev libreadline-dev libssl-dev \
                                         # libcurl4-openssl-dev libx11-dev libxt-dev \
                                         # x11-common libcairo2-dev \
@@ -68,9 +69,10 @@ RUN git clone https://github.com/alexdobin/STAR.git usr/local/src/STAR && \
   cd /
 
 
-# RUN wget -O /usr/local/src/samtools-1.9.tar.bz2 https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && \
-#   cd /usr/local/src && \
-#   tar xvjf samtools-1.9.tar.bz2 && \
-#   cd samtools-1.9 && \
-#    ./configure  && \
-#    make && make install
+RUN wget -O /usr/local/src/samtools-1.10.tar.bz2 https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2 && \
+  cd /usr/local/src && \
+  tar xvjf samtools-1.10.tar.bz2 && \
+  cd samtools-1.10 && \
+  ./configure --without-curses && \
+  make && make install && \
+  cd /

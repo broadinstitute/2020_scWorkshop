@@ -1,5 +1,5 @@
 ---
-title: "06-Cluster-Analysis"
+title: "10-Cluster-Analysis"
 output: html_document
 ---
 
@@ -30,7 +30,7 @@ tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
 ```
 
 **Task: Check the dirname to directory where you saved your data**
-```{r read_data_clust}
+```{r read_data_clust, eval = FALSE}
 knitr::opts_knit$set(progress=FALSE, verbose=FALSE)
 
 library(Seurat)
@@ -45,7 +45,7 @@ counts <- Read10X(data.dir = counts_matrix_filename)  # Seurat function to read 
 
 ```
 
-```{r create_seurat_clust} 
+```{r create_seurat_clust, eval = FALSE} 
 ### seurat<-CreateSeuratObject(raw.data = counts, ? = 3, ? = 350, project = "10X_NSCLC")
 seurat <- CreateSeuratObject(counts = counts, min.cells = 3, min.features = 350, project = "10X_PBMC")
 ```
@@ -56,7 +56,7 @@ seurat <- CreateSeuratObject(counts = counts, min.cells = 3, min.features = 350,
 
 This was all covered in the last Lab!
 
-```{r pt_mito}
+```{r pt_mito, eval = FALSE}
 # The number of genes and UMIs (nFeature_RNA nCount_RNA) are automatically calculated
 # for every object by Seurat.  For non-UMI data, nCount_RNA represents the sum of
 # the non-normalized values within a cell We calculate the percentage of
@@ -69,7 +69,7 @@ seurat[["percent.mt"]] <- PercentageFeatureSet(object = seurat, pattern = "^MT-"
 ```
 
 
-```{r scatter_plot}
+```{r scatter_plot_v3, eval = FALSE}
 # FeatureScatter is typically used to visualize gene-gene relationships, but can
 # be used for anything calculated by the object, i.e. columns in
 # object@meta.data, PC scores etc.  Since there is a rare subset of cells
@@ -101,12 +101,12 @@ seuart <- subset(seurat, percent.mt < 10)
 
 
 
-```{r norm_data}
+```{r norm_data, eval = FALSE}
 seurat <- NormalizeData(object = seurat, normalization.method = "LogNormalize", scale.factor = 10000)
 ```
 
 
-```{r cell_cycle_genes_pbmc}
+```{r cell_cycle_genes_pbmc, eval = FALSE}
 # Read in a list of cell cycle markers, from Tirosh et al, 2015.
 # We can segregate this list into markers of G2/M phase and markers of S phase.
 s.genes <- Seurat::cc.genes$s.genes
@@ -117,7 +117,7 @@ g2m.genes <- g2m.genes[g2m.genes %in% rownames(seurat)] # genes in dataset
 seurat <- CellCycleScoring(object = seurat, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 ```
 
-```{r var_genes_clust}
+```{r var_genes_clust, eval = FALSE}
 seurat <- FindVariableFeatures(object = seurat, 
                                mean.function = ExpMean, 
                                dispersion.function = LogVMR)
@@ -131,7 +131,7 @@ seurat <- FindVariableFeatures(object = seurat,
 
 This part is where you mean center the data, substract the mean.  You also divide by the standard deviation to make everything to a 'standard normal', where the mean is zero and the standard deviation is 1.
 
-```{r regress}
+```{r regress, eval = FALSE}
 seurat <- ScaleData(object = seurat, vars.to.regress = c("batch", "percent.mt"))
 ```
 
@@ -153,7 +153,7 @@ seurat <- ScaleData(object = seurat, vars.to.regress = 'batch_id')
 
 This will run pca on the 
 
-```{r run_pca}
+```{r run_pca, eval = FALSE}
 seurat <- RunPCA(object = seurat, 
                # features = seurat@assays$RNA@var.features, 
                ndims.print = 1:5, 
@@ -163,7 +163,7 @@ seurat <- RunPCA(object = seurat,
 
 #### Visualizing PCA in Different Ways
 
-```{r plot_pca}
+```{r plot_pca, eval = FALSE}
 DimPlot(seurat, reduction = "pca")
 ```
 
@@ -185,7 +185,7 @@ DimPlot()
 
 
 
-```{r project_pca}
+```{r project_pca, eval = FALSE}
 # ProjectDim scores each gene in the dataset (including genes not included
 # in the PCA) based on their correlation with the calculated components.
 # Though we don't use this further here, it can be used to identify markers
@@ -197,7 +197,7 @@ seurat <- ProjectDim(object = seurat, reduction = "pca")
 
 #### Genes by PCs
 
-```{r pca_heatmap}
+```{r pca_heatmap, eval = FALSE}
 DimHeatmap(object = seurat, 
           dims = 1:6, 
           cells = 50, 
@@ -233,13 +233,13 @@ PCASigGenes(object = seurat, pcs.use = 1:2, pval.cut = 0.1)
 
 
 
-```{r pca_elbow}
+```{r pca_elbow, eval = FALSE}
 ElbowPlot(object = seurat, ndims = 10, reduction = "pca")
 ```
 
 
 
-```{r find_clusters}
+```{r find_clusters, eval = FALSE}
 # save.SNN = T saves the SNN so that the clustering algorithm can be rerun
 # using the same graph but with a different resolution value (see docs for
 # full details)
@@ -257,7 +257,7 @@ seurat <- FindClusters(object = seurat,
 
 Seurat offers several non-linear dimensional reduction techniques, such as tSNE and UMAP, to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.
 
-```{r run_tsne}
+```{r run_tsne, eval = FALSE}
 set.seed(2020)
 seurat <- RunTSNE(seurat, reduction.use = "pca", dims.use = 1:10, perplexity=10)
 
@@ -282,7 +282,7 @@ Seurat can help you find markers that define clusters via differential expressio
 
 The min.pct argument requires a feature to be detected at a minimum percentage in either of the two groups of cells, and the thresh.test argument requires a feature to be differentially expressed (on average) by some amount between the two groups. You can set both of these to 0, but with a dramatic increase in time - since this will test a large number of features that are unlikely to be highly discriminatory. As another option to speed up these computations, max.cells.per.ident can be set. This will downsample each identity class to have no more cells than whatever this is set to. While there is generally going to be a loss in power, the speed increases can be significiant and the most highly differentially expressed features will likely still rise to the top.
 
-```{r find_cluster1}
+```{r find_cluster1, eval = FALSE}
 # find all markers of cluster 1 using default parameters
 cluster1.markers <- FindMarkers(object = seurat, ident.1 = 1, min.pct = 0.25)
 
@@ -304,7 +304,7 @@ head(cluster5.markers)
 ```
 
 
-```{r cluster3_markers}
+```{r cluster3_markers, eval = FALSE}
 cluster3.markers <- FindMarkers(object = seurat, 
                                 ident.1 = 3, 
                                 thresh.use = 0.25, 
@@ -315,12 +315,12 @@ head(cluster3.markers)
 ```
 
 
-```{r plot_cluster3_markers}
+```{r plot_cluster3_markers, eval = FALSE}
 VlnPlot(object = seurat, features = c("MS4A1", "CD79A"))
 ```
 
 
-```{r plot_by_umi}
+```{r plot_by_umi, eval = FALSE}
 # you can plot raw UMI counts as well
 VlnPlot(object = seurat, 
         features = c("NKG7", "PF4"), 
@@ -328,7 +328,7 @@ VlnPlot(object = seurat,
 ```
 
 
-```{r find_markers}
+```{r find_markers, eval = FALSE}
 # find markers for every cluster compared to all remaining cells, report
 # only the positive ones
 pbmc.markers <- FindAllMarkers(object = seurat, only.pos = TRUE, min.pct = 0.25, thresh.use = 0.25)
@@ -336,7 +336,7 @@ pbmc.markers %>% group_by(cluster) %>% top_n(2, avg_logFC)
 ```
 
 
-```{r gene_tsne}
+```{r gene_tsne, eval = FALSE}
 FeaturePlot(object = seurat, 
             features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A"),
             cols = c("grey", "blue"), 
@@ -345,14 +345,14 @@ FeaturePlot(object = seurat,
 
 
 
-```{r do_heatmap}
+```{r do_heatmap, eval = FALSE}
 top10 <- pbmc.markers %>% group_by(cluster) %>% top_n(10, avg_logFC)
 # setting slim.col.label to TRUE will print just the cluster IDS instead of
 # every cell name
 DoHeatmap(object = seurat, features = top10$gene, label = TRUE)
 ```
 
-```{r new_names}
+```{r new_names, eval = FALSE}
 new.cluster.ids <- c("Memory CD4 T", "Naive CD4 T", "CD14+ Mono", "B", "CD8 T", "FCGR3A+ Mono", "NK", "DC", "Mk")
 names(x = new.cluster.ids) <- levels(x = seurat)
 seurat <- RenameIdents(object = seurat, new.cluster.ids)
@@ -367,7 +367,7 @@ DimPlot(object = seurat, reduction = 'tsne', label = TRUE, pt.size = 0.5) + NoLe
 
 If you perturb some of our parameter choices above (for example, setting resolution=0.8 or changing the number of PCs), you might see the CD4 T cells subdivide into two groups. You can explore this subdivision to find markers separating the two T cell subsets. However, before reclustering (which will overwrite object@ident), we can stash our renamed identities to be easily recovered later.
 
-```{r tune_params}
+```{r tune_params, eval = FALSE}
 # First lets stash our identities for later
 seurat[["ClusterNames_0.6"]] <- Idents(object = seurat)
 # Note that if you set save.snn=T above, you don't need to recalculate the
@@ -379,7 +379,7 @@ seurat <- FindClusters(object = seurat,
 ```
 
 
-```{r compare_params}
+```{r compare_params, eval = FALSE}
 set.seed(2020)
 ## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type
 ## = reduction.type, : Build parameters exactly match those of already
@@ -400,7 +400,7 @@ CombinePlots(list(plot1, plot2))
 
 
 
-```{r tcell_markers}
+```{r tcell_markers, eval = FALSE}
 # Find discriminating markers
 tcell.markers <- FindMarkers(object = seurat, ident.1 = 0, ident.2 = 1)
 
@@ -440,7 +440,7 @@ How do we test the cell types identified?  How do we know how reliable they are?
 Use Classifier to predict cell cluster.  See how it predicts using hold out data.
 [reference](https://satijalab.org/seurat/v3.0/integration.html)
 
-```{r check_clusters}
+```{r check_clusters, eval = FALSE}
 # Assign the test object a three level attribute
 groups <- sample(c("train", "test"), size = NROW(seurat@meta.data), replace = TRUE, prob = c(0.8, 0.2))
 names(groups) <- colnames(seurat)
@@ -469,7 +469,7 @@ table(seurat.query@meta.data$ClusterNames_0.6, seurat.query@meta.data$predicted.
 
 Notice all the slots and elements added to the object.  
 
-```{r review_str}
+```{r review_str, eval = FALSE}
 str(seurat)
 ```
 
@@ -479,7 +479,7 @@ str(seurat)
 Another type of clustering we can do is a fuzzy or probablistic clustering.  This is where cells are not assigned to specifically only one cluster.  They get assigned a score for how much the cells belong to each of the clusters (sometimes called topics).  This can be helpful for when your dataset continuous processes and/or cellular states as opposed to distinct cell types.
 
 
-```{r example_lda}
+```{r example_lda, eval = FALSE}
 data("MouseDeng2014.FitGoM")
 names(MouseDeng2014.FitGoM)
 omega <- MouseDeng2014.FitGoM$clust_6$omega
@@ -507,7 +507,7 @@ StructureGGplot(omega = omega,
 ```
 
 
-```{r pbmc_lda}
+```{r pbmc_lda, eval = FALSE}
 set.seed(2020)
 
 ## Preprocessing Steps
@@ -551,7 +551,7 @@ StructureGGplot(omega = omega,
 pbmc_small <- AddMetaData(pbmc_small, omega)
 ```
 
-```{r topic_summary}
+```{r topic_summary, eval = FALSE}
 pbmc_small@meta.data %>% 
   group_by(RNA_snn_res.1) %>% 
   summarise(topic1 = mean(topic1),
@@ -561,13 +561,13 @@ pbmc_small@meta.data %>%
 ```
 
 
-```{r tsne_plot_pbmc}
+```{r tsne_plot_pbmc, eval = FALSE}
 ## ggplot object, you can add layers
 p1 <- DimPlot(pbmc_small, reduction = "tsne") + labs(title = "Resolution 1") ## return ggplot object
 p1
 ```
 
-```{r topic_plot}
+```{r topic_plot, eval = FALSE}
 p2 <- FeaturePlot(object = pbmc_small, 
                   features = c("topic1", "topic2", "topic3", "topic4"), 
                   cols = c("grey", "blue"), 
@@ -576,13 +576,13 @@ p2 <- FeaturePlot(object = pbmc_small,
 p2
 ```
 
-```{r combine_topic_plot}
+```{r combine_topic_plot, eval = FALSE}
 CombinePlots(list(p1, p2))
 ```
 
 #### Extract Top Feature
 
-```{r topic_genes}
+```{r topic_genes, eval = FALSE}
 
 theta_mat <- pbmc_FitGoM$fit$theta
 
@@ -599,7 +599,7 @@ gene_list <- do.call(rbind,
 
 We tabulate the top `5` genes for these `4` topics
 
-```{r topic_genes_by_cluster}
+```{r topic_genes_by_cluster, eval = FALSE}
 out_table <- do.call(rbind, lapply(1:4, function(i) toString(gene_list[i,1:5])))
 rownames(out_table) <- paste("Topic", c(1:4))
 out_table
