@@ -2,3 +2,5 @@
 0.0.2: adding git clone and R packages installation
 0.0.3: added fastqc and cellranger
 0.0.4: added STAR
+0.0.5: added samtools
+0.0.6: added miniconda to get by Seurat warning

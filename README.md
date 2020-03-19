@@ -74,8 +74,8 @@ docker run --rm -ti \
 ### Running Rstudio in Docker AWS
 
 After running the below command go to your web browser at the link indicated.  Log into Rstudio by using,
-username: rstudio
-password: train 
+  - **username:** rstudio
+  - **password:** train 
 
 The password is only set so outside people will not be able to access it by snooping. This can be changed to whatever you desire by changing the `-e PASSWORD=train` in the command. 
 
@@ -83,8 +83,8 @@ The password is only set so outside people will not be able to access it by snoo
 ```{bash}
 ./docker/run_docker_aws.sh 9001
 ```
-  - 9001 is the PORT NUMBER
-  - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
+  - 9001 is the PORT_NUMBER
+  - Change PORT_NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
     - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
 

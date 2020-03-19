@@ -4,7 +4,7 @@
         "description" : "Copies the console output of a selected expression to the system clipboard",
         "interactive" : false,
         "name" : "Output to clipboard",
-        "ordinal" : 9,
+        "ordinal" : 5,
         "package" : "clipr",
         "title" : ""
     },
@@ -13,7 +13,7 @@
         "description" : "Copies the results of a selected expression to the system clipboard",
         "interactive" : false,
         "name" : "Value to clipboard",
-        "ordinal" : 8,
+        "ordinal" : 4,
         "package" : "clipr",
         "title" : ""
     },
@@ -22,7 +22,7 @@
         "description" : "Calculates the package test coverage and opens a report, using `covr::report()`",
         "interactive" : false,
         "name" : "Calculate package test coverage",
-        "ordinal" : 7,
+        "ordinal" : 12,
         "package" : "covr",
         "title" : ""
     },
@@ -31,7 +31,7 @@
         "description" : "Calculate and report the test coverage for the current package, using `devtools::test_coverage()`.",
         "interactive" : false,
         "name" : "Report test coverage for a package",
-        "ordinal" : 6,
+        "ordinal" : 8,
         "package" : "devtools",
         "title" : ""
     },
@@ -40,7 +40,7 @@
         "description" : "Calculate and report test coverage for the current test file, using `devtools::test_coverage_file()`.",
         "interactive" : false,
         "name" : "Report test coverage for a file",
-        "ordinal" : 5,
+        "ordinal" : 7,
         "package" : "devtools",
         "title" : ""
     },
@@ -49,7 +49,7 @@
         "description" : "Run the current test file, using `devtools::test_file()`.",
         "interactive" : false,
         "name" : "Run a test file",
-        "ordinal" : 4,
+        "ordinal" : 6,
         "package" : "devtools",
         "title" : ""
     },
@@ -76,7 +76,7 @@
         "description" : "Runs pkgdown on the current package",
         "interactive" : true,
         "name" : "Build pkgdown",
-        "ordinal" : 12,
+        "ordinal" : 9,
         "package" : "pkgdown",
         "title" : ""
     },

@@ -7,7 +7,6 @@ output: html_document
 library(knitr)
 opts_chunk$set(out.width='90%', fig.align = 'center')
 
-
 library(Seurat)
 library(Matrix)
 library(ggplot2)
@@ -17,7 +16,7 @@ library(ggplot2)
 # Introduction R/Bioconductor
 
 ```{bash, eval = FALSE, echo = FALSE}
-mkdir data
+# mkdir data
 wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
 cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
 cd ..
@@ -25,16 +24,33 @@ cd ..
 
 ## Start Environment
 
-```{bash start_env, eval = FALSE}
+### Local Command
+
+```{bash start_env_local, eval = FALSE}
 ## maybe take away the --rm so they can save the container for later
 ## run from your home directory
 cd 
 
-## example for user99
-docker run --rm -it -e PASSWORD=train \
-  -v $PWD/Share:/Share \
-  -v $PWD:/mydir \
-  -p 9099:8787 kdgosik/scellbern2019
+## example for user17
+docker run --rm -it 
+  -e DISABLE_AUTH=true \
+  -v $PWD:/home/rstudio \
+  -p 9017:8787 kdgosik/2020scworkshop
+```
+
+
+### AWS Command
+
+```{bash start_env_aws, eval = FALSE}
+## maybe take away the --rm so they can save the container for later
+## run from your home directory
+cd 
+
+## example for user17
+sudo docker run --rm -it 
+  -e PASSWORD=train \
+  -v $PWD:/home/rstudio \
+  -p 9017:8787 kdgosik/2020scworkshop
 ```
 
 **Explaination of commands**
@@ -47,18 +63,17 @@ docker run --rm -it -e PASSWORD=train \
   - -it: flag to run the container interactively
   - - this will keep all session output displaying on the terminal
   - - to stop container go to terminal and press Crtl+c
-  - -v $PWD/Share:/Share: map the share directory from AWS to Share inside docker container
-  - -v $PWD:/mydir: map your home directory to a directory inside docker container called home
+  - -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home/rstudio
   - -p 9017:8787: map docker container port of 8787(rstudio port default) to your computer port 9017
-  - kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer
-    - [image link](https://hub.docker.com/r/kdgosik/scellbern2019)
+  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 ```
 
-  - [localhost:9099](https://localhost:9099)  or on AWS
-  - [<AWS PUBLIC IP ADDRESS>:9099](https://:9099)
+  - [localhost:9099](https://localhost:9017)  or on AWS
+  - [<AWS PUBLIC IP ADDRESS>:9017](https://:9017)
 
   - ec2-<AWS PUBLIC IP ADDRESS>.us-west-2.compute.amazonaws.com:$PORT_NUMBER
-  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9099
+  - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9017
 
   - R/Rstudio parts
   - Data Types and classes
