@@ -22,11 +22,12 @@ Cells are the basic building blocks of organisms and each cell is unique. Single
 For this tutorial, we will be analyzing the a dataset of Peripheral Blood Mononuclear Cells (PBMC) freely available from 10X Genomics. There are 2,700 single cells that were sequenced on the Illumina NextSeq 500. The raw data can be found [here](https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz).
 
 
+OR MAYBE USE THE vdj data?
+
 ```{bash get_data, eval = FALSE}
-mkdir /home/genomics/workshop_materials/scrna/pbmc3k
-wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O /home/genomics/workshop_materials/scrna/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz && \
-cd /home/genomics/workshop_materials/scrna/pbmc3k/ && \
-tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
+wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
+cd ..
 ```
 
 **Task: Check the dirname to directory where you saved your data**
@@ -38,9 +39,9 @@ library(dplyr)
 library(ggplot2)
 library(CountClust)
 
-dirname <- "/home/genomics/workshop_materials/scrna/"
+dirname <- "data/"
 ## dirname <- "/Users/kgosik/Documents/data/cellranger/"
-counts_matrix_filename = paste0(dirname, "pbmc3k/filtered_gene_bc_matrices/hg19/")
+counts_matrix_filename = paste0(dirname, "filtered_gene_bc_matrices/hg19/")
 counts <- Read10X(data.dir = counts_matrix_filename)  # Seurat function to read in 10x count data
 
 ```

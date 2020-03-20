@@ -171,7 +171,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>5</b> Introduction R/Bioconductor</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>5.1</b> Start Environment</a></li>
+<li class="chapter" data-level="5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>5.1</b> Start Environment</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#local-command"><i class="fa fa-check"></i><b>5.1.1</b> Local Command</a></li>
+<li class="chapter" data-level="5.1.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#aws-command"><i class="fa fa-check"></i><b>5.1.2</b> AWS Command</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>5.2</b> Installing packages</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>5.2.1</b> CRAN</a></li>
 <li class="chapter" data-level="5.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>5.2.2</b> Github</a></li>
@@ -241,9 +244,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> Lab Template</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="lab-template.html#cb1-1"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">echo =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb1-2"><a href="lab-template.html#cb1-2"></a><span class="kw">library</span>(Seurat)</span></code></pre></div>
+<pre><code>## Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
 <div id="template-example" class="section level2">
 <h2><span class="header-section-number">2.1</span> Template Example</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="lab-template.html#cb2-1"></a>counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> <span class="st">&quot;data/filtered_gene_bc_matrices/GRCh38&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="lab-template.html#cb3-1"></a>counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> <span class="st">&quot;data/filtered_gene_bc_matrices/GRCh38&quot;</span>)</span></code></pre></div>
 </div>
 <div id="make-object" class="section level2">
 <h2><span class="header-section-number">2.2</span> Make Object</h2>

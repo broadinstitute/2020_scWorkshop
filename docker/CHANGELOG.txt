@@ -4,3 +4,4 @@
 0.0.4: added STAR
 0.0.5: added samtools
 0.0.6: added miniconda to get by Seurat warning
+0.0.7: added some R packages

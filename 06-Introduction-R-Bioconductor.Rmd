@@ -152,9 +152,7 @@ install.packages("GenABEL_1.8-0.tar.gz", type="source")
 ```
 
 ## Installation instructions:
-All the packages necessary for this course are available [here](https://github.com/broadinstitute/2019_scWorkshop). A list of the packages will be on the README.md for the repository.  A script is also available inside the docker/install.R file.  
-
-
+All the packages necessary for this course are available [here](https://github.com/broadinstitute/2020_scWorkshop). A list of the packages will be on the README.md for the repository.  A script is also available inside the docker/install.R file.  
 
 
 

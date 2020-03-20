@@ -130,18 +130,18 @@ Consistent compute enviornment to ensure all software that you need is on the ma
 ```{bash, eval = FALSE, echo = FALSE}
 ## maybe take away the --rm so they can save the container for later
 ## or whatever port for your user number
-docker run --rm -it -e PASSWORD=train -p 9000:8787 kdgosik/scellbern2019 bash
+docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 
-sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data kdgosik/scellbern2019 bash
+sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 
-sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data -v $PWD/userfolders/Dana:/mydir kdgosik/scellbern2019 bash
+sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 ```
 
 ```{bash, eval = FALSE}
 ## maybe take away the --rm so you can save the container for later
 ## run from your home directory
 cd 
-docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 bash
+docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 ```
 
 **Explaination of commands**
@@ -154,10 +154,9 @@ docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 ba
   - -it: flag to run the container interactively
     - this will keep all session output displaying on the terminal
     - to stop container go to terminal and press Crtl+c
-    -v $PWD/Share:/Share: map the share directory from AWS to Share inside docker container
-    -v $PWD:/mydir: map your home directory to a directory inside docker container called home
-  - kdgosik/scellbern2019: the image to run.  It will be the image into a container if not already built on your computer
-    - [image link](https://hub.docker.com/r/kdgosik/scellbern2019)
+    -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home
+  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 ```
 
 ## File formats
@@ -172,19 +171,19 @@ docker run --rm -it -v $PWD/Share:/Share -v $PWD:/mydir kdgosik/scellbern2019 ba
 
 #### Viewing entire file
 ```{bash, eval = FALSE}
-cat /Share/data/Teichmann_2i_2_2_2.fastq
+cat data/Teichmann_2i_2_2_2.fastq
 ```
 
 #### Viewing first 10 lines
 
 ```{bash, eval = FALSE}
-head /Share/data/Teichmann_2i_2_2_2.fastq
+head data/Teichmann_2i_2_2_2.fastq
 ```
 
 #### Stream Viewing with less command
 
 ```{bash, eval = FALSE}
-less /Share/data/Teichmann_2i_2_2_2.fastq
+less data/Teichmann_2i_2_2_2.fastq
 ```
 
 
@@ -193,13 +192,13 @@ less /Share/data/Teichmann_2i_2_2_2.fastq
 #### Viewing first 10 lines
 
 ```{bash, eval = FALSE}
-samtools view /Share/data/pbmc_1k_protein_v3_possorted_genome_bam.bam | head
+samtools view data/pbmc_1k_protein_v3_possorted_genome_bam.bam | head
 ```
 
 #### Stream Viewing with less command
 
 ```{bash, eval = FALSE}
-samtools view /Share/data/pbmc_1k_protein_v3_possorted_genome_bam.bam | less
+samtools view data/pbmc_1k_protein_v3_possorted_genome_bam.bam | less
 ```
 
 
