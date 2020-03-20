@@ -139,7 +139,7 @@ Bioconductor also requires creators to support their packages and has a regular 
 ## >= R 3.5.0
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("Rsamtools", version = "3.8", ask = FALSE)
+BiocManager::install("Rsamtools", ask = FALSE)
 ```
 
 ### Source
