@@ -1,0 +1,229 @@
+---
+title: "04-Processing-scRNAseq-Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal
+
+- To give you experience with examining and aligning fastq files
+
+## Further reading
+
+This lab is based on a lab given in:
+http://hemberg-lab.github.io/scRNA.seq.course/processing-raw-scrna-seq-data.html
+For more exercises and ideas please visit their web-site!
+
+## Download data
+
+Please downlaod the 6 files from the dropbox folder: https://www.dropbox.com/sh/98573jes82w0fi7/AAB7Yhwe05MCZTnTZmppxZuta?dl=0 into the data folder of your copy of github:
+```{r copy files, eval = FALSE}
+cd 2020_scWorkshop/data
+mkdir lab2data
+```
+and copy the files into it
+## FastQC
+
+Once you’ve obtained your single-cell RNA-seq data, the first thing you need to do with it is check the quality of the reads you have sequenced. For this task, today we will be using a tool called FastQC. FastQC is a quality control tool for sequencing data, which can be used for both bulk and single-cell RNA-seq data. FastQC takes sequencing data as input and returns a report on read quality. Copy and paste this link into your browser to visit the FastQC website:
+
+https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+
+This website contains links to download and install FastQC and documentation on the reports produced. Fortunately we have already installed FastQC for you today, so instead we will take a look at the documentation. Scroll down the webpage to ‘Example Reports’ and click ‘Good Illumina Data’. This gives an example of what an ideal report should look like for high quality Illumina reads data.
+
+Now let’s make a FastQC report ourselves.
+
+Today we will be performing our analysis using a single cell from an mESC dataset produced by (Kolodziejczyk et al. 2015), which you downloaded froom the github link. The cells were sequenced using the SMART-seq2 library preparation protocol and the reads are paired end.
+
+First, let's open the docker in a bash mode. open a terminal, cd to the docer folder (the folder you downloaded from github) and run this command:
+```{r run docker, eval = FALSE}
+docker run --rm -ti -v $PWD:/home/rstudio -e DISABLE_AUTH=true kdgosik/2020scworkshop bash
+```
+
+navigate to your data folder:
+```{r navigate to files, eval = FALSE}
+cd home/rstudio/lab2data
+ls
+```
+
+You should see the files that you downloaded from the dropbox link.
+
+Now let’s look at the files:
+```{r examine, eval = FALSE}
+less Teichmann_2i_2_2_1.fastq
+less Teichmann_2i_2_2_2.fastq
+```
+
+We run fastqc from /usr/local/src/FastQC. You may need to give yourself permissions to run the file (hint: chmod)
+
+Task 1: run fastqc to view the quality of the reads
+```{r explore fastqc, eval = FALSE }
+chmod 755 /usr/local/src/FastQC/fastqc
+/usr/local/src/FastQC/fastqc -h
+```
+
+This command will tell you what options are available to pass to FastQC. Let us direct our output to our personal directories (under the folder results). Feel free to ask for help if you get stuck! If you are successful, you should generate a .zip and a .html file for both the forwards and the reverse reads files. Once you have been successful, feel free to have a go at the next section.
+
+```{r run fastqc - this is the answer, eval = FALSE }
+/usr/local/src/FastQC/fastqc -o <output_folder> Teichmann_2i_2_2_1.fastq Teichmann_2i_2_2_2.fastq
+```
+
+Once the command has finished executing, you should have a total of four files - one zip file for each of the paired end reads, and one html file for each of the paired end reads. The report is in the html file. 
+
+for those working in AWS, if you want to view the file you will need to download it to your computer. The scp command is:
+```{r scp, eval = FALSE }
+scp -r -i <your pem file> <username>@ec2-34-213-180-241.us-west-2.compute.amazonaws.com:~/<file to copy> <destination in your computer>
+```
+
+Once the file is on you computer, click on it. Your FastQC report should open. Have a look through the file. Remember to look at both the forwards and the reverse end read reports! How good quality are the reads? Is there anything we should be concerned about? 
+
+
+### Fastq file format
+
+FastQ is the most raw form of scRNASeq data you will encounter. All scRNASeq protocols are sequenced with paired-end sequencing. Barcode sequences may occur in one or both reads depending on the protocol employed. However, protocols using unique molecular identifiers (UMIs) will generally contain one read with the cell and UMI barcodes plus adapters but without any transcript sequence. Thus reads will be mapped as if they are single-end sequenced despite actually being paired end.
+
+FastQ files have the format:
+```{r file format, eval = FALSE}
+>ReadID
+READ SEQUENCE
++
+SEQUENCING QUALITY SCORES
+```
+
+## Align the reads
+
+### STAR align
+
+Now we have established that our reads are of good quality, we would like to map them to a reference genome. This process is known as alignment. Some form of alignment is generally required if we want to quantify gene expression or find genes which are differentially expressed between samples.
+
+Many tools have been developed for read alignment, but today we will focus on STAR. For each read in our reads data, STAR tries to find the longest possible sequence which matches one or more sequences in the reference genome. Because STAR is able to recognize splicing events in this way, it is described as a ‘splice aware’ aligner.
+
+Usually STAR aligns reads to a reference genome, potentially allowing it to detect novel splicing events or chromosomal rearrangements. However, one issue with STAR is that it needs a lot of RAM, especially if your reference genome is large (eg. mouse and human). To speed up our analysis today, we will use STAR to align reads from to a reference transcriptome of 2000 transcripts. Note that this is NOT normal or recommended practice, we only do it here for reasons of time. We recommend that normally you should align to a reference genome.
+
+Two steps are required to perform STAR alignment. In the first step, the user provides STAR with reference genome sequences (FASTA) and annotations (GTF), which STAR uses to create a genome index. In the second step, STAR maps the user’s reads data to the genome index.
+
+Let’s create the index now. Remember, for reasons of time we are aligning to a transcriptome rather than a genome today, meaning we only need to provide STAR with the sequences of the transcripts we will be aligning reads to. You can obtain transcriptomes for many model organisms from Ensembl (https://www.ensembl.org/info/data/ftp/index.html).
+
+
+Task 2: Create a genome index
+
+First create the output folder for the index in your personal folder under results (recommended /home/rstudio/lab2data/STAR/indices).
+
+We run STAR from:
+```{r STAR location, eval = FALSE}
+/usr/local/src/STAR/bin/Linux_x86_64
+```
+
+using the command:
+```{r create STAR index, eval = FALSE}
+/usr/local/src/STAR/bin/Linux_x86_64/STAR --runThreadN 4 --runMode genomeGenerate --genomeDir <output STAR indices folder> --genomeFastaFiles /home/rstudio/lab2data/2000_reference.transcripts.fa
+```
+
+Now that we have created the index, we can perform the mapping step.
+
+Task 4: Try to work out what command you should use to map our fastq files to the index you created. Use the STAR manual to help you. Once you think you know the answer use ./STAR command to align the fastq files to a BAM file.
+You can either create a SAM file and convert it to BAM using samtools, or use STAR to directly output a BAM file (--outSAMtype BAM Unsorted)
+
+```{r align read using STAR, eval = FALSE}
+/usr/local/src/STAR/bin/Linux_x86_64/STAR --runThreadN 4 --genomeDir <genome_reference> --readFilesIn /home/rstudio/lab2data/Teichmann_2i_2_2_1.fastq /home/rstudio/lab2data/Teichmann_2i_2_2_2.fastq --outFileNamePrefix <output_folder> --outSAMtype BAM Unsorted
+```
+
+The alignment may take awhile, if you wish to you can complete tasks 7-10 in the meanwhile.
+
+
+### Bam file format
+
+BAM file format stores mapped reads in a standard and efficient manner. The human-readable version is called a SAM file, while the BAM file is the highly compressed version. BAM/SAM files contain a header which typically includes
+information on the sample preparation, sequencing and mapping; and a tab-separated row for each individual alignment of each read.
+
+Alignment rows employ a standard format with the following columns:
+
+QNAME : read name (generally will include UMI barcode if applicable)
+
+FLAG : number tag indicating the “type” of alignment, link to explanation of all possible “types”
+
+RNAME : reference sequence name (i.e. chromosome read is mapped to).
+
+POS : leftmost mapping position
+
+MAPQ : Mapping quality
+
+CIGAR : string indicating the matching/mismatching parts of the read (may include soft-clipping).
+
+RNEXT : reference name of the mate/next read
+
+PNEXT : POS for mate/next read
+
+TLEN : Template length (length of reference region the read is mapped to)
+
+SEQ : read sequence
+
+QUAL : read quality
+
+
+BAM/SAM files can be converted to the other format using ‘samtools’:
+```{r samtools bam/sam, eval = FALSE}
+samtools view -S -b file.sam > file.bam
+samtools view -h file.bam > file.sam
+```
+
+Some sequencing facilities will automatically map your reads to the a standard genome and deliver either BAM or CRAM formatted files. Generally they will not have included ERCC sequences in the genome thus no ERCC reads will be mapped in the BAM/CRAM file. To quantify ERCCs (or any other genetic alterations) or if you just want to use a different alignment algorithm than whatever is in the generic pipeline (often outdated), then you will need to convert the BAM/CRAM files back to FastQs:
+
+BAM files can be converted to FastQ using bedtools. To ensure a single copy for multi-mapping reads first sort by read name and remove secondary alignments using samtools. Picard also contains a method for converting BAM to FastQ files.
+
+Bonus: 
+
+To make our aligned BAM file easy to navigate (needed for IGViewer) we will sort and index it using samtools.
+Sam tools can be run from everywhere (no need to go to a special directory!) using the command:
+```{r samtools command, eval = FALSE}
+samtools
+```
+
+Let us start by sorting the BAM file:
+```{r sort, eval = FALSE}
+samtools sort Aligned.out.bam -o Aligned.out.sorted.bam
+```
+
+Task 6: can you index the file? hint: try looking at samtools -h
+
+```{r index, eval = FALSE}
+samtools index Aligned.out.sorted.bam
+```
+
+Once you sorted and indexed the files you should have a BAM and a bai files. The BAM file is the aligned reads, and the bai is an index file. To view them in IGViewer (IGV) first copy them into your computer. Go ahead and copy the fa file as well, we will need a reference genome file. 
+
+## Visualization
+
+To view the file we will use the IGV you installed on your personal computer. 
+Open IGV: the default genomes are human HG19 and HG38. Through the class we will be using the PBMC dataset. You have the BAM file in your data folder. Go ahead and transfer it to your computer and upload it to IGV with hg38 as reference genome.
+
+```{r IGV viewing pbmc bam, eval = FALSE}
+
+Task 7: Browse to MS4A1, this is a blood cell marker. Can you see the exons and the introns? Where are most of the aligned reads?
+
+Task 8: Search in IGV or online - can you present splice junctions? (right click -> “Show splice junction track”)
+
+Task 9: Try further tasks that interest you in IGV. For example, can you detect reads that are within one exon and reads that start in one exon and continue in the next? Can you copy the sequence of exon2 in MS4A1?
+
+Task 10: What would have happened if you chose the wrong reference genome, such as hg19?
+```
+
+
+Bonus 2 (IGV sometimes has difficulties loading small fa files. So if this becomes difficult - don't worry! It's not your alignment):
+
+The default genomes are human HG19 and HG38. However you can also upload your reference genome of choice. As we created our own fasta file we can now upload it as a reference genome. 
+
+```{r IGV viewing your newlt created bam file, eval = FALSE}
+Task 11: Load new genome: go to “Genomes”->”Load from file” and load the file 2000_reference.transcripts.fa
+
+Task 12: Now load your reads: go to “File”->”Load from file” and load your BAM file. Notice that IGV needs a BAM and a bai saved in the same location. IGV uses the bai to navigate through the BAM file. 
+
+Task 13: Some of the reads have a nucleotide substitution in position 993 - what is the reference nucleotide? What is the substitution?
+```
+
+
+
+
+
