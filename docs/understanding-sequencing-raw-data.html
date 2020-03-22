@@ -348,7 +348,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-8"><a href="understanding-sequencing-raw-data.html#cb23-8"></a>    <span class="ex">-</span> to stop container go to terminal and press Crtl+c</span>
 <span id="cb23-9"><a href="understanding-sequencing-raw-data.html#cb23-9"></a>    <span class="ex">-v</span> <span class="va">$PWD</span>:/home/rstudio: map your home directory to a directory inside docker container called home</span>
 <span id="cb23-10"><a href="understanding-sequencing-raw-data.html#cb23-10"></a>  <span class="ex">-</span> kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer</span>
-<span id="cb23-11"><a href="understanding-sequencing-raw-data.html#cb23-11"></a>    <span class="ex">-</span> [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)</span></code></pre></div>
+<span id="cb23-11"><a href="understanding-sequencing-raw-data.html#cb23-11"></a>    <span class="ex">-</span> [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)</span>
+<span id="cb23-12"><a href="understanding-sequencing-raw-data.html#cb23-12"></a>  <span class="ex">-</span> bash: The entry point into the container.  Start on the bash command line</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -365,26 +366,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.3.1</span> View FASTQ Files</h3>
 <div id="viewing-entire-file" class="section level4">
 <h4><span class="header-section-number">4.3.1.1</span> Viewing entire file</h4>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="understanding-sequencing-raw-data.html#cb24-1"></a><span class="fu">cat</span> data/Teichmann_2i_2_2_2.fastq</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="understanding-sequencing-raw-data.html#cb24-1"></a><span class="fu">cat</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 <div id="viewing-first-10-lines" class="section level4">
 <h4><span class="header-section-number">4.3.1.2</span> Viewing first 10 lines</h4>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="understanding-sequencing-raw-data.html#cb25-1"></a><span class="fu">head</span> data/Teichmann_2i_2_2_2.fastq</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="understanding-sequencing-raw-data.html#cb25-1"></a><span class="fu">head</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 <div id="stream-viewing-with-less-command" class="section level4">
 <h4><span class="header-section-number">4.3.1.3</span> Stream Viewing with less command</h4>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="understanding-sequencing-raw-data.html#cb26-1"></a><span class="fu">less</span> data/Teichmann_2i_2_2_2.fastq</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="understanding-sequencing-raw-data.html#cb26-1"></a><span class="fu">less</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 </div>
 <div id="view-bam-files" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> View BAM Files</h3>
 <div id="viewing-first-10-lines-1" class="section level4">
 <h4><span class="header-section-number">4.3.2.1</span> Viewing first 10 lines</h4>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="understanding-sequencing-raw-data.html#cb27-1"></a><span class="ex">samtools</span> view data/pbmc_1k_protein_v3_possorted_genome_bam.bam <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="understanding-sequencing-raw-data.html#cb27-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div>
 </div>
 <div id="stream-viewing-with-less-command-1" class="section level4">
 <h4><span class="header-section-number">4.3.2.2</span> Stream Viewing with less command</h4>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="understanding-sequencing-raw-data.html#cb28-1"></a><span class="ex">samtools</span> view data/pbmc_1k_protein_v3_possorted_genome_bam.bam <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="understanding-sequencing-raw-data.html#cb28-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
 </div>
 </div>
 </div>
