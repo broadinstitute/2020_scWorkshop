@@ -73,6 +73,12 @@ docker run --rm -ti \
 
 ### Running Rstudio in Docker AWS
 
+#### Access the EC2 Instance
+
+There is a nice breakdown from another Physalia course on instructions for different operating systems and accessing AWS.  It is called [Connection to the Amazon EC2 service](https://gitlab.com/bfosso/metabarcoding_physalia/-/blob/master/unix_short_tutorial/how_to_connect.md).  This will help with connecting to the AWS instance to run docker.  
+
+#### Access Rstudio
+
 After running the below command go to your web browser at the link indicated.  Log into Rstudio by using,
   - **username:** rstudio
   - **password:** train 

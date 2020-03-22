@@ -5,36 +5,23 @@ output: html_document
 
 # Understanding Sequencing Raw Data
 
-
-**NEEDS UPDATED commands and docker explanations!**
-
-
-
 ## Class Environment
 
 ### Getting into AWS Instance
 
-```{bash, eval = FALSE}
+There is a nice breakdown from another Physalia course on instructions for different operating systems and accessing AWS.  It is called [Connection to the Amazon EC2 service](https://gitlab.com/bfosso/metabarcoding_physalia/-/blob/master/unix_short_tutorial/how_to_connect.md).  This will help with connecting to the AWS instance to run docker.  
+
+```{bash ssh_aws, eval = FALSE}
 ## Example
 ssh -i berlin.pem ubuntu@<PUBLIC IP ADDRESS> (e.g.34.219.254.245)
 
-## Actual Command
+## Actual Command Example
 ssh -i berlin.pem ubuntu@34.213.180.241
 ```
 
-<!--
-### Rstudio
-
-```{bash, eval = FALSE, echo = FALSE}
-## maybe take away the --rm so they can save the container for later
-## or whatever port
-docker run --rm -it -e PASSWORD=train -p 9000:8787 kdgosik/scellbern2019
-
-sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data -v $PWD/userfolders/Dana:/mydir kdgosik/scellbern2019
-```
--->
 
 ## Shell and Unix commands
+
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSavPAPY3WXe2EiqaRXJmAajFTeGcRbD1qJq4Sp4YlcF1_m7I1X89D1uC-8jDDGinqFLNO2oJNALbNx/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
@@ -43,12 +30,12 @@ sudo docker run --rm -it -e PASSWORD=train -v $PWD/Share:/data -v $PWD/userfolde
 #### Lab 1a
 
   - check the your present directory
-```{bash, eval = FALSE}
+```{bash lab1a_pwd, eval = FALSE}
 pwd
 ```
 
   - check history
-```{bash, eval = FALSE}
+```{bash lab1a_hist, eval = FALSE}
 history
 ```
 
@@ -58,94 +45,104 @@ history | grep cd
 ```
 
   - put history into a history.txt file
-```{bash, eval = FALSE}
+```{bash lab1a_hist_txt, eval = FALSE}
 history > history.txt
 ```
 
   - make a directory called data
-```{bash, eval = FALSE}
+```{bash lab1a_mkdir, eval = FALSE}
 mkdir data
 ```
 
   - change into data directory
-```{bash, eval = FALSE}
+```{bash lab1a_cd, eval = FALSE}
 cd data
 ```
 
   - move history.txt file into data directory
-```{bash, eval = FALSE}
+```{bash lab1a_mv, eval = FALSE}
 mv ../history.txt ./
 ```
 
   - check manual page of wget command
-```{bash, eval = FALSE}
+```{bash lab1a_man, eval = FALSE}
 man wget
 ```
 
   - redirect wget maunual page output into a file called wget.txt
-```{bash, eval = FALSE}
+```{bash lab1a_man_wget, eval = FALSE}
 man wget > wget.txt
 ```
 
   - return the lines that contain output in the wget.txt file
-```{bash, eval = FALSE}
+```{bash lab1a_cat, eval = FALSE}
 cat wget.txt | grep output
 ```
 
-```{bash, eval = FALSE}
+```{bash lab1a_grep, eval = FALSE}
 grep -i output wget.txt
 ```
 
   - Compress wget.txt file
-```{bash, eval = FALSE}
+```{bash lab1a_gzip, eval = FALSE}
 gzip wget.txt
 ```
 
   - View Compressed file
-```{bash, eval = FALSE}
+```{bash lab1a_catgz, eval = FALSE}
 cat wget.txt.qz
 ```
   
 
-```{bash, eval = FALSE}
+```{bash lab1a_zcat, eval = FALSE}
 zcat wget.txt.qz
 ```
 
 
-```{bash, eval = FALSE}
+```{bash lab1a_less, eval = FALSE}
 zcat wget.txt.qz | less
 ```
 
 
+#### Git Commands 
 
+Git is a distributed version-control system for tracking changes in source code during software development. It is designed for coordinating work among programmers, but it can be used to track changes in any set of files. Its goals include speed, data integrity, and support for distributed, non-linear workflows.
+
+Go to your user directory and run the following command from git.  This will create a directory of all the course material inside your user directory.  After it is done cloning change directory into the 2020_scWorkshop directory where the course material is.  The commands are below.  
+
+```{bash clone_repo, eval = FALSE}
+## clone repository
+git clone https://github.com/broadinstitute/2020_scWorkshop.git
+cd 2020_scWorkshop
+```
 
 
 #### Docker Commands
 
-Consistent compute enviornment to ensure all software that you need is on the machine and able to be used. 
+Docker provides a consistent compute enviornment to ensure all software that you need is on the machine and able to be used. It will give you the version you need and help reduce software conflicts that may arise.
 
-  - change directory to your user directory
-  - run following command to start docker
-
-```{bash, eval = FALSE, echo = FALSE}
-## maybe take away the --rm so they can save the container for later
-## or whatever port for your user number
-docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
-
-sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
-
-sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+  - make sure you are in the directory from the cloned repository directory
+  - run following command to start docker script
+  
+```{bash run_script_bash, eval = FALSE}
+# chmod 600 ./docker/run_docker_bash.sh
+./docker/run_docker_bash.sh
 ```
 
-```{bash, eval = FALSE}
-## maybe take away the --rm so you can save the container for later
-## run from your home directory
-cd 
+The full command inside the script is below.  There is also an explaination of each part for your reference.  
+
+```{bash full_bash_cmd, eval = FALSE}
+## if you are the super user on your computer
 docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+
+## if you need to access permission to run the command
+sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+
 ```
+
 
 **Explaination of commands**
-```{bash, eval = FALSE}
+```{bash explain_cmd, eval = FALSE}
   - docker: command to run docker
   - run: asking docker to run a container
   - --rm: flag to remove the container when you exit from it
@@ -157,7 +154,9 @@ docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
     -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home
   - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
+  - bash: The entry point into the container.  Start on the bash command line
 ```
+
 
 ## File formats
 
@@ -170,20 +169,20 @@ docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
 ### View FASTQ Files
 
 #### Viewing entire file
-```{bash, eval = FALSE}
-cat data/Teichmann_2i_2_2_2.fastq
+```{bash cat_fastq, eval = FALSE}
+cat data/example_fastq.fastq
 ```
 
 #### Viewing first 10 lines
 
-```{bash, eval = FALSE}
-head data/Teichmann_2i_2_2_2.fastq
+```{bash head_fastq, eval = FALSE}
+head data/example_fastq.fastq
 ```
 
 #### Stream Viewing with less command
 
-```{bash, eval = FALSE}
-less data/Teichmann_2i_2_2_2.fastq
+```{bash less_fastq, eval = FALSE}
+less data/example_fastq.fastq
 ```
 
 
@@ -191,14 +190,14 @@ less data/Teichmann_2i_2_2_2.fastq
 
 #### Viewing first 10 lines
 
-```{bash, eval = FALSE}
-samtools view data/pbmc_1k_protein_v3_possorted_genome_bam.bam | head
+```{bash sam_view_less, eval = FALSE}
+samtools view data/ex1.bam | head
 ```
 
 #### Stream Viewing with less command
 
-```{bash, eval = FALSE}
-samtools view data/pbmc_1k_protein_v3_possorted_genome_bam.bam | less
+```{bash sam_view_head, eval = FALSE}
+samtools view data/ex1.bam | less
 ```
 
 
@@ -210,16 +209,14 @@ samtools view data/pbmc_1k_protein_v3_possorted_genome_bam.bam | less
 
 10x PBMC data are hosted in https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 
-
-  - change directory into the data directory
   - get 10x PBMC data
   - unzip data
   - explore directory
   - explore files
 
 
-```{bash, eval = FALSE}
-mkdir data
+```{bash wget_pbmc, eval = FALSE}
+
 wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
 cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
 cd ..
@@ -237,14 +234,11 @@ cd ..
   - ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz
   - ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL17021_series_matrix.txt.gz
 
-
- - make a directory for the files or use data directory
  - go into that directory
  - get files and place them in the directory
  - View files (try keeping in compressed format and view that way)
  
- ```{bash, eval = FALSE}
-cd data
+```{bash wget_geo, eval = FALSE}
 wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz
 cd data; tar -xzf GSE81905-GPL19057_series_matrix.txt.gz
 cd ..

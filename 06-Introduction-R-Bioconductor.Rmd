@@ -26,10 +26,17 @@ cd ..
 
 ### Local Command
 
+```{bash docker_script, eval = FALSE}
+# chmod 600 ./docker/run_docker.sh
+./docker/run_docker.sh
+```
+
+
+**full command**
 ```{bash start_env_local, eval = FALSE}
 ## maybe take away the --rm so they can save the container for later
 ## run from your home directory
-cd 
+cd 2020scworkshop
 
 ## example for user17
 docker run --rm -it 
@@ -44,7 +51,7 @@ docker run --rm -it
 ```{bash start_env_aws, eval = FALSE}
 ## maybe take away the --rm so they can save the container for later
 ## run from your home directory
-cd 
+cd 2020scworkshop
 
 ## example for user17
 sudo docker run --rm -it 
@@ -152,6 +159,7 @@ install.packages("GenABEL_1.8-0.tar.gz", type="source")
 ```
 
 ## Installation instructions:
+
 All the packages necessary for this course are available [here](https://github.com/broadinstitute/2020_scWorkshop). A list of the packages will be on the README.md for the repository.  A script is also available inside the docker/install.R file.  
 
 
@@ -163,7 +171,7 @@ R is a high level language so the underlying data-type is generally not importan
 
 #### Integer
 
-```{r }
+```{r r_ints}
 x <- 4 ## assign value of 4 to x
 
 class(x) ## check class of x
