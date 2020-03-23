@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>5 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="5 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="5 Understanding Sequencing Raw Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,7 +32,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-template.html"/>
+<link rel="prev" href="processing-scrnaseq-data.html"/>
 <link rel="next" href="introduction-rbioconductor.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -153,71 +153,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="lab-template.html"><a href="lab-template.html#process-object"><i class="fa fa-check"></i><b>2.3</b> Process Object</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="lecture-template.html"><a href="lecture-template.html"><i class="fa fa-check"></i><b>3</b> Lecture Template</a></li>
-<li class="chapter" data-level="4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>4</b> Understanding Sequencing Raw Data</a><ul>
-<li class="chapter" data-level="4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>4.1</b> Class Environment</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>4.1.1</b> Getting into AWS Instance</a></li>
+<li class="chapter" data-level="4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>4</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>4.1</b> Goal</a></li>
+<li class="chapter" data-level="4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>4.2</b> Further reading</a></li>
+<li class="chapter" data-level="4.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#download-data"><i class="fa fa-check"></i><b>4.3</b> Download data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>4.3.1</b> Fastq file format</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>4.2</b> Shell and Unix commands</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>4.2.1</b> Common Linux Commands</a></li>
+<li class="chapter" data-level="4.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>4.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>4.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="4.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>4.4.2</b> Bam file format</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>4.3.1</b> View FASTQ Files</a></li>
-<li class="chapter" data-level="4.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>4.3.2</b> View BAM Files</a></li>
+<li class="chapter" data-level="4.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>4.5</b> Visualization</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>4.4</b> Public data repositories</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>4.4.1</b> Cellranger/10x</a></li>
-<li class="chapter" data-level="4.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>4.4.2</b> GEO</a></li>
-<li class="chapter" data-level="4.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>4.4.3</b> Single Cell Portal</a></li>
+<li class="chapter" data-level="5" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>5</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>5.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>5.1.1</b> Getting into AWS Instance</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>5.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>5.2.1</b> Common Linux Commands</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>5</b> Introduction R/Bioconductor</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>5.1</b> Start Environment</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#local-command"><i class="fa fa-check"></i><b>5.1.1</b> Local Command</a></li>
-<li class="chapter" data-level="5.1.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#aws-command"><i class="fa fa-check"></i><b>5.1.2</b> AWS Command</a></li>
+<li class="chapter" data-level="5.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>5.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="5.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>5.3.2</b> View BAM Files</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>5.2</b> Installing packages</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>5.2.1</b> CRAN</a></li>
-<li class="chapter" data-level="5.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>5.2.2</b> Github</a></li>
-<li class="chapter" data-level="5.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>5.2.3</b> Bioconductor</a></li>
-<li class="chapter" data-level="5.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>5.2.4</b> Source</a></li>
+<li class="chapter" data-level="5.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>5.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>5.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="5.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>5.4.2</b> GEO</a></li>
+<li class="chapter" data-level="5.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>5.4.3</b> Single Cell Portal</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>5.3</b> Installation instructions:</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>5.3.1</b> Classes/Types</a></li>
-<li class="chapter" data-level="5.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>5.3.2</b> Data structures</a></li>
-<li class="chapter" data-level="5.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>5.3.3</b> Detour to S3/S4</a></li>
+<li class="chapter" data-level="5.5" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#docker-commands"><i class="fa fa-check"></i><b>5.5</b> Docker Commands</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>5.4</b> More information</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>5.4.1</b> Checking for help for any function!</a></li>
+<li class="chapter" data-level="6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>6</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>6.1</b> Start Environment</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#local-command"><i class="fa fa-check"></i><b>6.1.1</b> Local Command</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#aws-command"><i class="fa fa-check"></i><b>6.1.2</b> AWS Command</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>5.5</b> Grammer of Graphics (ggplot2)</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>5.5.1</b> What is ggplot2?</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>5.5.2</b> Principles of ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>6.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>6.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>6.2.2</b> Github</a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>6.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>6.2.4</b> Source</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>5.6</b> Reference</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>6.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>6.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="6.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>6.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="6.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>6.3.3</b> Detour to S3/S4</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>6</b> Identifying Cell Populations</a><ul>
-<li class="chapter" data-level="6.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>6.1</b> Google Slides</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>6.4</b> More information</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>6.4.1</b> Checking for help for any function!</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>7</b> Feature Selection and Cluster Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
-<li class="chapter" data-level="7.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial-redo"><i class="fa fa-check"></i><b>7.2</b> Seurat Tutorial Redo</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>7.2.1</b> Preprocessing Steps</a></li>
-<li class="chapter" data-level="7.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>7.2.2</b> Start of Identifying Cell Types</a></li>
-<li class="chapter" data-level="7.2.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#run-non-linear-dimensional-reduction-umaptsne"><i class="fa fa-check"></i><b>7.2.3</b> Run non-linear dimensional reduction (UMAP/tSNE)</a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>6.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>6.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>6.5.2</b> Principles of ggplot2</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>7.3</b> Feature Selection</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>7.3.1</b> Differential Expression Analysis</a></li>
-<li class="chapter" data-level="7.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>7.3.2</b> Check Clusters</a></li>
-<li class="chapter" data-level="7.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#view-entire-object-structure"><i class="fa fa-check"></i><b>7.3.3</b> View Entire Object Structure</a></li>
-<li class="chapter" data-level="7.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>7.3.4</b> Practice Visualizing/Embedding</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>6.6</b> Reference</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>7.4</b> Other Options For Analysis</a></li>
+<li class="chapter" data-level="7" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>7</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="7.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#google-slides"><i class="fa fa-check"></i><b>7.1</b> Google Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>8</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="8.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>8.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="8.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>8.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="8.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>8.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="8.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>8.4</b> Online courses</a></li>
+<li class="chapter" data-level="8" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>8</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial-redo"><i class="fa fa-check"></i><b>8.2</b> Seurat Tutorial Redo</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>8.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="8.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>8.2.2</b> Start of Identifying Cell Types</a></li>
+<li class="chapter" data-level="8.2.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#run-non-linear-dimensional-reduction-umaptsne"><i class="fa fa-check"></i><b>8.2.3</b> Run non-linear dimensional reduction (UMAP/tSNE)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>8.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="8.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>8.3.2</b> Check Clusters</a></li>
+<li class="chapter" data-level="8.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#view-entire-object-structure"><i class="fa fa-check"></i><b>8.3.3</b> View Entire Object Structure</a></li>
+<li class="chapter" data-level="8.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>8.3.4</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>8.4</b> Other Options For Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>9</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="9.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>9.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="9.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>9.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>9.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="9.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>9.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -241,120 +254,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="understanding-sequencing-raw-data" class="section level1">
-<h1><span class="header-section-number">4</span> Understanding Sequencing Raw Data</h1>
+<h1><span class="header-section-number">5</span> Understanding Sequencing Raw Data</h1>
 <div id="class-environment" class="section level2">
-<h2><span class="header-section-number">4.1</span> Class Environment</h2>
+<h2><span class="header-section-number">5.1</span> Class Environment</h2>
 <div id="getting-into-aws-instance" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Getting into AWS Instance</h3>
+<h3><span class="header-section-number">5.1.1</span> Getting into AWS Instance</h3>
 <p>There is a nice breakdown from another Physalia course on instructions for different operating systems and accessing AWS. It is called <a href="https://gitlab.com/bfosso/metabarcoding_physalia/-/blob/master/unix_short_tutorial/how_to_connect.md">Connection to the Amazon EC2 service</a>. This will help with connecting to the AWS instance to run docker.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="understanding-sequencing-raw-data.html#cb4-1"></a><span class="co">## Example</span></span>
-<span id="cb4-2"><a href="understanding-sequencing-raw-data.html#cb4-2"></a><span class="fu">ssh</span> -i berlin.pem ubuntu@<span class="op">&lt;</span>PUBLIC IP ADDRESS<span class="op">&gt;</span> (e.g.34.219.254.245)</span>
-<span id="cb4-3"><a href="understanding-sequencing-raw-data.html#cb4-3"></a></span>
-<span id="cb4-4"><a href="understanding-sequencing-raw-data.html#cb4-4"></a><span class="co">## Actual Command Example</span></span>
-<span id="cb4-5"><a href="understanding-sequencing-raw-data.html#cb4-5"></a><span class="fu">ssh</span> -i berlin.pem ubuntu@34.213.180.241</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="understanding-sequencing-raw-data.html#cb21-1"></a><span class="co">## Example</span></span>
+<span id="cb21-2"><a href="understanding-sequencing-raw-data.html#cb21-2"></a><span class="fu">ssh</span> -i berlin.pem ubuntu@<span class="op">&lt;</span>PUBLIC IP ADDRESS<span class="op">&gt;</span> (e.g.34.219.254.245)</span>
+<span id="cb21-3"><a href="understanding-sequencing-raw-data.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="understanding-sequencing-raw-data.html#cb21-4"></a><span class="co">## Actual Command Example</span></span>
+<span id="cb21-5"><a href="understanding-sequencing-raw-data.html#cb21-5"></a><span class="fu">ssh</span> -i berlin.pem ubuntu@34.213.180.241</span></code></pre></div>
 </div>
 </div>
 <div id="shell-and-unix-commands" class="section level2">
-<h2><span class="header-section-number">4.2</span> Shell and Unix commands</h2>
+<h2><span class="header-section-number">5.2</span> Shell and Unix commands</h2>
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSavPAPY3WXe2EiqaRXJmAajFTeGcRbD1qJq4Sp4YlcF1_m7I1X89D1uC-8jDDGinqFLNO2oJNALbNx/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="760" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
 </iframe>
 <div id="common-linux-commands" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Common Linux Commands</h3>
+<h3><span class="header-section-number">5.2.1</span> Common Linux Commands</h3>
 <div id="lab-1a" class="section level4">
-<h4><span class="header-section-number">4.2.1.1</span> Lab 1a</h4>
+<h4><span class="header-section-number">5.2.1.1</span> Lab 1a</h4>
 <ul>
 <li>check the your present directory</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="understanding-sequencing-raw-data.html#cb5-1"></a><span class="bu">pwd</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="understanding-sequencing-raw-data.html#cb22-1"></a><span class="bu">pwd</span></span></code></pre></div>
 <ul>
 <li>check history</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="understanding-sequencing-raw-data.html#cb6-1"></a><span class="bu">history</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="understanding-sequencing-raw-data.html#cb23-1"></a><span class="bu">history</span></span></code></pre></div>
 <ul>
 <li>pipe history to grep to search for the cd command</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="understanding-sequencing-raw-data.html#cb7-1"></a><span class="bu">history</span> <span class="kw">|</span> <span class="fu">grep</span> cd</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="understanding-sequencing-raw-data.html#cb24-1"></a><span class="bu">history</span> <span class="kw">|</span> <span class="fu">grep</span> cd</span></code></pre></div>
 <ul>
 <li>put history into a history.txt file</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="understanding-sequencing-raw-data.html#cb8-1"></a><span class="bu">history</span> <span class="op">&gt;</span> history.txt</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="understanding-sequencing-raw-data.html#cb25-1"></a><span class="bu">history</span> <span class="op">&gt;</span> history.txt</span></code></pre></div>
 <ul>
 <li>make a directory called data</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="understanding-sequencing-raw-data.html#cb9-1"></a><span class="fu">mkdir</span> data</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="understanding-sequencing-raw-data.html#cb26-1"></a><span class="fu">mkdir</span> data</span></code></pre></div>
 <ul>
 <li>change into data directory</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="understanding-sequencing-raw-data.html#cb10-1"></a><span class="bu">cd</span> data</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="understanding-sequencing-raw-data.html#cb27-1"></a><span class="bu">cd</span> data</span></code></pre></div>
 <ul>
 <li>move history.txt file into data directory</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="understanding-sequencing-raw-data.html#cb11-1"></a><span class="fu">mv</span> ../history.txt ./</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="understanding-sequencing-raw-data.html#cb28-1"></a><span class="fu">mv</span> ../history.txt ./</span></code></pre></div>
 <ul>
 <li>check manual page of wget command</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="understanding-sequencing-raw-data.html#cb12-1"></a><span class="fu">man</span> wget</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="understanding-sequencing-raw-data.html#cb29-1"></a><span class="fu">man</span> wget</span></code></pre></div>
 <ul>
 <li>redirect wget maunual page output into a file called wget.txt</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="understanding-sequencing-raw-data.html#cb13-1"></a><span class="fu">man</span> wget <span class="op">&gt;</span> wget.txt</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="understanding-sequencing-raw-data.html#cb30-1"></a><span class="fu">man</span> wget <span class="op">&gt;</span> wget.txt</span></code></pre></div>
 <ul>
 <li>return the lines that contain output in the wget.txt file</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="understanding-sequencing-raw-data.html#cb14-1"></a><span class="fu">cat</span> wget.txt <span class="kw">|</span> <span class="fu">grep</span> output</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="understanding-sequencing-raw-data.html#cb15-1"></a><span class="fu">grep</span> -i output wget.txt</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="understanding-sequencing-raw-data.html#cb31-1"></a><span class="fu">cat</span> wget.txt <span class="kw">|</span> <span class="fu">grep</span> output</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="understanding-sequencing-raw-data.html#cb32-1"></a><span class="fu">grep</span> -i output wget.txt</span></code></pre></div>
 <ul>
 <li>Compress wget.txt file</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="understanding-sequencing-raw-data.html#cb16-1"></a><span class="fu">gzip</span> wget.txt</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="understanding-sequencing-raw-data.html#cb33-1"></a><span class="fu">gzip</span> wget.txt</span></code></pre></div>
 <ul>
 <li>View Compressed file</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="understanding-sequencing-raw-data.html#cb17-1"></a><span class="fu">cat</span> wget.txt.qz</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="understanding-sequencing-raw-data.html#cb18-1"></a><span class="fu">zcat</span> wget.txt.qz</span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="understanding-sequencing-raw-data.html#cb19-1"></a><span class="fu">zcat</span> wget.txt.qz <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="understanding-sequencing-raw-data.html#cb34-1"></a><span class="fu">cat</span> wget.txt.qz</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="understanding-sequencing-raw-data.html#cb35-1"></a><span class="fu">zcat</span> wget.txt.qz</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="understanding-sequencing-raw-data.html#cb36-1"></a><span class="fu">zcat</span> wget.txt.qz <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
 </div>
 <div id="git-commands" class="section level4">
-<h4><span class="header-section-number">4.2.1.2</span> Git Commands</h4>
+<h4><span class="header-section-number">5.2.1.2</span> Git Commands</h4>
 <p>Git is a distributed version-control system for tracking changes in source code during software development. It is designed for coordinating work among programmers, but it can be used to track changes in any set of files. Its goals include speed, data integrity, and support for distributed, non-linear workflows.</p>
 <p>Go to your user directory and run the following command from git. This will create a directory of all the course material inside your user directory. After it is done cloning change directory into the 2020_scWorkshop directory where the course material is. The commands are below.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="understanding-sequencing-raw-data.html#cb20-1"></a><span class="co">## clone repository</span></span>
-<span id="cb20-2"><a href="understanding-sequencing-raw-data.html#cb20-2"></a><span class="fu">git</span> clone https://github.com/broadinstitute/2020_scWorkshop.git</span>
-<span id="cb20-3"><a href="understanding-sequencing-raw-data.html#cb20-3"></a><span class="bu">cd</span> 2020_scWorkshop</span></code></pre></div>
-</div>
-<div id="docker-commands" class="section level4">
-<h4><span class="header-section-number">4.2.1.3</span> Docker Commands</h4>
-<p>Docker provides a consistent compute enviornment to ensure all software that you need is on the machine and able to be used. It will give you the version you need and help reduce software conflicts that may arise.</p>
-<ul>
-<li>make sure you are in the directory from the cloned repository directory</li>
-<li>run following command to start docker script</li>
-</ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="understanding-sequencing-raw-data.html#cb21-1"></a><span class="co"># chmod 600 ./docker/run_docker_bash.sh</span></span>
-<span id="cb21-2"><a href="understanding-sequencing-raw-data.html#cb21-2"></a><span class="ex">./docker/run_docker_bash.sh</span></span></code></pre></div>
-<p>The full command inside the script is below. There is also an explaination of each part for your reference.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="understanding-sequencing-raw-data.html#cb22-1"></a><span class="co">## if you are the super user on your computer</span></span>
-<span id="cb22-2"><a href="understanding-sequencing-raw-data.html#cb22-2"></a><span class="ex">docker</span> run --rm -it -v <span class="va">$PWD</span>:/home/rstudio kdgosik/2020scworkshop bash</span>
-<span id="cb22-3"><a href="understanding-sequencing-raw-data.html#cb22-3"></a></span>
-<span id="cb22-4"><a href="understanding-sequencing-raw-data.html#cb22-4"></a><span class="co">## if you need to access permission to run the command</span></span>
-<span id="cb22-5"><a href="understanding-sequencing-raw-data.html#cb22-5"></a><span class="fu">sudo</span> docker run --rm -it -v <span class="va">$PWD</span>:/home/rstudio kdgosik/2020scworkshop bash</span></code></pre></div>
-<p><strong>Explaination of commands</strong></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="understanding-sequencing-raw-data.html#cb23-1"></a>  <span class="ex">-</span> docker: command to run docker</span>
-<span id="cb23-2"><a href="understanding-sequencing-raw-data.html#cb23-2"></a>  <span class="ex">-</span> run: asking docker to run a container</span>
-<span id="cb23-3"><a href="understanding-sequencing-raw-data.html#cb23-3"></a>  <span class="ex">-</span> --rm: flag to remove the container when you exit from it</span>
-<span id="cb23-4"><a href="understanding-sequencing-raw-data.html#cb23-4"></a>      <span class="ex">-</span> nothing will be saved from your session to access again later</span>
-<span id="cb23-5"><a href="understanding-sequencing-raw-data.html#cb23-5"></a>      <span class="ex">-</span> this flag can be removed to keep container</span>
-<span id="cb23-6"><a href="understanding-sequencing-raw-data.html#cb23-6"></a>  <span class="ex">-</span> -it: flag to run the container interactively</span>
-<span id="cb23-7"><a href="understanding-sequencing-raw-data.html#cb23-7"></a>    <span class="ex">-</span> this will keep all session output displaying on the terminal</span>
-<span id="cb23-8"><a href="understanding-sequencing-raw-data.html#cb23-8"></a>    <span class="ex">-</span> to stop container go to terminal and press Crtl+c</span>
-<span id="cb23-9"><a href="understanding-sequencing-raw-data.html#cb23-9"></a>    <span class="ex">-v</span> <span class="va">$PWD</span>:/home/rstudio: map your home directory to a directory inside docker container called home</span>
-<span id="cb23-10"><a href="understanding-sequencing-raw-data.html#cb23-10"></a>  <span class="ex">-</span> kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer</span>
-<span id="cb23-11"><a href="understanding-sequencing-raw-data.html#cb23-11"></a>    <span class="ex">-</span> [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)</span>
-<span id="cb23-12"><a href="understanding-sequencing-raw-data.html#cb23-12"></a>  <span class="ex">-</span> bash: The entry point into the container.  Start on the bash command line</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="understanding-sequencing-raw-data.html#cb37-1"></a><span class="co">## clone repository</span></span>
+<span id="cb37-2"><a href="understanding-sequencing-raw-data.html#cb37-2"></a><span class="fu">git</span> clone https://github.com/broadinstitute/2020_scWorkshop.git</span>
+<span id="cb37-3"><a href="understanding-sequencing-raw-data.html#cb37-3"></a><span class="bu">cd</span> 2020_scWorkshop</span></code></pre></div>
 </div>
 </div>
 </div>
 <div id="file-formats" class="section level2">
-<h2><span class="header-section-number">4.3</span> File formats</h2>
+<h2><span class="header-section-number">5.3</span> File formats</h2>
 <ul>
 <li>bcl</li>
 <li>fastq</li>
@@ -363,38 +347,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>hdf5 (.h5, .h5ad)</li>
 </ul>
 <div id="view-fastq-files" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> View FASTQ Files</h3>
+<h3><span class="header-section-number">5.3.1</span> View FASTQ Files</h3>
 <div id="viewing-entire-file" class="section level4">
-<h4><span class="header-section-number">4.3.1.1</span> Viewing entire file</h4>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="understanding-sequencing-raw-data.html#cb24-1"></a><span class="fu">cat</span> data/example_fastq.fastq</span></code></pre></div>
+<h4><span class="header-section-number">5.3.1.1</span> Viewing entire file</h4>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="understanding-sequencing-raw-data.html#cb38-1"></a><span class="fu">cat</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 <div id="viewing-first-10-lines" class="section level4">
-<h4><span class="header-section-number">4.3.1.2</span> Viewing first 10 lines</h4>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="understanding-sequencing-raw-data.html#cb25-1"></a><span class="fu">head</span> data/example_fastq.fastq</span></code></pre></div>
+<h4><span class="header-section-number">5.3.1.2</span> Viewing first 10 lines</h4>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="understanding-sequencing-raw-data.html#cb39-1"></a><span class="fu">head</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 <div id="stream-viewing-with-less-command" class="section level4">
-<h4><span class="header-section-number">4.3.1.3</span> Stream Viewing with less command</h4>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="understanding-sequencing-raw-data.html#cb26-1"></a><span class="fu">less</span> data/example_fastq.fastq</span></code></pre></div>
+<h4><span class="header-section-number">5.3.1.3</span> Stream Viewing with less command</h4>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="understanding-sequencing-raw-data.html#cb40-1"></a><span class="fu">less</span> data/example_fastq.fastq</span></code></pre></div>
 </div>
 </div>
 <div id="view-bam-files" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> View BAM Files</h3>
+<h3><span class="header-section-number">5.3.2</span> View BAM Files</h3>
 <div id="viewing-first-10-lines-1" class="section level4">
-<h4><span class="header-section-number">4.3.2.1</span> Viewing first 10 lines</h4>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="understanding-sequencing-raw-data.html#cb27-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div>
+<h4><span class="header-section-number">5.3.2.1</span> Viewing first 10 lines</h4>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="understanding-sequencing-raw-data.html#cb41-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div>
 </div>
 <div id="stream-viewing-with-less-command-1" class="section level4">
-<h4><span class="header-section-number">4.3.2.2</span> Stream Viewing with less command</h4>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="understanding-sequencing-raw-data.html#cb28-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
+<h4><span class="header-section-number">5.3.2.2</span> Stream Viewing with less command</h4>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="understanding-sequencing-raw-data.html#cb42-1"></a><span class="ex">samtools</span> view data/ex1.bam <span class="kw">|</span> <span class="fu">less</span></span></code></pre></div>
 </div>
 </div>
 </div>
 <div id="public-data-repositories" class="section level2">
-<h2><span class="header-section-number">4.4</span> Public data repositories</h2>
+<h2><span class="header-section-number">5.4</span> Public data repositories</h2>
 <div id="cellranger10x" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Cellranger/10x</h3>
+<h3><span class="header-section-number">5.4.1</span> Cellranger/10x</h3>
 <div id="lab-1b" class="section level4">
-<h4><span class="header-section-number">4.4.1.1</span> Lab 1b</h4>
+<h4><span class="header-section-number">5.4.1.1</span> Lab 1b</h4>
 <p>10x PBMC data are hosted in <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz" class="uri">https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz</a></p>
 <ul>
 <li>get 10x PBMC data</li>
@@ -402,19 +386,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>explore directory</li>
 <li>explore files</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="understanding-sequencing-raw-data.html#cb29-1"></a></span>
-<span id="cb29-2"><a href="understanding-sequencing-raw-data.html#cb29-2"></a><span class="fu">wget</span> https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
-<span id="cb29-3"><a href="understanding-sequencing-raw-data.html#cb29-3"></a><span class="bu">cd</span> data<span class="kw">;</span> <span class="fu">tar</span> -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
-<span id="cb29-4"><a href="understanding-sequencing-raw-data.html#cb29-4"></a><span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="understanding-sequencing-raw-data.html#cb43-1"></a></span>
+<span id="cb43-2"><a href="understanding-sequencing-raw-data.html#cb43-2"></a><span class="fu">wget</span> https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
+<span id="cb43-3"><a href="understanding-sequencing-raw-data.html#cb43-3"></a><span class="bu">cd</span> data<span class="kw">;</span> <span class="fu">tar</span> -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
+<span id="cb43-4"><a href="understanding-sequencing-raw-data.html#cb43-4"></a><span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 </div>
 <div id="geo" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> GEO</h3>
+<h3><span class="header-section-number">5.4.2</span> GEO</h3>
 <ul>
 <li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81905" class="uri">https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81905</a></li>
 </ul>
 <div id="lab-1c" class="section level4">
-<h4><span class="header-section-number">4.4.2.1</span> Lab 1c</h4>
+<h4><span class="header-section-number">5.4.2.1</span> Lab 1c</h4>
 <p><strong>Get GEO Data</strong>
 - <a href="ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz" class="uri">ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz</a>
 - <a href="ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL17021_series_matrix.txt.gz" class="uri">ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL17021_series_matrix.txt.gz</a></p>
@@ -423,34 +407,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>get files and place them in the directory</li>
 <li>View files (try keeping in compressed format and view that way)</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="understanding-sequencing-raw-data.html#cb30-1"></a><span class="fu">wget</span> ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz</span>
-<span id="cb30-2"><a href="understanding-sequencing-raw-data.html#cb30-2"></a><span class="bu">cd</span> data<span class="kw">;</span> <span class="fu">tar</span> -xzf GSE81905-GPL19057_series_matrix.txt.gz</span>
-<span id="cb30-3"><a href="understanding-sequencing-raw-data.html#cb30-3"></a><span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="understanding-sequencing-raw-data.html#cb44-1"></a><span class="fu">wget</span> ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE81nnn/GSE81905/matrix/GSE81905-GPL19057_series_matrix.txt.gz</span>
+<span id="cb44-2"><a href="understanding-sequencing-raw-data.html#cb44-2"></a><span class="bu">cd</span> data<span class="kw">;</span> <span class="fu">tar</span> -xzf GSE81905-GPL19057_series_matrix.txt.gz</span>
+<span id="cb44-3"><a href="understanding-sequencing-raw-data.html#cb44-3"></a><span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 </div>
 <div id="single-cell-portal" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> Single Cell Portal</h3>
+<h3><span class="header-section-number">5.4.3</span> Single Cell Portal</h3>
 <ul>
 <li><a href="https://portals.broadinstitute.org/single_cell" class="uri">https://portals.broadinstitute.org/single_cell</a></li>
 <li>Study: Salk Institute - Single-cell Methylome Sequencing Identifies Distinct Neuronal Populations in Mouse Frontal Cortex</li>
 </ul>
 <div id="lab-1d" class="section level4">
-<h4><span class="header-section-number">4.4.3.1</span> Lab 1d</h4>
+<h4><span class="header-section-number">5.4.3.1</span> Lab 1d</h4>
 <ul>
 <li>Get R2 fastq file from the Salk Institute study</li>
 <li>Look at files</li>
 </ul>
 </div>
 <div id="lab-1e" class="section level4">
-<h4><span class="header-section-number">4.4.3.2</span> Lab 1e</h4>
+<h4><span class="header-section-number">5.4.3.2</span> Lab 1e</h4>
 <ul>
 <li>Get Docker on your local computer for you to have</li>
 <li>Explore Single Cell Portal</li>
 <li>Explore GEO</li>
 </ul>
+</div>
+</div>
+</div>
+<div id="docker-commands" class="section level2">
+<h2><span class="header-section-number">5.5</span> Docker Commands</h2>
+<p>Docker provides a consistent compute enviornment to ensure all software that you need is on the machine and able to be used. It will give you the version you need and help reduce software conflicts that may arise.</p>
+<ul>
+<li>make sure you are in the directory from the cloned repository directory</li>
+<li>run following command to start docker script</li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="understanding-sequencing-raw-data.html#cb45-1"></a><span class="co"># chmod 600 ./docker/run_docker_bash.sh</span></span>
+<span id="cb45-2"><a href="understanding-sequencing-raw-data.html#cb45-2"></a><span class="ex">./docker/run_docker_bash.sh</span></span></code></pre></div>
+<p>The full command inside the script is below. There is also an explaination of each part for your reference.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="understanding-sequencing-raw-data.html#cb46-1"></a><span class="co">## if you are the super user on your computer</span></span>
+<span id="cb46-2"><a href="understanding-sequencing-raw-data.html#cb46-2"></a><span class="ex">docker</span> run --rm -it -v <span class="va">$PWD</span>:/home/rstudio kdgosik/2020scworkshop bash</span>
+<span id="cb46-3"><a href="understanding-sequencing-raw-data.html#cb46-3"></a></span>
+<span id="cb46-4"><a href="understanding-sequencing-raw-data.html#cb46-4"></a><span class="co">## if you need to access permission to run the command</span></span>
+<span id="cb46-5"><a href="understanding-sequencing-raw-data.html#cb46-5"></a><span class="fu">sudo</span> docker run --rm -it -v <span class="va">$PWD</span>:/home/rstudio kdgosik/2020scworkshop bash</span></code></pre></div>
+<p><strong>Explaination of commands</strong></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="understanding-sequencing-raw-data.html#cb47-1"></a>  <span class="ex">-</span> docker: command to run docker</span>
+<span id="cb47-2"><a href="understanding-sequencing-raw-data.html#cb47-2"></a>  <span class="ex">-</span> run: asking docker to run a container</span>
+<span id="cb47-3"><a href="understanding-sequencing-raw-data.html#cb47-3"></a>  <span class="ex">-</span> --rm: flag to remove the container when you exit from it</span>
+<span id="cb47-4"><a href="understanding-sequencing-raw-data.html#cb47-4"></a>      <span class="ex">-</span> nothing will be saved from your session to access again later</span>
+<span id="cb47-5"><a href="understanding-sequencing-raw-data.html#cb47-5"></a>      <span class="ex">-</span> this flag can be removed to keep container</span>
+<span id="cb47-6"><a href="understanding-sequencing-raw-data.html#cb47-6"></a>  <span class="ex">-</span> -it: flag to run the container interactively</span>
+<span id="cb47-7"><a href="understanding-sequencing-raw-data.html#cb47-7"></a>    <span class="ex">-</span> this will keep all session output displaying on the terminal</span>
+<span id="cb47-8"><a href="understanding-sequencing-raw-data.html#cb47-8"></a>    <span class="ex">-</span> to stop container go to terminal and press Crtl+c</span>
+<span id="cb47-9"><a href="understanding-sequencing-raw-data.html#cb47-9"></a>    <span class="ex">-v</span> <span class="va">$PWD</span>:/home/rstudio: map your home directory to a directory inside docker container called home</span>
+<span id="cb47-10"><a href="understanding-sequencing-raw-data.html#cb47-10"></a>  <span class="ex">-</span> kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer</span>
+<span id="cb47-11"><a href="understanding-sequencing-raw-data.html#cb47-11"></a>    <span class="ex">-</span> [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)</span>
+<span id="cb47-12"><a href="understanding-sequencing-raw-data.html#cb47-12"></a>  <span class="ex">-</span> bash: The entry point into the container.  Start on the bash command line</span></code></pre></div>
 
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -458,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-template.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="processing-scrnaseq-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="introduction-rbioconductor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

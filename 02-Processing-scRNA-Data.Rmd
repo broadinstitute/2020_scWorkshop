@@ -3,6 +3,8 @@ title: "04-Processing-scRNAseq-Data"
 output: html_document
 ---
 
+# Processing scRNAseq Data
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
