@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Processing scRNAseq Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>5 Transcriptome Quantification | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Processing scRNAseq Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="5 Transcriptome Quantification | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Processing scRNAseq Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="5 Transcriptome Quantification | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="transcriptome-quantification.html"/>
-<link rel="next" href="introduction-rbioconductor.html"/>
+<link rel="prev" href="understanding-sequencing-raw-data.html"/>
+<link rel="next" href="processing-scrnaseq-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -259,132 +259,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="processing-scrnaseq-data" class="section level1">
-<h1><span class="header-section-number">6</span> Processing scRNAseq Data</h1>
-<div id="goal" class="section level2">
-<h2><span class="header-section-number">6.1</span> Goal</h2>
-<ul>
-<li>To give you experience with examining and aligning fastq files</li>
-</ul>
-</div>
-<div id="further-reading" class="section level2">
-<h2><span class="header-section-number">6.2</span> Further reading</h2>
-<p>This lab is based on a lab given in:
-<a href="http://hemberg-lab.github.io/scRNA.seq.course/processing-raw-scrna-seq-data.html" class="uri">http://hemberg-lab.github.io/scRNA.seq.course/processing-raw-scrna-seq-data.html</a>
-For more exercises and ideas please visit their web-site!</p>
-</div>
-<div id="download-data" class="section level2">
-<h2><span class="header-section-number">6.3</span> Download data</h2>
-<p>Please downlaod the 6 files from the dropbox folder: <a href="https://www.dropbox.com/sh/98573jes82w0fi7/AAB7Yhwe05MCZTnTZmppxZuta?dl=0" class="uri">https://www.dropbox.com/sh/98573jes82w0fi7/AAB7Yhwe05MCZTnTZmppxZuta?dl=0</a> into the data folder of your copy of github:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="processing-scrnaseq-data.html#cb31-1"></a>cd <span class="dv">2020</span>_scWorkshop<span class="op">/</span>data</span>
-<span id="cb31-2"><a href="processing-scrnaseq-data.html#cb31-2"></a>mkdir lab2data</span></code></pre></div>
-<p>and copy the files into it
-## FastQC</p>
-<p>Once you’ve obtained your single-cell RNA-seq data, the first thing you need to do with it is check the quality of the reads you have sequenced. For this task, today we will be using a tool called FastQC. FastQC is a quality control tool for sequencing data, which can be used for both bulk and single-cell RNA-seq data. FastQC takes sequencing data as input and returns a report on read quality. Copy and paste this link into your browser to visit the FastQC website:</p>
-<p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/" class="uri">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a></p>
-<p>This website contains links to download and install FastQC and documentation on the reports produced. Fortunately we have already installed FastQC for you today, so instead we will take a look at the documentation. Scroll down the webpage to ‘Example Reports’ and click ‘Good Illumina Data’. This gives an example of what an ideal report should look like for high quality Illumina reads data.</p>
-<p>Now let’s make a FastQC report ourselves.</p>
-<p>Today we will be performing our analysis using a single cell from an mESC dataset produced by (Kolodziejczyk et al. 2015), which you downloaded froom the github link. The cells were sequenced using the SMART-seq2 library preparation protocol and the reads are paired end.</p>
-<p>First, let’s open the docker in a bash mode. open a terminal, cd to the docer folder (the folder you downloaded from github) and run this command:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="processing-scrnaseq-data.html#cb32-1"></a>docker run <span class="op">--</span>rm <span class="op">-</span>ti <span class="op">-</span>v <span class="op">$</span>PWD<span class="op">:</span><span class="er">/</span>home<span class="op">/</span>rstudio <span class="op">-</span>e DISABLE_AUTH=true kdgosik<span class="op">/</span>2020scworkshop bash</span></code></pre></div>
-<p>navigate to your data folder:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="processing-scrnaseq-data.html#cb33-1"></a>cd home<span class="op">/</span>rstudio<span class="op">/</span>lab2data</span>
-<span id="cb33-2"><a href="processing-scrnaseq-data.html#cb33-2"></a>ls</span></code></pre></div>
-<p>You should see the files that you downloaded from the dropbox link.</p>
-<p>Now let’s look at the files:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="processing-scrnaseq-data.html#cb34-1"></a>less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq</span>
-<span id="cb34-2"><a href="processing-scrnaseq-data.html#cb34-2"></a>less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</span></code></pre></div>
-<p>We run fastqc from /usr/local/src/FastQC. You may need to give yourself permissions to run the file (hint: chmod)</p>
-<p>Task 1: run fastqc to view the quality of the reads</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="processing-scrnaseq-data.html#cb35-1"></a>chmod <span class="dv">755</span> <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc</span>
-<span id="cb35-2"><a href="processing-scrnaseq-data.html#cb35-2"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>h</span></code></pre></div>
-<p>This command will tell you what options are available to pass to FastQC. Let us direct our output to our personal directories (under the folder results). Feel free to ask for help if you get stuck! If you are successful, you should generate a .zip and a .html file for both the forwards and the reverse reads files. Once you have been successful, feel free to have a go at the next section.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="processing-scrnaseq-data.html#cb36-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>o <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</span></code></pre></div>
-<p>Once the command has finished executing, you should have a total of four files - one zip file for each of the paired end reads, and one html file for each of the paired end reads. The report is in the html file.</p>
-<p>for those working in AWS, if you want to view the file you will need to download it to your computer. The scp command is:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="processing-scrnaseq-data.html#cb37-1"></a>scp <span class="op">-</span>r <span class="op">-</span>i <span class="op">&lt;</span>your pem file<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>username<span class="op">&gt;</span><span class="er">@</span>ec2<span class="dv">-34-213-180</span><span class="fl">-241.</span>us<span class="op">-</span>west<span class="fl">-2.</span>compute.amazonaws.com<span class="op">:</span><span class="er">~/&lt;</span>file to copy<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>destination <span class="cf">in</span> your computer<span class="op">&gt;</span></span></code></pre></div>
-<p>Once the file is on you computer, click on it. Your FastQC report should open. Have a look through the file. Remember to look at both the forwards and the reverse end read reports! How good quality are the reads? Is there anything we should be concerned about?</p>
-<div id="fastq-file-format" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Fastq file format</h3>
-<p>FastQ is the most raw form of scRNASeq data you will encounter. All scRNASeq protocols are sequenced with paired-end sequencing. Barcode sequences may occur in one or both reads depending on the protocol employed. However, protocols using unique molecular identifiers (UMIs) will generally contain one read with the cell and UMI barcodes plus adapters but without any transcript sequence. Thus reads will be mapped as if they are single-end sequenced despite actually being paired end.</p>
-<p>FastQ files have the format:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="processing-scrnaseq-data.html#cb38-1"></a><span class="op">&gt;</span>ReadID</span>
-<span id="cb38-2"><a href="processing-scrnaseq-data.html#cb38-2"></a>READ SEQUENCE</span>
-<span id="cb38-3"><a href="processing-scrnaseq-data.html#cb38-3"></a><span class="op">+</span></span>
-<span id="cb38-4"><a href="processing-scrnaseq-data.html#cb38-4"></a>SEQUENCING QUALITY SCORES</span></code></pre></div>
-</div>
-</div>
-<div id="align-the-reads" class="section level2">
-<h2><span class="header-section-number">6.4</span> Align the reads</h2>
-<div id="star-align" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> STAR align</h3>
-<p>Now we have established that our reads are of good quality, we would like to map them to a reference genome. This process is known as alignment. Some form of alignment is generally required if we want to quantify gene expression or find genes which are differentially expressed between samples.</p>
-<p>Many tools have been developed for read alignment, but today we will focus on STAR. For each read in our reads data, STAR tries to find the longest possible sequence which matches one or more sequences in the reference genome. Because STAR is able to recognize splicing events in this way, it is described as a ‘splice aware’ aligner.</p>
-<p>Usually STAR aligns reads to a reference genome, potentially allowing it to detect novel splicing events or chromosomal rearrangements. However, one issue with STAR is that it needs a lot of RAM, especially if your reference genome is large (eg. mouse and human). To speed up our analysis today, we will use STAR to align reads from to a reference transcriptome of 2000 transcripts. Note that this is NOT normal or recommended practice, we only do it here for reasons of time. We recommend that normally you should align to a reference genome.</p>
-<p>Two steps are required to perform STAR alignment. In the first step, the user provides STAR with reference genome sequences (FASTA) and annotations (GTF), which STAR uses to create a genome index. In the second step, STAR maps the user’s reads data to the genome index.</p>
-<p>Let’s create the index now. Remember, for reasons of time we are aligning to a transcriptome rather than a genome today, meaning we only need to provide STAR with the sequences of the transcripts we will be aligning reads to. You can obtain transcriptomes for many model organisms from Ensembl (<a href="https://www.ensembl.org/info/data/ftp/index.html" class="uri">https://www.ensembl.org/info/data/ftp/index.html</a>).</p>
-<p>Task 2: Create a genome index</p>
-<p>First create the output folder for the index in your personal folder under results (recommended /home/rstudio/lab2data/STAR/indices).</p>
-<p>We run STAR from:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="processing-scrnaseq-data.html#cb39-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span></span></code></pre></div>
-<p>using the command:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="processing-scrnaseq-data.html#cb40-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>runMode genomeGenerate <span class="op">--</span>genomeDir <span class="op">&lt;</span>output STAR indices folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>genomeFastaFiles <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span><span class="dv">2000</span>_reference.transcripts.fa</span></code></pre></div>
-<p>Now that we have created the index, we can perform the mapping step.</p>
-<p>Task 4: Try to work out what command you should use to map our fastq files to the index you created. Use the STAR manual to help you. Once you think you know the answer use ./STAR command to align the fastq files to a BAM file.
-You can either create a SAM file and convert it to BAM using samtools, or use STAR to directly output a BAM file (–outSAMtype BAM Unsorted)</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="processing-scrnaseq-data.html#cb41-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>genomeDir <span class="op">&lt;</span>genome_reference<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>readFilesIn <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq <span class="op">--</span>outFileNamePrefix <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>outSAMtype BAM Unsorted</span></code></pre></div>
-<p>The alignment may take awhile, if you wish to you can complete tasks 7-10 in the meanwhile.</p>
-</div>
-<div id="bam-file-format" class="section level3">
-<h3><span class="header-section-number">6.4.2</span> Bam file format</h3>
-<p>BAM file format stores mapped reads in a standard and efficient manner. The human-readable version is called a SAM file, while the BAM file is the highly compressed version. BAM/SAM files contain a header which typically includes
-information on the sample preparation, sequencing and mapping; and a tab-separated row for each individual alignment of each read.</p>
-<p>Alignment rows employ a standard format with the following columns:</p>
-<p>QNAME : read name (generally will include UMI barcode if applicable)</p>
-<p>FLAG : number tag indicating the “type” of alignment, link to explanation of all possible “types”</p>
-<p>RNAME : reference sequence name (i.e. chromosome read is mapped to).</p>
-<p>POS : leftmost mapping position</p>
-<p>MAPQ : Mapping quality</p>
-<p>CIGAR : string indicating the matching/mismatching parts of the read (may include soft-clipping).</p>
-<p>RNEXT : reference name of the mate/next read</p>
-<p>PNEXT : POS for mate/next read</p>
-<p>TLEN : Template length (length of reference region the read is mapped to)</p>
-<p>SEQ : read sequence</p>
-<p>QUAL : read quality</p>
-<p>BAM/SAM files can be converted to the other format using ‘samtools’:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="processing-scrnaseq-data.html#cb42-1"></a>samtools view <span class="op">-</span>S <span class="op">-</span>b file.sam <span class="op">&gt;</span><span class="st"> </span>file.bam</span>
-<span id="cb42-2"><a href="processing-scrnaseq-data.html#cb42-2"></a>samtools view <span class="op">-</span>h file.bam <span class="op">&gt;</span><span class="st"> </span>file.sam</span></code></pre></div>
-<p>Some sequencing facilities will automatically map your reads to the a standard genome and deliver either BAM or CRAM formatted files. Generally they will not have included ERCC sequences in the genome thus no ERCC reads will be mapped in the BAM/CRAM file. To quantify ERCCs (or any other genetic alterations) or if you just want to use a different alignment algorithm than whatever is in the generic pipeline (often outdated), then you will need to convert the BAM/CRAM files back to FastQs:</p>
-<p>BAM files can be converted to FastQ using bedtools. To ensure a single copy for multi-mapping reads first sort by read name and remove secondary alignments using samtools. Picard also contains a method for converting BAM to FastQ files.</p>
-<p>Bonus:</p>
-<p>To make our aligned BAM file easy to navigate (needed for IGViewer) we will sort and index it using samtools.
-Sam tools can be run from everywhere (no need to go to a special directory!) using the command:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="processing-scrnaseq-data.html#cb43-1"></a>samtools</span></code></pre></div>
-<p>Let us start by sorting the BAM file:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="processing-scrnaseq-data.html#cb44-1"></a>samtools sort Aligned.out.bam <span class="op">-</span>o Aligned.out.sorted.bam</span></code></pre></div>
-<p>Task 6: can you index the file? hint: try looking at samtools -h</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="processing-scrnaseq-data.html#cb45-1"></a>samtools index Aligned.out.sorted.bam</span></code></pre></div>
-<p>Once you sorted and indexed the files you should have a BAM and a bai files. The BAM file is the aligned reads, and the bai is an index file. To view them in IGViewer (IGV) first copy them into your computer. Go ahead and copy the fa file as well, we will need a reference genome file.</p>
-</div>
-</div>
-<div id="visualization" class="section level2">
-<h2><span class="header-section-number">6.5</span> Visualization</h2>
-<p>To view the file we will use the IGV you installed on your personal computer.
-Open IGV: the default genomes are human HG19 and HG38. Through the class we will be using the PBMC dataset. You have the BAM file in your data folder. Go ahead and transfer it to your computer and upload it to IGV with hg38 as reference genome.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="processing-scrnaseq-data.html#cb46-1"></a>Task <span class="dv">7</span><span class="op">:</span><span class="st"> </span>Browse to MS4A1, this is a blood cell marker. Can you see the exons and the introns? Where are most of the aligned reads?</span>
-<span id="cb46-2"><a href="processing-scrnaseq-data.html#cb46-2"></a></span>
-<span id="cb46-3"><a href="processing-scrnaseq-data.html#cb46-3"></a>Task <span class="dv">8</span><span class="op">:</span><span class="st"> </span>Search <span class="cf">in</span> IGV or online <span class="op">-</span><span class="st"> </span>can you present splice junctions? (right click -&gt;<span class="st"> </span>“Show splice junction track”)</span>
-<span id="cb46-4"><a href="processing-scrnaseq-data.html#cb46-4"></a></span>
-<span id="cb46-5"><a href="processing-scrnaseq-data.html#cb46-5"></a>Task <span class="dv">9</span><span class="op">:</span><span class="st"> </span>Try further tasks that interest you <span class="cf">in</span> IGV. For example, can you detect reads that are within one exon and reads that start <span class="cf">in</span> one exon and continue <span class="cf">in</span> the <span class="cf">next</span>? Can you copy the sequence of exon2 <span class="cf">in</span> MS4A1?</span>
-<span id="cb46-6"><a href="processing-scrnaseq-data.html#cb46-6"></a></span>
-<span id="cb46-7"><a href="processing-scrnaseq-data.html#cb46-7"></a>Task <span class="dv">10</span><span class="op">:</span><span class="st"> </span>What would have happened <span class="cf">if</span> you chose the wrong reference genome, such as hg19?</span></code></pre></div>
-<p>Bonus 2 (IGV sometimes has difficulties loading small fa files. So if this becomes difficult - don’t worry! It’s not your alignment):</p>
-<p>The default genomes are human HG19 and HG38. However you can also upload your reference genome of choice. As we created our own fasta file we can now upload it as a reference genome.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="processing-scrnaseq-data.html#cb47-1"></a>Task <span class="dv">11</span><span class="op">:</span><span class="st"> </span>Load new genome<span class="op">:</span><span class="st"> </span>go to “Genomes”-&gt;”Load from file” and load the file <span class="dv">2000</span>_reference.transcripts.fa</span>
-<span id="cb47-2"><a href="processing-scrnaseq-data.html#cb47-2"></a></span>
-<span id="cb47-3"><a href="processing-scrnaseq-data.html#cb47-3"></a>Task <span class="dv">12</span><span class="op">:</span><span class="st"> </span>Now load your reads<span class="op">:</span><span class="st"> </span>go to “File”-&gt;”Load from file” and load your BAM file. Notice that IGV needs a BAM and a bai saved <span class="cf">in</span> the same location. IGV uses the bai to navigate through the BAM file. </span>
-<span id="cb47-4"><a href="processing-scrnaseq-data.html#cb47-4"></a></span>
-<span id="cb47-5"><a href="processing-scrnaseq-data.html#cb47-5"></a>Task <span class="dv">13</span><span class="op">:</span><span class="st"> </span>Some of the reads have a nucleotide substitution <span class="cf">in</span> position <span class="dv">993</span> <span class="op">-</span><span class="st"> </span>what is the reference nucleotide? What is the substitution?</span></code></pre></div>
+<div id="transcriptome-quantification" class="section level1">
+<h1><span class="header-section-number">5</span> Transcriptome Quantification</h1>
+<div id="google-slides" class="section level2">
+<h2><span class="header-section-number">5.1</span> Google Slides</h2>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSswp7LJIN-9W-tz4eh5WPRKCGLBecRVwl5vtXvIDG3ywSR-_8S4sYZgOCnu5AD_A/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+</iframe>
 
 </div>
 </div>
@@ -393,8 +273,8 @@ Open IGV: the default genomes are human HG19 and HG38. Through the class we will
           </div>
         </div>
       </div>
-<a href="transcriptome-quantification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-rbioconductor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="understanding-sequencing-raw-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="processing-scrnaseq-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
