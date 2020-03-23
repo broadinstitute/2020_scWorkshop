@@ -5,13 +5,9 @@ date: "3/23/2020"
 output: html_document
 ---
 
-# Lecture Template
+# Experimental Design
 
-To get the link to paste into the iframe open up slides in Google Slides and go to,
-  - File -> Publish to the Web
-  - Select the Embed tab section
-  - Hit Publish
-  - Copy and Paste the link in between the quotations in the <iframe src=""  part
 
+## Slides
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQFLazNqxsHpi8PCLHu-7ZmSGzn4Q4HpOoSJGGEcwzL7hcuDJGJ-kVJ1Qtf5gNiGSTF8zv7K3f-i-xo/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
