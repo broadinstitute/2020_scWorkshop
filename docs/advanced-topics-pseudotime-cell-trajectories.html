@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>9 Advanced Topics: Pseudotime Cell Trajectories | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="9 Advanced Topics: Pseudotime Cell Trajectories | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="9 Advanced Topics: Pseudotime Cell Trajectories | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="lab-template.html"/>
+<link rel="prev" href="feature-selection-and-cluster-analysis.html"/>
+<link rel="next" href="single-cell-resources.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -256,231 +256,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</h1>
-<p class="author"><em>Orr Ashenberg</em></p>
-<p class="author"><em>Dana Silverbush</em></p>
-<p class="author"><em>Kirk Gosik</em></p>
-<p class="date"><em>03/23/2020 - 03/27/2020</em></p>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="course-overview" class="section level2">
-<h2><span class="header-section-number">1.1</span> COURSE OVERVIEW</h2>
-<p>In recent years single cell RNA-seq (scRNA-seq) has become widely used for transcriptome analysis in many areas of biology. In contrast to bulk RNA-seq, scRNA-seq provides quantitative measurements of the expression of every gene in a single cell. However, to analyze scRNA-seq data, novel methods are required and some of the underlying assumptions for the methods developed for bulk RNA-seq experiments are no longer valid. In this course we will cover all steps of the scRNA-seq processing, starting from the raw reads coming off the sequencer. The course includes common analysis strategies, using state-of-the-art methods and we also discuss the central biological questions that can be addressed using scRNA-seq.</p>
-</div>
-<div id="targeted-audience-assumed-background" class="section level2">
-<h2><span class="header-section-number">1.2</span> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</h2>
-<p>This course is aimed at researchers and technical workers who are or will be analyzing scRNA-seq data. The material is suitable both for experimentalists who want to learn more about data-analysis as well as computational biologists who want to learn about scRNASeq methods. Examples demonstrated in this course can be applied to any experimental protocol or biological system.</p>
-<p>The requirements for this course are:
-1. Working knowledge of unix (managing files, running programs)
-2. Programming experience in R (writing a function, basic I/O operations, variable types, using packages). Bioconductor experience is a plus.
-3. Familiarity with next-generation sequencing data and its analyses (using alignment and quantification tools for bulk sequencing data)</p>
-</div>
-<div id="course-format" class="section level2">
-<h2><span class="header-section-number">1.3</span> COURSE FORMAT</h2>
-<p>The course will be delivered over the course of five days. Each day will include a lecture and laboratory component. The lecture will introduce the topics of discussion and the laboratory sessions will be focused on practical hands-on analysis of scRNA-seq data. These sessions will involve a combination of both mirroring exercises with the instructor to demonstrate a skill as well as applying these skills on your own to complete individual exercises. After and during each exercise, interpretation of results will be discussed as a group. Computing will be done using a combination of tools installed on the attendees laptop computer and web resources accessed via web browser.</p>
-</div>
-<div id="getting-started" class="section level2">
-<h2><span class="header-section-number">1.4</span> Getting Started</h2>
-</div>
-<div id="session-content" class="section level2">
-<h2><span class="header-section-number">1.5</span> SESSION CONTENT</h2>
-<div id="monday" class="section level3">
-<h3><span class="header-section-number">1.5.1</span> Monday</h3>
-<ul>
-<li>Classes from 08:00 to 16:00 (lunch break-1 hr, 40 min of total coffee breaks)</li>
-<li>Shared Google doc - course notes, ideas/questions/challenges/interesting topics you would like to explore.</li>
-</ul>
-<div id="lecture-1-scrna-seq-experimental-design-orr" class="section level4">
-<h4><span class="header-section-number">1.5.1.1</span> Lecture 1 – scRNA-Seq experimental design (Orr)</h4>
-<ul>
-<li>Overview of course</li>
-<li>General introduction: cell atlas overviews</li>
-<li>Comparison of Bulk and single cell RNA-Seq</li>
-<li>Overview of available scRNA-seq technologies (10x) and experimental protocols</li>
-<li>scRNA-Seq experimental design and analysis workflow?</li>
-</ul>
-</div>
-<div id="lab-1-understanding-sequencing-raw-data-downloading-docker-if-not-done-already-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.1.2</span> Lab 1 – Understanding sequencing raw data, downloading Docker if not done already (Kirk)</h4>
-<p>Lab based around data wrangling from public data repositories: get data from 10x website, single cell portal, from GEO (fastqs, counts)
-- Shell and Unix commands to navigate directories, create folders, open files
-- Raw file formats</p>
-</div>
-<div id="lecture-2-3---intro-to-data-processing-from-bcl-file-to-bam-file" class="section level4">
-<h4><span class="header-section-number">1.5.1.3</span> Lecture 2-3 - Intro to Data processing: from bcl file to bam file</h4>
-<p><strong>Transcriptome quantification: from bam file to counts (Dana)</strong></p>
-<ul>
-<li>scRNA-Seq processing workflow starting with choice of sequencer (NextSeq, HiSeq, MiSeq) / barcode swapping and bcl files</li>
-<li>Overview of Popular tools and algorithms</li>
-<li>Common single-cell analyses and interpretation</li>
-<li>Sequencing data: alignment and quality control</li>
-<li>Looking at cool things in alignment like where reads are, mutations, splicing</li>
-<li>Read &amp; UMI counting (Kallisto alignment-free pseudocounts as well), how RSEM works (length dependence, sequencing depth, multimapping reads), CellRanger (dropest), bustools</li>
-<li>10x barcode structure and links to Perturb-seq</li>
-<li>Gene length &amp; coverage</li>
-<li>Gene expression units (count data Smart-seq2 counts or 10x UMIs vs expression data)</li>
-</ul>
-</div>
-<div id="lab-2-processing-raw-scrna-seq-data-dana-docker-setup-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.1.4</span> Lab 2 – Processing raw scRNA-Seq data (Dana), Docker setup (Kirk)</h4>
-<ul>
-<li>Data outputs from different scRNAseq technologies (10x, Smart-seq2) - process both?</li>
-<li>Demultiplexing sequencing data</li>
-<li>Read Quality Control (CellRanger, dropEst, fastqc)</li>
-<li>Run bowtie2 on 2 wells to demonstrate alignment</li>
-<li>Read alignment and visualization (kallisto, RSEM, Igviewer)</li>
-<li>Demultiplexing</li>
-<li>FastQC</li>
-<li>Align (STAR/TOPHAT/Kallisto)</li>
-<li>IGViewer - what do we want here? I use it for mutation detections, copying sequences, searching for alternative splicing.</li>
-</ul>
-</div>
-<div id="flash-talks-1.5-hr-break-into-2-groups-of-13" class="section level4">
-<h4><span class="header-section-number">1.5.1.5</span> Flash talks (1.5 hr, break into 2 groups of 13)</h4>
-<p>1 slide advertising or summarizing the poster. So you can introduce yourselves and we can get to know each other. No questions, 2 minutes. Two sessions, 15 people each.</p>
-</div>
-</div>
-<div id="tuesday-classes-from-0800-to-1600" class="section level3">
-<h3><span class="header-section-number">1.5.2</span> Tuesday – Classes from 08:00 to 16:00</h3>
-<div id="lab-3---introduction-to-r-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.2.1</span> Lab 3 - Introduction to R (Kirk)</h4>
-<ul>
-<li>Some R overview slides, <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></li>
-<li>Installing packages</li>
-<li>Data-types</li>
-<li>Data manipulation, slicing</li>
-<li>Strings manipulations</li>
-<li>Introducing object oriented programming / S4 objects</li>
-<li>Visualization tools</li>
-<li>Bonus create FeaturePlot from Seurat in base ggplot</li>
-<li>Bonus: run RSEM on Dana’s bam files if you are bored</li>
-</ul>
-</div>
-<div id="lecture-2-3---expression-qc-normalisation-and-gene-level-batch-correction-orr" class="section level4">
-<h4><span class="header-section-number">1.5.2.2</span> Lecture 2-3 - Expression QC, normalisation and gene-level batch correction (Orr)</h4>
-<ul>
-<li>What CellRanger does for quality filtering</li>
-<li>PBMC data</li>
-<li>Normalisation methods <a href="https://www.nature.com/articles/nmeth.4292" class="uri">https://www.nature.com/articles/nmeth.4292</a></li>
-<li>Doublets, empty droplets, CellBender</li>
-<li>Barcode swapping</li>
-<li>Regression with technical covariates</li>
-<li>What about imputation?</li>
-</ul>
-</div>
-<div id="lab-4-data-wrangling-for-scrnaseq-data-dana" class="section level4">
-<h4><span class="header-section-number">1.5.2.3</span> Lab 4 – Data wrangling for scRNAseq data (Dana)</h4>
-<ul>
-<li>Data structures and file formats for single-cell data</li>
-<li>Quality control of cells and genes (doublets, ambient, empty drops)</li>
-<li>Data exploration: violin plots…</li>
-<li>Introducing Seurat object
-<ul>
-<li>Genes</li>
-<li>House keeping genes</li>
-<li>Mitochondrial genes (never used these ones)</li>
-<li>Filter - Do we remove both cells and genes here?</li>
-</ul></li>
-<li>Normalize (introduce more options, other than log transform?)</li>
-<li>Find variable genes (Is it a first reduction? Why the binning?)</li>
-<li>Scaling</li>
-<li>Regression</li>
-<li>Heatmap of desired genes?</li>
-<li>Signatures?</li>
-<li>Bonus - imputation (magic? One of the two Gocken recommended?)</li>
-</ul>
-</div>
-<div id="flash-talks-1.5-hr-break-into-2-groups-of-13-1" class="section level4">
-<h4><span class="header-section-number">1.5.2.4</span> Flash talks (1.5 hr, break into 2 groups of 13)</h4>
-<p>1 slide advertising or summarizing the poster. So you can introduce yourselves and we can get to know each other. No questions, 2 minutes. Two sessions, 15 people each.</p>
-</div>
-</div>
-<div id="wednesday-classes-from-0800-to-1600" class="section level3">
-<h3><span class="header-section-number">1.5.3</span> Wednesday – Classes from 08:00 to 16:00</h3>
-<div id="lecture-4-may-start-late-tuesday---identifying-cell-populations-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.3.1</span> Lecture 4 (may start late Tuesday) - Identifying cell populations (Kirk)</h4>
-<ul>
-<li>Feature selection</li>
-<li>Dimensionality reduction</li>
-<li>Clustering and assigning identity (Louvain, NMF, topic models, variational autoencoder)</li>
-<li>Differential expression tests</li>
-</ul>
-</div>
-<div id="lab-5-feature-selection-clustering-analysis-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.3.2</span> Lab 5 – Feature selection &amp; Clustering analysis (Kirk)</h4>
-<ul>
-<li>Parameters and clustering</li>
-<li>Comparison of feature selection methods</li>
-</ul>
-</div>
-<div id="lecture-5---batch-effects-correction-orr" class="section level4">
-<h4><span class="header-section-number">1.5.3.3</span> Lecture 5 - Batch effects correction (Orr)</h4>
-<ul>
-<li>Batch correction methods (regress out batch, scaling within batch, Seurat v3, MNN, Liger, Harmony, scvi, scgen)</li>
-<li>Evaluation methods for batch correction (ARI, average silhouette width, kBET…)</li>
-</ul>
-</div>
-<div id="lab-6---correcting-batch-effects-orr" class="section level4">
-<h4><span class="header-section-number">1.5.3.4</span> Lab 6 - Correcting batch effects (Orr)</h4>
-<ul>
-<li>Comparison of batch correction methods, Seurat pancreas</li>
-<li>Use Seurat Wrappers?</li>
-</ul>
-</div>
-</div>
-<div id="thursday-classes-from-0800-to-1600" class="section level3">
-<h3><span class="header-section-number">1.5.4</span> Thursday – Classes from 08:00 to 16:00</h3>
-<p><strong>Deciding on discussion topics for next day based on shared google doc.</strong></p>
-<div id="lecture-6---advanced-topics-kirk" class="section level4">
-<h4><span class="header-section-number">1.5.4.1</span> Lecture 6 - Advanced topics (Kirk)</h4>
-<ul>
-<li>Waddington Landscape</li>
-<li>Pseudotime inference</li>
-<li>Differential expression through pseudotime</li>
-<li>Deep learning or spatial data depending on questionnaire (20ish min, autoencoder as nonlinear dimension reduction, scvi, what questions to ask to evaluate whether a more advanced model helps, how to decide it’s safe to use a method, tradeoffs between method complexity and interpretability)</li>
-</ul>
-</div>
-<div id="lab-7---functional-and-pseudotime-analysis-orr" class="section level4">
-<h4><span class="header-section-number">1.5.4.2</span> Lab 7 - Functional and Pseudotime analysis (Orr)</h4>
-<ul>
-<li>Popular tools and packages for functional analysis (<a href="https://github.com/dynverse/dynmethods#list-of-included-methods" class="uri">https://github.com/dynverse/dynmethods#list-of-included-methods</a>)</li>
-<li>Review concepts from papers</li>
-<li>Comparison of pseudotime methods</li>
-</ul>
-</div>
-<div id="lecture-7---single-cell-multi-omic-technologies-dana" class="section level4">
-<h4><span class="header-section-number">1.5.4.3</span> Lecture 7 - Single-cell multi-omic technologies (Dana)</h4>
-<ul>
-<li>Introduction to other omic data types</li>
-<li>Integrating scRNA-seq with other single-cell modalities (CITE, Perturb, ATAC, methylation…)</li>
-</ul>
-</div>
-<div id="lab-8---analysis-of-cite-seq-scatac-seq-orr" class="section level4">
-<h4><span class="header-section-number">1.5.4.4</span> Lab 8 - Analysis of CITE-seq, scATAC-seq (Orr)</h4>
-<ul>
-<li><a href="https://github.com/Hoohm/CITE-seq-Count" class="uri">https://github.com/Hoohm/CITE-seq-Count</a></li>
-<li><a href="https://cite-seq.com/eccite-seq/" class="uri">https://cite-seq.com/eccite-seq/</a></li>
-<li><a href="https://support.10xgenomics.com/single-cell-vdj/index/doc/technical-note-assay-scheme-and-configuration-of-chromium-single-cell-vdj-libraries" class="uri">https://support.10xgenomics.com/single-cell-vdj/index/doc/technical-note-assay-scheme-and-configuration-of-chromium-single-cell-vdj-libraries</a></li>
-<li><a href="https://satijalab.org/seurat/multimodal_vignette.html" class="uri">https://satijalab.org/seurat/multimodal_vignette.html</a></li>
-<li><a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html" class="uri">https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html</a></li>
-</ul>
-</div>
-</div>
-<div id="friday-classes-from-0800-to-1600" class="section level3">
-<h3><span class="header-section-number">1.5.5</span> Friday – Classes from 08:00 to 16:00</h3>
-<p>Small group discussion on selected topics through hangouts.</p>
-<div id="lab-10---small-dataset-for-analysis-and-office-hours-focused-on-select-topics-dana" class="section level4">
-<h4><span class="header-section-number">1.5.5.1</span> Lab 10 - small dataset for analysis and office hours focused on select topics (Dana)</h4>
-<p>For project on last day (plan for whole day), Dana will prepare datasets for 3 or more ish mut glioma tumors that they will download beforehand. The datasets may need to be subsampled to save time. Can do pseudotime, can run scvi, nmf. Groups of 3 students.</p>
-</div>
-<div id="group-presentations" class="section level4">
-<h4><span class="header-section-number">1.5.5.2</span> Group presentations</h4>
-<p>Review, Questions and Answers</p>
+<div id="advanced-topics-pseudotime-cell-trajectories" class="section level1">
+<h1><span class="header-section-number">9</span> Advanced Topics: Pseudotime Cell Trajectories</h1>
+<div id="google-slides-1" class="section level2">
+<h2><span class="header-section-number">9.1</span> Google Slides</h2>
 
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -488,8 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="lab-template.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="feature-selection-and-cluster-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="single-cell-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,12 @@
+---
+title: "Psuedotime-trajectories"
+author: "Kirk Gosik"
+date: "3/22/2020"
+output: html_document
+---
+
+# Advanced Topics: Pseudotime Cell Trajectories
+
+
+## Google Slides
+

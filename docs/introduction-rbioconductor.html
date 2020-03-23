@@ -226,11 +226,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>8.4</b> Other Options For Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>9</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="9.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>9.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="9.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>9.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="9.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>9.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="9.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>9.4</b> Online courses</a></li>
+<li class="chapter" data-level="9" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>9</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="9.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#google-slides-1"><i class="fa fa-check"></i><b>9.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>10</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="10.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>10.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="10.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>10.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="10.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>10.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="10.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>10.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -571,15 +574,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 <p><strong>Check Structure</strong></p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-rbioconductor.html#cb117-1"></a><span class="kw">str</span>(numeric_matrix)</span></code></pre></div>
-<pre><code>##  int [1:10, 1:10] 7 6 4 8 3 5 2 3 7 7 ...</code></pre>
+<pre><code>##  int [1:10, 1:10] 9 6 9 9 5 10 4 3 9 5 ...</code></pre>
 <p><strong>Get 3rd Row</strong></p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-rbioconductor.html#cb119-1"></a><span class="co">## get 3rd row</span></span>
 <span id="cb119-2"><a href="introduction-rbioconductor.html#cb119-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
-<pre><code>##  [1] 4 5 6 7 7 7 4 9 5 2</code></pre>
+<pre><code>##  [1] 9 4 5 6 2 9 6 8 3 7</code></pre>
 <p><strong>Get 4th Column</strong></p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-rbioconductor.html#cb121-1"></a><span class="co">## get 4th colum</span></span>
 <span id="cb121-2"><a href="introduction-rbioconductor.html#cb121-2"></a>numeric_matrix[, <span class="dv">4</span>]</span></code></pre></div>
-<pre><code>##  [1]  1  1  7  6  9  5  8  3  2 10</code></pre>
+<pre><code>##  [1]  9  8  6 10  7  9 10  2  1  9</code></pre>
 </div>
 <div id="data.frame" class="section level4">
 <h4><span class="header-section-number">6.3.2.7</span> data.frame</h4>
@@ -624,7 +627,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Get 3rd Row</strong></p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="introduction-rbioconductor.html#cb133-1"></a><span class="co">## get 3rd row</span></span>
 <span id="cb133-2"><a href="introduction-rbioconductor.html#cb133-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
-<pre><code>##  [1] 4 5 6 7 7 7 4 9 5 2</code></pre>
+<pre><code>##  [1] 9 4 5 6 2 9 6 8 3 7</code></pre>
 <p><strong>Get Species Variable</strong></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-rbioconductor.html#cb135-1"></a><span class="co">## get variable</span></span>
 <span id="cb135-2"><a href="introduction-rbioconductor.html#cb135-2"></a>iris<span class="op">$</span>Species</span></code></pre></div>
