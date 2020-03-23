@@ -5,10 +5,6 @@ output: html_document
 
 # Processing scRNAseq Data
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Goal
 
 - To give you experience with examining and aligning fastq files
