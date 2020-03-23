@@ -117,47 +117,6 @@ cd 2020_scWorkshop
 ```
 
 
-#### Docker Commands
-
-Docker provides a consistent compute enviornment to ensure all software that you need is on the machine and able to be used. It will give you the version you need and help reduce software conflicts that may arise.
-
-  - make sure you are in the directory from the cloned repository directory
-  - run following command to start docker script
-  
-```{bash run_script_bash, eval = FALSE}
-# chmod 600 ./docker/run_docker_bash.sh
-./docker/run_docker_bash.sh
-```
-
-The full command inside the script is below.  There is also an explaination of each part for your reference.  
-
-```{bash full_bash_cmd, eval = FALSE}
-## if you are the super user on your computer
-docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
-
-## if you need to access permission to run the command
-sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
-
-```
-
-
-**Explaination of commands**
-```{bash explain_cmd, eval = FALSE}
-  - docker: command to run docker
-  - run: asking docker to run a container
-  - --rm: flag to remove the container when you exit from it
-      - nothing will be saved from your session to access again later
-      - this flag can be removed to keep container
-  - -it: flag to run the container interactively
-    - this will keep all session output displaying on the terminal
-    - to stop container go to terminal and press Crtl+c
-    -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home
-  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
-    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
-  - bash: The entry point into the container.  Start on the bash command line
-```
-
-
 ## File formats
 
   - bcl
@@ -260,3 +219,46 @@ cd ..
   - Get Docker on your local computer for you to have 
   - Explore Single Cell Portal
   - Explore GEO
+  
+  
+  
+## Docker Commands
+
+Docker provides a consistent compute enviornment to ensure all software that you need is on the machine and able to be used. It will give you the version you need and help reduce software conflicts that may arise.
+
+  - make sure you are in the directory from the cloned repository directory
+  - run following command to start docker script
+  
+```{bash run_script_bash, eval = FALSE}
+# chmod 600 ./docker/run_docker_bash.sh
+./docker/run_docker_bash.sh
+```
+
+The full command inside the script is below.  There is also an explaination of each part for your reference.  
+
+```{bash full_bash_cmd, eval = FALSE}
+## if you are the super user on your computer
+docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+
+## if you need to access permission to run the command
+sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+
+```
+
+
+**Explaination of commands**
+```{bash explain_cmd, eval = FALSE}
+  - docker: command to run docker
+  - run: asking docker to run a container
+  - --rm: flag to remove the container when you exit from it
+      - nothing will be saved from your session to access again later
+      - this flag can be removed to keep container
+  - -it: flag to run the container interactively
+    - this will keep all session output displaying on the terminal
+    - to stop container go to terminal and press Crtl+c
+    -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home
+  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
+  - bash: The entry point into the container.  Start on the bash command line
+```
+
