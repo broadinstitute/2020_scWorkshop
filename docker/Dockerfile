@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y gcc g++ perl python3 python3-pip python
                                         wget git curl bsdtar bzip2 gfortran unzip ftp \
                                         libpng-dev libjpeg-dev \
                                         texlive-latex-base default-jre build-essential \
-                                        libbz2-dev liblzma-dev libtool
+                                        libbz2-dev liblzma-dev libtool \
+                                        libxml2 libxml2-dev zlib1g-dev
                                         # libdb-dev libglu1-mesa-dev zlib1g-dev  \
                                         # libncurses5-dev libghc-zlib-dev libncurses-dev \
                                         # libpcre3-dev libxml2-dev \
