@@ -27,7 +27,7 @@ cd ..
 ### Local Command
 
 ```{bash docker_script_local, eval = FALSE}
-# chmod 600 ./docker/run_docker.sh
+# chmod 700 ./docker/run_docker.sh
 ./docker/run_docker.sh
 ```
 
@@ -41,7 +41,7 @@ cd 2020scworkshop
 ## example for user17
 docker run --rm -it \
   -e DISABLE_AUTH=true \
-  -v $PWD:/home/rstudio \
+  -v $PWD:/home/rstudio/materials \
   -p 8787:8787 kdgosik/2020scworkshop
 ```
 
@@ -65,7 +65,7 @@ docker run --rm -it \
 ### AWS Command
 
 ```{bash docker_script_aws, eval = FALSE}
-# chmod 600 ./docker/run_docker.sh
+# chmod 700 ./docker/run_docker.sh
 ./docker/run_docker_aws.sh 9017
 ```
 
@@ -77,7 +77,7 @@ cd 2020scworkshop
 ## example for user17
 docker run --rm -it \
   -e PASSWORD=train \
-  -v $PWD:/home/rstudio \
+  -v $PWD:/home/rstudio/materials \
   -p 9017:8787 kdgosik/2020scworkshop
 ```
 
@@ -91,7 +91,7 @@ docker run --rm -it \
   - -it: flag to run the container interactively
   - - this will keep all session output displaying on the terminal
   - - to stop container go to terminal and press Crtl+c
-  - -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home/rstudio
+  - -v $PWD:/home/rstudio/materials: map your home directory to a directory inside docker container called home/rstudio
   - -p 9017:8787: map docker container port of 8787(rstudio port default) to your computer port 9017
   - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)

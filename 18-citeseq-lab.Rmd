@@ -5,6 +5,8 @@ date: "3/26/2020"
 output: html_document
 ---
 
+# Cite-Seq
+
 In this lab, we will look at how single cell RNA-seq and single cell protein expression measurement datasets can be jointly analyzed, as part of a CITE-Seq experiment. To learn more about how the antibody barcode matrix is computationally generated from the sequencing data, please visit [CITE-seq-Count](https://hoohm.github.io/CITE-seq-Count/). To learn more about CITE-Seq and feature barcoding, please visit the [CITE-seq site](https://cite-seq.com/).
 
 This lab closely follows the official vignette available at [Using Seurat with multi-modal data](https://satijalab.org/seurat/multimodal_vignette.html).
@@ -33,7 +35,7 @@ Rda.multi.path <- paste0(mydir, "citesq_cbmc_multi.rda")  # cbmc clustered and A
 Rda.protein.path <- paste0(mydir, "citeseq_protein.Rda")  # cbmc clustered using protein
 ```
 
-# Load in the data
+## Load in the data
 Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT). 
 
 ```{r, eval = FALSE}
@@ -71,7 +73,7 @@ cbmc.adt[1:10,1:3]
 length(intersect(colnames(cbmc.rna), colnames(cbmc.adt))) / length(union(colnames(cbmc.rna), colnames(cbmc.adt)))
 ```
 
-# Setup a Seurat object, and cluster cells based on RNA expression
+## Setup a Seurat object, and cluster cells based on RNA expression
 The steps below represent a quick clustering of the PBMCs based on the scRNA-seq data. For more detail on individual steps or more advanced options, see our PBMC clustering guided tutorial here
 
 ```{r, eval = FALSE}
@@ -123,7 +125,7 @@ save(cbmc, cbmc.rna.markers, cbmc.adt, file = Rda.RNA.path)
 # load(Rda.RNA.path)
 ```
 
-# Add the protein expression levels to the Seurat object
+## Add the protein expression levels to the Seurat object
 Seurat v3.0 allows you to store information from multiple assays in the same object, as long as the data is multi-modal (collected on the same set of cells). You can use the `SetAssayData` and `GetAssayData` accessor functions to add and fetch data from additional assays.
 
 ```{r, eval = FALSE}
@@ -146,7 +148,7 @@ cbmc <- NormalizeData(cbmc, assay = "ADT", normalization.method = "CLR")
 cbmc <- ScaleData(cbmc, assay = "ADT")
 ```
 
-# Visualize protein levels on RNA clusters
+## Visualize protein levels on RNA clusters
 You can use the names of any ADT markers, (i.e. “adt_CD4”), in FetchData, FeaturePlot, RidgePlot, FeatureScatter, DoHeatmap, or any other visualization features
 
 ```{r, eval = FALSE}
@@ -205,7 +207,7 @@ save(cbmc, file = Rda.multi.path)
 # load(Rda.multi.path)
 ```
 
-# Identify differentially expressed proteins between clusters
+## Identify differentially expressed proteins between clusters
 ```{r, eval = FALSE}
 # Downsample the clusters to a maximum of 300 cells each (makes the heatmap easier to see for
 # small clusters)
@@ -221,7 +223,7 @@ DoHeatmap(cbmc.small, features = unique(adt.markers$gene), assay = "ADT", angle 
 cbmc <- subset(cbmc, idents = c("Multiplets", "Mouse"), invert = TRUE)
 ```
 
-# Cluster directly on protein levels
+## Cluster directly on protein levels
 You can also run dimensional reduction and graph-based clustering directly on CITE-seq data
 ```{r, eval = FALSE}
 # Because we're going to be working with the ADT data extensively, we're going to switch the
@@ -291,5 +293,5 @@ The ADT-based clustering yields similar results, but with a few differences
 # Additional exploration: another example of multi-modal analysis
 For another nice example of multi-modal analysis, please explore this [single cell ATAC-Seq vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html) and this [scATAC-seq data integration](https://satijalab.org/signac/articles/integration.html).
 
-# Acknowledgements
+## Acknowledgements
 This document is largely a tutorial from Seurat website, with some small modifications. The official vignette is available at [Using Seurat with multi-modal data](https://satijalab.org/seurat/multimodal_vignette.html).

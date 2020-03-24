@@ -78,7 +78,14 @@ RUN wget -O /usr/local/src/samtools-1.10.tar.bz2 https://github.com/samtools/sam
   make && make install && \
   cd /
   
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-  bash ~/miniconda.sh -b -p $HOME/miniconda
 
-RUN conda install -c conda-forge leidenalg
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh
+
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+
+RUN conda install -y -c conda-forge leidenalg

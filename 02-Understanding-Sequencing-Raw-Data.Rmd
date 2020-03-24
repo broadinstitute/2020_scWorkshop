@@ -230,7 +230,7 @@ Docker provides a consistent compute enviornment to ensure all software that you
   - run following command to start docker script
   
 ```{bash run_script_bash, eval = FALSE}
-# chmod 600 ./docker/run_docker_bash.sh
+# chmod 700 ./docker/run_docker_bash.sh
 ./docker/run_docker_bash.sh
 ```
 
@@ -238,10 +238,10 @@ The full command inside the script is below.  There is also an explaination of e
 
 ```{bash full_bash_cmd, eval = FALSE}
 ## if you are the super user on your computer
-docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+docker run --rm -it -v $PWD:/home/rstudio/materials kdgosik/2020scworkshop bash
 
 ## if you need to access permission to run the command
-sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
+sudo docker run --rm -it -v $PWD:/home/rstudio/materials kdgosik/2020scworkshop bash
 
 ```
 
@@ -256,7 +256,7 @@ sudo docker run --rm -it -v $PWD:/home/rstudio kdgosik/2020scworkshop bash
   - -it: flag to run the container interactively
     - this will keep all session output displaying on the terminal
     - to stop container go to terminal and press Crtl+c
-    -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home
+    -v $PWD:/home/rstudio/materials: map your home directory to a directory inside docker container called home
   - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
   - bash: The entry point into the container.  Start on the bash command line
