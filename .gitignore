@@ -19,3 +19,4 @@ kitematic/
 .rstudio/
 .local/
 data/batch_correction/*Rda
+data/citeseq/*Rda
