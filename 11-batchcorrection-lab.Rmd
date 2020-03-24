@@ -11,7 +11,7 @@ Note: you can increase the system memory available to Docker by going to Docker 
 
 ## Load settings and packages
 
-```{r setup_batch, include=FALSE, eval = FALSE}
+```{r setup_batch, include=FALSE, eval = TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(Seurat)
@@ -33,7 +33,7 @@ Rda.liger.path <- paste0(mydir, "pancreas_liger.Rda")
 ```
 
 ## Read in pancreas expression matrices
-```{r read, eval = FALSE}
+```{r read, eval = TRUE}
 # Read in all four input expression matrices
 celseq.data <- read.table(paste0(mydir, "pancreas_multi_celseq_expression_matrix.txt.gz"))
 celseq2.data <- read.table(paste0(mydir, "pancreas_multi_celseq2_expression_matrix.txt.gz"))
@@ -48,7 +48,7 @@ smartseq2.data <- as(as.matrix(smartseq2.data), "dgCMatrix")
 ```
 
 ## Preparing the individual Seurat objects for each pancreas dataset without batch correction
-```{r prepare_seurat, eval = FALSE}
+```{r prepare_seurat, eval = TRUE}
 # What is the size of each single cell RNA-seq dataset? 
 # Briefly describe the technology used to collect each dataset.
 # Which datasets do you expect to be different and which do you expect to be similar?
@@ -124,7 +124,7 @@ save(celseq, celseq2, fluidigmc1, smartseq2, file = Rda.sparse.path)
 
 # Cluster pancreatic datasets without batch correction
 Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.
-```{r no_batch_correction, eval = FALSE}
+```{r no_batch_correction, eval = TRUE}
 # load(Rda.sparse.path)
 
 # Merge Seurat objects. Original sample identities are stored in gcdata[["tech"]].
@@ -152,7 +152,7 @@ DimPlot(gcdata, reduction = "pca", dims = c(1, 2), group.by = "tech")
 
 # Cluster the cells using the first twenty principal components.
 gcdata <- FindNeighbors(gcdata, reduction = "pca", dims = 1:20, k.param = 20)
-gcdata <- FindClusters(gcdata, resolution = 0.8, algorithm = 4, random.seed = 100)
+gcdata <- FindClusters(gcdata, resolution = 0.8, algorithm = 1, random.seed = 100)
 
 # Create a UMAP visualization. 
 gcdata <- RunUMAP(gcdata, dims = 1:20, reduction = "pca", n.neighbors = 15, min.dist = 0.5, spread = 1, metric = "euclidean", seed.use = 1)  
@@ -182,7 +182,7 @@ save(gcdata, file = Rda.path)
 
 ### Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3
 Here we use Seurat v3 to see to what extent it can remove potential batch effects.
-```{r batchcorrect_Seurat3, eval = FALSE}
+```{r batchcorrect_Seurat3, eval = TRUE}
 # load(Rda.sparse.path)
 
 # The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.
@@ -204,7 +204,7 @@ DimPlot(gcdata, dims = c(1, 2), reduction = "pca", split.by = "tech")
 # Clustering. Choose the dimensional reduction type to use and the number of aligned 
 # canonical correlation vectors to use.
 gcdata <- FindNeighbors(gcdata, reduction = "pca", dims = 1:20, k.param = 20)
-gcdata <- FindClusters(gcdata, resolution = 0.8, algorithm = 4, random.seed = 100)
+gcdata <- FindClusters(gcdata, resolution = 0.8, algorithm = 1, random.seed = 100)
 
 # UMAP. Choose the dimensional reduction type to use and the number of aligned 
 # canonical correlation vectors to use.
@@ -251,7 +251,7 @@ Here we use integrative non-negative matrix factorization to see to what extent 
 
 The important parameters in the batch correction are the number of factors (k), the penalty parameter (lambda), and the clustering resolution. The number of factors sets the number of factors (consisting of shared and dataset-specific factors) used in factorizing the matrix. The penalty parameter sets the balance between factors shared across the batches and factors specific to the individual batches. The default setting of lambda=5.0 is usually used by the Macosko lab. Resolution=1.0 is used in the Louvain clustering of the shared neighbor factors that have been quantile normalized.
 
-```{r batchcorrect_liger, eval = FALSE}
+```{r batchcorrect_liger, eval = TRUE}
 # load(Rda.sparse.path)
 
 ob.list <- list("celseq" = celseq, "celseq2" = celseq2, "fluidigmc1" = fluidigmc1, "smartseq2" = smartseq2)
@@ -345,13 +345,13 @@ save(data.liger, file = Rda.liger.path)
 
 ## Additional exploration: Regressing out unwanted covariates 
 Learn how to regress out different technical covariates (number of UMIs, number of genes, percent mitochondrial reads) by studying [Seurat's PBMC tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html) and the ScaleData() function.
-```{r regress_covars, eval = FALSE}
+```{r regress_covars, eval = TRUE}
 
 ```
 
 ## Additional exploration: kBET
 Within your RStudio session, install [k-nearest neighbour batch effect test](https://github.com/theislab/kBET) and learn how to use its functionality to quantify batch effects in the pancreatic data.
-```{r kBET, eval = FALSE}
+```{r kBET, eval = TRUE}
 
 ```
 
