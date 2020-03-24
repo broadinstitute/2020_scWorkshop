@@ -18,3 +18,4 @@ sc2020.pem
 kitematic/
 .rstudio/
 .local/
+data/batch_correction/*Rda
