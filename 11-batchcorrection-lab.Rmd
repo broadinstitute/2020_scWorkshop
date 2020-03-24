@@ -5,6 +5,8 @@ date: "3/25/2020"
 output: html_document
 ---
 
+# Batch Correction 
+
 In this lab, we will look at different single cell RNA-seq datasets collected from pancreatic islets. We will look at how different batch correction methods affect our data analysis.
 
 Note: you can increase the system memory available to Docker by going to Docker -> Preferences -> Advanced and shifting the Memory slider.
