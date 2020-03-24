@@ -3,6 +3,4 @@ scipy
 pandas
 matplotlib
 setuptools
-python-igraph
 umap-learn
-leidenalg

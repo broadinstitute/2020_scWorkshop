@@ -61,7 +61,7 @@ docker pull kdgosik/2020scworkshop:latest
 
 ```{bash}
 docker run --rm -ti \
--v $PWD:/home/rstudio \
+-v $PWD:/home/rstudio/materials/ \
 -e DISABLE_AUTH=true \
 -p 8787:8787 kdgosik/2020scworkshop
 
@@ -87,20 +87,35 @@ The password is only set so outside people will not be able to access it by snoo
 
 **quick start script**
 ```{bash}
-./docker/run_docker_aws.sh 9001
+./docker/run_docker_aws.sh 9017
 ```
-  - 9001 is the PORT_NUMBER
+  - 9017 is the PORT_NUMBER
   - Change PORT_NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
-    - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
+    - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9017
 
 **full command**
 ```{bash}
-sudo docker run --rm -it \
--v $PWD:/home/rstudio \
+docker run --rm -it \
+-v $PWD:/home/rstudio/materials \
 -e PASSWORD=train \
--p 9001:8787 kdgosik/2020scworkshop
+-p 9017:8787 kdgosik/2020scworkshop
 ```
+
+**Getting material after starting docker Rstudio**
+No need for the `-v $PWD:/home/rstudio`
+```{bash}
+docker run --rm -it -e PASSWORD=train -p 9017:8787 kdgosik/2020scworkshop
+```
+
+Inside Rstudio go to the terminal (tab right next to console in the top left)
+
+```{bash}
+git clone https://github.com/broadinstitute/2020_scWorkshop.git
+```
+
+
+
   - Change PORT NUMBER to your user (e.g. user1 should use 9001, user99 should use 9099)
   - ec2-$AWS_PUBLIC_IP_ADDRESS.us-west-2.compute.amazonaws.com:$PORT_NUMBER
     - ec2-54-202-32-102.us-west-2.compute.amazonaws.com:9001
@@ -115,7 +130,7 @@ sudo docker run --rm -it \
   - -it: flag to run the container interactively
     - this will keep all session output displaying on the terminal
     - to stop container go to terminal and press Crtl+c
-  - -v $PWD:/home/rstudio: map the present directory to the rstudio home directory
+  - -v $PWD:/home/rstudio/materials: map the present directory to the rstudio home directory
   - -e PASSWORD=train: password assignment you will need to access rstudio when you login
   - -p 9001:8787: flag to assign port mapping.
     - rstudio runs on port 8787 inside the container

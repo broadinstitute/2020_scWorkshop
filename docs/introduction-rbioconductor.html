@@ -548,13 +548,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb97-2"><a href="introduction-rbioconductor.html#cb97-2"></a>numeric_vector[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre><code>## [1]  5 21 17</code></pre>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="introduction-rbioconductor.html#cb99-1"></a><span class="co">## backticks ` ` allow you to give names with non-typical characters</span></span>
-<span id="cb99-2"><a href="introduction-rbioconductor.html#cb99-2"></a><span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">21</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">35</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
+<span id="cb99-2"><a href="introduction-rbioconductor.html#cb99-2"></a><span class="st">`</span><span class="dt">numeric?_vector</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">21</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">35</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
 <span id="cb99-3"><a href="introduction-rbioconductor.html#cb99-3"></a></span>
 <span id="cb99-4"><a href="introduction-rbioconductor.html#cb99-4"></a><span class="co">## check vector</span></span>
-<span id="cb99-5"><a href="introduction-rbioconductor.html#cb99-5"></a><span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span></span></code></pre></div>
+<span id="cb99-5"><a href="introduction-rbioconductor.html#cb99-5"></a><span class="st">`</span><span class="dt">numeric?_vector</span><span class="st">`</span></span></code></pre></div>
 <pre><code>## [1] &quot;A&quot;  &quot;1&quot;  &quot;5&quot;  &quot;21&quot; &quot;17&quot; &quot;98&quot; &quot;35&quot; &quot;11&quot; &quot;13&quot;</code></pre>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="introduction-rbioconductor.html#cb101-1"></a><span class="co">## check class (Notice the quotation marks on the numbers!)</span></span>
-<span id="cb101-2"><a href="introduction-rbioconductor.html#cb101-2"></a><span class="kw">class</span>(<span class="st">`</span><span class="dt">numeric?_vecotr</span><span class="st">`</span>)</span></code></pre></div>
+<span id="cb101-2"><a href="introduction-rbioconductor.html#cb101-2"></a><span class="kw">class</span>(<span class="st">`</span><span class="dt">numeric?_vector</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="factor-vector" class="section level4">
@@ -650,15 +650,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 <p><strong>Check Structure</strong></p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-rbioconductor.html#cb117-1"></a><span class="kw">str</span>(numeric_matrix)</span></code></pre></div>
-<pre><code>##  int [1:10, 1:10] 3 6 3 2 6 6 2 3 8 10 ...</code></pre>
+<pre><code>##  int [1:10, 1:10] 2 10 9 10 8 4 8 1 10 10 ...</code></pre>
 <p><strong>Get 3rd Row</strong></p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-rbioconductor.html#cb119-1"></a><span class="co">## get 3rd row</span></span>
 <span id="cb119-2"><a href="introduction-rbioconductor.html#cb119-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
-<pre><code>##  [1]  3 10  6  7  2  7  8  2  4  4</code></pre>
+<pre><code>##  [1]  9  8  2  6  7  2  5  4 10  2</code></pre>
 <p><strong>Get 4th Column</strong></p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-rbioconductor.html#cb121-1"></a><span class="co">## get 4th colum</span></span>
 <span id="cb121-2"><a href="introduction-rbioconductor.html#cb121-2"></a>numeric_matrix[, <span class="dv">4</span>]</span></code></pre></div>
-<pre><code>##  [1] 2 4 7 4 7 7 6 5 5 4</code></pre>
+<pre><code>##  [1]  1  4  6  2  9  8  1  5 10  1</code></pre>
 </div>
 <div id="data.frame" class="section level4">
 <h4><span class="header-section-number">6.3.2.7</span> data.frame</h4>
@@ -703,7 +703,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Get 3rd Row</strong></p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="introduction-rbioconductor.html#cb133-1"></a><span class="co">## get 3rd row</span></span>
 <span id="cb133-2"><a href="introduction-rbioconductor.html#cb133-2"></a>numeric_matrix[<span class="dv">3</span>, ]</span></code></pre></div>
-<pre><code>##  [1]  3 10  6  7  2  7  8  2  4  4</code></pre>
+<pre><code>##  [1]  9  8  2  6  7  2  5  4 10  2</code></pre>
 <p><strong>Get Species Variable</strong></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-rbioconductor.html#cb135-1"></a><span class="co">## get variable</span></span>
 <span id="cb135-2"><a href="introduction-rbioconductor.html#cb135-2"></a>iris<span class="op">$</span>Species</span></code></pre></div>
@@ -759,7 +759,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 row, column, value
 i, p, x</p>
 <p>Different from base R. Uses the S4 methods that Bioconductor uses.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="introduction-rbioconductor.html#cb138-1"></a>sparse_matrix &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>data[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</span>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="introduction-rbioconductor.html#cb138-1"></a>sparse_matrix &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</span>
 <span id="cb138-2"><a href="introduction-rbioconductor.html#cb138-2"></a><span class="kw">class</span>(sparse_matrix)</span></code></pre></div>
 <p><strong>ith row - 1</strong></p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="introduction-rbioconductor.html#cb139-1"></a>sparse_matrix<span class="op">@</span>i</span></code></pre></div>

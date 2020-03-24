@@ -298,13 +298,13 @@ numeric_vector[2:4]
 
 ```{r num_vec2}
 ## backticks ` ` allow you to give names with non-typical characters
-`numeric?_vecotr` <- c("A", 1, 5, 21, 17, 98, 35, 11, 13)
+`numeric?_vector` <- c("A", 1, 5, 21, 17, 98, 35, 11, 13)
 
 ## check vector
-`numeric?_vecotr`
+`numeric?_vector`
 
 ## check class (Notice the quotation marks on the numbers!)
-class(`numeric?_vecotr`)
+class(`numeric?_vector`)
 ```
 
 #### Factor Vector
@@ -456,7 +456,7 @@ i, p, x
 
 Different from base R.  Uses the S4 methods that Bioconductor uses. 
 ```{r sparse_mat, eval= FALSE}
-sparse_matrix <- pbmc_small@data[1:10, ]
+sparse_matrix <- pbmc_small@assays$RNA@data[1:10, ]
 class(sparse_matrix)
 ```
 
@@ -562,12 +562,9 @@ knitr::include_graphics("images/components_grammar_graphics.png")
 
 
 ```{r ggplot_intro, eval = FALSE, echo = FALSE}
-# If you don't have Tmisc installed, first install devtools, then install
-# from github: install.packages('devtools')
-# devtools::install_github('stephenturner/Tmisc')
-library(Tmisc)
+
 library(ggplot2)
-data(quartet)
+df <- data.frame(x = rnorm(50), y = rnorm(50))
 
 p <- ggplot(quartet, aes(x, y)) + geom_point()
 p <- p + geom_smooth(method = lm, se = FALSE)
