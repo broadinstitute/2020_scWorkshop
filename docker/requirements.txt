@@ -4,3 +4,4 @@ pandas
 matplotlib
 setuptools
 umap-learn
+leidenalg

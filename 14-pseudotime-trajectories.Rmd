@@ -8,7 +8,7 @@ output: html_document
 # Advanced Topics: Pseudotime Cell Trajectories
 
 
-## Google Slides
+## Slides
 
 ```{r}
 library(Seurat)

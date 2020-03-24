@@ -6,3 +6,4 @@
 0.0.6: added miniconda to get by Seurat warning
 0.0.7: added some R packages
 0.0.8: add more R packages
+0.0.9: added leidenalg, removed miniconda

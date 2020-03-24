@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y gcc g++ perl python3 python3-pip python
                                         wget git curl bsdtar bzip2 gfortran unzip ftp \
                                         libpng-dev libjpeg-dev \
                                         texlive-latex-base default-jre build-essential \
-                                        libbz2-dev liblzma-dev
+                                        libbz2-dev liblzma-dev libtool
                                         # libdb-dev libglu1-mesa-dev zlib1g-dev  \
                                         # libncurses5-dev libghc-zlib-dev libncurses-dev \
                                         # libpcre3-dev libxml2-dev \
@@ -77,6 +77,3 @@ RUN wget -O /usr/local/src/samtools-1.10.tar.bz2 https://github.com/samtools/sam
   make && make install && \
   cd /
   
-  
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-bash ~/miniconda.sh -b -p $HOME/miniconda

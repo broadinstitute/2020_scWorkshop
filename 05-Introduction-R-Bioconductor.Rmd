@@ -39,7 +39,7 @@ cd ..
 cd 2020scworkshop
 
 ## example for user17
-docker run --rm -it 
+docker run --rm -it \
   -e DISABLE_AUTH=true \
   -v $PWD:/home/rstudio \
   -p 8787:8787 kdgosik/2020scworkshop
@@ -75,7 +75,7 @@ docker run --rm -it
 cd 2020scworkshop
 
 ## example for user17
-docker run --rm -it 
+docker run --rm -it \
   -e PASSWORD=train \
   -v $PWD:/home/rstudio \
   -p 9017:8787 kdgosik/2020scworkshop
@@ -97,7 +97,7 @@ docker run --rm -it
     - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 ```
 
-  - [localhost:9099](https://localhost:9017)  or on AWS
+  - [localhost:9017](https://localhost:9017)  or on AWS
   - [<AWS PUBLIC IP ADDRESS>:9017](https://:9017)
 
   - ec2-<AWS PUBLIC IP ADDRESS>.us-west-2.compute.amazonaws.com:$PORT_NUMBER

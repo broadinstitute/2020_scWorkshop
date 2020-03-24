@@ -11,7 +11,7 @@ Note: you can increase the system memory available to Docker by going to Docker 
 
 ## Load settings and packages
 
-```{r setup, include=FALSE}
+```{r setup_trajectory, include=FALSE}
 library(SingleCellExperiment)
 library(destiny)
 library(scater)
