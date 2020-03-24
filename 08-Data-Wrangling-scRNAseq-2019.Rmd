@@ -295,7 +295,7 @@ Congratulations! You can identify and visualize cell subsets and the marker gene
 
 
 
-```{r complete code}
+```{r complete_code, eval = FALSE}
 library(Seurat)
 library(dplyr)
 library(Matrix)

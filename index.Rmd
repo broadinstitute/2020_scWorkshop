@@ -41,12 +41,10 @@ The course will be delivered over the course of five days. Each day will include
 
 ## SESSION CONTENT
 
-### Monday
-  - Classes from 08:00 to 16:00 (lunch break-1 hr, 40 min of total coffee breaks)
-  - Shared Google doc - course notes, ideas/questions/challenges/interesting topics you would like to explore.
+### Monday – Classes from 08:00 to 16:00 (lunch break-1 hr, 40 min of total coffee breaks)
+Shared Google doc - course notes, ideas/questions/challenges/interesting topics you would like to explore.
 
 #### Lecture 1 – scRNA-Seq experimental design (Orr)
-
   - Overview of course
   - General introduction: cell atlas overviews
   - Comparison of Bulk and single cell RNA-Seq
@@ -55,13 +53,11 @@ The course will be delivered over the course of five days. Each day will include
 
 #### Lab 1 – Understanding sequencing raw data, downloading Docker if not done already (Kirk)
 
-Lab based around data wrangling from public data repositories: get data from 10x website, single cell portal, from GEO (fastqs, counts)
+#### Lab based around data wrangling from public data repositories: get data from 10x website, single cell portal, from GEO (fastqs, counts)
   - Shell and Unix commands to navigate directories, create folders, open files
   - Raw file formats 
 
-#### Lecture 2-3 - Intro to Data processing: from bcl file to bam file
-**Transcriptome quantification: from bam file to counts (Dana)**
-
+#### Lecture 2 - Intro to Data processing: from bcl file to bam file, Transcriptome quantification: from bam file to counts (Dana)
   - scRNA-Seq processing workflow starting with choice of sequencer (NextSeq, HiSeq, MiSeq) / barcode swapping and bcl files
   - Overview of Popular tools and algorithms
   - Common single-cell analyses and interpretation
@@ -83,14 +79,12 @@ Lab based around data wrangling from public data repositories: get data from 10x
   - Align (STAR/TOPHAT/Kallisto)
   - IGViewer - what do we want here? I use it for mutation detections, copying sequences, searching for alternative splicing.
 
-#### Flash talks (1.5 hr, break into 2 groups of 13)
-
+#### Flash talks (1.5 hr, break into 2 groups of 13) placed into a dropbox
 1 slide advertising or summarizing the poster. So you can introduce yourselves and we can get to know each other. No questions, 2 minutes. Two sessions, 15 people each.
 
 ### Tuesday – Classes from 08:00 to 16:00
 
 #### Lab 3 - Introduction to R (Kirk)
-
   - Some R overview slides, https://r4ds.had.co.nz/
   - Installing packages
   - Data-types
@@ -101,7 +95,7 @@ Lab based around data wrangling from public data repositories: get data from 10x
   - Bonus create FeaturePlot from Seurat in base ggplot
   - Bonus: run RSEM on Dana’s bam files if you are bored
 
-#### Lecture 2-3 - Expression QC, normalisation and gene-level batch correction (Orr)
+#### Lecture 3 - Expression QC, normalisation and gene-level batch correction (Orr)
   - What CellRanger does for quality filtering
   - PBMC data
   - Normalisation methods https://www.nature.com/articles/nmeth.4292
@@ -115,28 +109,24 @@ Lab based around data wrangling from public data repositories: get data from 10x
   - Quality control of cells and genes (doublets, ambient, empty drops)
   - Data exploration: violin plots…
   - Introducing Seurat object
-    - Genes
-    - House keeping genes
-    - Mitochondrial genes (never used these ones)
-    - Filter - Do we remove both cells and genes here?
-  - Normalize (introduce more options, other than log transform?)
-  - Find variable genes (Is it a first reduction? Why the binning?)
+  - Genes
+  - House keeping genes
+  - Mitochondrial genes 
+  - Filter 
+  - Normalize 
+  - Find variable genes 
   - Scaling
   - Regression
-  - Heatmap of desired genes?
-  - Signatures?
-  - Bonus - imputation (magic? One of the two Gocken recommended?)
+  - Calculate a signature
 
-
-#### Flash talks (1.5 hr, break into 2 groups of 13)
-
+#### Flash talks (1.5 hr, break into 2 groups of 13) placed into a dropbox
 1 slide advertising or summarizing the poster. So you can introduce yourselves and we can get to know each other. No questions, 2 minutes. Two sessions, 15 people each.
+
 
 
 ### Wednesday – Classes from 08:00 to 16:00
 
 #### Lecture 4 (may start late Tuesday) - Identifying cell populations (Kirk)
-
   - Feature selection
   - Dimensionality reduction
   - Clustering and assigning identity (Louvain, NMF, topic models, variational autoencoder)
@@ -152,17 +142,16 @@ Lab based around data wrangling from public data repositories: get data from 10x
 
 #### Lab 6 - Correcting batch effects (Orr)
   - Comparison of batch correction methods, Seurat pancreas
-  - Use Seurat Wrappers?
+Use Seurat Wrappers?
 
 ### Thursday – Classes from 08:00 to 16:00
-**Deciding on discussion topics for next day based on shared google doc.**
+
+  - Deciding on discussion topics for next day based on shared google doc.
 
 #### Lecture 6 - Advanced topics (Kirk)
-  - Waddington Landscape
   - Pseudotime inference
   - Differential expression through pseudotime
   - Deep learning or spatial data depending on questionnaire (20ish min, autoencoder as nonlinear dimension reduction, scvi, what questions to ask to evaluate whether a more advanced model helps, how to decide it's safe to use a method, tradeoffs between method complexity and interpretability)
-
 
 #### Lab 7 - Functional and Pseudotime analysis (Orr)
   - Popular tools and packages for functional analysis (https://github.com/dynverse/dynmethods#list-of-included-methods)
@@ -180,17 +169,13 @@ Lab based around data wrangling from public data repositories: get data from 10x
   - https://satijalab.org/seurat/multimodal_vignette.html
   - https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html
 
-
 ### Friday – Classes from 08:00 to 16:00
-Small group discussion on selected topics through hangouts.
 
+Small group discussion on selected topics through hangouts
+.
 #### Lab 10 - small dataset for analysis and office hours focused on select topics (Dana)
+
 For project on last day (plan for whole day), Dana will prepare datasets for 3 or more ish mut glioma tumors that they will download beforehand. The datasets may need to be subsampled to save time. Can do pseudotime, can run scvi, nmf. Groups of 3 students. 
-
-
-#### Group presentations
-Review, Questions and Answers
-
 
 
 

@@ -15,7 +15,7 @@ library(ggplot2)
 
 # Introduction R/Bioconductor
 
-```{bash, eval = FALSE, echo = FALSE}
+```{bash, eval = FALSE}
 # mkdir data
 wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz
 cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz
@@ -26,7 +26,7 @@ cd ..
 
 ### Local Command
 
-```{bash docker_script, eval = FALSE}
+```{bash docker_script_local, eval = FALSE}
 # chmod 600 ./docker/run_docker.sh
 ./docker/run_docker.sh
 ```
@@ -42,11 +42,32 @@ cd 2020scworkshop
 docker run --rm -it 
   -e DISABLE_AUTH=true \
   -v $PWD:/home/rstudio \
-  -p 9017:8787 kdgosik/2020scworkshop
+  -p 8787:8787 kdgosik/2020scworkshop
+```
+
+**Explaination of commands**
+```{bash docker_cmds, eval = FALSE}
+  - docker: command to run docker
+  - run: asking docker to run a container
+  - --rm: flag to remove the container when you exit from it
+      - nothing will be saved from your session to access again later
+      - this flag can be removed to keep container
+  - -it: flag to run the container interactively
+  - - this will keep all session output displaying on the terminal
+  - - to stop container go to terminal and press Crtl+c
+  - -v $PWD:/home/rstudio: map your home directory to a directory inside docker container called home/rstudio
+  - -p 8787:8787: map docker container port of 8787(rstudio port default) to your computer port 8787
+  - kdgosik/2020scworkshop: the image to run.  It will be the image into a container if not already built on your computer
+    - [image link](https://hub.docker.com/r/kdgosik/2020scworkshop)
 ```
 
 
 ### AWS Command
+
+```{bash docker_script_aws, eval = FALSE}
+# chmod 600 ./docker/run_docker.sh
+./docker/run_docker_aws.sh 9017
+```
 
 ```{bash start_env_aws, eval = FALSE}
 ## maybe take away the --rm so they can save the container for later
@@ -54,14 +75,14 @@ docker run --rm -it
 cd 2020scworkshop
 
 ## example for user17
-sudo docker run --rm -it 
+docker run --rm -it 
   -e PASSWORD=train \
   -v $PWD:/home/rstudio \
   -p 9017:8787 kdgosik/2020scworkshop
 ```
 
 **Explaination of commands**
-```{bash docker_cmds, eval = FALSE}
+```{bash docker_cmds_aws, eval = FALSE}
   - docker: command to run docker
   - run: asking docker to run a container
   - --rm: flag to remove the container when you exit from it
