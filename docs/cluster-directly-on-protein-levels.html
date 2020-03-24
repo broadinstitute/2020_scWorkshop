@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>22 Cluster directly on protein levels | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="22 Cluster directly on protein levels | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="22 Cluster directly on protein levels | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction-rbioconductor.html"/>
-<link rel="next" href="data-wrangling-scrnaseq.html"/>
+<link rel="prev" href="identify-differentially-expressed-proteins-between-clusters.html"/>
+<link rel="next" href="additional-exploration-another-example-of-multi-modal-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -311,22 +311,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="quality-control" class="section level1">
-<h1><span class="header-section-number">7</span> Quality Control</h1>
-<div id="slides-1" class="section level2">
-<h2><span class="header-section-number">7.1</span> Slides</h2>
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQpCt7wpeLAG5LusW8fi4DVdvJhNpPl7KwYd7fhlLsZXmPmn0SLFy9-9PsPR1H4c5FjWD6zQuiRJrXs/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
-</iframe>
-
-</div>
+<div id="cluster-directly-on-protein-levels" class="section level1">
+<h1><span class="header-section-number">22</span> Cluster directly on protein levels</h1>
+<p>You can also run dimensional reduction and graph-based clustering directly on CITE-seq data</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="cluster-directly-on-protein-levels.html#cb321-1"></a><span class="co"># Because we&#39;re going to be working with the ADT data extensively, we&#39;re going to switch the</span></span>
+<span id="cb321-2"><a href="cluster-directly-on-protein-levels.html#cb321-2"></a><span class="co"># default assay to the &#39;CITE&#39; assay.  This will cause all functions to use ADT data by default,</span></span>
+<span id="cb321-3"><a href="cluster-directly-on-protein-levels.html#cb321-3"></a><span class="co"># rather than requiring us to specify it each time</span></span>
+<span id="cb321-4"><a href="cluster-directly-on-protein-levels.html#cb321-4"></a><span class="kw">DefaultAssay</span>(cbmc) &lt;-<span class="st"> &quot;ADT&quot;</span></span>
+<span id="cb321-5"><a href="cluster-directly-on-protein-levels.html#cb321-5"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(cbmc, <span class="dt">features =</span> <span class="kw">rownames</span>(cbmc), <span class="dt">reduction.name =</span> <span class="st">&quot;pca_adt&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;pca_adt_&quot;</span>, </span>
+<span id="cb321-6"><a href="cluster-directly-on-protein-levels.html#cb321-6"></a>    <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb321-7"><a href="cluster-directly-on-protein-levels.html#cb321-7"></a><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;pca_adt&quot;</span>)</span>
+<span id="cb321-8"><a href="cluster-directly-on-protein-levels.html#cb321-8"></a></span>
+<span id="cb321-9"><a href="cluster-directly-on-protein-levels.html#cb321-9"></a><span class="co"># Why do we not use PCA to do dimensionality reduction here?</span></span>
+<span id="cb321-10"><a href="cluster-directly-on-protein-levels.html#cb321-10"></a><span class="co"># Is Euclidean distance a good distance metric in this case?</span></span>
+<span id="cb321-11"><a href="cluster-directly-on-protein-levels.html#cb321-11"></a><span class="kw">ElbowPlot</span>(cbmc)</span>
+<span id="cb321-12"><a href="cluster-directly-on-protein-levels.html#cb321-12"></a></span>
+<span id="cb321-13"><a href="cluster-directly-on-protein-levels.html#cb321-13"></a><span class="co"># Since we only have 10 markers, instead of doing PCA, we&#39;ll just use a standard euclidean</span></span>
+<span id="cb321-14"><a href="cluster-directly-on-protein-levels.html#cb321-14"></a><span class="co"># distance matrix here.  Also, this provides a good opportunity to demonstrate how to do</span></span>
+<span id="cb321-15"><a href="cluster-directly-on-protein-levels.html#cb321-15"></a><span class="co"># visualization and clustering using a custom distance matrix in Seurat</span></span>
+<span id="cb321-16"><a href="cluster-directly-on-protein-levels.html#cb321-16"></a>adt.data &lt;-<span class="st"> </span><span class="kw">GetAssayData</span>(cbmc, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>)</span>
+<span id="cb321-17"><a href="cluster-directly-on-protein-levels.html#cb321-17"></a>adt.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(adt.data))</span>
+<span id="cb321-18"><a href="cluster-directly-on-protein-levels.html#cb321-18"></a></span>
+<span id="cb321-19"><a href="cluster-directly-on-protein-levels.html#cb321-19"></a><span class="co"># Before we recluster the data on ADT levels, we&#39;ll stash the RNA cluster IDs for later</span></span>
+<span id="cb321-20"><a href="cluster-directly-on-protein-levels.html#cb321-20"></a>cbmc[[<span class="st">&quot;rnaClusterID&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(cbmc)</span>
+<span id="cb321-21"><a href="cluster-directly-on-protein-levels.html#cb321-21"></a></span>
+<span id="cb321-22"><a href="cluster-directly-on-protein-levels.html#cb321-22"></a><span class="co"># Now, we rerun tSNE using our distance matrix defined only on ADT (protein) levels.</span></span>
+<span id="cb321-23"><a href="cluster-directly-on-protein-levels.html#cb321-23"></a>cbmc[[<span class="st">&quot;tsne_adt&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(adt.dist, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;adtTSNE_&quot;</span>)</span>
+<span id="cb321-24"><a href="cluster-directly-on-protein-levels.html#cb321-24"></a>cbmc[[<span class="st">&quot;adt_snn&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(adt.dist)<span class="op">$</span>snn</span>
+<span id="cb321-25"><a href="cluster-directly-on-protein-levels.html#cb321-25"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(cbmc, <span class="dt">resolution =</span> <span class="fl">0.2</span>, <span class="dt">graph.name =</span> <span class="st">&quot;adt_snn&quot;</span>)</span>
+<span id="cb321-26"><a href="cluster-directly-on-protein-levels.html#cb321-26"></a></span>
+<span id="cb321-27"><a href="cluster-directly-on-protein-levels.html#cb321-27"></a><span class="co"># We can compare the RNA and protein clustering, and use this to annotate the protein clustering</span></span>
+<span id="cb321-28"><a href="cluster-directly-on-protein-levels.html#cb321-28"></a><span class="co"># (we could also of course use FindMarkers)</span></span>
+<span id="cb321-29"><a href="cluster-directly-on-protein-levels.html#cb321-29"></a>clustering.table &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">Idents</span>(cbmc), cbmc<span class="op">$</span>rnaClusterID)</span>
+<span id="cb321-30"><a href="cluster-directly-on-protein-levels.html#cb321-30"></a>clustering.table</span>
+<span id="cb321-31"><a href="cluster-directly-on-protein-levels.html#cb321-31"></a></span>
+<span id="cb321-32"><a href="cluster-directly-on-protein-levels.html#cb321-32"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD34+&quot;</span>, <span class="st">&quot;T/Mono doublets&quot;</span>, </span>
+<span id="cb321-33"><a href="cluster-directly-on-protein-levels.html#cb321-33"></a>    <span class="st">&quot;CD16+ Mono&quot;</span>, <span class="st">&quot;pDCs&quot;</span>, <span class="st">&quot;B&quot;</span>)</span>
+<span id="cb321-34"><a href="cluster-directly-on-protein-levels.html#cb321-34"></a><span class="kw">names</span>(new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(cbmc)</span>
+<span id="cb321-35"><a href="cluster-directly-on-protein-levels.html#cb321-35"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(cbmc, new.cluster.ids)</span>
+<span id="cb321-36"><a href="cluster-directly-on-protein-levels.html#cb321-36"></a></span>
+<span id="cb321-37"><a href="cluster-directly-on-protein-levels.html#cb321-37"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb321-38"><a href="cluster-directly-on-protein-levels.html#cb321-38"></a>tsne_rnaClusters &lt;-<span class="st"> </span>tsne_rnaClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on scRNA-seq&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb321-39"><a href="cluster-directly-on-protein-levels.html#cb321-39"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_rnaClusters, <span class="dt">id =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
+<span id="cb321-40"><a href="cluster-directly-on-protein-levels.html#cb321-40"></a></span>
+<span id="cb321-41"><a href="cluster-directly-on-protein-levels.html#cb321-41"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb321-42"><a href="cluster-directly-on-protein-levels.html#cb321-42"></a>tsne_adtClusters &lt;-<span class="st"> </span>tsne_adtClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on ADT signal&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb321-43"><a href="cluster-directly-on-protein-levels.html#cb321-43"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_adtClusters, <span class="dt">id =</span> <span class="st">&quot;ident&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
+<span id="cb321-44"><a href="cluster-directly-on-protein-levels.html#cb321-44"></a></span>
+<span id="cb321-45"><a href="cluster-directly-on-protein-levels.html#cb321-45"></a><span class="co"># Note: for this comparison, both the RNA and protein clustering are visualized on a tSNE</span></span>
+<span id="cb321-46"><a href="cluster-directly-on-protein-levels.html#cb321-46"></a><span class="co"># generated using the ADT distance matrix.</span></span>
+<span id="cb321-47"><a href="cluster-directly-on-protein-levels.html#cb321-47"></a><span class="kw">wrap_plots</span>(<span class="kw">list</span>(tsne_rnaClusters, tsne_adtClusters), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb321-48"><a href="cluster-directly-on-protein-levels.html#cb321-48"></a></span>
+<span id="cb321-49"><a href="cluster-directly-on-protein-levels.html#cb321-49"></a><span class="co"># What differences if any do you see between the clustering based on scRNA-seq</span></span>
+<span id="cb321-50"><a href="cluster-directly-on-protein-levels.html#cb321-50"></a><span class="co"># and the clustering based on ADT signal?</span></span>
+<span id="cb321-51"><a href="cluster-directly-on-protein-levels.html#cb321-51"></a><span class="co"># How could we combine these datasets in a joint, integrative analysis?</span></span>
+<span id="cb321-52"><a href="cluster-directly-on-protein-levels.html#cb321-52"></a></span>
+<span id="cb321-53"><a href="cluster-directly-on-protein-levels.html#cb321-53"></a><span class="co"># Save current progress.</span></span>
+<span id="cb321-54"><a href="cluster-directly-on-protein-levels.html#cb321-54"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.protein.path)</span>
+<span id="cb321-55"><a href="cluster-directly-on-protein-levels.html#cb321-55"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb321-56"><a href="cluster-directly-on-protein-levels.html#cb321-56"></a><span class="co"># load(Rda.protein.path)</span></span></code></pre></div>
+<p>The ADT-based clustering yields similar results, but with a few differences</p>
+<ul>
+<li>Clustering is improved for CD4/CD8 T cell populations, based on the robust ADT data for CD4, CD8, CD14, and CD45RA</li>
+<li>However, some clusters for which the ADT data does not contain good distinguishing protein markers (i.e. Mk/Ery/DC) lose separation</li>
+<li>You can verify this using FindMarkers at the RNA level, as well</li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="introduction-rbioconductor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-wrangling-scrnaseq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="identify-differentially-expressed-proteins-between-clusters.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="additional-exploration-another-example-of-multi-modal-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>17 Load in the data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="17 Load in the data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="17 Load in the data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction-rbioconductor.html"/>
-<link rel="next" href="data-wrangling-scrnaseq.html"/>
+<link rel="prev" href="advanced-topics-pseudotime-cell-trajectories.html"/>
+<link rel="next" href="setup-a-seurat-object-and-cluster-cells-based-on-rna-expression.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -311,22 +311,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="quality-control" class="section level1">
-<h1><span class="header-section-number">7</span> Quality Control</h1>
-<div id="slides-1" class="section level2">
-<h2><span class="header-section-number">7.1</span> Slides</h2>
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQpCt7wpeLAG5LusW8fi4DVdvJhNpPl7KwYd7fhlLsZXmPmn0SLFy9-9PsPR1H4c5FjWD6zQuiRJrXs/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
-</iframe>
-
-</div>
+<div id="load-in-the-data" class="section level1">
+<h1><span class="header-section-number">17</span> Load in the data</h1>
+<p>Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT).</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="load-in-the-data.html#cb316-1"></a><span class="co"># Load in the RNA UMI matrix</span></span>
+<span id="cb316-2"><a href="load-in-the-data.html#cb316-2"></a></span>
+<span id="cb316-3"><a href="load-in-the-data.html#cb316-3"></a><span class="co"># Note that this dataset also contains ~5% of mouse cells, which we can use</span></span>
+<span id="cb316-4"><a href="load-in-the-data.html#cb316-4"></a><span class="co"># as negative controls for the protein measurements. For this reason, the</span></span>
+<span id="cb316-5"><a href="load-in-the-data.html#cb316-5"></a><span class="co"># gene expression matrix has HUMAN_ or MOUSE_ appended to the beginning of</span></span>
+<span id="cb316-6"><a href="load-in-the-data.html#cb316-6"></a><span class="co"># each gene.</span></span>
+<span id="cb316-7"><a href="load-in-the-data.html#cb316-7"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
+<span id="cb316-8"><a href="load-in-the-data.html#cb316-8"></a>cbmc.rna[<span class="dv">20400</span><span class="op">:</span><span class="dv">20403</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
+<span id="cb316-9"><a href="load-in-the-data.html#cb316-9"></a></span>
+<span id="cb316-10"><a href="load-in-the-data.html#cb316-10"></a><span class="co"># To make life a bit easier going forward, we&#39;re going to discard all but</span></span>
+<span id="cb316-11"><a href="load-in-the-data.html#cb316-11"></a><span class="co"># the top 100 most highly expressed mouse genes, and remove the &#39;HUMAN_&#39;</span></span>
+<span id="cb316-12"><a href="load-in-the-data.html#cb316-12"></a><span class="co"># from the CITE-seq prefix</span></span>
+<span id="cb316-13"><a href="load-in-the-data.html#cb316-13"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">CollapseSpeciesExpressionMatrix</span>(cbmc.rna, <span class="dt">prefix =</span> <span class="st">&quot;HUMAN_&quot;</span>, <span class="dt">controls =</span> <span class="st">&quot;MOUSE_&quot;</span>)</span>
+<span id="cb316-14"><a href="load-in-the-data.html#cb316-14"></a></span>
+<span id="cb316-15"><a href="load-in-the-data.html#cb316-15"></a><span class="co"># Load in the ADT UMI matrix</span></span>
+<span id="cb316-16"><a href="load-in-the-data.html#cb316-16"></a>cbmc.adt &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
+<span id="cb316-17"><a href="load-in-the-data.html#cb316-17"></a></span>
+<span id="cb316-18"><a href="load-in-the-data.html#cb316-18"></a><span class="co"># When adding multimodal data to Seurat, it&#39;s okay to have duplicate feature names. Each set of</span></span>
+<span id="cb316-19"><a href="load-in-the-data.html#cb316-19"></a><span class="co"># modal data (eg. RNA, ADT, etc.) is stored in its own Assay object.  One of these Assay objects</span></span>
+<span id="cb316-20"><a href="load-in-the-data.html#cb316-20"></a><span class="co"># is called the &#39;default assay&#39;, meaning it&#39;s used for all analyses and visualization.  To pull</span></span>
+<span id="cb316-21"><a href="load-in-the-data.html#cb316-21"></a><span class="co"># data from an assay that isn&#39;t the default, you can specify a key that&#39;s linked to an assay for</span></span>
+<span id="cb316-22"><a href="load-in-the-data.html#cb316-22"></a><span class="co"># feature pulling.  To see all keys for all objects, use the Key function.  </span></span>
+<span id="cb316-23"><a href="load-in-the-data.html#cb316-23"></a></span>
+<span id="cb316-24"><a href="load-in-the-data.html#cb316-24"></a><span class="co"># Lastly, we observed poor enrichments for CCR5, CCR7, and CD10 - and therefore </span></span>
+<span id="cb316-25"><a href="load-in-the-data.html#cb316-25"></a><span class="co"># remove them from the matrix (optional)</span></span>
+<span id="cb316-26"><a href="load-in-the-data.html#cb316-26"></a>cbmc.adt &lt;-<span class="st"> </span>cbmc.adt[<span class="kw">setdiff</span>(<span class="kw">rownames</span>(<span class="dt">x =</span> cbmc.adt), <span class="kw">c</span>(<span class="st">&quot;CCR5&quot;</span>, <span class="st">&quot;CCR7&quot;</span>, <span class="st">&quot;CD10&quot;</span>)), ]</span>
+<span id="cb316-27"><a href="load-in-the-data.html#cb316-27"></a></span>
+<span id="cb316-28"><a href="load-in-the-data.html#cb316-28"></a><span class="co"># Look at structure of ADT matrix.</span></span>
+<span id="cb316-29"><a href="load-in-the-data.html#cb316-29"></a>cbmc.adt[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb316-30"><a href="load-in-the-data.html#cb316-30"></a></span>
+<span id="cb316-31"><a href="load-in-the-data.html#cb316-31"></a><span class="co"># What fraction of cells in the ADT and RNA matrix overlap?</span></span>
+<span id="cb316-32"><a href="load-in-the-data.html#cb316-32"></a><span class="kw">length</span>(<span class="kw">intersect</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">union</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt)))</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="introduction-rbioconductor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-wrangling-scrnaseq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="advanced-topics-pseudotime-cell-trajectories.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="setup-a-seurat-object-and-cluster-cells-based-on-rna-expression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

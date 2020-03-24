@@ -11,7 +11,7 @@ Note: you can increase the system memory available to Docker by going to Docker 
 
 ## Load settings and packages
 
-```{r setup, include=FALSE, eval = FALSE}
+```{r setup_batch, include=FALSE, eval = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(Seurat)

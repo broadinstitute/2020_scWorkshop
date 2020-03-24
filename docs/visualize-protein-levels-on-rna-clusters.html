@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>20 Visualize protein levels on RNA clusters | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="20 Visualize protein levels on RNA clusters | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Quality Control | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="20 Visualize protein levels on RNA clusters | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction-rbioconductor.html"/>
-<link rel="next" href="data-wrangling-scrnaseq.html"/>
+<link rel="prev" href="add-the-protein-expression-levels-to-the-seurat-object.html"/>
+<link rel="next" href="identify-differentially-expressed-proteins-between-clusters.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -311,22 +311,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="quality-control" class="section level1">
-<h1><span class="header-section-number">7</span> Quality Control</h1>
-<div id="slides-1" class="section level2">
-<h2><span class="header-section-number">7.1</span> Slides</h2>
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQpCt7wpeLAG5LusW8fi4DVdvJhNpPl7KwYd7fhlLsZXmPmn0SLFy9-9PsPR1H4c5FjWD6zQuiRJrXs/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
-</iframe>
-
-</div>
+<div id="visualize-protein-levels-on-rna-clusters" class="section level1">
+<h1><span class="header-section-number">20</span> Visualize protein levels on RNA clusters</h1>
+<p>You can use the names of any ADT markers, (i.e. “adt_CD4”), in FetchData, FeaturePlot, RidgePlot, FeatureScatter, DoHeatmap, or any other visualization features</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-1"></a><span class="co"># In this plot, protein (ADT) levels are on top, and RNA levels are on the bottom</span></span>
+<span id="cb319-2"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-2"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;ITGAX&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, </span>
+<span id="cb319-3"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-3"></a>    <span class="st">&quot;FCGR3A&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb319-4"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-4"></a></span>
+<span id="cb319-5"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-5"></a><span class="co"># How do the gene and protein expression levels compare to one another?</span></span>
+<span id="cb319-6"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-6"></a></span>
+<span id="cb319-7"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-7"></a><span class="co"># Compare gene and protein expression levels for the other 6 antibodies.</span></span>
+<span id="cb319-8"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-8"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD4&quot;</span>, <span class="st">&quot;adt_CD45RA&quot;</span>, <span class="st">&quot;adt_CD56&quot;</span>, <span class="st">&quot;adt_CD14&quot;</span>, <span class="st">&quot;adt_CD19&quot;</span>, <span class="st">&quot;adt_CD34&quot;</span>, <span class="st">&quot;CD4&quot;</span>, <span class="st">&quot;PTPRC&quot;</span>, <span class="st">&quot;NCAM1&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;CD19&quot;</span>, <span class="st">&quot;CD34&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">6</span>)</span>
+<span id="cb319-9"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-9"></a></span>
+<span id="cb319-10"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-10"></a><span class="co"># Ridge plots are another useful visualization.</span></span>
+<span id="cb319-11"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-11"></a><span class="kw">RidgePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb319-12"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-12"></a></span>
+<span id="cb319-13"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-13"></a><span class="co"># Draw ADT scatter plots (like biaxial plots for FACS). Note that you can even &#39;gate&#39; cells if</span></span>
+<span id="cb319-14"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-14"></a><span class="co"># desired by using HoverLocator and CellSelector</span></span>
+<span id="cb319-15"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-15"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD19&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD3&quot;</span>)</span>
+<span id="cb319-16"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-16"></a><span class="co"># HoverLocator(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
+<span id="cb319-17"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-17"></a><span class="co"># CellSelector(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
+<span id="cb319-18"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-18"></a></span>
+<span id="cb319-19"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-19"></a><span class="co"># View relationship between protein and RNA</span></span>
+<span id="cb319-20"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-20"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD3&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD3E&quot;</span>)</span>
+<span id="cb319-21"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-21"></a></span>
+<span id="cb319-22"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-22"></a><span class="co"># Let&#39;s plot CD4 vs CD8 levels in T cells</span></span>
+<span id="cb319-23"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-23"></a>tcells &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>))</span>
+<span id="cb319-24"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-24"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
+<span id="cb319-25"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-25"></a></span>
+<span id="cb319-26"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-26"></a><span class="co"># Let&#39;s look at the raw (non-normalized) ADT counts. You can see the values are quite high,</span></span>
+<span id="cb319-27"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-27"></a><span class="co"># particularly in comparison to RNA values. This is due to the significantly higher protein copy</span></span>
+<span id="cb319-28"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-28"></a><span class="co"># number in cells, which significantly reduces &#39;drop-out&#39; in ADT data</span></span>
+<span id="cb319-29"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-29"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>, <span class="dt">slot =</span> <span class="st">&quot;counts&quot;</span>)</span>
+<span id="cb319-30"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-30"></a></span>
+<span id="cb319-31"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-31"></a><span class="co"># If you look a bit more closely, you&#39;ll see that our CD8 T cell cluster is</span></span>
+<span id="cb319-32"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-32"></a><span class="co"># enriched for CD8 T cells, but still contains many CD4+ CD8- T cells.  This</span></span>
+<span id="cb319-33"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-33"></a><span class="co"># is because Naive CD4 and CD8 T cells are quite similar transcriptomically,</span></span>
+<span id="cb319-34"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-34"></a><span class="co"># and the RNA dropout levels for CD4 and CD8 are quite high.  This</span></span>
+<span id="cb319-35"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-35"></a><span class="co"># demonstrates the challenge of defining subtle immune cell differences from</span></span>
+<span id="cb319-36"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-36"></a><span class="co"># scRNA-seq data alone.</span></span>
+<span id="cb319-37"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-37"></a></span>
+<span id="cb319-38"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-38"></a><span class="co"># What fraction of T cells are double negative in gene expression? (CD4- and CD8-)</span></span>
+<span id="cb319-39"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-39"></a><span class="co"># You can use an interactive plot to gate on the cells (do.identify = T) or use </span></span>
+<span id="cb319-40"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-40"></a><span class="co"># Boolean conditions on CD4 and CD8A expression to find double negative cells.</span></span>
+<span id="cb319-41"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-41"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD8A&quot;</span>)</span>
+<span id="cb319-42"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-42"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> CD4 <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>CD8A <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
+<span id="cb319-43"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-43"></a></span>
+<span id="cb319-44"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-44"></a><span class="co"># What fraction of T cells are double negative in protein expression? (CD4- and CD8-)</span></span>
+<span id="cb319-45"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-45"></a><span class="co"># length(cells) / length(tcells@cell.names)</span></span>
+<span id="cb319-46"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-46"></a><span class="kw">DefaultAssay</span>(tcells) &lt;-<span class="st"> &quot;ADT&quot;</span>  <span class="co"># work with ADT count matrix</span></span>
+<span id="cb319-47"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-47"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
+<span id="cb319-48"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-48"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> adt_CD4 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>adt_CD8 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
+<span id="cb319-49"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-49"></a></span>
+<span id="cb319-50"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-50"></a><span class="co"># Save current progress.</span></span>
+<span id="cb319-51"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-51"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.multi.path)</span>
+<span id="cb319-52"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-52"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb319-53"><a href="visualize-protein-levels-on-rna-clusters.html#cb319-53"></a><span class="co"># load(Rda.multi.path)</span></span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="introduction-rbioconductor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-wrangling-scrnaseq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="add-the-protein-expression-levels-to-the-seurat-object.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="identify-differentially-expressed-proteins-between-clusters.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
