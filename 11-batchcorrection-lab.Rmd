@@ -343,20 +343,20 @@ save(data.liger, file = Rda.liger.path)
 # load(Rda.liger.path)
 ```
 
-# Additional exploration: Regressing out unwanted covariates 
+## Additional exploration: Regressing out unwanted covariates 
 Learn how to regress out different technical covariates (number of UMIs, number of genes, percent mitochondrial reads) by studying [Seurat's PBMC tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html) and the ScaleData() function.
 ```{r regress_covars, eval = FALSE}
 
 ```
 
-# Additional exploration: kBET
+## Additional exploration: kBET
 Within your RStudio session, install [k-nearest neighbour batch effect test](https://github.com/theislab/kBET) and learn how to use its functionality to quantify batch effects in the pancreatic data.
 ```{r kBET, eval = FALSE}
 
 ```
 
-# Additional exploration: Seurat 3
+## Additional exploration: Seurat 3
 Read how new version of Seurat does [data integration](https://satijalab.org/seurat/pancreas_integration_label_transfer.html)
 
-# Acknowledgements
+## Acknowledgements
 This document builds off a tutorial from the [Seurat website](https://www.dropbox.com/s/aji4ielg8gc70vj/multiple_pancreas_workflow.R?dl=1) and a tutorial from the [LIGER website](https://github.com/MacoskoLab/liger/blob/master/vignettes/liger-vignette.html).

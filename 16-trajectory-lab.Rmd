@@ -11,7 +11,7 @@ Note: you can increase the system memory available to Docker by going to Docker 
 
 ## Load settings and packages
 
-```{r setup_trajectory, include=FALSE}
+```{r setup_trajectory, include=FALSE, eval = FALSE}
 library(SingleCellExperiment)
 library(destiny)
 library(scater)
@@ -41,7 +41,7 @@ opts_chunk$set(fig.align = "center")
 ## First look at the differentiation data from Deng et al.
 We will use a nice SMART-Seq2 single cell RNA-seq data from [Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells](http://science.sciencemag.org/content/343/6167/193). Here is one relevant detail from their paper: "To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)"
 
-```{r read_data}
+```{r read_data, eval = FALSE}
 # Read in single cell data.
 path.deng <- paste0(mydir, "deng-reads.rds")
 deng_SCE <- readRDS(path.deng)
@@ -64,7 +64,7 @@ deng_SCE$cell_type2 <- factor(deng_SCE$cell_type2,
 ## Principle Components Analysis
 Let us take a first look at the Deng data. One simple approach to ordering cells in pseudotime is to use PCA. By carrying out PCA and labeling the cells by the stage at which they were collected, we can see how well the principal components separate cells along a differentiation trajectory.
 
-```{r pca_pseudotime}
+```{r pca_pseudotime, eval = FALSE}
 # Run PCA on Deng data. Use the runPCA function from the SingleCellExperiment package.
 deng_SCE <- runPCA(deng_SCE, ncomponents = 50)
 
@@ -113,7 +113,7 @@ Let us see how a more advance trajectory inference method, diffusion maps and di
 
 We will use two forms of pseudotime: the first diffusion component and the diffusion pseudotime. 
 
-```{r diffusion_pseudotime}
+```{r diffusion_pseudotime, eval = FALSE}
 #  Prepare a counts matrix with labeled rows and columns. 
 deng <- logcounts(deng_SCE)  # access log-transformed counts matrix
 cellLabels <- deng_SCE$cell_type2
@@ -196,7 +196,7 @@ save(deng_SCE, file = Rda.destiny.path)
 ## Slingshot map pseudotime
 Let us see how another advance trajectory inference method, Slingshot, performs at placing cells along the expected differentiation trajectory.
 
-```{r slingshot}
+```{r slingshot, eval = FALSE}
 library(slingshot)
 library(Seurat)
 
@@ -262,7 +262,7 @@ save(deng_SCE, file = Rda.slingshot.path)
 In this final analysis code chunk, we will identify temporally expressed genes, ie those genes whose expression is changing in a continuous manner over pseudotime. To do this, we will fit a GAM with a LOESS term for pseudotime. Functions for fitting and working with generalized additive models, as described in "Generalized Additive Models" (Hastie and Tibshirani, 1990).
 [Read more about GAMs](https://multithreaded.stitchfix.com/blog/2015/07/30/gam/)
 
-```{r temporal_expression}
+```{r temporal_expression, eval = FALSE}
 # Only look at the 1,000 most variable genes when identifying temporally expressesd genes.
 # Identify the variable genes by ranking all genes by their variance.
 Y <- log2(counts(deng_SCE) + 1)
@@ -295,7 +295,7 @@ dev.off()
 ## Comparison of the different trajectory inference methods
 How do the trajectories inferred by PCA, diffusion pseudotime, and slingshot pseudotime compare to one another?
 
-```{r compare}
+```{r compare, eval = FALSE}
 # Prepare data frame with different pseudotime measures.
 df_pseudotime <- as.data.frame(colData(deng_SCE)[, c("pseudotime_PC1", "pseudotime_dpt", "slingPseudotime_1")])
 colnames(df_pseudotime) <- c("PC1", "diffusion", "slingshot")
@@ -310,7 +310,7 @@ corrplot.mixed(cor(df_pseudotime, use = "na.or.complete"),
 
 ## Plots of gene expression over time.
 Visualize how some of the temporally expressed genes change in time.
-```{r visualize}
+```{r visualize, eval = FALSE}
 plotExpression(deng_SCE, "Obox5", x = "PC1", 
                colour_by = "cell_type2", show_violin = FALSE,
                show_smooth = TRUE)

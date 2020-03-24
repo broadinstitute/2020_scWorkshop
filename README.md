@@ -134,28 +134,32 @@ Once you run the docker run command above, you can go to your browser at localho
 **examples**
 ```{R}
 ## CRAN Packages
-install.packages("ggplot2")
+install.packages('umap')
+install.packages("corrplot")
 install.packages("gam")
-install.packages("dplyr")
+install.packages("ggbeeswarm")
+install.packages("ggthemes")
 install.packages("plyr")
 install.packages("Matrix")
-install.packages("Seurat")
+install.packages("fossil")
 install.packages("BiocManager")
 install.packages("devtools")
-install.packages('umap')
 install.packages('rmarkdown')
-install.packages("rgl", dependencies=TRUE)
+#install.packages("rgl", dependencies=TRUE)
 
 ## Bioconductor Packages
 BiocManager::install("SingleCellExperiment", update = FALSE)
+BiocManager::install("destiny", update = FALSE)
+BiocManager::install("slingshot", update = FALSE)
+BiocManager::install("clusterExperiment", update = FALSE)
 BiocManager::install("scater", update = FALSE)
-BiocManager::install("DropletUtils", update = FALSE)
+#BiocManager::install("DropletUtils", update = FALSE)
+#BiocManager::install("pcaMethods", update = FALSE)
 BiocManager::install("CountClust", update = FALSE)
 
 
 ## Github Packages
-devtools::install_github("broadinstitute/inferCNV")
-devtools::install_github("velocyto-team/velocyto.R")
+devtools::install_github("satijalab/seurat", upgrade = "never")
 devtools::install_github('MacoskoLab/liger')
 
 ```

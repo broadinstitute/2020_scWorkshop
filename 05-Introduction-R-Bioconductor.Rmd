@@ -201,7 +201,7 @@ is.integer(x) ## check if x is an integer
 
 is.numeric(x) ## check if x is numeric
 
-x <- as.numeric(x) ## assign y to be an numeric
+x <- as.numeric(x) ## assign x to be an numeric
 
 is.numeric(x) ## check if the assignment worked
 
