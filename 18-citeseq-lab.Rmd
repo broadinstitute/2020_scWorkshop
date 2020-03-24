@@ -25,7 +25,7 @@ library(plyr)
 
 # Set folder location for saving output files. This is also the same location as input data.
 # mydir <- "/Users/orr/Documents/physalia2020/src/citeseq/"
-mydir <- "data/batch_correction/"
+mydir <- "data/citeseq/"
 
 # Objects to save.
 Rda.RNA.path <- paste0(mydir, "citeseq_RNA.Rda")  # cbmc clustered using RNA
