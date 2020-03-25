@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 Cluster pancreatic datasets without batch correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 Cluster pancreatic datasets without batch correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
+  <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 Cluster pancreatic datasets without batch correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
+
+<meta name="author" content="Orr Ashenberg" />
+<meta name="author" content="Dana Silverbush" />
+<meta name="author" content="Kirk Gosik" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="batch-correction.html"/>
+<link rel="next" href="batch-correction-1.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#course-overview"><i class="fa fa-check"></i><b>1.1</b> COURSE OVERVIEW</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#targeted-audience-assumed-background"><i class="fa fa-check"></i><b>1.2</b> TARGETED AUDIENCE &amp; ASSUMED BACKGROUND</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#course-format"><i class="fa fa-check"></i><b>1.3</b> COURSE FORMAT</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#getting-started"><i class="fa fa-check"></i><b>1.4</b> Getting Started</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#session-content"><i class="fa fa-check"></i><b>1.5</b> SESSION CONTENT</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#monday-classes-from-0800-to-1600-lunch-break-1-hr-40-min-of-total-coffee-breaks"><i class="fa fa-check"></i><b>1.5.1</b> Monday – Classes from 08:00 to 16:00 (lunch break-1 hr, 40 min of total coffee breaks)</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#tuesday-classes-from-0800-to-1600"><i class="fa fa-check"></i><b>1.5.2</b> Tuesday – Classes from 08:00 to 16:00</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#wednesday-classes-from-0800-to-1600"><i class="fa fa-check"></i><b>1.5.3</b> Wednesday – Classes from 08:00 to 16:00</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#thursday-classes-from-0800-to-1600"><i class="fa fa-check"></i><b>1.5.4</b> Thursday – Classes from 08:00 to 16:00</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0800-to-1600"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 08:00 to 16:00</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-1.html"><a href="introduction-1.html#slides"><i class="fa fa-check"></i><b>2.1</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>3</b> Understanding Sequencing Raw Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>3.1</b> Class Environment</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#getting-into-aws-instance"><i class="fa fa-check"></i><b>3.1.1</b> Getting into AWS Instance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#shell-and-unix-commands"><i class="fa fa-check"></i><b>3.2</b> Shell and Unix commands</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#common-linux-commands"><i class="fa fa-check"></i><b>3.2.1</b> Common Linux Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#file-formats"><i class="fa fa-check"></i><b>3.3</b> File formats</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-fastq-files"><i class="fa fa-check"></i><b>3.3.1</b> View FASTQ Files</a></li>
+<li class="chapter" data-level="3.3.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#view-bam-files"><i class="fa fa-check"></i><b>3.3.2</b> View BAM Files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#public-data-repositories"><i class="fa fa-check"></i><b>3.4</b> Public data repositories</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#cellranger10x"><i class="fa fa-check"></i><b>3.4.1</b> Cellranger/10x</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#geo"><i class="fa fa-check"></i><b>3.4.2</b> GEO</a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#single-cell-portal"><i class="fa fa-check"></i><b>3.4.3</b> Single Cell Portal</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#docker-commands"><i class="fa fa-check"></i><b>3.5</b> Docker Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html"><i class="fa fa-check"></i><b>4</b> Transcriptome Quantification</a><ul>
+<li class="chapter" data-level="4.1" data-path="transcriptome-quantification.html"><a href="transcriptome-quantification.html#google-slides"><i class="fa fa-check"></i><b>4.1</b> Google Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html"><i class="fa fa-check"></i><b>5</b> Processing scRNAseq Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#goal"><i class="fa fa-check"></i><b>5.1</b> Goal</a></li>
+<li class="chapter" data-level="5.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#further-reading"><i class="fa fa-check"></i><b>5.2</b> Further reading</a></li>
+<li class="chapter" data-level="5.3" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#download-data"><i class="fa fa-check"></i><b>5.3</b> Download data</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#fastq-file-format"><i class="fa fa-check"></i><b>5.3.1</b> Fastq file format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#align-the-reads"><i class="fa fa-check"></i><b>5.4</b> Align the reads</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#star-align"><i class="fa fa-check"></i><b>5.4.1</b> STAR align</a></li>
+<li class="chapter" data-level="5.4.2" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#bam-file-format"><i class="fa fa-check"></i><b>5.4.2</b> Bam file format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="processing-scrnaseq-data.html"><a href="processing-scrnaseq-data.html#visualization"><i class="fa fa-check"></i><b>5.5</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html"><i class="fa fa-check"></i><b>6</b> Introduction R/Bioconductor</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#start-environment"><i class="fa fa-check"></i><b>6.1</b> Start Environment</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#local-command"><i class="fa fa-check"></i><b>6.1.1</b> Local Command</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#aws-command"><i class="fa fa-check"></i><b>6.1.2</b> AWS Command</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installing-packages"><i class="fa fa-check"></i><b>6.2</b> Installing packages</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#cran"><i class="fa fa-check"></i><b>6.2.1</b> CRAN</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#github"><i class="fa fa-check"></i><b>6.2.2</b> Github</a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#bioconductor"><i class="fa fa-check"></i><b>6.2.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#source"><i class="fa fa-check"></i><b>6.2.4</b> Source</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#installation-instructions"><i class="fa fa-check"></i><b>6.3</b> Installation instructions:</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#classestypes"><i class="fa fa-check"></i><b>6.3.1</b> Classes/Types</a></li>
+<li class="chapter" data-level="6.3.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#data-structures"><i class="fa fa-check"></i><b>6.3.2</b> Data structures</a></li>
+<li class="chapter" data-level="6.3.3" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#detour-to-s3s4"><i class="fa fa-check"></i><b>6.3.3</b> Detour to S3/S4</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#more-information"><i class="fa fa-check"></i><b>6.4</b> More information</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#checking-for-help-for-any-function"><i class="fa fa-check"></i><b>6.4.1</b> Checking for help for any function!</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#grammer-of-graphics-ggplot2"><i class="fa fa-check"></i><b>6.5</b> Grammer of Graphics (ggplot2)</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#what-is-ggplot2"><i class="fa fa-check"></i><b>6.5.1</b> What is ggplot2?</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#principles-of-ggplot2"><i class="fa fa-check"></i><b>6.5.2</b> Principles of ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="introduction-rbioconductor.html"><a href="introduction-rbioconductor.html#reference"><i class="fa fa-check"></i><b>6.6</b> Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="quality-control.html"><a href="quality-control.html"><i class="fa fa-check"></i><b>7</b> Quality Control</a><ul>
+<li class="chapter" data-level="7.1" data-path="quality-control.html"><a href="quality-control.html#slides-1"><i class="fa fa-check"></i><b>7.1</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>8</b> Data Wrangling scRNAseq</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>8.1</b> Goal</a></li>
+<li class="chapter" data-level="8.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-2"><i class="fa fa-check"></i><b>8.2</b> Introduction</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>8.2.1</b> Load necessary packages</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>8.2.2</b> Read in NSCLC counts matrix.</a></li>
+<li class="chapter" data-level="8.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>8.2.3</b> Let’s examine the sparse counts matrix</a></li>
+<li class="chapter" data-level="8.2.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-big-is-the-matrix"><i class="fa fa-check"></i><b>8.2.4</b> How big is the matrix?</a></li>
+<li class="chapter" data-level="8.2.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#how-much-memory-does-a-sparse-matrix-take-up-relative-to-a-dense-matrix"><i class="fa fa-check"></i><b>8.2.5</b> How much memory does a sparse matrix take up relative to a dense matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#filtering-low-quality-cells"><i class="fa fa-check"></i><b>8.3</b> Filtering low-quality cells</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#look-at-the-summary-counts-for-genes-and-cells"><i class="fa fa-check"></i><b>8.3.1</b> Look at the summary counts for genes and cells</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#plot-cells-ranked-by-their-number-of-detected-genes."><i class="fa fa-check"></i><b>8.3.2</b> Plot cells ranked by their number of detected genes.</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#beginning-with-seurat-httpsatijalab.orgseurat"><i class="fa fa-check"></i><b>8.4</b> Beginning with Seurat: <span>http://satijalab.org/seurat/</span></a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#creating-a-seurat-object"><i class="fa fa-check"></i><b>8.4.1</b> Creating a seurat object</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-1-filter-out-low-quality-cells"><i class="fa fa-check"></i><b>8.5</b> Preprocessing step 1 : Filter out low-quality cells</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#examine-contents-of-seurat-object"><i class="fa fa-check"></i><b>8.6</b> Examine contents of Seurat object</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#preprocessing-step-2-expression-normalization"><i class="fa fa-check"></i><b>8.6.1</b> Preprocessing step 2 : Expression normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#detection-of-variable-genes-across-the-single-cells"><i class="fa fa-check"></i><b>8.7</b> Detection of variable genes across the single cells</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#gene-set-expression-across-cells"><i class="fa fa-check"></i><b>8.8</b> Gene set expression across cells</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html"><i class="fa fa-check"></i><b>9</b> Identifying Cell Populations</a><ul>
+<li class="chapter" data-level="9.1" data-path="identifying-cell-populations.html"><a href="identifying-cell-populations.html#slides-2"><i class="fa fa-check"></i><b>9.1</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html"><i class="fa fa-check"></i><b>10</b> Feature Selection and Cluster Analysis</a><ul>
+<li class="chapter" data-level="10.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#abstract"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#seurat-tutorial-redo"><i class="fa fa-check"></i><b>10.2</b> Seurat Tutorial Redo</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#preprocessing-steps"><i class="fa fa-check"></i><b>10.2.1</b> Preprocessing Steps</a></li>
+<li class="chapter" data-level="10.2.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#start-of-identifying-cell-types"><i class="fa fa-check"></i><b>10.2.2</b> Start of Identifying Cell Types</a></li>
+<li class="chapter" data-level="10.2.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#run-non-linear-dimensional-reduction-umaptsne"><i class="fa fa-check"></i><b>10.2.3</b> Run non-linear dimensional reduction (UMAP/tSNE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#feature-selection"><i class="fa fa-check"></i><b>10.3</b> Feature Selection</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>10.3.1</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="10.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>10.3.2</b> Check Clusters</a></li>
+<li class="chapter" data-level="10.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#view-entire-object-structure"><i class="fa fa-check"></i><b>10.3.3</b> View Entire Object Structure</a></li>
+<li class="chapter" data-level="10.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>10.3.4</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>10.4</b> Other Options For Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="batch-correction.html"><a href="batch-correction.html"><i class="fa fa-check"></i><b>11</b> Batch Correction</a><ul>
+<li class="chapter" data-level="11.1" data-path="batch-correction.html"><a href="batch-correction.html#load-settings-and-packages"><i class="fa fa-check"></i><b>11.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="11.2" data-path="batch-correction.html"><a href="batch-correction.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>11.2</b> Read in pancreas expression matrices</a></li>
+<li class="chapter" data-level="11.3" data-path="batch-correction.html"><a href="batch-correction.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>11.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html"><i class="fa fa-check"></i><b>12</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.0.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="12.0.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.0.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+<li class="chapter" data-level="12.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.1</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="12.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.2</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="12.3" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.3</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="12.4" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>12.4</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="batch-correction-1.html"><a href="batch-correction-1.html"><i class="fa fa-check"></i><b>13</b> Batch Correction</a><ul>
+<li class="chapter" data-level="13.1" data-path="batch-correction-1.html"><a href="batch-correction-1.html#slides-3"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>14</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="14.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>14.1</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>15</b> Trajectory Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="15.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>15.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="15.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>15.3</b> Principle Components Analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>15.4</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="15.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>15.5</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="15.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>15.6</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="15.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>15.7</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="15.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>15.8</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="15.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>15.9</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="16.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>16.2</b> Load in the data</a></li>
+<li class="chapter" data-level="16.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>16.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="16.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>16.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="16.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>16.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="16.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>16.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="16.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>16.7</b> Cluster directly on protein levels</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>17</b> Additional exploration: another example of multi-modal analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>17.1</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>18</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="18.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>18.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="18.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>18.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="18.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>18.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="18.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>18.4</b> Online courses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALYSIS OF SINGLE CELL RNA-SEQ DATA</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cluster-pancreatic-datasets-without-batch-correction" class="section level1">
+<h1><span class="header-section-number">12</span> Cluster pancreatic datasets without batch correction</h1>
+<p>Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-1"></a><span class="co"># load(Rda.sparse.path)</span></span>
+<span id="cb241-2"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-2"></a></span>
+<span id="cb241-3"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-3"></a><span class="co"># Merge Seurat objects. Original sample identities are stored in gcdata[[&quot;tech&quot;]].</span></span>
+<span id="cb241-4"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-4"></a><span class="co"># Cell names will now have the format tech_cellID (smartseq2_cell1...)</span></span>
+<span id="cb241-5"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-5"></a>add.cell.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>)</span>
+<span id="cb241-6"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-6"></a>gcdata &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="dt">x =</span> celseq, <span class="dt">y =</span> <span class="kw">list</span>(celseq2, fluidigmc1, smartseq2), <span class="dt">add.cell.ids =</span> add.cell.ids, <span class="dt">merge.data =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb241-7"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-7"></a><span class="kw">Idents</span>(gcdata) &lt;-<span class="st"> &quot;tech&quot;</span>  <span class="co"># use identity based on sample identity</span></span>
+<span id="cb241-8"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-8"></a></span>
+<span id="cb241-9"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-9"></a><span class="co"># Look at how the number of genes per cell varies across the different technologies.</span></span>
+<span id="cb241-10"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-10"></a><span class="kw">VlnPlot</span>(gcdata, <span class="st">&quot;nFeature_RNA&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb241-11"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-11"></a></span>
+<span id="cb241-12"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-12"></a><span class="co"># The merged data must be normalized and scaled (but you only need to scale the variable genes). </span></span>
+<span id="cb241-13"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-13"></a><span class="co"># Let us also find the variable genes again this time using all the pancreas data.</span></span>
+<span id="cb241-14"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-14"></a>gcdata &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(gcdata, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
+<span id="cb241-15"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-15"></a>var.genes &lt;-<span class="st"> </span><span class="kw">SelectIntegrationFeatures</span>(<span class="kw">SplitObject</span>(gcdata, <span class="dt">split.by =</span> <span class="st">&quot;tech&quot;</span>), <span class="dt">nfeatures =</span> <span class="dv">2000</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">fvf.nfeatures =</span> <span class="dv">2000</span>, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>)</span>
+<span id="cb241-16"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-16"></a><span class="kw">VariableFeatures</span>(gcdata) &lt;-<span class="st"> </span>var.genes</span>
+<span id="cb241-17"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-17"></a>gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(gcdata, <span class="dt">features =</span> <span class="kw">VariableFeatures</span>(gcdata))</span>
+<span id="cb241-18"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-18"></a></span>
+<span id="cb241-19"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-19"></a><span class="co"># Do PCA on data including only the variable genes.</span></span>
+<span id="cb241-20"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-20"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(gcdata, <span class="dt">features =</span> <span class="kw">VariableFeatures</span>(gcdata), <span class="dt">npcs =</span> <span class="dv">40</span>, <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</span>
+<span id="cb241-21"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-21"></a></span>
+<span id="cb241-22"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-22"></a><span class="co"># Color the PC biplot by the scRNA-seq technology. Hint: use DimPlot</span></span>
+<span id="cb241-23"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-23"></a><span class="co"># Which technologies look similar to one another?</span></span>
+<span id="cb241-24"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-24"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb241-25"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-25"></a></span>
+<span id="cb241-26"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-26"></a><span class="co"># Cluster the cells using the first twenty principal components.</span></span>
+<span id="cb241-27"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-27"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">k.param =</span> <span class="dv">20</span>)</span>
+<span id="cb241-28"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-28"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.8</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
+<span id="cb241-29"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-29"></a></span>
+<span id="cb241-30"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-30"></a><span class="co"># Create a UMAP visualization. </span></span>
+<span id="cb241-31"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-31"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>(gcdata, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">n.neighbors =</span> <span class="dv">15</span>, <span class="dt">min.dist =</span> <span class="fl">0.5</span>, <span class="dt">spread =</span> <span class="dv">1</span>, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">seed.use =</span> <span class="dv">1</span>)  </span>
+<span id="cb241-32"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-32"></a></span>
+<span id="cb241-33"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-33"></a><span class="co"># Visualize the Leiden clustering and the batches on the UMAP. </span></span>
+<span id="cb241-34"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-34"></a><span class="co"># Remember, the clustering is stored in @meta.data in column seurat_clusters and the technology is</span></span>
+<span id="cb241-35"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-35"></a><span class="co"># stored in the column tech. Remember you can also use DimPlot</span></span>
+<span id="cb241-36"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-36"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;seurat_clusters&quot;</span>)</span>
+<span id="cb241-37"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-37"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb241-38"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-38"></a></span>
+<span id="cb241-39"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-39"></a><span class="co"># Are you surprised by the results? Compare to your expectations from the PC biplot of PC1 vs PC2.</span></span>
+<span id="cb241-40"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-40"></a><span class="co"># What explains these results?</span></span>
+<span id="cb241-41"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-41"></a></span>
+<span id="cb241-42"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-42"></a><span class="co"># Adjusted rand index test for overlap between technology and cluster labelings. </span></span>
+<span id="cb241-43"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-43"></a><span class="co"># This goes between 0 (completely dissimilar clustering) to 1 (identical clustering). </span></span>
+<span id="cb241-44"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-44"></a><span class="co"># The adjustment corrects for chance grouping between cluster elements.</span></span>
+<span id="cb241-45"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-45"></a><span class="co"># https://davetang.org/muse/2017/09/21/adjusted-rand-index/</span></span>
+<span id="cb241-46"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-46"></a>ari &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(gcdata[[]], tech, seurat_clusters)</span>
+<span id="cb241-47"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-47"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb241-48"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-48"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>seurat_clusters))</span>
+<span id="cb241-49"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-49"></a></span>
+<span id="cb241-50"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-50"></a><span class="co"># Save current progress.</span></span>
+<span id="cb241-51"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-51"></a><span class="kw">save</span>(gcdata, <span class="dt">file =</span> Rda.path)</span>
+<span id="cb241-52"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-52"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb241-53"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb241-53"></a><span class="co"># load(Rda.path)</span></span></code></pre></div>
+<div id="batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3" class="section level3">
+<h3><span class="header-section-number">12.0.1</span> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</h3>
+<p>Here we use Seurat v3 to see to what extent it can remove potential batch effects.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-1"></a><span class="co"># load(Rda.sparse.path)</span></span>
+<span id="cb242-2"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-2"></a></span>
+<span id="cb242-3"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-3"></a><span class="co"># The first piece of code will identify variable genes that are highly variable in at least 2/4 datasets. We will use these variable genes in our batch correction.</span></span>
+<span id="cb242-4"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-4"></a><span class="co"># Why would we implement such a requirement?</span></span>
+<span id="cb242-5"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-5"></a>ob.list &lt;-<span class="st"> </span><span class="kw">list</span>(celseq, celseq2, fluidigmc1, smartseq2)</span>
+<span id="cb242-6"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-6"></a></span>
+<span id="cb242-7"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-7"></a><span class="co"># Identify anchors on the 4 pancreatic islet datasets, commonly shared variable genes across samples, </span></span>
+<span id="cb242-8"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-8"></a><span class="co"># and integrate samples.</span></span>
+<span id="cb242-9"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-9"></a>gcdata.anchors &lt;-<span class="st"> </span><span class="kw">FindIntegrationAnchors</span>(<span class="dt">object.list =</span> ob.list, <span class="dt">anchor.features =</span> <span class="dv">2000</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
+<span id="cb242-10"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-10"></a>gcdata &lt;-<span class="st"> </span><span class="kw">IntegrateData</span>(<span class="dt">anchorset =</span> gcdata.anchors, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
+<span id="cb242-11"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-11"></a><span class="kw">DefaultAssay</span>(gcdata) &lt;-<span class="st"> &quot;integrated&quot;</span></span>
+<span id="cb242-12"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-12"></a></span>
+<span id="cb242-13"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-13"></a><span class="co"># Run the standard workflow for visualization and clustering.</span></span>
+<span id="cb242-14"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-14"></a><span class="co"># The integrated data object only stores the commonly shared variable genes.</span></span>
+<span id="cb242-15"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-15"></a>gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(gcdata, <span class="dt">do.center =</span> T, <span class="dt">do.scale =</span> F)</span>
+<span id="cb242-16"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-16"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(gcdata, <span class="dt">npcs =</span> <span class="dv">40</span>, <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</span>
+<span id="cb242-17"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-17"></a><span class="kw">DimPlot</span>(gcdata, <span class="dt">dims =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">split.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb242-18"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-18"></a></span>
+<span id="cb242-19"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-19"></a><span class="co"># Clustering. Choose the dimensional reduction type to use and the number of aligned </span></span>
+<span id="cb242-20"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-20"></a><span class="co"># canonical correlation vectors to use.</span></span>
+<span id="cb242-21"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-21"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">k.param =</span> <span class="dv">20</span>)</span>
+<span id="cb242-22"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-22"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.8</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
+<span id="cb242-23"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-23"></a></span>
+<span id="cb242-24"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-24"></a><span class="co"># UMAP. Choose the dimensional reduction type to use and the number of aligned </span></span>
+<span id="cb242-25"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-25"></a><span class="co"># canonical correlation vectors to use.</span></span>
+<span id="cb242-26"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-26"></a>gcdata &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>(gcdata, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">n.neighbors =</span> <span class="dv">15</span>, <span class="dt">min.dist =</span> <span class="fl">0.5</span>, <span class="dt">spread =</span> <span class="dv">1</span>, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">seed.use =</span> <span class="dv">1</span>)  </span>
+<span id="cb242-27"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-27"></a></span>
+<span id="cb242-28"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-28"></a><span class="co"># After data integration, use the original expression data in all visualization and DE tests.</span></span>
+<span id="cb242-29"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-29"></a><span class="co"># The integrated data must not be used in DE tests as it violates assumptions of independence in DE tests!</span></span>
+<span id="cb242-30"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-30"></a><span class="kw">DefaultAssay</span>(gcdata) &lt;-<span class="st"> &quot;RNA&quot;</span>  </span>
+<span id="cb242-31"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-31"></a></span>
+<span id="cb242-32"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-32"></a><span class="co"># Visualize the Louvain clustering and the batches on the UMAP. </span></span>
+<span id="cb242-33"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-33"></a><span class="co"># Remember, the clustering is stored in @meta.data in column seurat_clusters </span></span>
+<span id="cb242-34"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-34"></a><span class="co"># and the technology is stored in the column tech. Remember you can also use DimPlot.</span></span>
+<span id="cb242-35"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-35"></a>p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;seurat_clusters&quot;</span>)</span>
+<span id="cb242-36"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-36"></a>p2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>)</span>
+<span id="cb242-37"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-37"></a>p1 <span class="op">+</span><span class="st"> </span>p2</span>
+<span id="cb242-38"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-38"></a></span>
+<span id="cb242-39"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-39"></a><span class="co"># Let&#39;s look to see how the adjusted rand index changed compared to using no batch correction.</span></span>
+<span id="cb242-40"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-40"></a>ari &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(gcdata[[]], tech, seurat_clusters)</span>
+<span id="cb242-41"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-41"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb242-42"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-42"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>seurat_clusters))</span>
+<span id="cb242-43"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-43"></a></span>
+<span id="cb242-44"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-44"></a><span class="co"># We can also identify conserved marker genes across the batches. Differential gene expression is</span></span>
+<span id="cb242-45"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-45"></a><span class="co"># done across each batch, and the p-values are combined.</span></span>
+<span id="cb242-46"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-46"></a>markers &lt;-<span class="st"> </span><span class="kw">FindConservedMarkers</span>(gcdata, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">grouping.var =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">assay =</span> <span class="st">&quot;RNA&quot;</span>, <span class="dt">print.bar =</span> T)</span>
+<span id="cb242-47"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-47"></a><span class="kw">head</span>(markers)</span>
+<span id="cb242-48"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-48"></a></span>
+<span id="cb242-49"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-49"></a><span class="co"># Visualize the expression of the first 5 marker genes on UMAP across the different batches using DoHeatmap.</span></span>
+<span id="cb242-50"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-50"></a>gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(gcdata, <span class="dt">features =</span> <span class="kw">rownames</span>(gcdata), <span class="dt">do.center =</span> T, <span class="dt">do.scale =</span> F)</span>
+<span id="cb242-51"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-51"></a><span class="kw">DoHeatmap</span>(gcdata, <span class="dt">features =</span> <span class="kw">rownames</span>(markers)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">group.by =</span> <span class="st">&quot;tech&quot;</span>, <span class="dt">disp.max =</span> <span class="dv">3</span>)</span>
+<span id="cb242-52"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-52"></a></span>
+<span id="cb242-53"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-53"></a><span class="co"># Markers for pancreatic cells from &quot;A Single-Cell Transcriptome Atlas of the </span></span>
+<span id="cb242-54"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-54"></a><span class="co"># Human Pancreas&quot;.https://www.cell.com/cell-systems/pdfExtended/S2405-4712(16)30292-7</span></span>
+<span id="cb242-55"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-55"></a>genes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;GCG&quot;</span>, <span class="st">&quot;INS&quot;</span>, <span class="st">&quot;SST&quot;</span>, <span class="st">&quot;PPY&quot;</span>, <span class="st">&quot;PRSS1&quot;</span>, <span class="st">&quot;KRT19&quot;</span>, <span class="st">&quot;PECAM1&quot;</span>, <span class="st">&quot;COL1A1&quot;</span>)</span>
+<span id="cb242-56"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-56"></a><span class="kw">FeaturePlot</span>(gcdata, genes, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb242-57"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-57"></a></span>
+<span id="cb242-58"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-58"></a><span class="co"># Save current progress.</span></span>
+<span id="cb242-59"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-59"></a><span class="kw">save</span>(gcdata, <span class="dt">file =</span> Rda.Seurat3.path)</span>
+<span id="cb242-60"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-60"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb242-61"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb242-61"></a><span class="co"># load(Rda.Seurat3.path)</span></span></code></pre></div>
+</div>
+<div id="batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger" class="section level3">
+<h3><span class="header-section-number">12.0.2</span> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</h3>
+<p>Here we use integrative non-negative matrix factorization to see to what extent it can remove potential batch effects.</p>
+<p>The important parameters in the batch correction are the number of factors (k), the penalty parameter (lambda), and the clustering resolution. The number of factors sets the number of factors (consisting of shared and dataset-specific factors) used in factorizing the matrix. The penalty parameter sets the balance between factors shared across the batches and factors specific to the individual batches. The default setting of lambda=5.0 is usually used by the Macosko lab. Resolution=1.0 is used in the Louvain clustering of the shared neighbor factors that have been quantile normalized.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-1"></a><span class="co"># load(Rda.sparse.path)</span></span>
+<span id="cb243-2"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-2"></a></span>
+<span id="cb243-3"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-3"></a>ob.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;celseq&quot;</span> =<span class="st"> </span>celseq, <span class="st">&quot;celseq2&quot;</span> =<span class="st"> </span>celseq2, <span class="st">&quot;fluidigmc1&quot;</span> =<span class="st"> </span>fluidigmc1, <span class="st">&quot;smartseq2&quot;</span> =<span class="st"> </span>smartseq2)</span>
+<span id="cb243-4"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-4"></a></span>
+<span id="cb243-5"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-5"></a><span class="co"># Identify variable genes that are variable across most samples.</span></span>
+<span id="cb243-6"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-6"></a>var.genes &lt;-<span class="st"> </span><span class="kw">SelectIntegrationFeatures</span>(ob.list, <span class="dt">nfeatures =</span> <span class="dv">2000</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">fvf.nfeatures =</span> <span class="dv">2000</span>, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>)</span>
+<span id="cb243-7"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-7"></a></span>
+<span id="cb243-8"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-8"></a><span class="co"># Next we create a LIGER object with raw counts data from each batch.</span></span>
+<span id="cb243-9"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-9"></a>data.liger &lt;-<span class="st"> </span><span class="kw">createLiger</span>(<span class="kw">sapply</span>(ob.list, <span class="cf">function</span>(data) data[[<span class="st">&#39;RNA&#39;</span>]]<span class="op">@</span>counts[, <span class="kw">colnames</span>(data)]), <span class="dt">remove.missing =</span> F) </span>
+<span id="cb243-10"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-10"></a></span>
+<span id="cb243-11"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-11"></a><span class="co"># Normalize gene expression for each batch.</span></span>
+<span id="cb243-12"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-12"></a>data.liger &lt;-<span class="st"> </span>liger<span class="op">::</span><span class="kw">normalize</span>(data.liger)</span>
+<span id="cb243-13"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-13"></a></span>
+<span id="cb243-14"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-14"></a><span class="co"># Use my method or Liger method for selecting variable genes (var.thresh changes number of variable genes).</span></span>
+<span id="cb243-15"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-15"></a>data.liger<span class="op">@</span>var.genes &lt;-<span class="st"> </span>var.genes</span>
+<span id="cb243-16"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-16"></a><span class="co"># data.liger &lt;- selectGenes(data.liger, var.thresh = 0.1, do.plot = F)</span></span>
+<span id="cb243-17"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-17"></a></span>
+<span id="cb243-18"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-18"></a><span class="co"># Print out the number of variable genes for LIGER analysis.</span></span>
+<span id="cb243-19"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-19"></a><span class="kw">print</span>(<span class="kw">length</span>(data.liger<span class="op">@</span>var.genes))</span>
+<span id="cb243-20"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-20"></a></span>
+<span id="cb243-21"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-21"></a><span class="co"># Scale the gene expression across the datasets. </span></span>
+<span id="cb243-22"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-22"></a><span class="co"># Why does LIGER not center the data? Hint, think about the use of </span></span>
+<span id="cb243-23"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-23"></a><span class="co"># non-negative matrix factorization and the constraints that this imposes.</span></span>
+<span id="cb243-24"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-24"></a>data.liger &lt;-<span class="st"> </span><span class="kw">scaleNotCenter</span>(data.liger)</span>
+<span id="cb243-25"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-25"></a></span>
+<span id="cb243-26"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-26"></a><span class="co"># These two steps take 10-20 min. Only run them if you finish with the rest of the code.</span></span>
+<span id="cb243-27"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-27"></a><span class="co"># Use the `suggestK` function to determine the appropriate number of factors to use.</span></span>
+<span id="cb243-28"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-28"></a><span class="co"># Use the `suggestLambda` function to find the smallest lambda for which the alignment metric stabilizes.</span></span>
+<span id="cb243-29"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-29"></a><span class="co"># k.suggest &lt;- suggestK(data.liger, k.test = seq(5, 30, 5), plot.log2 = T)</span></span>
+<span id="cb243-30"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-30"></a><span class="co"># lambda.suggest &lt;- suggestLambda(gcdata.liger, k.suggest)</span></span>
+<span id="cb243-31"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-31"></a></span>
+<span id="cb243-32"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-32"></a><span class="co"># Use alternating least squares (ALS) to factorize the matrix.</span></span>
+<span id="cb243-33"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-33"></a><span class="co"># Next, quantile align the factor loadings across the datasets, and do clustering.</span></span>
+<span id="cb243-34"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-34"></a>k.suggest &lt;-<span class="st"> </span><span class="dv">20</span>  <span class="co"># with this line, we do not use the suggested k by suggestK()</span></span>
+<span id="cb243-35"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-35"></a>lambda.suggest &lt;-<span class="st"> </span><span class="dv">5</span>  <span class="co"># with this line, we do not use the suggested lambda by suggestLambda()</span></span>
+<span id="cb243-36"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-36"></a><span class="kw">set.seed</span>(<span class="dv">100</span>)  <span class="co"># optimizeALS below is stochastic</span></span>
+<span id="cb243-37"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-37"></a>data.liger &lt;-<span class="st"> </span><span class="kw">optimizeALS</span>(data.liger, <span class="dt">k =</span> k.suggest, <span class="dt">lamda =</span> lambda.suggest) </span>
+<span id="cb243-38"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-38"></a></span>
+<span id="cb243-39"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-39"></a><span class="co"># What do matrices H, V, and W represent, and what are their dimensions?</span></span>
+<span id="cb243-40"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-40"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>H<span class="op">$</span>celseq)</span>
+<span id="cb243-41"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-41"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>V<span class="op">$</span>celseq)</span>
+<span id="cb243-42"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-42"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>W)</span>
+<span id="cb243-43"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-43"></a></span>
+<span id="cb243-44"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-44"></a><span class="co"># Next, do clustering of cells in shared nearest factor space.</span></span>
+<span id="cb243-45"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-45"></a><span class="co"># Build SNF graph, do quantile normalization, cluster quantile normalized data</span></span>
+<span id="cb243-46"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-46"></a>data.liger &lt;-<span class="st"> </span><span class="kw">quantileAlignSNF</span>(data.liger, <span class="dt">resolution =</span> <span class="dv">1</span>)  <span class="co"># SNF clustering and quantile alignment</span></span>
+<span id="cb243-47"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-47"></a></span>
+<span id="cb243-48"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-48"></a><span class="co"># What are the dimensions of H.norm. What does this represent? </span></span>
+<span id="cb243-49"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-49"></a><span class="kw">dim</span>(data.liger<span class="op">@</span>H.norm)</span>
+<span id="cb243-50"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-50"></a></span>
+<span id="cb243-51"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-51"></a><span class="co"># Let&#39;s see what the liger data looks like mapped onto a UMAP visualization.</span></span>
+<span id="cb243-52"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-52"></a>data.liger &lt;-<span class="st"> </span><span class="kw">runUMAP</span>(data.liger, <span class="dt">n_neighbors =</span> <span class="dv">15</span>, <span class="dt">min_dist =</span> <span class="fl">0.5</span>)  <span class="co"># conda install -c conda-forge umap-learn</span></span>
+<span id="cb243-53"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-53"></a>p &lt;-<span class="st"> </span><span class="kw">plotByDatasetAndCluster</span>(data.liger, <span class="dt">return.plots =</span> T) </span>
+<span id="cb243-54"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-54"></a><span class="kw">print</span>(p[[<span class="dv">1</span>]])  <span class="co"># plot by dataset</span></span>
+<span id="cb243-55"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-55"></a><span class="kw">plot_grid</span>(p[[<span class="dv">1</span>]], p[[<span class="dv">2</span>]])</span>
+<span id="cb243-56"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-56"></a></span>
+<span id="cb243-57"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-57"></a><span class="co"># Let&#39;s look to see how the adjusted rand index changed compared to using no batch correction.</span></span>
+<span id="cb243-58"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-58"></a>tech &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(data.liger<span class="op">@</span>H), <span class="cf">function</span>(x) { </span>
+<span id="cb243-59"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-59"></a>  <span class="kw">rep</span>(<span class="kw">names</span>(data.liger<span class="op">@</span>H)[x], <span class="kw">nrow</span>(data.liger<span class="op">@</span>H[[x]]))}))</span>
+<span id="cb243-60"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-60"></a>clusters &lt;-<span class="st"> </span>data.liger<span class="op">@</span>alignment.clusters</span>
+<span id="cb243-61"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-61"></a>ari &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;tech&quot;</span> =<span class="st"> </span>tech, <span class="st">&quot;clusters&quot;</span> =<span class="st"> </span>clusters)</span>
+<span id="cb243-62"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-62"></a>ari<span class="op">$</span>tech &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mapvalues</span>(ari<span class="op">$</span>tech, <span class="dt">from =</span> <span class="kw">c</span>(<span class="st">&quot;celseq&quot;</span>, <span class="st">&quot;celseq2&quot;</span>, <span class="st">&quot;fluidigmc1&quot;</span>, <span class="st">&quot;smartseq2&quot;</span>), <span class="dt">to =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb243-63"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-63"></a><span class="kw">adj.rand.index</span>(<span class="kw">as.numeric</span>(ari<span class="op">$</span>tech), <span class="kw">as.numeric</span>(ari<span class="op">$</span>clusters))</span>
+<span id="cb243-64"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-64"></a></span>
+<span id="cb243-65"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-65"></a><span class="co"># Look at proportion of each batch in each cluster, and look at factor loadings across clusters</span></span>
+<span id="cb243-66"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-66"></a><span class="kw">plotClusterProportions</span>(data.liger)</span>
+<span id="cb243-67"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-67"></a><span class="kw">plotClusterFactors</span>(data.liger, <span class="dt">use.aligned =</span> T)</span>
+<span id="cb243-68"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-68"></a></span>
+<span id="cb243-69"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-69"></a><span class="co"># Look at genes that are specific to a dataset and shared across datasets.</span></span>
+<span id="cb243-70"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-70"></a><span class="co"># Use the plotWordClouds function and choose 2 datasets.</span></span>
+<span id="cb243-71"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-71"></a><span class="kw">pdf</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;word_clouds.pdf&quot;</span>))</span>
+<span id="cb243-72"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-72"></a><span class="kw">plotWordClouds</span>(data.liger, <span class="dt">dataset1 =</span> <span class="st">&quot;celseq2&quot;</span>, <span class="dt">dataset2 =</span> <span class="st">&quot;smartseq2&quot;</span>)</span>
+<span id="cb243-73"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-73"></a><span class="kw">dev.off</span>()</span>
+<span id="cb243-74"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-74"></a></span>
+<span id="cb243-75"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-75"></a><span class="co"># Look at factor loadings for each cell using plotFactors. </span></span>
+<span id="cb243-76"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-76"></a><span class="kw">pdf</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;plot_factors.pdf&quot;</span>))</span>
+<span id="cb243-77"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-77"></a><span class="kw">plotFactors</span>(data.liger)</span>
+<span id="cb243-78"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-78"></a><span class="kw">dev.off</span>()</span>
+<span id="cb243-79"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-79"></a></span>
+<span id="cb243-80"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-80"></a><span class="co"># Identify shared and batch-specific marker genes from liger factorization.</span></span>
+<span id="cb243-81"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-81"></a><span class="co"># Use the getFactorMarkers function and choose 2 datasets.</span></span>
+<span id="cb243-82"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-82"></a><span class="co"># Then plot some genes of interest using plotGene.</span></span>
+<span id="cb243-83"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-83"></a>markers &lt;-<span class="st"> </span><span class="kw">getFactorMarkers</span>(data.liger, <span class="dt">dataset1 =</span> <span class="st">&quot;celseq2&quot;</span>, <span class="dt">dataset2 =</span> <span class="st">&quot;smartseq2&quot;</span>, <span class="dt">num.genes =</span> <span class="dv">10</span>)</span>
+<span id="cb243-84"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-84"></a><span class="kw">plotGene</span>(data.liger, <span class="dt">gene =</span> <span class="st">&quot;INS&quot;</span>)</span>
+<span id="cb243-85"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-85"></a></span>
+<span id="cb243-86"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-86"></a><span class="co"># Save current progress.</span></span>
+<span id="cb243-87"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-87"></a><span class="kw">save</span>(data.liger, <span class="dt">file =</span> Rda.liger.path)</span>
+<span id="cb243-88"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-88"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb243-89"><a href="cluster-pancreatic-datasets-without-batch-correction.html#cb243-89"></a><span class="co"># load(Rda.liger.path)</span></span></code></pre></div>
+</div>
+<div id="additional-exploration-regressing-out-unwanted-covariates" class="section level2">
+<h2><span class="header-section-number">12.1</span> Additional exploration: Regressing out unwanted covariates</h2>
+<p>Learn how to regress out different technical covariates (number of UMIs, number of genes, percent mitochondrial reads) by studying <a href="https://satijalab.org/seurat/pbmc3k_tutorial.html">Seurat’s PBMC tutorial</a> and the ScaleData() function.</p>
+</div>
+<div id="additional-exploration-kbet" class="section level2">
+<h2><span class="header-section-number">12.2</span> Additional exploration: kBET</h2>
+<p>Within your RStudio session, install <a href="https://github.com/theislab/kBET">k-nearest neighbour batch effect test</a> and learn how to use its functionality to quantify batch effects in the pancreatic data.</p>
+</div>
+<div id="additional-exploration-seurat-3" class="section level2">
+<h2><span class="header-section-number">12.3</span> Additional exploration: Seurat 3</h2>
+<p>Read how new version of Seurat does <a href="https://satijalab.org/seurat/pancreas_integration_label_transfer.html">data integration</a></p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2><span class="header-section-number">12.4</span> Acknowledgements</h2>
+<p>This document builds off a tutorial from the <a href="https://www.dropbox.com/s/aji4ielg8gc70vj/multiple_pancreas_workflow.R?dl=1">Seurat website</a> and a tutorial from the <a href="https://github.com/MacoskoLab/liger/blob/master/vignettes/liger-vignette.html">LIGER website</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="batch-correction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="batch-correction-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["2020_scWorkshop.pdf", "2020_scWorkshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>15 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="15 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="15 Trajectory Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -147,8 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#friday-classes-from-0800-to-1600"><i class="fa fa-check"></i><b>1.5.5</b> Friday – Classes from 08:00 to 16:00</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i><b>2</b> Experimental Design</a><ul>
-<li class="chapter" data-level="2.1" data-path="experimental-design.html"><a href="experimental-design.html#slides"><i class="fa fa-check"></i><b>2.1</b> Slides</a></li>
+<li class="chapter" data-level="2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-1.html"><a href="introduction-1.html#slides"><i class="fa fa-check"></i><b>2.1</b> Slides</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html"><i class="fa fa-check"></i><b>3</b> Understanding Sequencing Raw Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="understanding-sequencing-raw-data.html"><a href="understanding-sequencing-raw-data.html#class-environment"><i class="fa fa-check"></i><b>3.1</b> Class Environment</a><ul>
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html"><i class="fa fa-check"></i><b>8</b> Data Wrangling scRNAseq</a><ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#goal-1"><i class="fa fa-check"></i><b>8.1</b> Goal</a></li>
-<li class="chapter" data-level="8.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-1"><i class="fa fa-check"></i><b>8.2</b> Introduction</a><ul>
+<li class="chapter" data-level="8.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#introduction-2"><i class="fa fa-check"></i><b>8.2</b> Introduction</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#load-necessary-packages"><i class="fa fa-check"></i><b>8.2.1</b> Load necessary packages</a></li>
 <li class="chapter" data-level="8.2.2" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#read-in-nsclc-counts-matrix."><i class="fa fa-check"></i><b>8.2.2</b> Read in NSCLC counts matrix.</a></li>
 <li class="chapter" data-level="8.2.3" data-path="data-wrangling-scrnaseq.html"><a href="data-wrangling-scrnaseq.html#lets-examine-the-sparse-counts-matrix"><i class="fa fa-check"></i><b>8.2.3</b> Let’s examine the sparse counts matrix</a></li>
@@ -256,45 +256,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="batch-correction.html"><a href="batch-correction.html#load-settings-and-packages"><i class="fa fa-check"></i><b>11.1</b> Load settings and packages</a></li>
 <li class="chapter" data-level="11.2" data-path="batch-correction.html"><a href="batch-correction.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>11.2</b> Read in pancreas expression matrices</a></li>
 <li class="chapter" data-level="11.3" data-path="batch-correction.html"><a href="batch-correction.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>11.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
-<li class="chapter" data-level="11.4" data-path="batch-correction.html"><a href="batch-correction.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>11.4</b> Cluster pancreatic datasets without batch correction</a><ul>
-<li class="chapter" data-level="11.4.1" data-path="batch-correction.html"><a href="batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>11.4.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
-<li class="chapter" data-level="11.4.2" data-path="batch-correction.html"><a href="batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>11.4.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>11.5</b> Additional exploration: Regressing out unwanted covariates</a></li>
-<li class="chapter" data-level="11.6" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>11.6</b> Additional exploration: kBET</a></li>
-<li class="chapter" data-level="11.7" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>11.7</b> Additional exploration: Seurat 3</a></li>
-<li class="chapter" data-level="11.8" data-path="batch-correction.html"><a href="batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>11.8</b> Acknowledgements</a></li>
+<li class="chapter" data-level="12" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html"><i class="fa fa-check"></i><b>12</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.0.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="12.0.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.0.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
+<li class="chapter" data-level="12.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.1</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="12.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.2</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="12.3" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.3</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="12.4" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>12.4</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>12</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
-<li class="chapter" data-level="12.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-3"><i class="fa fa-check"></i><b>12.1</b> Slides</a></li>
+<li class="chapter" data-level="13" data-path="batch-correction-1.html"><a href="batch-correction-1.html"><i class="fa fa-check"></i><b>13</b> Batch Correction</a><ul>
+<li class="chapter" data-level="13.1" data-path="batch-correction-1.html"><a href="batch-correction-1.html#slides-3"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>13</b> Trajectory Analysis</a><ul>
-<li class="chapter" data-level="13.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>13.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="13.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>13.2</b> First look at the differentiation data from Deng et al.</a></li>
-<li class="chapter" data-level="13.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>13.3</b> Principle Components Analysis</a></li>
-<li class="chapter" data-level="13.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>13.4</b> Diffusion map pseudotime</a></li>
-<li class="chapter" data-level="13.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>13.5</b> Slingshot map pseudotime</a></li>
-<li class="chapter" data-level="13.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>13.6</b> Find temporally expressed genes</a></li>
-<li class="chapter" data-level="13.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>13.7</b> Comparison of the different trajectory inference methods</a></li>
-<li class="chapter" data-level="13.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>13.8</b> Plots of gene expression over time.</a></li>
-<li class="chapter" data-level="13.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>13.9</b> Acknowledgements</a></li>
+<li class="chapter" data-level="14" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>14</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="14.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>14.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>14</b> Cite-Seq</a><ul>
-<li class="chapter" data-level="14.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="14.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>14.2</b> Load in the data</a></li>
-<li class="chapter" data-level="14.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>14.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
-<li class="chapter" data-level="14.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>14.4</b> Add the protein expression levels to the Seurat object</a></li>
-<li class="chapter" data-level="14.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>14.5</b> Visualize protein levels on RNA clusters</a></li>
-<li class="chapter" data-level="14.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>14.6</b> Identify differentially expressed proteins between clusters</a></li>
-<li class="chapter" data-level="14.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>14.7</b> Cluster directly on protein levels</a></li>
-<li class="chapter" data-level="14.8" data-path="cite-seq.html"><a href="cite-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>14.8</b> Additional exploration: another example of multi-modal analysis</a></li>
-<li class="chapter" data-level="14.9" data-path="cite-seq.html"><a href="cite-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
+<li class="chapter" data-level="15" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>15</b> Trajectory Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="15.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>15.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="15.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>15.3</b> Principle Components Analysis</a></li>
+<li class="chapter" data-level="15.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>15.4</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="15.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>15.5</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="15.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>15.6</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="15.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>15.7</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="15.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>15.8</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="15.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>15.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>15</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="15.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>15.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="15.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>15.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="15.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>15.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="15.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>15.4</b> Online courses</a></li>
+<li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="16.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>16.2</b> Load in the data</a></li>
+<li class="chapter" data-level="16.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>16.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="16.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>16.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="16.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>16.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="16.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>16.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="16.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>16.7</b> Cluster directly on protein levels</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>17</b> Additional exploration: another example of multi-modal analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>17.1</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>18</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="18.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>18.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="18.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>18.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="18.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>18.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="18.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>18.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -318,14 +322,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="trajectory-analysis" class="section level1">
-<h1><span class="header-section-number">13</span> Trajectory Analysis</h1>
+<h1><span class="header-section-number">15</span> Trajectory Analysis</h1>
 <p>In this lab, we will analyze a single cell RNA-seq dataset that will teach us about several methods to infer the differentiation trajectory of a set of cells. These methods can order a set of individual cells along a path / trajectory / lineage, and assign a pseudotime value to each cell that represents where the cell is along that path. This can be a starting point for further analysis to determine gene expression programs driving interesting cell phenotypes. As you are running the code, think about how the algorithms work and what you like and do not like about the assumptions and utilities provided by the algorithm.</p>
-<p>Note: you can increase the system memory available to Docker by going to Docker -&gt; Preferences -&gt; Advanced and shifting the Memory slider.</p>
 <div id="load-settings-and-packages-1" class="section level2">
-<h2><span class="header-section-number">13.1</span> Load settings and packages</h2>
+<h2><span class="header-section-number">15.1</span> Load settings and packages</h2>
 </div>
 <div id="first-look-at-the-differentiation-data-from-deng-et-al." class="section level2">
-<h2><span class="header-section-number">13.2</span> First look at the differentiation data from Deng et al.</h2>
+<h2><span class="header-section-number">15.2</span> First look at the differentiation data from Deng et al.</h2>
 <p>We will use a nice SMART-Seq2 single cell RNA-seq data from <a href="http://science.sciencemag.org/content/343/6167/193">Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells</a>. Here is one relevant detail from their paper: “To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)”</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="trajectory-analysis.html#cb251-1"></a><span class="co"># Read in single cell data.</span></span>
 <span id="cb251-2"><a href="trajectory-analysis.html#cb251-2"></a>path.deng &lt;-<span class="st"> </span><span class="kw">paste0</span>(mydir, <span class="st">&quot;deng-reads.rds&quot;</span>)</span>
@@ -346,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb251-17"><a href="trajectory-analysis.html#cb251-17"></a>                                         <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>))</span></code></pre></div>
 </div>
 <div id="principle-components-analysis" class="section level2">
-<h2><span class="header-section-number">13.3</span> Principle Components Analysis</h2>
+<h2><span class="header-section-number">15.3</span> Principle Components Analysis</h2>
 <p>Let us take a first look at the Deng data. One simple approach to ordering cells in pseudotime is to use PCA. By carrying out PCA and labeling the cells by the stage at which they were collected, we can see how well the principal components separate cells along a differentiation trajectory.</p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="trajectory-analysis.html#cb252-1"></a><span class="co"># Run PCA on Deng data. Use the runPCA function from the SingleCellExperiment package.</span></span>
 <span id="cb252-2"><a href="trajectory-analysis.html#cb252-2"></a>deng_SCE &lt;-<span class="st"> </span><span class="kw">runPCA</span>(deng_SCE, <span class="dt">ncomponents =</span> <span class="dv">50</span>)</span>
@@ -385,7 +388,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb252-35"><a href="trajectory-analysis.html#cb252-35"></a><span class="co"># Try separating the cell types using other PCs. How does the separation look?</span></span></code></pre></div>
 </div>
 <div id="diffusion-map-pseudotime" class="section level2">
-<h2><span class="header-section-number">13.4</span> Diffusion map pseudotime</h2>
+<h2><span class="header-section-number">15.4</span> Diffusion map pseudotime</h2>
 <p>Let us see how a more advance trajectory inference method, diffusion maps and diffusion pseudotime, performs at placing cells along the expected differentiation trajectory.</p>
 <p><a href="https://en.wikipedia.org/wiki/Diffusion_map">Diffusion maps</a> were introduced by <a href="http://www.sciencedirect.com/science/article/pii/S1063520306000546">Ronald Coifman and Stephane Lafon</a>, and the underlying idea is to assume that the data are samples from a diffusion process. The method infers the low-dimensional manifold by estimating the eigenvalues and eigenvectors for the diffusion operator related to the data.</p>
 <p><a href="https://academic.oup.com/bioinformatics/article/32/8/1241/1744143">Angerer et al</a> have applied the diffusion maps concept to the analysis of single-cell RNA-seq data to create an R package called <a href="http://bioconductor.org/packages/destiny">destiny</a>.</p>
@@ -469,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb253-77"><a href="trajectory-analysis.html#cb253-77"></a><span class="co"># load(Rda.destiny.path)</span></span></code></pre></div>
 </div>
 <div id="slingshot-map-pseudotime" class="section level2">
-<h2><span class="header-section-number">13.5</span> Slingshot map pseudotime</h2>
+<h2><span class="header-section-number">15.5</span> Slingshot map pseudotime</h2>
 <p>Let us see how another advance trajectory inference method, Slingshot, performs at placing cells along the expected differentiation trajectory.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="trajectory-analysis.html#cb254-1"></a><span class="kw">library</span>(slingshot)</span>
 <span id="cb254-2"><a href="trajectory-analysis.html#cb254-2"></a><span class="kw">library</span>(Seurat)</span>
@@ -503,7 +506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb254-30"><a href="trajectory-analysis.html#cb254-30"></a></span>
 <span id="cb254-31"><a href="trajectory-analysis.html#cb254-31"></a><span class="co"># Cluster the cells using the first twenty principal components.</span></span>
 <span id="cb254-32"><a href="trajectory-analysis.html#cb254-32"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">k.param =</span> <span class="dv">20</span>)</span>
-<span id="cb254-33"><a href="trajectory-analysis.html#cb254-33"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.6</span>, <span class="dt">algorithm =</span> <span class="dv">4</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
+<span id="cb254-33"><a href="trajectory-analysis.html#cb254-33"></a>gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.6</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</span>
 <span id="cb254-34"><a href="trajectory-analysis.html#cb254-34"></a></span>
 <span id="cb254-35"><a href="trajectory-analysis.html#cb254-35"></a><span class="co"># Add clustering information from Seurat to the deng_SCE object</span></span>
 <span id="cb254-36"><a href="trajectory-analysis.html#cb254-36"></a>deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># remove old slingshot pseudotime data</span></span>
@@ -532,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb254-59"><a href="trajectory-analysis.html#cb254-59"></a><span class="co"># load(Rda.slingshot.path)</span></span></code></pre></div>
 </div>
 <div id="find-temporally-expressed-genes" class="section level2">
-<h2><span class="header-section-number">13.6</span> Find temporally expressed genes</h2>
+<h2><span class="header-section-number">15.6</span> Find temporally expressed genes</h2>
 <p>In this final analysis code chunk, we will identify temporally expressed genes, ie those genes whose expression is changing in a continuous manner over pseudotime. To do this, we will fit a GAM with a LOESS term for pseudotime. Functions for fitting and working with generalized additive models, as described in “Generalized Additive Models” (Hastie and Tibshirani, 1990).
 <a href="https://multithreaded.stitchfix.com/blog/2015/07/30/gam/">Read more about GAMs</a></p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="trajectory-analysis.html#cb255-1"></a><span class="co"># Only look at the 1,000 most variable genes when identifying temporally expressesd genes.</span></span>
@@ -564,7 +567,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb255-27"><a href="trajectory-analysis.html#cb255-27"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 <div id="comparison-of-the-different-trajectory-inference-methods" class="section level2">
-<h2><span class="header-section-number">13.7</span> Comparison of the different trajectory inference methods</h2>
+<h2><span class="header-section-number">15.7</span> Comparison of the different trajectory inference methods</h2>
 <p>How do the trajectories inferred by PCA, diffusion pseudotime, and slingshot pseudotime compare to one another?</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="trajectory-analysis.html#cb256-1"></a><span class="co"># Prepare data frame with different pseudotime measures.</span></span>
 <span id="cb256-2"><a href="trajectory-analysis.html#cb256-2"></a>df_pseudotime &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)[, <span class="kw">c</span>(<span class="st">&quot;pseudotime_PC1&quot;</span>, <span class="st">&quot;pseudotime_dpt&quot;</span>, <span class="st">&quot;slingPseudotime_1&quot;</span>)])</span>
@@ -577,7 +580,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb256-9"><a href="trajectory-analysis.html#cb256-9"></a>               <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">3.1</span>, <span class="dv">0</span>))</span></code></pre></div>
 </div>
 <div id="plots-of-gene-expression-over-time." class="section level2">
-<h2><span class="header-section-number">13.8</span> Plots of gene expression over time.</h2>
+<h2><span class="header-section-number">15.8</span> Plots of gene expression over time.</h2>
 <p>Visualize how some of the temporally expressed genes change in time.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="trajectory-analysis.html#cb257-1"></a><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, </span>
 <span id="cb257-2"><a href="trajectory-analysis.html#cb257-2"></a>               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</span>
@@ -592,7 +595,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb257-11"><a href="trajectory-analysis.html#cb257-11"></a>               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="acknowledgements-1" class="section level2">
-<h2><span class="header-section-number">13.9</span> Acknowledgements</h2>
+<h2><span class="header-section-number">15.9</span> Acknowledgements</h2>
 <p>This document builds off chapter 8.4 from the <a href="https://scrnaseq-course.cog.sanger.ac.uk/website/biological-analysis.html">Analysis of single cell RNA-seq data</a>, from the <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html">Destiny vignette</a> and from the <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/slingshot/inst/doc/slingshot.html">Slingshot vignette</a>.</p>
 
 </div>

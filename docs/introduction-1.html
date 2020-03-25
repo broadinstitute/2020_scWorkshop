@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>11 Batch Correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>2 Introduction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="11 Batch Correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="2 Introduction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 Batch Correction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="2 Introduction | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-selection-and-cluster-analysis.html"/>
-<link rel="next" href="cluster-pancreatic-datasets-without-batch-correction.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="understanding-sequencing-raw-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -321,100 +321,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="batch-correction" class="section level1">
-<h1><span class="header-section-number">11</span> Batch Correction</h1>
-<p>In this lab, we will look at different single cell RNA-seq datasets collected from pancreatic islets. We will look at how different batch correction methods affect our data analysis.</p>
-<p>Note: you can increase the system memory available to Docker by going to Docker -&gt; Preferences -&gt; Advanced and shifting the Memory slider.</p>
-<div id="load-settings-and-packages" class="section level2">
-<h2><span class="header-section-number">11.1</span> Load settings and packages</h2>
-</div>
-<div id="read-in-pancreas-expression-matrices" class="section level2">
-<h2><span class="header-section-number">11.2</span> Read in pancreas expression matrices</h2>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="batch-correction.html#cb239-1"></a><span class="co"># Read in all four input expression matrices</span></span>
-<span id="cb239-2"><a href="batch-correction.html#cb239-2"></a>celseq.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;pancreas_multi_celseq_expression_matrix.txt.gz&quot;</span>))</span>
-<span id="cb239-3"><a href="batch-correction.html#cb239-3"></a>celseq2.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;pancreas_multi_celseq2_expression_matrix.txt.gz&quot;</span>))</span>
-<span id="cb239-4"><a href="batch-correction.html#cb239-4"></a>fluidigmc1.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;pancreas_multi_fluidigmc1_expression_matrix.txt.gz&quot;</span>))</span>
-<span id="cb239-5"><a href="batch-correction.html#cb239-5"></a>smartseq2.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;pancreas_multi_smartseq2_expression_matrix.txt.gz&quot;</span>))</span>
-<span id="cb239-6"><a href="batch-correction.html#cb239-6"></a></span>
-<span id="cb239-7"><a href="batch-correction.html#cb239-7"></a><span class="co"># Convert to sparse matrices for efficiency</span></span>
-<span id="cb239-8"><a href="batch-correction.html#cb239-8"></a>celseq.data &lt;-<span class="st"> </span><span class="kw">as</span>(<span class="kw">as.matrix</span>(celseq.data), <span class="st">&quot;dgCMatrix&quot;</span>)</span>
-<span id="cb239-9"><a href="batch-correction.html#cb239-9"></a>celseq2.data &lt;-<span class="st"> </span><span class="kw">as</span>(<span class="kw">as.matrix</span>(celseq2.data), <span class="st">&quot;dgCMatrix&quot;</span>)</span>
-<span id="cb239-10"><a href="batch-correction.html#cb239-10"></a>fluidigmc1.data &lt;-<span class="st"> </span><span class="kw">as</span>(<span class="kw">as.matrix</span>(fluidigmc1.data), <span class="st">&quot;dgCMatrix&quot;</span>)</span>
-<span id="cb239-11"><a href="batch-correction.html#cb239-11"></a>smartseq2.data &lt;-<span class="st"> </span><span class="kw">as</span>(<span class="kw">as.matrix</span>(smartseq2.data), <span class="st">&quot;dgCMatrix&quot;</span>)</span></code></pre></div>
-</div>
-<div id="preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction" class="section level2">
-<h2><span class="header-section-number">11.3</span> Preparing the individual Seurat objects for each pancreas dataset without batch correction</h2>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="batch-correction.html#cb240-1"></a><span class="co"># What is the size of each single cell RNA-seq dataset? </span></span>
-<span id="cb240-2"><a href="batch-correction.html#cb240-2"></a><span class="co"># Briefly describe the technology used to collect each dataset.</span></span>
-<span id="cb240-3"><a href="batch-correction.html#cb240-3"></a><span class="co"># Which datasets do you expect to be different and which do you expect to be similar?</span></span>
-<span id="cb240-4"><a href="batch-correction.html#cb240-4"></a><span class="kw">dim</span>(celseq.data)</span>
-<span id="cb240-5"><a href="batch-correction.html#cb240-5"></a><span class="kw">dim</span>(celseq2.data)</span>
-<span id="cb240-6"><a href="batch-correction.html#cb240-6"></a><span class="kw">dim</span>(fluidigmc1.data)</span>
-<span id="cb240-7"><a href="batch-correction.html#cb240-7"></a><span class="kw">dim</span>(smartseq2.data)</span>
-<span id="cb240-8"><a href="batch-correction.html#cb240-8"></a></span>
-<span id="cb240-9"><a href="batch-correction.html#cb240-9"></a><span class="co"># Create and setup Seurat objects for each dataset with the following 6 steps.</span></span>
-<span id="cb240-10"><a href="batch-correction.html#cb240-10"></a><span class="co"># 1. CreateSeuratObject</span></span>
-<span id="cb240-11"><a href="batch-correction.html#cb240-11"></a><span class="co"># 2. subset</span></span>
-<span id="cb240-12"><a href="batch-correction.html#cb240-12"></a><span class="co"># 3. NormalizeData</span></span>
-<span id="cb240-13"><a href="batch-correction.html#cb240-13"></a><span class="co"># 4. FindVariableGenes</span></span>
-<span id="cb240-14"><a href="batch-correction.html#cb240-14"></a><span class="co"># 5. ScaleData </span></span>
-<span id="cb240-15"><a href="batch-correction.html#cb240-15"></a><span class="co"># 6. Update @meta.data slot in Seurat object with tech column (celseq, celseq2, fluidigmc1, smartseq2)</span></span>
-<span id="cb240-16"><a href="batch-correction.html#cb240-16"></a><span class="co"># Look at the distributions of number of genes per cell before and after FilterCells.</span></span>
-<span id="cb240-17"><a href="batch-correction.html#cb240-17"></a></span>
-<span id="cb240-18"><a href="batch-correction.html#cb240-18"></a><span class="co"># CEL-Seq (https://www.cell.com/cell-reports/fulltext/S2211-1247(12)00228-8)</span></span>
-<span id="cb240-19"><a href="batch-correction.html#cb240-19"></a><span class="co"># In subset, use low.thresholds = 1750</span></span>
-<span id="cb240-20"><a href="batch-correction.html#cb240-20"></a>celseq &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> celseq.data)</span>
-<span id="cb240-21"><a href="batch-correction.html#cb240-21"></a><span class="kw">VlnPlot</span>(celseq, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-22"><a href="batch-correction.html#cb240-22"></a>celseq &lt;-<span class="st"> </span><span class="kw">subset</span>(celseq, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">1750</span>)</span>
-<span id="cb240-23"><a href="batch-correction.html#cb240-23"></a><span class="kw">VlnPlot</span>(celseq, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-24"><a href="batch-correction.html#cb240-24"></a>celseq &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(celseq, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
-<span id="cb240-25"><a href="batch-correction.html#cb240-25"></a>celseq &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(celseq, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</span>
-<span id="cb240-26"><a href="batch-correction.html#cb240-26"></a>celseq &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(celseq)</span>
-<span id="cb240-27"><a href="batch-correction.html#cb240-27"></a>celseq[[<span class="st">&quot;tech&quot;</span>]] &lt;-<span class="st"> &quot;celseq&quot;</span></span>
-<span id="cb240-28"><a href="batch-correction.html#cb240-28"></a></span>
-<span id="cb240-29"><a href="batch-correction.html#cb240-29"></a><span class="co"># CEL-Seq2 https://www.cell.com/molecular-cell/fulltext/S1097-2765(09)00641-8</span></span>
-<span id="cb240-30"><a href="batch-correction.html#cb240-30"></a><span class="co"># In subset, use low.thresholds = 2500.</span></span>
-<span id="cb240-31"><a href="batch-correction.html#cb240-31"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> celseq2.data)</span>
-<span id="cb240-32"><a href="batch-correction.html#cb240-32"></a><span class="kw">VlnPlot</span>(celseq2, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-33"><a href="batch-correction.html#cb240-33"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">subset</span>(celseq2, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">2500</span>)</span>
-<span id="cb240-34"><a href="batch-correction.html#cb240-34"></a><span class="kw">VlnPlot</span>(celseq2, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-35"><a href="batch-correction.html#cb240-35"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(celseq2, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
-<span id="cb240-36"><a href="batch-correction.html#cb240-36"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(celseq2, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</span>
-<span id="cb240-37"><a href="batch-correction.html#cb240-37"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(celseq2)</span>
-<span id="cb240-38"><a href="batch-correction.html#cb240-38"></a>celseq2[[<span class="st">&quot;tech&quot;</span>]] &lt;-<span class="st"> &quot;celseq2&quot;</span></span>
-<span id="cb240-39"><a href="batch-correction.html#cb240-39"></a></span>
-<span id="cb240-40"><a href="batch-correction.html#cb240-40"></a><span class="co"># Fluidigm C1</span></span>
-<span id="cb240-41"><a href="batch-correction.html#cb240-41"></a><span class="co"># Omit subset function because cells are already high quality.</span></span>
-<span id="cb240-42"><a href="batch-correction.html#cb240-42"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> fluidigmc1.data)</span>
-<span id="cb240-43"><a href="batch-correction.html#cb240-43"></a><span class="kw">VlnPlot</span>(fluidigmc1, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-44"><a href="batch-correction.html#cb240-44"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(fluidigmc1, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
-<span id="cb240-45"><a href="batch-correction.html#cb240-45"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(fluidigmc1, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</span>
-<span id="cb240-46"><a href="batch-correction.html#cb240-46"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(fluidigmc1)</span>
-<span id="cb240-47"><a href="batch-correction.html#cb240-47"></a>fluidigmc1[[<span class="st">&quot;tech&quot;</span>]] &lt;-<span class="st"> &quot;fluidigmc1&quot;</span></span>
-<span id="cb240-48"><a href="batch-correction.html#cb240-48"></a></span>
-<span id="cb240-49"><a href="batch-correction.html#cb240-49"></a><span class="co"># SMART-Seq2</span></span>
-<span id="cb240-50"><a href="batch-correction.html#cb240-50"></a><span class="co"># In subset, use low.thresholds = 2500.</span></span>
-<span id="cb240-51"><a href="batch-correction.html#cb240-51"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> smartseq2.data)</span>
-<span id="cb240-52"><a href="batch-correction.html#cb240-52"></a><span class="kw">VlnPlot</span>(smartseq2, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-53"><a href="batch-correction.html#cb240-53"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">subset</span>(smartseq2, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">2500</span>)</span>
-<span id="cb240-54"><a href="batch-correction.html#cb240-54"></a><span class="kw">VlnPlot</span>(smartseq2, <span class="st">&quot;nFeature_RNA&quot;</span>)</span>
-<span id="cb240-55"><a href="batch-correction.html#cb240-55"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(smartseq2, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
-<span id="cb240-56"><a href="batch-correction.html#cb240-56"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(smartseq2, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</span>
-<span id="cb240-57"><a href="batch-correction.html#cb240-57"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(smartseq2)</span>
-<span id="cb240-58"><a href="batch-correction.html#cb240-58"></a>smartseq2[[<span class="st">&quot;tech&quot;</span>]] &lt;-<span class="st"> &quot;smartseq2&quot;</span></span>
-<span id="cb240-59"><a href="batch-correction.html#cb240-59"></a></span>
-<span id="cb240-60"><a href="batch-correction.html#cb240-60"></a><span class="co"># This code sub-samples the data in order to speed up calculations and not use too much memory.</span></span>
-<span id="cb240-61"><a href="batch-correction.html#cb240-61"></a><span class="kw">Idents</span>(celseq) &lt;-<span class="st"> &quot;tech&quot;</span></span>
-<span id="cb240-62"><a href="batch-correction.html#cb240-62"></a>celseq &lt;-<span class="st"> </span><span class="kw">subset</span>(celseq, <span class="dt">downsample =</span> <span class="dv">500</span>, <span class="dt">seed =</span> <span class="dv">1</span>)</span>
-<span id="cb240-63"><a href="batch-correction.html#cb240-63"></a><span class="kw">Idents</span>(celseq2) &lt;-<span class="st"> &quot;tech&quot;</span></span>
-<span id="cb240-64"><a href="batch-correction.html#cb240-64"></a>celseq2 &lt;-<span class="st"> </span><span class="kw">subset</span>(celseq2, <span class="dt">downsample =</span> <span class="dv">500</span>, <span class="dt">seed =</span> <span class="dv">1</span>)</span>
-<span id="cb240-65"><a href="batch-correction.html#cb240-65"></a><span class="kw">Idents</span>(fluidigmc1) &lt;-<span class="st"> &quot;tech&quot;</span></span>
-<span id="cb240-66"><a href="batch-correction.html#cb240-66"></a>fluidigmc1 &lt;-<span class="st"> </span><span class="kw">subset</span>(fluidigmc1, <span class="dt">downsample =</span> <span class="dv">500</span>, <span class="dt">seed =</span> <span class="dv">1</span>)</span>
-<span id="cb240-67"><a href="batch-correction.html#cb240-67"></a><span class="kw">Idents</span>(smartseq2) &lt;-<span class="st"> &quot;tech&quot;</span></span>
-<span id="cb240-68"><a href="batch-correction.html#cb240-68"></a>smartseq2 &lt;-<span class="st"> </span><span class="kw">subset</span>(smartseq2, <span class="dt">downsample =</span> <span class="dv">500</span>, <span class="dt">seed =</span> <span class="dv">1</span>)</span>
-<span id="cb240-69"><a href="batch-correction.html#cb240-69"></a></span>
-<span id="cb240-70"><a href="batch-correction.html#cb240-70"></a><span class="co"># Save the sub-sampled Seurat objects</span></span>
-<span id="cb240-71"><a href="batch-correction.html#cb240-71"></a><span class="kw">save</span>(celseq, celseq2, fluidigmc1, smartseq2, <span class="dt">file =</span> Rda.sparse.path)</span></code></pre></div>
+<div id="introduction-1" class="section level1">
+<h1><span class="header-section-number">2</span> Introduction</h1>
+<div id="slides" class="section level2">
+<h2><span class="header-section-number">2.1</span> Slides</h2>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRnXu6KM0JjKhVoBc0nkh8zHsTHz7rtx1q4yPvbFwZsUPhUBYrvPcot-IWv7nfnQrz_ptz1UJOT-TC3/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="1280" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+</iframe>
+
 </div>
 </div>
             </section>
@@ -422,8 +335,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="feature-selection-and-cluster-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cluster-pancreatic-datasets-without-batch-correction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="understanding-sequencing-raw-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
