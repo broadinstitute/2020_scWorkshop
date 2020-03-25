@@ -62,7 +62,7 @@ dim(smartseq2.data)
 # 1. CreateSeuratObject
 # 2. subset
 # 3. NormalizeData
-# 4. FindVariableGenes
+# 4. FindVariableFeatures
 # 5. ScaleData 
 # 6. Update @meta.data slot in Seurat object with tech column (celseq, celseq2, fluidigmc1, smartseq2)
 # Look at the distributions of number of genes per cell before and after FilterCells.
@@ -158,7 +158,7 @@ gcdata <- FindClusters(gcdata, resolution = 0.8, algorithm = 1, random.seed = 10
 # Create a UMAP visualization. 
 gcdata <- RunUMAP(gcdata, dims = 1:20, reduction = "pca", n.neighbors = 15, min.dist = 0.5, spread = 1, metric = "euclidean", seed.use = 1)  
 
-# Visualize the Leiden clustering and the batches on the UMAP. 
+# Visualize the Louvain clustering and the batches on the UMAP. 
 # Remember, the clustering is stored in @meta.data in column seurat_clusters and the technology is
 # stored in the column tech. Remember you can also use DimPlot
 DimPlot(gcdata, reduction = "umap", group.by = "seurat_clusters")
@@ -181,7 +181,7 @@ save(gcdata, file = Rda.path)
 # load(Rda.path)
 ```
 
-### Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3
+### Batch correction: canonical correlation analysis (CCA) + mutual nearest neighbors (MNN) using Seurat v3
 Here we use Seurat v3 to see to what extent it can remove potential batch effects.
 ```{r batchcorrect_Seurat3, eval = FALSE}
 # load(Rda.sparse.path)
