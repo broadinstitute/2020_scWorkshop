@@ -5,7 +5,7 @@ date: "3/23/2020"
 output: html_document
 ---
 
-# Experimental Design
+# Introduction
 
 
 ## Slides

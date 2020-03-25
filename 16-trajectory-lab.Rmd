@@ -9,8 +9,6 @@ output: html_document
 
 In this lab, we will analyze a single cell RNA-seq dataset that will teach us about several methods to infer the differentiation trajectory of a set of cells. These methods can order a set of individual cells along a path / trajectory / lineage, and assign a pseudotime value to each cell that represents where the cell is along that path. This can be a starting point for further analysis to determine gene expression programs driving interesting cell phenotypes. As you are running the code, think about how the algorithms work and what you like and do not like about the assumptions and utilities provided by the algorithm.
 
-Note: you can increase the system memory available to Docker by going to Docker -> Preferences -> Advanced and shifting the Memory slider.
-
 ## Load settings and packages
 
 ```{r setup_trajectory, include=FALSE, eval = FALSE}
@@ -29,7 +27,6 @@ library(RColorBrewer)
 library(knitr)
 
 # Set folder location for saving output files. This is also the same location as input data.
-# mydir <- "/Users/orr/Documents/physalia2020/src/trajectory/"
 mydir <- "data/trajectory/"
 
 # Objects to save.
@@ -231,7 +228,7 @@ gcdata <- RunPCA(gcdata, features = VariableFeatures(gcdata), npcs = 40, ndims.p
 
 # Cluster the cells using the first twenty principal components.
 gcdata <- FindNeighbors(gcdata, reduction = "pca", dims = 1:20, k.param = 20)
-gcdata <- FindClusters(gcdata, resolution = 0.6, algorithm = 4, random.seed = 100)
+gcdata <- FindClusters(gcdata, resolution = 0.6, algorithm = 1, random.seed = 100)
 
 # Add clustering information from Seurat to the deng_SCE object
 deng_SCE$slingPseudotime_1 <- NULL  # remove old slingshot pseudotime data

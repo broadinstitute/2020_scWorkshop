@@ -11,8 +11,6 @@ In this lab, we will look at how single cell RNA-seq and single cell protein exp
 
 This lab closely follows the official vignette available at [Using Seurat with multi-modal data](https://satijalab.org/seurat/multimodal_vignette.html).
 
-Note: you can increase the system memory available to Docker by going to Docker -> Preferences -> Advanced and shifting the Memory slider.
-
 ## Load settings and packages
 
 ```{r setup_cite, include=FALSE, eval = FALSE}
@@ -26,7 +24,6 @@ library(dplyr)
 library(plyr)
 
 # Set folder location for saving output files. This is also the same location as input data.
-# mydir <- "/Users/orr/Documents/physalia2020/src/citeseq/"
 mydir <- "data/citeseq/"
 
 # Objects to save.
@@ -290,7 +287,7 @@ The ADT-based clustering yields similar results, but with a few differences
 - However, some clusters for which the ADT data does not contain good distinguishing protein markers (i.e. Mk/Ery/DC) lose separation
 - You can verify this using FindMarkers at the RNA level, as well
 
-## Additional exploration: another example of multi-modal analysis
+# Additional exploration: another example of multi-modal analysis
 For another nice example of multi-modal analysis, please explore this [single cell ATAC-Seq vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html) and this [scATAC-seq data integration](https://satijalab.org/signac/articles/integration.html).
 
 ## Acknowledgements
