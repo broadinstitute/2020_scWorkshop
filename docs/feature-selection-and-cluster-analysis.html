@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Feature Selection and Cluster Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Feature Selection and Cluster Analysis | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="identifying-cell-populations.html"/>
-<link rel="next" href="batch-correction.html"/>
+<link rel="next" href="batch-correction-lecture.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,9 +54,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -65,16 +65,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,9 +81,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -252,53 +250,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>10.4</b> Other Options For Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="batch-correction.html"><a href="batch-correction.html"><i class="fa fa-check"></i><b>11</b> Batch Correction</a><ul>
-<li class="chapter" data-level="11.1" data-path="batch-correction.html"><a href="batch-correction.html#load-settings-and-packages"><i class="fa fa-check"></i><b>11.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="11.2" data-path="batch-correction.html"><a href="batch-correction.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>11.2</b> Read in pancreas expression matrices</a></li>
-<li class="chapter" data-level="11.3" data-path="batch-correction.html"><a href="batch-correction.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>11.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="11" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html"><i class="fa fa-check"></i><b>11</b> Batch Correction Lecture</a><ul>
+<li class="chapter" data-level="11.1" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html#slides-3"><i class="fa fa-check"></i><b>11.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html"><i class="fa fa-check"></i><b>12</b> Cluster pancreatic datasets without batch correction</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.0.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
-<li class="chapter" data-level="12.0.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.0.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
-<li class="chapter" data-level="12.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.1</b> Additional exploration: Regressing out unwanted covariates</a></li>
-<li class="chapter" data-level="12.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.2</b> Additional exploration: kBET</a></li>
-<li class="chapter" data-level="12.3" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.3</b> Additional exploration: Seurat 3</a></li>
-<li class="chapter" data-level="12.4" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>12.4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="12" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html"><i class="fa fa-check"></i><b>12</b> Batch Correction Lab</a><ul>
+<li class="chapter" data-level="12.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#load-settings-and-packages"><i class="fa fa-check"></i><b>12.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="12.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>12.2</b> Read in pancreas expression matrices</a></li>
+<li class="chapter" data-level="12.3" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>12.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="12.4" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>12.4</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.4.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="12.4.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.4.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="batch-correction-1.html"><a href="batch-correction-1.html"><i class="fa fa-check"></i><b>13</b> Batch Correction</a><ul>
-<li class="chapter" data-level="13.1" data-path="batch-correction-1.html"><a href="batch-correction-1.html#slides-3"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
+<li class="chapter" data-level="12.5" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.5</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="12.6" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.6</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="12.7" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.7</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="12.8" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#acknowledgements"><i class="fa fa-check"></i><b>12.8</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>14</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
-<li class="chapter" data-level="14.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>14.1</b> Slides</a></li>
+<li class="chapter" data-level="13" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>13</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="13.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>15</b> Trajectory Analysis</a><ul>
-<li class="chapter" data-level="15.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="15.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>15.2</b> First look at the differentiation data from Deng et al.</a></li>
-<li class="chapter" data-level="15.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>15.3</b> Principle Components Analysis</a></li>
-<li class="chapter" data-level="15.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>15.4</b> Diffusion map pseudotime</a></li>
-<li class="chapter" data-level="15.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>15.5</b> Slingshot map pseudotime</a></li>
-<li class="chapter" data-level="15.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>15.6</b> Find temporally expressed genes</a></li>
-<li class="chapter" data-level="15.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>15.7</b> Comparison of the different trajectory inference methods</a></li>
-<li class="chapter" data-level="15.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>15.8</b> Plots of gene expression over time.</a></li>
-<li class="chapter" data-level="15.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>15.9</b> Acknowledgements</a></li>
+<li class="chapter" data-level="14" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>14</b> Trajectory Analysis</a><ul>
+<li class="chapter" data-level="14.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al.we-will-use-a-nice-smart-seq2-single-cell-rna-seq-data-from-single-cell-rna-seq-reveals-dynamic-random-monoallelic-gene-expression-in-mammalian-cells.-here-is-one-relevant-detail-from-their-paper-to-investigate-allele-specific-gene-expression-at-single-cell-resolution-we-isolated-269-individual-cells-dissociated-from-in-vivo-f1-embryos-casteij-c57bl6j-hereafter-abbreviated-as-cast-and-c57-respectively-from-oocyte-to-blastocyst-stages-of-mouse-preimplantation-development-pd"><span class="toc-section-number">14.2</span> First look at the differentiation data from Deng et
+al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells</span>. Here is one relevant detail from their paper: “To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)”</a></li>
+<li class="chapter" data-level="14.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>14.3</b> Principle Components Analysis</a></li>
+<li class="chapter" data-level="14.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>14.4</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="14.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>14.5</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="14.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>14.6</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="14.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>14.7</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="14.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>14.8</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="14.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
-<li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="16.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>16.2</b> Load in the data</a></li>
-<li class="chapter" data-level="16.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>16.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
-<li class="chapter" data-level="16.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>16.4</b> Add the protein expression levels to the Seurat object</a></li>
-<li class="chapter" data-level="16.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>16.5</b> Visualize protein levels on RNA clusters</a></li>
-<li class="chapter" data-level="16.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>16.6</b> Identify differentially expressed proteins between clusters</a></li>
-<li class="chapter" data-level="16.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>16.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="15" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>15</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="15.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="15.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>15.2</b> Load in the data</a></li>
+<li class="chapter" data-level="15.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>15.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="15.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>15.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="15.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>15.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="15.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>15.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="15.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>15.7</b> Cluster directly on protein levels</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>17</b> Additional exploration: another example of multi-modal analysis</a><ul>
-<li class="chapter" data-level="17.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>17.1</b> Acknowledgements</a></li>
+<li class="chapter" data-level="16" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>16</b> Additional exploration: another example of multi-modal analysis</a><ul>
+<li class="chapter" data-level="16.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>16.1</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>18</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="18.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>18.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="18.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>18.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="18.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>18.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="18.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>18.4</b> Online courses</a></li>
+<li class="chapter" data-level="17" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>17</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="17.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>17.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="17.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>17.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="17.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>17.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="17.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>17.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -332,253 +331,383 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.2</span> Seurat Tutorial Redo</h2>
 <p>For this tutorial, we will be analyzing the a dataset of Non-Small Cell Lung Cancer Cells (NSCLC) freely available from 10X Genomics (<a href="https://support.10xgenomics.com/single-cell-vdj/datasets/2.2.0/vdj_v1_hs_nsclc_5gex" class="uri">https://support.10xgenomics.com/single-cell-vdj/datasets/2.2.0/vdj_v1_hs_nsclc_5gex</a>), using the Seurat R package (<a href="http://satijalab.org/seurat/" class="uri">http://satijalab.org/seurat/</a>), a popular and powerful set of tools to conduct scRNA-seq analysis in R. In this dataset, there are 7802 single cells that were sequenced on the Illumina NovaSeq 6000. Please note this tutorial borrows heavily from Seurat’s tutorials, so feel free to go through them in more detail.</p>
 <p><strong>Task: Check the dirname to directory where you saved your data</strong></p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="feature-selection-and-cluster-analysis.html#cb190-1"></a>knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">progress=</span><span class="ot">FALSE</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb190-2"><a href="feature-selection-and-cluster-analysis.html#cb190-2"></a></span>
-<span id="cb190-3"><a href="feature-selection-and-cluster-analysis.html#cb190-3"></a><span class="kw">library</span>(Seurat)</span>
-<span id="cb190-4"><a href="feature-selection-and-cluster-analysis.html#cb190-4"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb190-5"><a href="feature-selection-and-cluster-analysis.html#cb190-5"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb190-6"><a href="feature-selection-and-cluster-analysis.html#cb190-6"></a><span class="kw">library</span>(CountClust)</span>
-<span id="cb190-7"><a href="feature-selection-and-cluster-analysis.html#cb190-7"></a></span>
-<span id="cb190-8"><a href="feature-selection-and-cluster-analysis.html#cb190-8"></a>dirname &lt;-<span class="st"> &quot;data/&quot;</span></span>
-<span id="cb190-9"><a href="feature-selection-and-cluster-analysis.html#cb190-9"></a></span>
-<span id="cb190-10"><a href="feature-selection-and-cluster-analysis.html#cb190-10"></a>counts_matrix_filename =<span class="st"> </span><span class="kw">paste0</span>(dirname, <span class="st">&quot;filtered_gene_bc_matrices/GRCh38/&quot;</span>)</span>
-<span id="cb190-11"><a href="feature-selection-and-cluster-analysis.html#cb190-11"></a>counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> counts_matrix_filename)  <span class="co"># Seurat function to read in 10x count data</span></span></code></pre></div>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="feature-selection-and-cluster-analysis.html#cb191-1"></a><span class="co">## Using the first 1000 cells for computational efficiency</span></span>
-<span id="cb191-2"><a href="feature-selection-and-cluster-analysis.html#cb191-2"></a>seurat &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> counts, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.features =</span> <span class="dv">350</span>, <span class="dt">project =</span> <span class="st">&quot;10X_NSCLC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">progress=</span><span class="ot">FALSE</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb192-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="kw">library</span>(Seurat)</a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb192-6" data-line-number="6"><span class="kw">library</span>(CountClust)</a>
+<a class="sourceLine" id="cb192-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb192-8" data-line-number="8">dirname &lt;-<span class="st"> &quot;data/&quot;</span></a>
+<a class="sourceLine" id="cb192-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb192-10" data-line-number="10">counts_matrix_filename =<span class="st"> </span><span class="kw">paste0</span>(dirname, <span class="st">&quot;filtered_gene_bc_matrices/GRCh38/&quot;</span>)</a>
+<a class="sourceLine" id="cb192-11" data-line-number="11">counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> counts_matrix_filename)  <span class="co"># Seurat function to read in 10x count data</span></a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="co">## Using the first 1000 cells for computational efficiency</span></a>
+<a class="sourceLine" id="cb193-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> counts, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.features =</span> <span class="dv">350</span>, <span class="dt">project =</span> <span class="st">&quot;10X_NSCLC&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Feature names cannot have underscores (&#39;_&#39;), replacing with dashes (&#39;-&#39;)</code></pre>
 <div id="preprocessing-steps" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Preprocessing Steps</h3>
 <p>This was all covered in Dana’s Lab!</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="feature-selection-and-cluster-analysis.html#cb192-1"></a><span class="co"># The number of genes and UMIs (nFeature_RNA nCount_RNA) are automatically calculated</span></span>
-<span id="cb192-2"><a href="feature-selection-and-cluster-analysis.html#cb192-2"></a><span class="co"># for every object by Seurat.  For non-UMI data, nCount_RNA represents the sum of</span></span>
-<span id="cb192-3"><a href="feature-selection-and-cluster-analysis.html#cb192-3"></a><span class="co"># the non-normalized values within a cell We calculate the percentage of</span></span>
-<span id="cb192-4"><a href="feature-selection-and-cluster-analysis.html#cb192-4"></a><span class="co"># mitochondrial genes here and store it in percent.mito using AddMetaData.</span></span>
-<span id="cb192-5"><a href="feature-selection-and-cluster-analysis.html#cb192-5"></a><span class="co"># We use object@raw.data since this represents non-transformed and</span></span>
-<span id="cb192-6"><a href="feature-selection-and-cluster-analysis.html#cb192-6"></a><span class="co"># non-log-normalized counts The % of UMI mapping to MT-genes is a common</span></span>
-<span id="cb192-7"><a href="feature-selection-and-cluster-analysis.html#cb192-7"></a><span class="co"># scRNA-seq QC metric.</span></span>
-<span id="cb192-8"><a href="feature-selection-and-cluster-analysis.html#cb192-8"></a><span class="co"># Load the the list of house keeping genes</span></span>
-<span id="cb192-9"><a href="feature-selection-and-cluster-analysis.html#cb192-9"></a>hkgenes &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/resources/tirosh_house_keeping.txt&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)</span>
-<span id="cb192-10"><a href="feature-selection-and-cluster-analysis.html#cb192-10"></a>hkgenes &lt;-<span class="st"> </span><span class="kw">as.vector</span>(hkgenes<span class="op">$</span>V1)</span>
-<span id="cb192-11"><a href="feature-selection-and-cluster-analysis.html#cb192-11"></a></span>
-<span id="cb192-12"><a href="feature-selection-and-cluster-analysis.html#cb192-12"></a><span class="co"># remove hkgenes that were not found</span></span>
-<span id="cb192-13"><a href="feature-selection-and-cluster-analysis.html#cb192-13"></a>hkgenes.found &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">toupper</span>(<span class="kw">rownames</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data)) <span class="op">%in%</span><span class="st"> </span>hkgenes)</span>
-<span id="cb192-14"><a href="feature-selection-and-cluster-analysis.html#cb192-14"></a>n.expressed.hkgenes &lt;-<span class="st"> </span><span class="kw">sum</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data[hkgenes.found, ] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb192-15"><a href="feature-selection-and-cluster-analysis.html#cb192-15"></a></span>
-<span id="cb192-16"><a href="feature-selection-and-cluster-analysis.html#cb192-16"></a><span class="co">## Add to Seurat Meta Data</span></span>
-<span id="cb192-17"><a href="feature-selection-and-cluster-analysis.html#cb192-17"></a>seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> n.expressed.hkgenes, <span class="dt">col.name =</span> <span class="st">&quot;n.exp.hkgenes&quot;</span>)</span>
-<span id="cb192-18"><a href="feature-selection-and-cluster-analysis.html#cb192-18"></a></span>
-<span id="cb192-19"><a href="feature-selection-and-cluster-analysis.html#cb192-19"></a>seurat[[<span class="st">&quot;percent.mito&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(<span class="dt">object =</span> seurat, <span class="dt">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</span>
-<span id="cb192-20"><a href="feature-selection-and-cluster-analysis.html#cb192-20"></a><span class="co">##VlnPlot(object = seurat, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</span></span></code></pre></div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="feature-selection-and-cluster-analysis.html#cb193-1"></a><span class="co"># FeatureScatter is typically used to visualize gene-gene relationships, but can</span></span>
-<span id="cb193-2"><a href="feature-selection-and-cluster-analysis.html#cb193-2"></a><span class="co"># be used for anything calculated by the object, i.e. columns in</span></span>
-<span id="cb193-3"><a href="feature-selection-and-cluster-analysis.html#cb193-3"></a><span class="co"># object@meta.data, PC scores etc.  Since there is a rare subset of cells</span></span>
-<span id="cb193-4"><a href="feature-selection-and-cluster-analysis.html#cb193-4"></a><span class="co"># with an outlier level of high mitochondrial percentage and also low UMI</span></span>
-<span id="cb193-5"><a href="feature-selection-and-cluster-analysis.html#cb193-5"></a><span class="co"># content, we filter these as well</span></span>
-<span id="cb193-6"><a href="feature-selection-and-cluster-analysis.html#cb193-6"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb193-7"><a href="feature-selection-and-cluster-analysis.html#cb193-7"></a><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mito&quot;</span>)</span>
-<span id="cb193-8"><a href="feature-selection-and-cluster-analysis.html#cb193-8"></a><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="feature-selection-and-cluster-analysis.html#cb194-1"></a><span class="co"># We filter out cells that have unique gene counts over 4,000 or less than</span></span>
-<span id="cb194-2"><a href="feature-selection-and-cluster-analysis.html#cb194-2"></a><span class="co"># 350 Note that low thresholds and high thresholds are used to define a</span></span>
-<span id="cb194-3"><a href="feature-selection-and-cluster-analysis.html#cb194-3"></a><span class="co"># &#39;gate&#39;.  -Inf and Inf should be used if you don&#39;t want a lower or upper</span></span>
-<span id="cb194-4"><a href="feature-selection-and-cluster-analysis.html#cb194-4"></a><span class="co"># threshold.</span></span>
-<span id="cb194-5"><a href="feature-selection-and-cluster-analysis.html#cb194-5"></a></span>
-<span id="cb194-6"><a href="feature-selection-and-cluster-analysis.html#cb194-6"></a></span>
-<span id="cb194-7"><a href="feature-selection-and-cluster-analysis.html#cb194-7"></a>seurat &lt;-<span class="st"> </span><span class="kw">subset</span>(seurat, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">350</span> <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb194-8"><a href="feature-selection-and-cluster-analysis.html#cb194-8"></a><span class="st">                   </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span><span class="dv">4000</span> <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb194-9"><a href="feature-selection-and-cluster-analysis.html#cb194-9"></a><span class="st">                   </span>percent.mito <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb194-10"><a href="feature-selection-and-cluster-analysis.html#cb194-10"></a><span class="st">                   </span>n.exp.hkgenes <span class="op">&gt;</span><span class="st"> </span><span class="dv">55</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="feature-selection-and-cluster-analysis.html#cb195-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> seurat, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="feature-selection-and-cluster-analysis.html#cb196-1"></a><span class="co"># Read in a list of cell cycle markers, from Tirosh et al, 2015.</span></span>
-<span id="cb196-2"><a href="feature-selection-and-cluster-analysis.html#cb196-2"></a><span class="co"># We can segregate this list into markers of G2/M phase and markers of S phase.</span></span>
-<span id="cb196-3"><a href="feature-selection-and-cluster-analysis.html#cb196-3"></a>s.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>s.genes</span>
-<span id="cb196-4"><a href="feature-selection-and-cluster-analysis.html#cb196-4"></a>s.genes &lt;-<span class="st"> </span>s.genes[s.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></span>
-<span id="cb196-5"><a href="feature-selection-and-cluster-analysis.html#cb196-5"></a>g2m.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>g2m.genes</span>
-<span id="cb196-6"><a href="feature-selection-and-cluster-analysis.html#cb196-6"></a>g2m.genes &lt;-<span class="st"> </span>g2m.genes[g2m.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></span>
-<span id="cb196-7"><a href="feature-selection-and-cluster-analysis.html#cb196-7"></a></span>
-<span id="cb196-8"><a href="feature-selection-and-cluster-analysis.html#cb196-8"></a>seurat &lt;-<span class="st"> </span><span class="kw">CellCycleScoring</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb196-9"><a href="feature-selection-and-cluster-analysis.html#cb196-9"></a>                           <span class="dt">s.features =</span> s.genes, </span>
-<span id="cb196-10"><a href="feature-selection-and-cluster-analysis.html#cb196-10"></a>                           <span class="dt">g2m.features =</span> g2m.genes, </span>
-<span id="cb196-11"><a href="feature-selection-and-cluster-analysis.html#cb196-11"></a>                           <span class="dt">set.ident =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="feature-selection-and-cluster-analysis.html#cb197-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(<span class="dt">object =</span> seurat, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co"># The number of genes and UMIs (nFeature_RNA nCount_RNA) are automatically calculated</span></a>
+<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="co"># for every object by Seurat.  For non-UMI data, nCount_RNA represents the sum of</span></a>
+<a class="sourceLine" id="cb195-3" data-line-number="3"><span class="co"># the non-normalized values within a cell We calculate the percentage of</span></a>
+<a class="sourceLine" id="cb195-4" data-line-number="4"><span class="co"># mitochondrial genes here and store it in percent.mito using AddMetaData.</span></a>
+<a class="sourceLine" id="cb195-5" data-line-number="5"><span class="co"># We use object@raw.data since this represents non-transformed and</span></a>
+<a class="sourceLine" id="cb195-6" data-line-number="6"><span class="co"># non-log-normalized counts The % of UMI mapping to MT-genes is a common</span></a>
+<a class="sourceLine" id="cb195-7" data-line-number="7"><span class="co"># scRNA-seq QC metric.</span></a>
+<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="co"># Load the the list of house keeping genes</span></a>
+<a class="sourceLine" id="cb195-9" data-line-number="9">hkgenes &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/resources/tirosh_house_keeping.txt&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb195-10" data-line-number="10">hkgenes &lt;-<span class="st"> </span><span class="kw">as.vector</span>(hkgenes<span class="op">$</span>V1)</a>
+<a class="sourceLine" id="cb195-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb195-12" data-line-number="12"><span class="co"># remove hkgenes that were not found</span></a>
+<a class="sourceLine" id="cb195-13" data-line-number="13">hkgenes.found &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">toupper</span>(<span class="kw">rownames</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data)) <span class="op">%in%</span><span class="st"> </span>hkgenes)</a>
+<a class="sourceLine" id="cb195-14" data-line-number="14">n.expressed.hkgenes &lt;-<span class="st"> </span><span class="kw">sum</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data[hkgenes.found, ] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb195-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb195-16" data-line-number="16"><span class="co">## Add to Seurat Meta Data</span></a>
+<a class="sourceLine" id="cb195-17" data-line-number="17">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> n.expressed.hkgenes, <span class="dt">col.name =</span> <span class="st">&quot;n.exp.hkgenes&quot;</span>)</a>
+<a class="sourceLine" id="cb195-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb195-19" data-line-number="19">seurat[[<span class="st">&quot;percent.mito&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(<span class="dt">object =</span> seurat, <span class="dt">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</a>
+<a class="sourceLine" id="cb195-20" data-line-number="20"><span class="co">##VlnPlot(object = seurat, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</span></a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="co"># FeatureScatter is typically used to visualize gene-gene relationships, but can</span></a>
+<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="co"># be used for anything calculated by the object, i.e. columns in</span></a>
+<a class="sourceLine" id="cb196-3" data-line-number="3"><span class="co"># object@meta.data, PC scores etc.  Since there is a rare subset of cells</span></a>
+<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co"># with an outlier level of high mitochondrial percentage and also low UMI</span></a>
+<a class="sourceLine" id="cb196-5" data-line-number="5"><span class="co"># content, we filter these as well</span></a>
+<a class="sourceLine" id="cb196-6" data-line-number="6"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb196-7" data-line-number="7"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mito&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/scatter_plot_v3-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/scatter_plot_v3-2.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="co"># We filter out cells that have unique gene counts over 4,000 or less than</span></a>
+<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="co"># 350 Note that low thresholds and high thresholds are used to define a</span></a>
+<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="co"># &#39;gate&#39;.  -Inf and Inf should be used if you don&#39;t want a lower or upper</span></a>
+<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co"># threshold.</span></a>
+<a class="sourceLine" id="cb198-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb198-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb198-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">subset</span>(seurat, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">350</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-8" data-line-number="8"><span class="st">                   </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span><span class="dv">4000</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-9" data-line-number="9"><span class="st">                   </span>percent.mito <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-10" data-line-number="10"><span class="st">                   </span>n.exp.hkgenes <span class="op">&gt;</span><span class="st"> </span><span class="dv">55</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> seurat, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="co"># Read in a list of cell cycle markers, from Tirosh et al, 2015.</span></a>
+<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="co"># We can segregate this list into markers of G2/M phase and markers of S phase.</span></a>
+<a class="sourceLine" id="cb200-3" data-line-number="3">s.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>s.genes</a>
+<a class="sourceLine" id="cb200-4" data-line-number="4">s.genes &lt;-<span class="st"> </span>s.genes[s.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
+<a class="sourceLine" id="cb200-5" data-line-number="5">g2m.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>g2m.genes</a>
+<a class="sourceLine" id="cb200-6" data-line-number="6">g2m.genes &lt;-<span class="st"> </span>g2m.genes[g2m.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
+<a class="sourceLine" id="cb200-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb200-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">CellCycleScoring</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb200-9" data-line-number="9">                           <span class="dt">s.features =</span> s.genes, </a>
+<a class="sourceLine" id="cb200-10" data-line-number="10">                           <span class="dt">g2m.features =</span> g2m.genes, </a>
+<a class="sourceLine" id="cb200-11" data-line-number="11">                           <span class="dt">set.ident =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(<span class="dt">object =</span> seurat, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</a></code></pre></div>
 </div>
 <div id="start-of-identifying-cell-types" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> Start of Identifying Cell Types</h3>
 <div id="scaling" class="section level4">
 <h4><span class="header-section-number">10.2.2.1</span> Scaling</h4>
 <p>This part is where you mean center the data, substract the mean. You also divide by the standard deviation to make everything to a ‘standard normal’, where the mean is zero and the standard deviation is 1.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="feature-selection-and-cluster-analysis.html#cb198-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="kw">c</span>(<span class="st">&quot;percent.mito&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="kw">c</span>(<span class="st">&quot;percent.mito&quot;</span>))</a></code></pre></div>
+<pre><code>## Regressing out percent.mito</code></pre>
+<pre><code>## Centering and scaling data matrix</code></pre>
 <p><strong>Task: Try Regressing Other Variables</strong></p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="feature-selection-and-cluster-analysis.html#cb199-1"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>) <span class="co">## used for reporducibility</span></span>
-<span id="cb199-2"><a href="feature-selection-and-cluster-analysis.html#cb199-2"></a></span>
-<span id="cb199-3"><a href="feature-selection-and-cluster-analysis.html#cb199-3"></a><span class="co">## randomly making a batch id data.frame</span></span>
-<span id="cb199-4"><a href="feature-selection-and-cluster-analysis.html#cb199-4"></a>batch_ids &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">barcode =</span> <span class="kw">rownames</span>(seurat<span class="op">@</span>meta.data), </span>
-<span id="cb199-5"><a href="feature-selection-and-cluster-analysis.html#cb199-5"></a>                        <span class="dt">batch_id =</span> <span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb199-6"><a href="feature-selection-and-cluster-analysis.html#cb199-6"></a>                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb199-7"><a href="feature-selection-and-cluster-analysis.html#cb199-7"></a></span>
-<span id="cb199-8"><a href="feature-selection-and-cluster-analysis.html#cb199-8"></a><span class="co">## naming batch ids by cell names</span></span>
-<span id="cb199-9"><a href="feature-selection-and-cluster-analysis.html#cb199-9"></a><span class="kw">row.names</span>(batch_ids) &lt;-<span class="st"> </span><span class="kw">row.names</span>(seurat<span class="op">@</span>meta.data)</span>
-<span id="cb199-10"><a href="feature-selection-and-cluster-analysis.html#cb199-10"></a></span>
-<span id="cb199-11"><a href="feature-selection-and-cluster-analysis.html#cb199-11"></a><span class="co">## adding batch ids to the meta data</span></span>
-<span id="cb199-12"><a href="feature-selection-and-cluster-analysis.html#cb199-12"></a>seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> batch_ids, <span class="dt">col.name =</span> <span class="ot">NULL</span>)</span>
-<span id="cb199-13"><a href="feature-selection-and-cluster-analysis.html#cb199-13"></a></span>
-<span id="cb199-14"><a href="feature-selection-and-cluster-analysis.html#cb199-14"></a></span>
-<span id="cb199-15"><a href="feature-selection-and-cluster-analysis.html#cb199-15"></a><span class="co">## try different variables to regress</span></span>
-<span id="cb199-16"><a href="feature-selection-and-cluster-analysis.html#cb199-16"></a>seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="st">&#39;??&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>) <span class="co">## used for reporducibility</span></a>
+<a class="sourceLine" id="cb205-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="co">## randomly making a batch id data.frame</span></a>
+<a class="sourceLine" id="cb205-4" data-line-number="4">batch_ids &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">barcode =</span> <span class="kw">rownames</span>(seurat<span class="op">@</span>meta.data), </a>
+<a class="sourceLine" id="cb205-5" data-line-number="5">                        <span class="dt">batch_id =</span> <span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb205-6" data-line-number="6">                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb205-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb205-8" data-line-number="8"><span class="co">## naming batch ids by cell names</span></a>
+<a class="sourceLine" id="cb205-9" data-line-number="9"><span class="kw">row.names</span>(batch_ids) &lt;-<span class="st"> </span><span class="kw">row.names</span>(seurat<span class="op">@</span>meta.data)</a>
+<a class="sourceLine" id="cb205-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb205-11" data-line-number="11"><span class="co">## adding batch ids to the meta data</span></a>
+<a class="sourceLine" id="cb205-12" data-line-number="12">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> batch_ids, <span class="dt">col.name =</span> <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb205-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb205-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb205-15" data-line-number="15"><span class="co">## try different variables to regress</span></a>
+<a class="sourceLine" id="cb205-16" data-line-number="16">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="st">&#39;??&#39;</span>)</a></code></pre></div>
 </div>
 <div id="perform-linear-dimensional-reduction-pca" class="section level4">
 <h4><span class="header-section-number">10.2.2.2</span> Perform linear dimensional reduction (PCA)</h4>
 <p>This will run pca on the just the variable features found.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="feature-selection-and-cluster-analysis.html#cb200-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb200-2"><a href="feature-selection-and-cluster-analysis.html#cb200-2"></a>               <span class="dt">features =</span> seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>var.features, </span>
-<span id="cb200-3"><a href="feature-selection-and-cluster-analysis.html#cb200-3"></a>               <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
-<span id="cb200-4"><a href="feature-selection-and-cluster-analysis.html#cb200-4"></a>               <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb206-2" data-line-number="2">               <span class="dt">features =</span> seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>var.features, </a>
+<a class="sourceLine" id="cb206-3" data-line-number="3">               <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb206-4" data-line-number="4">               <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## PC_ 1 
+## Positive:  CD74, IRF8, IGHA1, CCR7, TNF 
+## Negative:  IFITM3, CST3, KRT7, S100A11, S100A9 
+## PC_ 2 
+## Positive:  LYZ, AIF1, TYROBP, FCER1G, SERPINA1 
+## Negative:  KRT7, KRT17, SLPI, FXYD3, C19orf33 
+## PC_ 3 
+## Positive:  HLA-DRA, CD74, HLA-DRB1, HLA-DQB1, HLA-DPA1 
+## Negative:  TPSD1, CPA3, TPSAB1, TPSB2, MS4A2 
+## PC_ 4 
+## Positive:  HLA-DQA1, HLA-DRA, HLA-DQB1, HLA-DPA1, HLA-DPB1 
+## Negative:  IL32, CD7, GZMA, NKG7, PRF1 
+## PC_ 5 
+## Positive:  S100A12, SPRR1B, S100A8, SPRR2A, RDH10 
+## Negative:  IGFBP7, GAS6, SFRP1, CALD1, HTRA1</code></pre>
 </div>
 <div id="visualizing-pca-in-different-ways" class="section level4">
 <h4><span class="header-section-number">10.2.2.3</span> Visualizing PCA in Different Ways</h4>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="feature-selection-and-cluster-analysis.html#cb201-1"></a><span class="kw">DimPlot</span>(seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">DimPlot</span>(seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/plot_pca-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="perform-linear-dimensional-reduction-ica" class="section level4">
 <h4><span class="header-section-number">10.2.2.4</span> Perform linear dimensional reduction (ICA)</h4>
 <p><strong>Task:</strong> Try running Independent Component Analysis. If you need help with the inputs try using the ?RunICA menu.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="feature-selection-and-cluster-analysis.html#cb202-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">RunICA</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunICA</span>()</a></code></pre></div>
 </div>
 <div id="visualizing-ica-in-different-ways" class="section level4">
 <h4><span class="header-section-number">10.2.2.5</span> Visualizing ICA in Different Ways</h4>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="feature-selection-and-cluster-analysis.html#cb203-1"></a><span class="kw">DimPlot</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="feature-selection-and-cluster-analysis.html#cb204-1"></a><span class="co"># ProjectDim scores each gene in the dataset (including genes not included</span></span>
-<span id="cb204-2"><a href="feature-selection-and-cluster-analysis.html#cb204-2"></a><span class="co"># in the PCA) based on their correlation with the calculated components.</span></span>
-<span id="cb204-3"><a href="feature-selection-and-cluster-analysis.html#cb204-3"></a><span class="co"># Though we don&#39;t use this further here, it can be used to identify markers</span></span>
-<span id="cb204-4"><a href="feature-selection-and-cluster-analysis.html#cb204-4"></a><span class="co"># that are strongly correlated with cellular heterogeneity, but may not have</span></span>
-<span id="cb204-5"><a href="feature-selection-and-cluster-analysis.html#cb204-5"></a><span class="co"># passed through variable gene selection.  The results of the projected PCA</span></span>
-<span id="cb204-6"><a href="feature-selection-and-cluster-analysis.html#cb204-6"></a><span class="co"># can be explored by setting use.full=T in the functions above</span></span>
-<span id="cb204-7"><a href="feature-selection-and-cluster-analysis.html#cb204-7"></a>seurat &lt;-<span class="st"> </span><span class="kw">ProjectDim</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">DimPlot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="co"># ProjectDim scores each gene in the dataset (including genes not included</span></a>
+<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="co"># in the PCA) based on their correlation with the calculated components.</span></a>
+<a class="sourceLine" id="cb211-3" data-line-number="3"><span class="co"># Though we don&#39;t use this further here, it can be used to identify markers</span></a>
+<a class="sourceLine" id="cb211-4" data-line-number="4"><span class="co"># that are strongly correlated with cellular heterogeneity, but may not have</span></a>
+<a class="sourceLine" id="cb211-5" data-line-number="5"><span class="co"># passed through variable gene selection.  The results of the projected PCA</span></a>
+<a class="sourceLine" id="cb211-6" data-line-number="6"><span class="co"># can be explored by setting use.full=T in the functions above</span></a>
+<a class="sourceLine" id="cb211-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">ProjectDim</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<pre><code>## PC_ 1 
+## Positive:  CD74, IRF8, IGHA1, CCR7, TNF, ITM2A, CCL5, RP5-887A10.1, RP11-731F5.2, PIM2 
+##     CD7, HERPUD1, HLA-DQA1, KIAA0125, STAG3, GZMA, KLRB1, HLA-DPA1, AC079767.4, IGKC 
+## Negative:  IFITM3, CST3, KRT7, S100A11, S100A9, TACSTD2, SLPI, GSTP1, LGALS3, APLP2 
+##     CLDN7, ELF3, GLUL, KRT19, SERINC2, PTGES, S100P, RAC1, FXYD3, S100A6 
+## PC_ 2 
+## Positive:  LYZ, AIF1, TYROBP, FCER1G, SERPINA1, FCGR2A, MS4A6A, CD14, CSF1R, CPVL 
+##     SPI1, CD68, FPR1, FTL, FCGRT, CD163, PILRA, C1orf162, CLEC7A, LILRB2 
+## Negative:  KRT7, KRT17, SLPI, FXYD3, C19orf33, PERP, ELF3, S100P, TACSTD2, PTGES 
+##     KRT19, RPS18, DSP, LCN2, KRT18, KLF5, CLDN7, SERPINB3, AQP3, GPRC5A 
+## PC_ 3 
+## Positive:  HLA-DRA, CD74, HLA-DRB1, HLA-DQB1, HLA-DPA1, HLA-DQA1, HLA-DPB1, IRF8, HLA-DRB5, CD24 
+##     CYBB, RAB31, FCGR2B, RNASE6, KYNU, S100A12, FCN1, S100A8, S100A9, BCL2A1 
+## Negative:  TPSD1, CPA3, TPSAB1, TPSB2, MS4A2, GATA2, HPGDS, SLC18A2, KIT, HDC 
+##     RP11-354E11.2, IL1RL1, VWA5A, CNRIP1, RP11-32B5.7, MAOB, CLU, LTC4S, HPGD, RGS13 
+## PC_ 4 
+## Positive:  HLA-DQA1, HLA-DRA, HLA-DQB1, HLA-DPA1, HLA-DPB1, HLA-DRB1, IRF8, CD74, HLA-DRB5, CD24 
+##     C1orf186, ALOX5, FCGR2B, CD1C, IGHA1, RP5-887A10.1, RP11-731F5.2, HPGDS, DERL3, SLC18A2 
+## Negative:  IL32, CD7, GZMA, NKG7, PRF1, CCL5, CTSW, CST7, KLRB1, CD8A 
+##     IL2RB, CCL4, KLRD1, GNLY, ID2, MT2A, TRBC1, TIGIT, SIRPG, GZMH 
+## PC_ 5 
+## Positive:  S100A12, SPRR1B, S100A8, SPRR2A, RDH10, MUC4, PDZK1IP1, ERO1A, ADGRF1, PRSS22 
+##     MALAT1, RNF39, S100A9, SLC6A14, SPRR3, SCEL, DHRS9, SLC26A9, ELF3, TMPRSS11D 
+## Negative:  IGFBP7, GAS6, SFRP1, CALD1, HTRA1, SOD3, NNMT, IGFBP4, MSLN, SERPINF1 
+##     IGFBP2, CAV1, PCSK1, FBLN1, BCAM, DST, ADIRF, CPE, TUSC3, PPP1R14A</code></pre>
 </div>
 <div id="genes-by-pcs" class="section level4">
 <h4><span class="header-section-number">10.2.2.6</span> Genes by PCs</h4>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="feature-selection-and-cluster-analysis.html#cb205-1"></a><span class="kw">DimHeatmap</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb205-2"><a href="feature-selection-and-cluster-analysis.html#cb205-2"></a>          <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, </span>
-<span id="cb205-3"><a href="feature-selection-and-cluster-analysis.html#cb205-3"></a>          <span class="dt">cells =</span> <span class="dv">50</span>, </span>
-<span id="cb205-4"><a href="feature-selection-and-cluster-analysis.html#cb205-4"></a>          <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>,</span>
-<span id="cb205-5"><a href="feature-selection-and-cluster-analysis.html#cb205-5"></a>          <span class="dt">balanced =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">DimHeatmap</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb213-2" data-line-number="2">          <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb213-3" data-line-number="3">          <span class="dt">cells =</span> <span class="dv">50</span>, </a>
+<a class="sourceLine" id="cb213-4" data-line-number="4">          <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>,</a>
+<a class="sourceLine" id="cb213-5" data-line-number="5">          <span class="dt">balanced =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/pca_heatmap-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Check other PCs to plot</p>
 <p><strong>Task: Check other PCs</strong></p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="feature-selection-and-cluster-analysis.html#cb206-1"></a><span class="kw">DimHeatmap</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="feature-selection-and-cluster-analysis.html#cb207-1"></a>seurat &lt;-<span class="st"> </span><span class="kw">JackStraw</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span>
-<span id="cb207-2"><a href="feature-selection-and-cluster-analysis.html#cb207-2"></a>seurat &lt;-<span class="st"> </span><span class="kw">ScoreJackStraw</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="feature-selection-and-cluster-analysis.html#cb208-1"></a><span class="kw">JackStrawPlot</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="feature-selection-and-cluster-analysis.html#cb209-1"></a><span class="kw">ElbowPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">ndims =</span> <span class="dv">30</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="feature-selection-and-cluster-analysis.html#cb210-1"></a><span class="co"># save.SNN = T saves the SNN so that the clustering algorithm can be rerun</span></span>
-<span id="cb210-2"><a href="feature-selection-and-cluster-analysis.html#cb210-2"></a><span class="co"># using the same graph but with a different resolution value (see docs for</span></span>
-<span id="cb210-3"><a href="feature-selection-and-cluster-analysis.html#cb210-3"></a><span class="co"># full details)</span></span>
-<span id="cb210-4"><a href="feature-selection-and-cluster-analysis.html#cb210-4"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb210-5"><a href="feature-selection-and-cluster-analysis.html#cb210-5"></a>seurat &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(<span class="dt">object =</span> seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
-<span id="cb210-6"><a href="feature-selection-and-cluster-analysis.html#cb210-6"></a>seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb210-7"><a href="feature-selection-and-cluster-analysis.html#cb210-7"></a>                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
-<span id="cb210-8"><a href="feature-selection-and-cluster-analysis.html#cb210-8"></a>                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
-<span id="cb210-9"><a href="feature-selection-and-cluster-analysis.html#cb210-9"></a>                       <span class="dt">resolution =</span> <span class="fl">0.5</span>,</span>
-<span id="cb210-10"><a href="feature-selection-and-cluster-analysis.html#cb210-10"></a>                       <span class="dt">random.seed =</span> <span class="dv">2020</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">DimHeatmap</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">JackStraw</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a>
+<a class="sourceLine" id="cb215-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">ScoreJackStraw</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">JackStrawPlot</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
+<pre><code>## Warning: Removed 28000 rows containing missing values (geom_point).</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/jack_straw_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">PCASigGenes</span>(<span class="dt">object =</span> seurat, <span class="dt">pcs.use =</span> <span class="dv">1</span>, <span class="dt">pval.cut =</span> <span class="fl">0.001</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]</a></code></pre></div>
+<pre><code>##  [1] &quot;JCHAIN&quot;   &quot;IGHA1&quot;    &quot;IGLC2&quot;    &quot;HLA-DQB2&quot; &quot;APOE&quot;     &quot;S100A7&quot;   &quot;S100B&quot;    &quot;IGHG1&quot;    &quot;APOC1&quot;   
+## [10] &quot;SAA1&quot;     &quot;SPP1&quot;     &quot;IGKC&quot;     &quot;IGHV3-23&quot; &quot;IGHM&quot;     &quot;MSMB&quot;     &quot;SERPINB4&quot; &quot;MSLN&quot;     &quot;IGLC3&quot;   
+## [19] &quot;PI3&quot;      &quot;SPRR2A&quot;</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">ElbowPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">ndims =</span> <span class="dv">30</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/pca_elbow-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="co"># save.SNN = T saves the SNN so that the clustering algorithm can be rerun</span></a>
+<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="co"># using the same graph but with a different resolution value (see docs for</span></a>
+<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="co"># full details)</span></a>
+<a class="sourceLine" id="cb221-4" data-line-number="4"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb221-5" data-line-number="5">seurat &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(<span class="dt">object =</span> seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a></code></pre></div>
+<pre><code>## Computing nearest neighbor graph</code></pre>
+<pre><code>## Computing SNN</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb224-2" data-line-number="2">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb224-3" data-line-number="3">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb224-4" data-line-number="4">                       <span class="dt">resolution =</span> <span class="fl">0.6</span>,</a>
+<a class="sourceLine" id="cb224-5" data-line-number="5">                       <span class="dt">random.seed =</span> <span class="dv">2020</span>)</a></code></pre></div>
+<pre><code>## Warning: The following arguments are not used: reduction, dims
+
+## Warning: The following arguments are not used: reduction, dims</code></pre>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 6187
+## Number of edges: 202352
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8875
+## Number of communities: 15
+## Elapsed time: 1 seconds</code></pre>
 </div>
 </div>
 <div id="run-non-linear-dimensional-reduction-umaptsne" class="section level3">
 <h3><span class="header-section-number">10.2.3</span> Run non-linear dimensional reduction (UMAP/tSNE)</h3>
 <p>Seurat offers several non-linear dimensional reduction techniques, such as tSNE and UMAP, to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.</p>
 <p><strong>Task: Look up and tune hyperparameters of the tSNE. (hint: <code>?RunTSNE</code>)</strong></p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="feature-selection-and-cluster-analysis.html#cb211-1"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb211-2"><a href="feature-selection-and-cluster-analysis.html#cb211-2"></a>seurat &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(seurat, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">perplexity=</span><span class="dv">10</span>)</span>
-<span id="cb211-3"><a href="feature-selection-and-cluster-analysis.html#cb211-3"></a></span>
-<span id="cb211-4"><a href="feature-selection-and-cluster-analysis.html#cb211-4"></a><span class="co"># note that you can set do.label=T to help label individual clusters</span></span>
-<span id="cb211-5"><a href="feature-selection-and-cluster-analysis.html#cb211-5"></a><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(seurat, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">perplexity=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb227-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="co"># note that you can set do.label=T to help label individual clusters</span></a>
+<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/run_tsne-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p><strong>Task: Try using UMAP for the non-linear dimension reduction technique (hint: <code>?RunUMAP</code>)</strong></p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="feature-selection-and-cluster-analysis.html#cb212-1"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb212-2"><a href="feature-selection-and-cluster-analysis.html#cb212-2"></a>seurat &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>()</span>
-<span id="cb212-3"><a href="feature-selection-and-cluster-analysis.html#cb212-3"></a></span>
-<span id="cb212-4"><a href="feature-selection-and-cluster-analysis.html#cb212-4"></a><span class="co"># note that you can set label=TRUE to help label individual clusters</span></span>
-<span id="cb212-5"><a href="feature-selection-and-cluster-analysis.html#cb212-5"></a><span class="kw">DimPlot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb228-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>()</a>
+<a class="sourceLine" id="cb228-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb228-4" data-line-number="4"><span class="co"># note that you can set label=TRUE to help label individual clusters</span></a>
+<a class="sourceLine" id="cb228-5" data-line-number="5"><span class="kw">DimPlot</span>()</a></code></pre></div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level4">
 <h4><span class="header-section-number">10.2.3.1</span> Finding differentially expressed features (cluster biomarkers)</h4>
 <p>Seurat can help you find markers that define clusters via differential expression. By default, it identifes positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. FindAllMarkers automates this process for all clusters, but you can also test groups of clusters vs. each other, or against all cells.</p>
 <p>The min.pct argument requires a feature to be detected at a minimum percentage in either of the two groups of cells, and the thresh.test argument requires a feature to be differentially expressed (on average) by some amount between the two groups. You can set both of these to 0, but with a dramatic increase in time - since this will test a large number of features that are unlikely to be highly discriminatory. As another option to speed up these computations, max.cells.per.ident can be set. This will downsample each identity class to have no more cells than whatever this is set to. While there is generally going to be a loss in power, the speed increases can be significiant and the most highly differentially expressed features will likely still rise to the top.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="feature-selection-and-cluster-analysis.html#cb213-1"></a><span class="co"># find all markers of cluster 1 using default parameters</span></span>
-<span id="cb213-2"><a href="feature-selection-and-cluster-analysis.html#cb213-2"></a>cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb213-3"><a href="feature-selection-and-cluster-analysis.html#cb213-3"></a>                                <span class="dt">ident.1 =</span> <span class="dv">1</span>,</span>
-<span id="cb213-4"><a href="feature-selection-and-cluster-analysis.html#cb213-4"></a>                                <span class="dt">min.pct =</span> <span class="fl">0.1</span>)</span>
-<span id="cb213-5"><a href="feature-selection-and-cluster-analysis.html#cb213-5"></a></span>
-<span id="cb213-6"><a href="feature-selection-and-cluster-analysis.html#cb213-6"></a><span class="kw">head</span>(cluster1.markers)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co"># find all markers of cluster 1 using default parameters</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb229-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb229-4" data-line-number="4">                                <span class="dt">min.pct =</span> <span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb229-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb229-6" data-line-number="6"><span class="kw">head</span>(cluster1.markers)</a></code></pre></div>
+<pre><code>##                p_val avg_logFC pct.1 pct.2     p_val_adj
+## IL7R    0.000000e+00 1.7849385 0.913 0.201  0.000000e+00
+## CD3E    0.000000e+00 1.1829350 0.945 0.215  0.000000e+00
+## IL32    0.000000e+00 1.1492149 0.953 0.274  0.000000e+00
+## CD3D    0.000000e+00 1.0278812 0.858 0.177  0.000000e+00
+## CD40LG 3.373243e-278 0.8890083 0.401 0.036 6.818336e-274
+## GIMAP4 3.823325e-256 1.0141440 0.655 0.160 7.728087e-252</code></pre>
 <p><strong>Task: Try tuning different parameters. How does that affect results?</strong></p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="feature-selection-and-cluster-analysis.html#cb214-1"></a><span class="co"># find all markers distinguishing cluster 5 from clusters 0 and 1</span></span>
-<span id="cb214-2"><a href="feature-selection-and-cluster-analysis.html#cb214-2"></a>cluster5.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb214-3"><a href="feature-selection-and-cluster-analysis.html#cb214-3"></a>                                <span class="dt">ident.1 =</span> <span class="dv">5</span>, <span class="dt">ident.2 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb214-4"><a href="feature-selection-and-cluster-analysis.html#cb214-4"></a>                                <span class="dt">min.pct =</span> ?? </span>
-<span id="cb214-5"><a href="feature-selection-and-cluster-analysis.html#cb214-5"></a>                                <span class="dt">only.pos =</span> ??)</span>
-<span id="cb214-6"><a href="feature-selection-and-cluster-analysis.html#cb214-6"></a></span>
-<span id="cb214-7"><a href="feature-selection-and-cluster-analysis.html#cb214-7"></a><span class="kw">head</span>(cluster5.markers)</span></code></pre></div>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="feature-selection-and-cluster-analysis.html#cb215-1"></a>cluster3.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb215-2"><a href="feature-selection-and-cluster-analysis.html#cb215-2"></a>                                <span class="dt">ident.1 =</span> <span class="dv">3</span>, </span>
-<span id="cb215-3"><a href="feature-selection-and-cluster-analysis.html#cb215-3"></a>                                <span class="dt">thresh.use =</span> <span class="fl">0.25</span>, </span>
-<span id="cb215-4"><a href="feature-selection-and-cluster-analysis.html#cb215-4"></a>                                <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb215-5"><a href="feature-selection-and-cluster-analysis.html#cb215-5"></a></span>
-<span id="cb215-6"><a href="feature-selection-and-cluster-analysis.html#cb215-6"></a><span class="kw">head</span>(cluster3.markers)</span></code></pre></div>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="feature-selection-and-cluster-analysis.html#cb216-1"></a><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="feature-selection-and-cluster-analysis.html#cb217-1"></a><span class="co"># you can plot raw UMI counts as well</span></span>
-<span id="cb217-2"><a href="feature-selection-and-cluster-analysis.html#cb217-2"></a><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb217-3"><a href="feature-selection-and-cluster-analysis.html#cb217-3"></a>        <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), </span>
-<span id="cb217-4"><a href="feature-selection-and-cluster-analysis.html#cb217-4"></a>        <span class="dt">log =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="feature-selection-and-cluster-analysis.html#cb218-1"></a><span class="co"># find markers for every cluster compared to all remaining cells, report</span></span>
-<span id="cb218-2"><a href="feature-selection-and-cluster-analysis.html#cb218-2"></a><span class="co"># only the positive ones</span></span>
-<span id="cb218-3"><a href="feature-selection-and-cluster-analysis.html#cb218-3"></a>nsclc.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>, <span class="dt">thresh.use =</span> <span class="fl">0.25</span>)</span>
-<span id="cb218-4"><a href="feature-selection-and-cluster-analysis.html#cb218-4"></a>nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">2</span>, avg_logFC)</span></code></pre></div>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="feature-selection-and-cluster-analysis.html#cb219-1"></a><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb219-2"><a href="feature-selection-and-cluster-analysis.html#cb219-2"></a>            <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>, <span class="st">&quot;CD8A&quot;</span>),</span>
-<span id="cb219-3"><a href="feature-selection-and-cluster-analysis.html#cb219-3"></a>            <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </span>
-<span id="cb219-4"><a href="feature-selection-and-cluster-analysis.html#cb219-4"></a>            <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="feature-selection-and-cluster-analysis.html#cb220-1"></a>top10 &lt;-<span class="st"> </span>nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>, avg_logFC)</span>
-<span id="cb220-2"><a href="feature-selection-and-cluster-analysis.html#cb220-2"></a><span class="co"># setting slim.col.label to TRUE will print just the cluster IDS instead of</span></span>
-<span id="cb220-3"><a href="feature-selection-and-cluster-analysis.html#cb220-3"></a><span class="co"># every cell name</span></span>
-<span id="cb220-4"><a href="feature-selection-and-cluster-analysis.html#cb220-4"></a><span class="kw">DoHeatmap</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> top10<span class="op">$</span>gene, <span class="dt">label =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="feature-selection-and-cluster-analysis.html#cb221-1"></a><span class="co">## pbmc markers</span></span>
-<span id="cb221-2"><a href="feature-selection-and-cluster-analysis.html#cb221-2"></a><span class="co"># new.cluster.ids &lt;- c(&quot;Memory CD4 T&quot;, &quot;Naive CD4 T&quot;, &quot;CD14+ Mono&quot;, &quot;B&quot;, &quot;CD8 T&quot;, </span></span>
-<span id="cb221-3"><a href="feature-selection-and-cluster-analysis.html#cb221-3"></a><span class="co">#                      &quot;FCGR3A+ Mono&quot;, &quot;NK&quot;, &quot;DC&quot;, &quot;Mk&quot;)</span></span>
-<span id="cb221-4"><a href="feature-selection-and-cluster-analysis.html#cb221-4"></a></span>
-<span id="cb221-5"><a href="feature-selection-and-cluster-analysis.html#cb221-5"></a><span class="co">## making generic cell type names</span></span>
-<span id="cb221-6"><a href="feature-selection-and-cluster-analysis.html#cb221-6"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;CellType&quot;</span>, <span class="kw">levels</span>(seurat<span class="op">@</span>active.ident))</span>
-<span id="cb221-7"><a href="feature-selection-and-cluster-analysis.html#cb221-7"></a><span class="kw">names</span>(<span class="dt">x =</span> new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(<span class="dt">x =</span> seurat)</span>
-<span id="cb221-8"><a href="feature-selection-and-cluster-analysis.html#cb221-8"></a>seurat &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(<span class="dt">object =</span> seurat, new.cluster.ids)</span>
-<span id="cb221-9"><a href="feature-selection-and-cluster-analysis.html#cb221-9"></a></span>
-<span id="cb221-10"><a href="feature-selection-and-cluster-analysis.html#cb221-10"></a><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&#39;tsne&#39;</span>, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="co"># find all markers distinguishing cluster 5 from clusters 0 and 1</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2">cluster5.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb231-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">5</span>, <span class="dt">ident.2 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb231-4" data-line-number="4">                                <span class="dt">min.pct =</span> ?? </a>
+<a class="sourceLine" id="cb231-5" data-line-number="5">                                <span class="dt">only.pos =</span> ??)</a>
+<a class="sourceLine" id="cb231-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb231-7" data-line-number="7"><span class="kw">head</span>(cluster5.markers)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">cluster3.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb232-2" data-line-number="2">                                <span class="dt">ident.1 =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb232-3" data-line-number="3">                                <span class="dt">thresh.use =</span> <span class="fl">0.25</span>, </a>
+<a class="sourceLine" id="cb232-4" data-line-number="4">                                <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb232-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb232-6" data-line-number="6"><span class="kw">head</span>(cluster3.markers)</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/plot_cluster3_markers-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="co"># you can plot raw UMI counts as well</span></a>
+<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb234-3" data-line-number="3">        <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), </a>
+<a class="sourceLine" id="cb234-4" data-line-number="4">        <span class="dt">log =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/plot_by_umi-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="co"># find markers for every cluster compared to all remaining cells, report</span></a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="co"># only the positive ones</span></a>
+<a class="sourceLine" id="cb235-3" data-line-number="3">nsclc.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>, <span class="dt">thresh.use =</span> <span class="fl">0.25</span>)</a></code></pre></div>
+<pre><code>## Calculating cluster 0</code></pre>
+<pre><code>## Calculating cluster 1</code></pre>
+<pre><code>## Calculating cluster 2</code></pre>
+<pre><code>## Calculating cluster 3</code></pre>
+<pre><code>## Calculating cluster 4</code></pre>
+<pre><code>## Calculating cluster 5</code></pre>
+<pre><code>## Calculating cluster 6</code></pre>
+<pre><code>## Calculating cluster 7</code></pre>
+<pre><code>## Calculating cluster 8</code></pre>
+<pre><code>## Calculating cluster 9</code></pre>
+<pre><code>## Calculating cluster 10</code></pre>
+<pre><code>## Calculating cluster 11</code></pre>
+<pre><code>## Calculating cluster 12</code></pre>
+<pre><code>## Calculating cluster 13</code></pre>
+<pre><code>## Calculating cluster 14</code></pre>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">2</span>, avg_logFC)</a></code></pre></div>
+<pre><code>## # A tibble: 30 x 7
+## # Groups:   cluster [15]
+##        p_val avg_logFC pct.1 pct.2 p_val_adj cluster gene 
+##        &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;chr&gt;
+##  1 0.            1.42  0.98  0.189 0.        0       MS4A1
+##  2 0.            1.36  0.981 0.219 0.        0       CD79A
+##  3 0.            1.78  0.913 0.201 0.        1       IL7R 
+##  4 1.48e-245     1.20  0.568 0.11  2.99e-241 1       KLRB1
+##  5 7.48e-218     1.09  0.921 0.321 1.51e-213 2       MS4A1
+##  6 1.51e-189     0.961 0.907 0.35  3.05e-185 2       CD79A
+##  7 5.82e-263     2.00  0.468 0.054 1.18e-258 3       GZMK 
+##  8 2.59e-236     1.81  0.692 0.178 5.24e-232 3       CCL5 
+##  9 0.            3.39  0.909 0.128 0.        4       KRT17
+## 10 0.            3.37  0.834 0.047 0.        4       SLPI 
+## # … with 20 more rows</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb253-2" data-line-number="2">            <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>, <span class="st">&quot;CD8A&quot;</span>),</a>
+<a class="sourceLine" id="cb253-3" data-line-number="3">            <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
+<a class="sourceLine" id="cb253-4" data-line-number="4">            <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/gene_tsne-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">top10 &lt;-<span class="st"> </span>nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>, avg_logFC)</a>
+<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="co"># setting slim.col.label to TRUE will print just the cluster IDS instead of</span></a>
+<a class="sourceLine" id="cb254-3" data-line-number="3"><span class="co"># every cell name</span></a>
+<a class="sourceLine" id="cb254-4" data-line-number="4"><span class="kw">DoHeatmap</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> top10<span class="op">$</span>gene, <span class="dt">label =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Warning in DoHeatmap(object = seurat, features = top10$gene, label = TRUE): The following features were
+## omitted as they were not found in the scale.data slot for the RNA assay: PTPRCAP, SEPT6, ENTPD1, DUSP2, RCSD1,
+## PCSK7, AIM1, TNFAIP3, PRKCH, CD6, ITK, CD2, SCIMP, AIM2, POU2AF1, TNFRSF13B, LDHB, LEPROTL1, FYB, GIMAP7,
+## GIMAP4, CD3D, CD3E, IL7R, SMIM14, CD19, LINC00926, CD37, FCRLA, CD79B, BANK1, CD79A, MS4A1</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/do_heatmap-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="co">## pbmc markers</span></a>
+<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="co"># new.cluster.ids &lt;- c(&quot;Memory CD4 T&quot;, &quot;Naive CD4 T&quot;, &quot;CD14+ Mono&quot;, &quot;B&quot;, &quot;CD8 T&quot;, </span></a>
+<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="co">#                      &quot;FCGR3A+ Mono&quot;, &quot;NK&quot;, &quot;DC&quot;, &quot;Mk&quot;)</span></a>
+<a class="sourceLine" id="cb256-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb256-5" data-line-number="5"><span class="co">## making generic cell type names</span></a>
+<a class="sourceLine" id="cb256-6" data-line-number="6">new.cluster.ids &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;CellType&quot;</span>, <span class="kw">levels</span>(seurat<span class="op">@</span>active.ident))</a>
+<a class="sourceLine" id="cb256-7" data-line-number="7"><span class="kw">names</span>(<span class="dt">x =</span> new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(<span class="dt">x =</span> seurat)</a>
+<a class="sourceLine" id="cb256-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(<span class="dt">object =</span> seurat, new.cluster.ids)</a>
+<a class="sourceLine" id="cb256-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb256-10" data-line-number="10"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&#39;tsne&#39;</span>, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a></code></pre></div>
+<pre><code>## Warning: Using `as.character()` on a quosure is deprecated as of rlang 0.3.0.
+## Please use `as_label()` or `as_name()` instead.
+## This warning is displayed once per session.</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/new_names-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="further-subdivisions-within-cell-types" class="section level4">
 <h4><span class="header-section-number">10.2.3.2</span> Further subdivisions within cell types</h4>
 <p>If you perturb some of our parameter choices above (for example, setting resolution=0.8 or changing the number of PCs), you might see cells subdivide into two groups. You can explore this subdivision to find markers separating the two cell subsets. However, before reclustering (which will overwrite <a href="mailto:object@ident" class="email">object@ident</a>), we can stash our renamed identities to be easily recovered later.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="feature-selection-and-cluster-analysis.html#cb222-1"></a><span class="co"># First lets stash our identities for later</span></span>
-<span id="cb222-2"><a href="feature-selection-and-cluster-analysis.html#cb222-2"></a>seurat[[<span class="st">&quot;ClusterNames_0.6&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(<span class="dt">object =</span> seurat)</span>
-<span id="cb222-3"><a href="feature-selection-and-cluster-analysis.html#cb222-3"></a></span>
-<span id="cb222-4"><a href="feature-selection-and-cluster-analysis.html#cb222-4"></a><span class="co"># Note that if you set save.snn=T above, you don&#39;t need to recalculate the</span></span>
-<span id="cb222-5"><a href="feature-selection-and-cluster-analysis.html#cb222-5"></a><span class="co"># SNN, and can simply put: seurat &lt;- FindClusters(seurat, resolution = 0.8)</span></span>
-<span id="cb222-6"><a href="feature-selection-and-cluster-analysis.html#cb222-6"></a>seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb222-7"><a href="feature-selection-and-cluster-analysis.html#cb222-7"></a>                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
-<span id="cb222-8"><a href="feature-selection-and-cluster-analysis.html#cb222-8"></a>                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
-<span id="cb222-9"><a href="feature-selection-and-cluster-analysis.html#cb222-9"></a>                       <span class="dt">resolution =</span> <span class="fl">0.8</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="feature-selection-and-cluster-analysis.html#cb223-1"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb223-2"><a href="feature-selection-and-cluster-analysis.html#cb223-2"></a><span class="co">## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type</span></span>
-<span id="cb223-3"><a href="feature-selection-and-cluster-analysis.html#cb223-3"></a><span class="co">## = reduction.type, : Build parameters exactly match those of already</span></span>
-<span id="cb223-4"><a href="feature-selection-and-cluster-analysis.html#cb223-4"></a><span class="co">## computed and stored SNN. To force recalculation, set force.recalc to TRUE.</span></span>
-<span id="cb223-5"><a href="feature-selection-and-cluster-analysis.html#cb223-5"></a><span class="co"># Demonstration of how to plot two tSNE plots side by side, and how to color</span></span>
-<span id="cb223-6"><a href="feature-selection-and-cluster-analysis.html#cb223-6"></a><span class="co"># points based on different criteria</span></span>
-<span id="cb223-7"><a href="feature-selection-and-cluster-analysis.html#cb223-7"></a>plot1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb223-8"><a href="feature-selection-and-cluster-analysis.html#cb223-8"></a>                 <span class="dt">reduction=</span> <span class="st">&quot;tsne&quot;</span>,</span>
-<span id="cb223-9"><a href="feature-selection-and-cluster-analysis.html#cb223-9"></a>                 <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb223-10"><a href="feature-selection-and-cluster-analysis.html#cb223-10"></a></span>
-<span id="cb223-11"><a href="feature-selection-and-cluster-analysis.html#cb223-11"></a>plot2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </span>
-<span id="cb223-12"><a href="feature-selection-and-cluster-analysis.html#cb223-12"></a>                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>, </span>
-<span id="cb223-13"><a href="feature-selection-and-cluster-analysis.html#cb223-13"></a>                  <span class="dt">group.by =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>,</span>
-<span id="cb223-14"><a href="feature-selection-and-cluster-analysis.html#cb223-14"></a>                  <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb223-15"><a href="feature-selection-and-cluster-analysis.html#cb223-15"></a></span>
-<span id="cb223-16"><a href="feature-selection-and-cluster-analysis.html#cb223-16"></a><span class="co"># patchwork system</span></span>
-<span id="cb223-17"><a href="feature-selection-and-cluster-analysis.html#cb223-17"></a>plot1 <span class="op">+</span><span class="st"> </span>plot2</span></code></pre></div>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="feature-selection-and-cluster-analysis.html#cb224-1"></a><span class="co"># Find discriminating markers</span></span>
-<span id="cb224-2"><a href="feature-selection-and-cluster-analysis.html#cb224-2"></a>cell.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>)</span>
-<span id="cb224-3"><a href="feature-selection-and-cluster-analysis.html#cb224-3"></a></span>
-<span id="cb224-4"><a href="feature-selection-and-cluster-analysis.html#cb224-4"></a><span class="co"># Checking some markers found</span></span>
-<span id="cb224-5"><a href="feature-selection-and-cluster-analysis.html#cb224-5"></a><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;S100A4&quot;</span>, <span class="st">&quot;CCR7&quot;</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="co"># First lets stash our identities for later</span></a>
+<a class="sourceLine" id="cb258-2" data-line-number="2">seurat[[<span class="st">&quot;ClusterNames_0.6&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(<span class="dt">object =</span> seurat)</a>
+<a class="sourceLine" id="cb258-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb258-4" data-line-number="4"><span class="co"># Note that if you set save.snn=T above, you don&#39;t need to recalculate the</span></a>
+<a class="sourceLine" id="cb258-5" data-line-number="5"><span class="co"># SNN, and can simply put: seurat &lt;- FindClusters(seurat, resolution = 0.8)</span></a>
+<a class="sourceLine" id="cb258-6" data-line-number="6">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb258-7" data-line-number="7">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb258-8" data-line-number="8">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb258-9" data-line-number="9">                       <span class="dt">resolution =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<pre><code>## Warning: The following arguments are not used: reduction, dims
+
+## Warning: The following arguments are not used: reduction, dims</code></pre>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 6187
+## Number of edges: 202352
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8664
+## Number of communities: 15
+## Elapsed time: 0 seconds</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1"><span class="co">## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type</span></a>
+<a class="sourceLine" id="cb261-2" data-line-number="2"><span class="co">## = reduction.type, : Build parameters exactly match those of already</span></a>
+<a class="sourceLine" id="cb261-3" data-line-number="3"><span class="co">## computed and stored SNN. To force recalculation, set force.recalc to TRUE.</span></a>
+<a class="sourceLine" id="cb261-4" data-line-number="4"><span class="co"># Demonstration of how to plot two tSNE plots side by side, and how to color</span></a>
+<a class="sourceLine" id="cb261-5" data-line-number="5"><span class="co"># points based on different criteria</span></a>
+<a class="sourceLine" id="cb261-6" data-line-number="6">plot1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb261-7" data-line-number="7">                 <span class="dt">reduction=</span> <span class="st">&quot;tsne&quot;</span>,</a>
+<a class="sourceLine" id="cb261-8" data-line-number="8">                 <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
+<a class="sourceLine" id="cb261-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb261-10" data-line-number="10">plot2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb261-11" data-line-number="11">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>, </a>
+<a class="sourceLine" id="cb261-12" data-line-number="12">                  <span class="dt">group.by =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>,</a>
+<a class="sourceLine" id="cb261-13" data-line-number="13">                  <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
+<a class="sourceLine" id="cb261-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb261-15" data-line-number="15"><span class="co"># patchwork system</span></a>
+<a class="sourceLine" id="cb261-16" data-line-number="16">plot1 <span class="op">+</span><span class="st"> </span>plot2</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/compare_params-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1"><span class="co"># Find discriminating markers</span></a>
+<a class="sourceLine" id="cb262-2" data-line-number="2">cell.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb262-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb262-4" data-line-number="4"><span class="co"># Checking some markers found</span></a>
+<a class="sourceLine" id="cb262-5" data-line-number="5"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;S100A4&quot;</span>, <span class="st">&quot;CCR7&quot;</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/cell_markers-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -589,11 +718,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="differential-expression-tests" class="section level4">
 <h4><span class="header-section-number">10.3.1.1</span> Differential Expression Tests</h4>
 <p>One of the most commonly performed tasks for RNA-seq data is differential gene expression (DE) analysis. Although well-established tools exist for such analysis in bulk RNA-seq data, methods for scRNA-seq data are just emerging. Given the special characteristics of scRNA-seq data, including generally low library sizes, high noise levels and a large fraction of so-called ‘dropout’ events, it is unclear whether DE methods that have been developed for bulk RNA-seq are suitable also for scRNA-seq. Check the help page out for the FindMarkers function by using <code> ?FindMarkers </code></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="feature-selection-and-cluster-analysis.html#cb225-1"></a><span class="co">## Differential expression using t-test</span></span>
-<span id="cb225-2"><a href="feature-selection-and-cluster-analysis.html#cb225-2"></a><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1"><span class="co">## Differential expression using t-test</span></a>
+<a class="sourceLine" id="cb263-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> <span class="st">&quot;t&quot;</span>)</a></code></pre></div>
 <p><strong>Task:</strong> Try to use different test for diffential expression analysis (hint: <code>?FindMarkers</code>)</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="feature-selection-and-cluster-analysis.html#cb226-1"></a><span class="co">## Use the help function and run other tests.  Do they find similar markers?</span></span>
-<span id="cb226-2"><a href="feature-selection-and-cluster-analysis.html#cb226-2"></a><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> ??)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1"><span class="co">## Use the help function and run other tests.  Do they find similar markers?</span></a>
+<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> ??)</a></code></pre></div>
 </div>
 </div>
 <div id="check-clusters" class="section level3">
@@ -601,133 +730,268 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How do we test the cell types identified? How do we know how reliable they are?</p>
 <p>Use Classifier to predict cell cluster. See how it predicts using hold out data.
 <a href="https://satijalab.org/seurat/v3.0/integration.html">reference</a></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="feature-selection-and-cluster-analysis.html#cb227-1"></a><span class="co"># Assign the test object a three level attribute</span></span>
-<span id="cb227-2"><a href="feature-selection-and-cluster-analysis.html#cb227-2"></a>groups &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>), <span class="dt">size =</span> <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
-<span id="cb227-3"><a href="feature-selection-and-cluster-analysis.html#cb227-3"></a><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seurat)</span>
-<span id="cb227-4"><a href="feature-selection-and-cluster-analysis.html#cb227-4"></a>seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> groups, <span class="dt">col.name =</span> <span class="st">&quot;group&quot;</span>)</span>
-<span id="cb227-5"><a href="feature-selection-and-cluster-analysis.html#cb227-5"></a></span>
-<span id="cb227-6"><a href="feature-selection-and-cluster-analysis.html#cb227-6"></a><span class="co"># Find Anchors</span></span>
-<span id="cb227-7"><a href="feature-selection-and-cluster-analysis.html#cb227-7"></a>seurat.list &lt;-<span class="st"> </span><span class="kw">SplitObject</span>(seurat, <span class="dt">split.by =</span> <span class="st">&quot;group&quot;</span>)</span>
-<span id="cb227-8"><a href="feature-selection-and-cluster-analysis.html#cb227-8"></a>seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindIntegrationAnchors</span>(<span class="dt">object.list =</span> seurat.list, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
-<span id="cb227-9"><a href="feature-selection-and-cluster-analysis.html#cb227-9"></a>seurat.integrated &lt;-<span class="st"> </span><span class="kw">IntegrateData</span>(<span class="dt">anchorset =</span> seurat.anchors, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
-<span id="cb227-10"><a href="feature-selection-and-cluster-analysis.html#cb227-10"></a></span>
-<span id="cb227-11"><a href="feature-selection-and-cluster-analysis.html#cb227-11"></a>seurat.query &lt;-<span class="st"> </span>seurat.list[[<span class="st">&quot;train&quot;</span>]]</span>
-<span id="cb227-12"><a href="feature-selection-and-cluster-analysis.html#cb227-12"></a>seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindTransferAnchors</span>(<span class="dt">reference =</span> seurat.integrated, </span>
-<span id="cb227-13"><a href="feature-selection-and-cluster-analysis.html#cb227-13"></a>                                      <span class="dt">query =</span> seurat.query, </span>
-<span id="cb227-14"><a href="feature-selection-and-cluster-analysis.html#cb227-14"></a>                                      <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
-<span id="cb227-15"><a href="feature-selection-and-cluster-analysis.html#cb227-15"></a></span>
-<span id="cb227-16"><a href="feature-selection-and-cluster-analysis.html#cb227-16"></a>predictions &lt;-<span class="st"> </span><span class="kw">TransferData</span>(<span class="dt">anchorset =</span> seurat.anchors, </span>
-<span id="cb227-17"><a href="feature-selection-and-cluster-analysis.html#cb227-17"></a>                            <span class="dt">refdata =</span> seurat.integrated<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, </span>
-<span id="cb227-18"><a href="feature-selection-and-cluster-analysis.html#cb227-18"></a>                            <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</span>
-<span id="cb227-19"><a href="feature-selection-and-cluster-analysis.html#cb227-19"></a></span>
-<span id="cb227-20"><a href="feature-selection-and-cluster-analysis.html#cb227-20"></a>seurat.query &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(seurat.query, <span class="dt">metadata =</span> predictions)</span>
-<span id="cb227-21"><a href="feature-selection-and-cluster-analysis.html#cb227-21"></a><span class="kw">table</span>(seurat.query<span class="op">@</span>meta.data<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, seurat.query<span class="op">@</span>meta.data<span class="op">$</span>predicted.id)</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1"><span class="co"># Assign the test object a three level attribute</span></a>
+<a class="sourceLine" id="cb265-2" data-line-number="2">groups &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>), <span class="dt">size =</span> <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb265-3" data-line-number="3"><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seurat)</a>
+<a class="sourceLine" id="cb265-4" data-line-number="4">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> groups, <span class="dt">col.name =</span> <span class="st">&quot;group&quot;</span>)</a>
+<a class="sourceLine" id="cb265-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb265-6" data-line-number="6"><span class="co"># Find Anchors</span></a>
+<a class="sourceLine" id="cb265-7" data-line-number="7">seurat.list &lt;-<span class="st"> </span><span class="kw">SplitObject</span>(seurat, <span class="dt">split.by =</span> <span class="st">&quot;group&quot;</span>)</a>
+<a class="sourceLine" id="cb265-8" data-line-number="8">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindIntegrationAnchors</span>(<span class="dt">object.list =</span> seurat.list, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a></code></pre></div>
+<pre><code>## Computing 2000 integration features</code></pre>
+<pre><code>## Scaling features for provided objects</code></pre>
+<pre><code>## Finding all pairwise anchors</code></pre>
+<pre><code>## Running CCA</code></pre>
+<pre><code>## Merging objects</code></pre>
+<pre><code>## Finding neighborhoods</code></pre>
+<pre><code>## Finding anchors</code></pre>
+<pre><code>##  Found 5057 anchors</code></pre>
+<pre><code>## Filtering anchors</code></pre>
+<pre><code>##  Retained 3633 anchors</code></pre>
+<pre><code>## Extracting within-dataset neighbors</code></pre>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">seurat.integrated &lt;-<span class="st"> </span><span class="kw">IntegrateData</span>(<span class="dt">anchorset =</span> seurat.anchors, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a></code></pre></div>
+<pre><code>## Merging dataset 1 into 2</code></pre>
+<pre><code>## Extracting anchors for merged samples</code></pre>
+<pre><code>## Finding integration vectors</code></pre>
+<pre><code>## Finding integration vector weights</code></pre>
+<pre><code>## Integrating data</code></pre>
+<pre><code>## Warning: Adding a command log without an assay associated with it</code></pre>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1">seurat.query &lt;-<span class="st"> </span>seurat.list[[<span class="st">&quot;train&quot;</span>]]</a>
+<a class="sourceLine" id="cb284-2" data-line-number="2">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindTransferAnchors</span>(<span class="dt">reference =</span> seurat.integrated, </a>
+<a class="sourceLine" id="cb284-3" data-line-number="3">                                      <span class="dt">query =</span> seurat.query, </a>
+<a class="sourceLine" id="cb284-4" data-line-number="4">                                      <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a></code></pre></div>
+<pre><code>## Performing PCA on the provided reference using 2000 features as input.</code></pre>
+<pre><code>## Projecting PCA</code></pre>
+<pre><code>## Finding neighborhoods</code></pre>
+<pre><code>## Finding anchors</code></pre>
+<pre><code>##  Found 13441 anchors</code></pre>
+<pre><code>## Filtering anchors</code></pre>
+<pre><code>##  Retained 10905 anchors</code></pre>
+<pre><code>## Extracting within-dataset neighbors</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1">predictions &lt;-<span class="st"> </span><span class="kw">TransferData</span>(<span class="dt">anchorset =</span> seurat.anchors, </a>
+<a class="sourceLine" id="cb293-2" data-line-number="2">                            <span class="dt">refdata =</span> seurat.integrated<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, </a>
+<a class="sourceLine" id="cb293-3" data-line-number="3">                            <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a></code></pre></div>
+<pre><code>## Finding integration vectors</code></pre>
+<pre><code>## Finding integration vector weights</code></pre>
+<pre><code>## Predicting cell labels</code></pre>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">seurat.query &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(seurat.query, <span class="dt">metadata =</span> predictions)</a>
+<a class="sourceLine" id="cb297-2" data-line-number="2"><span class="kw">table</span>(seurat.query<span class="op">@</span>meta.data<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, seurat.query<span class="op">@</span>meta.data<span class="op">$</span>predicted.id)</a></code></pre></div>
+<pre><code>##             
+##              CellType0 CellType1 CellType10 CellType11 CellType12 CellType13 CellType14 CellType2 CellType3
+##   CellType0       1249         0          0          0          0          0          0        21         0
+##   CellType1          0       695          0          0          3          0          0         0        24
+##   CellType2        439         0          0          0          0          2          0       126         0
+##   CellType3          0        40          0          0          0          1          0         0       479
+##   CellType4          0         0          4          0          0          0          0         0         0
+##   CellType5          0         0          0          0          0          0          0         0         0
+##   CellType6          0         0          0          0          0          0          0         0         0
+##   CellType7          0         0          0          0          0          0          0         0        18
+##   CellType8          0         0          0          0          0          0          0         3         1
+##   CellType9          0         0          0          0          0          0          0         0         0
+##   CellType10         1         1        116          0          0          0          0         0         0
+##   CellType11         0         0          0        112          0          0          0         0         0
+##   CellType12         0        50          0          0         15          2          0         0        12
+##   CellType13         4         2          0          0          0         53          0         0         1
+##   CellType14         0         0          0          0          0          0         30         0         0
+##             
+##              CellType4 CellType5 CellType6 CellType7 CellType8 CellType9
+##   CellType0          0         0         0         0         0         0
+##   CellType1          0         0         0         0         0         0
+##   CellType2          0         0         0         0         0         0
+##   CellType3          0         0         0        14         0         0
+##   CellType4        400         0         0         0         0         0
+##   CellType5          0       253         7         0         1         0
+##   CellType6          0         3       232         0         4         0
+##   CellType7          0         0         0       171         0         0
+##   CellType8          0         2         4         0       164         1
+##   CellType9          0         0         0         0         0       133
+##   CellType10         5         0         0         0         0         0
+##   CellType11         0         0         0         0         0         0
+##   CellType12         0         0         0         1         0         0
+##   CellType13         0         0         0         0         0         0
+##   CellType14         0         0         0         0         0         0</code></pre>
 </div>
 <div id="view-entire-object-structure" class="section level3">
 <h3><span class="header-section-number">10.3.3</span> View Entire Object Structure</h3>
 <p>Notice all the slots and elements added to the object.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="feature-selection-and-cluster-analysis.html#cb228-1"></a><span class="kw">str</span>(seurat)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">str</span>(seurat)</a></code></pre></div>
 <div id="probabilistic-lda" class="section level4">
 <h4><span class="header-section-number">10.3.3.1</span> Probabilistic (LDA)</h4>
 <p>Another type of clustering we can do is a fuzzy or probablistic clustering. This is where cells are not assigned to specifically only one cluster. They get assigned a score for how much the cells belong to each of the clusters (sometimes called topics). This can be helpful for when your dataset continuous processes and/or cellular states as opposed to distinct cell types.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="feature-selection-and-cluster-analysis.html#cb229-1"></a><span class="kw">data</span>(<span class="st">&quot;MouseDeng2014.FitGoM&quot;</span>)</span>
-<span id="cb229-2"><a href="feature-selection-and-cluster-analysis.html#cb229-2"></a><span class="kw">names</span>(MouseDeng2014.FitGoM)</span>
-<span id="cb229-3"><a href="feature-selection-and-cluster-analysis.html#cb229-3"></a>omega &lt;-<span class="st"> </span>MouseDeng2014.FitGoM<span class="op">$</span>clust_<span class="dv">6</span><span class="op">$</span>omega</span>
-<span id="cb229-4"><a href="feature-selection-and-cluster-analysis.html#cb229-4"></a></span>
-<span id="cb229-5"><a href="feature-selection-and-cluster-analysis.html#cb229-5"></a></span>
-<span id="cb229-6"><a href="feature-selection-and-cluster-analysis.html#cb229-6"></a>annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb229-7"><a href="feature-selection-and-cluster-analysis.html#cb229-7"></a>  <span class="dt">sample_id =</span> <span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(omega))),</span>
-<span id="cb229-8"><a href="feature-selection-and-cluster-analysis.html#cb229-8"></a>  <span class="dt">tissue_label =</span> <span class="kw">factor</span>(<span class="kw">rownames</span>(omega),</span>
-<span id="cb229-9"><a href="feature-selection-and-cluster-analysis.html#cb229-9"></a>                        <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>,</span>
-<span id="cb229-10"><a href="feature-selection-and-cluster-analysis.html#cb229-10"></a>                                        <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>, <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>)))</span>
-<span id="cb229-11"><a href="feature-selection-and-cluster-analysis.html#cb229-11"></a>  )</span>
-<span id="cb229-12"><a href="feature-selection-and-cluster-analysis.html#cb229-12"></a></span>
-<span id="cb229-13"><a href="feature-selection-and-cluster-analysis.html#cb229-13"></a><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</span>
-<span id="cb229-14"><a href="feature-selection-and-cluster-analysis.html#cb229-14"></a></span>
-<span id="cb229-15"><a href="feature-selection-and-cluster-analysis.html#cb229-15"></a><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</span>
-<span id="cb229-16"><a href="feature-selection-and-cluster-analysis.html#cb229-16"></a>                <span class="dt">annotation =</span> annotation,</span>
-<span id="cb229-17"><a href="feature-selection-and-cluster-analysis.html#cb229-17"></a>                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Accent&quot;</span>),</span>
-<span id="cb229-18"><a href="feature-selection-and-cluster-analysis.html#cb229-18"></a>                <span class="dt">yaxis_label =</span> <span class="st">&quot;Amplification batch&quot;</span>,</span>
-<span id="cb229-19"><a href="feature-selection-and-cluster-analysis.html#cb229-19"></a>                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb229-20"><a href="feature-selection-and-cluster-analysis.html#cb229-20"></a>                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</span>
-<span id="cb229-21"><a href="feature-selection-and-cluster-analysis.html#cb229-21"></a>                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</span>
-<span id="cb229-22"><a href="feature-selection-and-cluster-analysis.html#cb229-22"></a>                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</span>
-<span id="cb229-23"><a href="feature-selection-and-cluster-analysis.html#cb229-23"></a>                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</span>
-<span id="cb229-24"><a href="feature-selection-and-cluster-analysis.html#cb229-24"></a>                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="feature-selection-and-cluster-analysis.html#cb230-1"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb230-2"><a href="feature-selection-and-cluster-analysis.html#cb230-2"></a></span>
-<span id="cb230-3"><a href="feature-selection-and-cluster-analysis.html#cb230-3"></a><span class="co">## Preprocessing Steps</span></span>
-<span id="cb230-4"><a href="feature-selection-and-cluster-analysis.html#cb230-4"></a>pbmc_small &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</span>
-<span id="cb230-5"><a href="feature-selection-and-cluster-analysis.html#cb230-5"></a>pbmc_small &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> pbmc_small)</span>
-<span id="cb230-6"><a href="feature-selection-and-cluster-analysis.html#cb230-6"></a>pbmc_small &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc_small, </span>
-<span id="cb230-7"><a href="feature-selection-and-cluster-analysis.html#cb230-7"></a>                           <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
-<span id="cb230-8"><a href="feature-selection-and-cluster-analysis.html#cb230-8"></a>                           <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </span>
-<span id="cb230-9"><a href="feature-selection-and-cluster-analysis.html#cb230-9"></a>                           <span class="dt">resolution =</span> <span class="dv">1</span>, </span>
-<span id="cb230-10"><a href="feature-selection-and-cluster-analysis.html#cb230-10"></a>                           <span class="dt">print.output =</span> <span class="dv">0</span>)</span>
-<span id="cb230-11"><a href="feature-selection-and-cluster-analysis.html#cb230-11"></a></span>
-<span id="cb230-12"><a href="feature-selection-and-cluster-analysis.html#cb230-12"></a>pbmc_counts &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data)</span>
-<span id="cb230-13"><a href="feature-selection-and-cluster-analysis.html#cb230-13"></a>pbmc_meta &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>meta.data</span>
-<span id="cb230-14"><a href="feature-selection-and-cluster-analysis.html#cb230-14"></a>gene_names &lt;-<span class="st"> </span><span class="kw">rownames</span>(pbmc_counts)</span>
-<span id="cb230-15"><a href="feature-selection-and-cluster-analysis.html#cb230-15"></a></span>
-<span id="cb230-16"><a href="feature-selection-and-cluster-analysis.html#cb230-16"></a></span>
-<span id="cb230-17"><a href="feature-selection-and-cluster-analysis.html#cb230-17"></a>pbmc_FitGoM &lt;-<span class="st"> </span><span class="kw">FitGoM</span>(<span class="kw">t</span>(pbmc_counts), <span class="dt">K=</span><span class="dv">4</span>)</span>
-<span id="cb230-18"><a href="feature-selection-and-cluster-analysis.html#cb230-18"></a></span>
-<span id="cb230-19"><a href="feature-selection-and-cluster-analysis.html#cb230-19"></a></span>
-<span id="cb230-20"><a href="feature-selection-and-cluster-analysis.html#cb230-20"></a>omega &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>omega)</span>
-<span id="cb230-21"><a href="feature-selection-and-cluster-analysis.html#cb230-21"></a></span>
-<span id="cb230-22"><a href="feature-selection-and-cluster-analysis.html#cb230-22"></a>annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sample_id =</span> <span class="kw">rownames</span>(omega),</span>
-<span id="cb230-23"><a href="feature-selection-and-cluster-analysis.html#cb230-23"></a>                         <span class="dt">tissue_label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cluster&quot;</span>, pbmc_small<span class="op">@</span>active.ident))</span>
-<span id="cb230-24"><a href="feature-selection-and-cluster-analysis.html#cb230-24"></a></span>
-<span id="cb230-25"><a href="feature-selection-and-cluster-analysis.html#cb230-25"></a><span class="kw">colnames</span>(omega) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
-<span id="cb230-26"><a href="feature-selection-and-cluster-analysis.html#cb230-26"></a><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</span>
-<span id="cb230-27"><a href="feature-selection-and-cluster-analysis.html#cb230-27"></a></span>
-<span id="cb230-28"><a href="feature-selection-and-cluster-analysis.html#cb230-28"></a><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</span>
-<span id="cb230-29"><a href="feature-selection-and-cluster-analysis.html#cb230-29"></a>                <span class="dt">annotation =</span> annotation,</span>
-<span id="cb230-30"><a href="feature-selection-and-cluster-analysis.html#cb230-30"></a>                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Dark2&quot;</span>),</span>
-<span id="cb230-31"><a href="feature-selection-and-cluster-analysis.html#cb230-31"></a>                <span class="dt">yaxis_label =</span> <span class="st">&quot;Cells&quot;</span>,</span>
-<span id="cb230-32"><a href="feature-selection-and-cluster-analysis.html#cb230-32"></a>                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb230-33"><a href="feature-selection-and-cluster-analysis.html#cb230-33"></a>                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</span>
-<span id="cb230-34"><a href="feature-selection-and-cluster-analysis.html#cb230-34"></a>                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</span>
-<span id="cb230-35"><a href="feature-selection-and-cluster-analysis.html#cb230-35"></a>                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</span>
-<span id="cb230-36"><a href="feature-selection-and-cluster-analysis.html#cb230-36"></a>                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</span>
-<span id="cb230-37"><a href="feature-selection-and-cluster-analysis.html#cb230-37"></a>                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</span>
-<span id="cb230-38"><a href="feature-selection-and-cluster-analysis.html#cb230-38"></a></span>
-<span id="cb230-39"><a href="feature-selection-and-cluster-analysis.html#cb230-39"></a></span>
-<span id="cb230-40"><a href="feature-selection-and-cluster-analysis.html#cb230-40"></a><span class="co"># ## Add Topic Scores to Meta Data Part of the Seurat Object</span></span>
-<span id="cb230-41"><a href="feature-selection-and-cluster-analysis.html#cb230-41"></a>pbmc_small &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(pbmc_small, omega)</span></code></pre></div>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="feature-selection-and-cluster-analysis.html#cb231-1"></a>pbmc_small<span class="op">@</span>meta.data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb231-2"><a href="feature-selection-and-cluster-analysis.html#cb231-2"></a><span class="st">  </span><span class="kw">group_by</span>(RNA_snn_res<span class="fl">.1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb231-3"><a href="feature-selection-and-cluster-analysis.html#cb231-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">topic1 =</span> <span class="kw">mean</span>(topic1),</span>
-<span id="cb231-4"><a href="feature-selection-and-cluster-analysis.html#cb231-4"></a>            <span class="dt">topic2 =</span> <span class="kw">mean</span>(topic2),</span>
-<span id="cb231-5"><a href="feature-selection-and-cluster-analysis.html#cb231-5"></a>            <span class="dt">topic3 =</span> <span class="kw">mean</span>(topic3),</span>
-<span id="cb231-6"><a href="feature-selection-and-cluster-analysis.html#cb231-6"></a>            <span class="dt">topic4 =</span> <span class="kw">mean</span>(topic4))</span></code></pre></div>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="feature-selection-and-cluster-analysis.html#cb232-1"></a><span class="co">## ggplot object, you can add layers</span></span>
-<span id="cb232-2"><a href="feature-selection-and-cluster-analysis.html#cb232-2"></a>p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(pbmc_small, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resolution 1&quot;</span>) <span class="co">## return ggplot object</span></span>
-<span id="cb232-3"><a href="feature-selection-and-cluster-analysis.html#cb232-3"></a>p1</span></code></pre></div>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="feature-selection-and-cluster-analysis.html#cb233-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc_small, </span>
-<span id="cb233-2"><a href="feature-selection-and-cluster-analysis.html#cb233-2"></a>                  <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;topic1&quot;</span>, <span class="st">&quot;topic2&quot;</span>, <span class="st">&quot;topic3&quot;</span>, <span class="st">&quot;topic4&quot;</span>), </span>
-<span id="cb233-3"><a href="feature-selection-and-cluster-analysis.html#cb233-3"></a>                  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </span>
-<span id="cb233-4"><a href="feature-selection-and-cluster-analysis.html#cb233-4"></a>                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="co">## return ggplot object</span></span>
-<span id="cb233-5"><a href="feature-selection-and-cluster-analysis.html#cb233-5"></a></span>
-<span id="cb233-6"><a href="feature-selection-and-cluster-analysis.html#cb233-6"></a>p2</span></code></pre></div>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="feature-selection-and-cluster-analysis.html#cb234-1"></a>p1 <span class="op">+</span><span class="st"> </span>p2</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;MouseDeng2014.FitGoM&quot;</span>)</a>
+<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">names</span>(MouseDeng2014.FitGoM)</a></code></pre></div>
+<pre><code>## [1] &quot;clust_3&quot; &quot;clust_6&quot;</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1">omega &lt;-<span class="st"> </span>MouseDeng2014.FitGoM<span class="op">$</span>clust_<span class="dv">6</span><span class="op">$</span>omega</a>
+<a class="sourceLine" id="cb302-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb302-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb302-4" data-line-number="4">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb302-5" data-line-number="5">  <span class="dt">sample_id =</span> <span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(omega))),</a>
+<a class="sourceLine" id="cb302-6" data-line-number="6">  <span class="dt">tissue_label =</span> <span class="kw">factor</span>(<span class="kw">rownames</span>(omega),</a>
+<a class="sourceLine" id="cb302-7" data-line-number="7">                        <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>,</a>
+<a class="sourceLine" id="cb302-8" data-line-number="8">                                        <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>, <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>)))</a>
+<a class="sourceLine" id="cb302-9" data-line-number="9">  )</a>
+<a class="sourceLine" id="cb302-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb302-11" data-line-number="11"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
+<a class="sourceLine" id="cb302-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb302-13" data-line-number="13"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
+<a class="sourceLine" id="cb302-14" data-line-number="14">                <span class="dt">annotation =</span> annotation,</a>
+<a class="sourceLine" id="cb302-15" data-line-number="15">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Accent&quot;</span>),</a>
+<a class="sourceLine" id="cb302-16" data-line-number="16">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Amplification batch&quot;</span>,</a>
+<a class="sourceLine" id="cb302-17" data-line-number="17">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb302-18" data-line-number="18">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb302-19" data-line-number="19">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb302-20" data-line-number="20">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb302-21" data-line-number="21">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb302-22" data-line-number="22">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning: Use of `df_mlt$document` is discouraged. Use `document` instead.</code></pre>
+<pre><code>## Warning: Use of `df_mlt$value` is discouraged. Use `value` instead.</code></pre>
+<pre><code>## Warning: Use of `df_mlt$topic` is discouraged. Use `topic` instead.</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/example_lda-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb306-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb306-3" data-line-number="3"><span class="co">## Preprocessing Steps</span></a>
+<a class="sourceLine" id="cb306-4" data-line-number="4">pbmc_small &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb306-5" data-line-number="5">pbmc_small &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> pbmc_small)</a></code></pre></div>
+<pre><code>## Warning in irlba(A = t(x = object), nv = npcs, ...): You&#39;re computing too large a percentage of total singular
+## values, use a standard svd instead.</code></pre>
+<pre><code>## PC_ 1 
+## Positive:  SDPR, PF4, PPBP, TUBB1, CA2, TREML1, MYL9, PGRMC1, RUFY1, PARVB 
+##     VDAC3, IGLL5, AKR1C3, CD1C, RP11-290F20.3, GNLY, S100A8, S100A9, HLA-DQA1, HLA-DPB1 
+## Negative:  HLA-DPB1, HLA-DQA1, S100A9, S100A8, GNLY, RP11-290F20.3, CD1C, AKR1C3, IGLL5, VDAC3 
+##     PARVB, RUFY1, PGRMC1, MYL9, TREML1, CA2, TUBB1, PPBP, PF4, SDPR 
+## PC_ 2 
+## Positive:  HLA-DPB1, HLA-DQA1, S100A8, S100A9, CD1C, RP11-290F20.3, PARVB, IGLL5, MYL9, SDPR 
+##     PPBP, CA2, RUFY1, TREML1, PF4, TUBB1, PGRMC1, VDAC3, AKR1C3, GNLY 
+## Negative:  GNLY, AKR1C3, VDAC3, PGRMC1, TUBB1, PF4, TREML1, RUFY1, CA2, PPBP 
+##     SDPR, MYL9, IGLL5, PARVB, RP11-290F20.3, CD1C, S100A9, S100A8, HLA-DQA1, HLA-DPB1 
+## PC_ 3 
+## Positive:  S100A9, S100A8, RP11-290F20.3, AKR1C3, PARVB, GNLY, PPBP, PGRMC1, MYL9, TUBB1 
+##     CA2, TREML1, SDPR, VDAC3, PF4, RUFY1, HLA-DPB1, IGLL5, CD1C, HLA-DQA1 
+## Negative:  HLA-DQA1, CD1C, IGLL5, HLA-DPB1, RUFY1, PF4, VDAC3, SDPR, TREML1, CA2 
+##     TUBB1, MYL9, PGRMC1, PPBP, GNLY, PARVB, AKR1C3, RP11-290F20.3, S100A8, S100A9 
+## PC_ 4 
+## Positive:  IGLL5, RP11-290F20.3, VDAC3, PPBP, TUBB1, TREML1, PF4, CA2, PARVB, MYL9 
+##     SDPR, RUFY1, PGRMC1, S100A9, HLA-DQA1, HLA-DPB1, GNLY, S100A8, AKR1C3, CD1C 
+## Negative:  CD1C, AKR1C3, S100A8, GNLY, HLA-DPB1, HLA-DQA1, S100A9, PGRMC1, RUFY1, SDPR 
+##     MYL9, PARVB, CA2, PF4, TREML1, TUBB1, PPBP, VDAC3, RP11-290F20.3, IGLL5 
+## PC_ 5 
+## Positive:  MYL9, PARVB, IGLL5, TREML1, AKR1C3, PGRMC1, HLA-DPB1, S100A9, TUBB1, PF4 
+##     SDPR, GNLY, PPBP, S100A8, CA2, HLA-DQA1, CD1C, RUFY1, RP11-290F20.3, VDAC3 
+## Negative:  VDAC3, RP11-290F20.3, RUFY1, CD1C, HLA-DQA1, CA2, S100A8, PPBP, GNLY, SDPR 
+##     PF4, TUBB1, S100A9, HLA-DPB1, PGRMC1, AKR1C3, TREML1, IGLL5, PARVB, MYL9</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1">pbmc_small &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc_small, </a>
+<a class="sourceLine" id="cb309-2" data-line-number="2">                           <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb309-3" data-line-number="3">                           <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb309-4" data-line-number="4">                           <span class="dt">resolution =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb309-5" data-line-number="5">                           <span class="dt">print.output =</span> <span class="dv">0</span>)</a></code></pre></div>
+<pre><code>## Warning: The following arguments are not used: reduction, dims.use, print.output</code></pre>
+<pre><code>## Suggested parameter: dims instead of dims.use; verbose instead of print.output</code></pre>
+<pre><code>## Warning: The following arguments are not used: reduction, dims.use, print.output</code></pre>
+<pre><code>## Suggested parameter: dims instead of dims.use; verbose instead of print.output</code></pre>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 80
+## Number of edges: 3124
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.1433
+## Number of communities: 3
+## Elapsed time: 0 seconds</code></pre>
+<pre><code>## Warning: Adding a command log without an assay associated with it</code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="co">## Grab the Raw Count Matrix from Seurat Object</span></a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="co">## Needs count matrix</span></a>
+<a class="sourceLine" id="cb316-3" data-line-number="3">pbmc_counts &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>counts)</a>
+<a class="sourceLine" id="cb316-4" data-line-number="4">pbmc_meta &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>meta.data</a>
+<a class="sourceLine" id="cb316-5" data-line-number="5">gene_names &lt;-<span class="st"> </span><span class="kw">rownames</span>(pbmc_counts)</a>
+<a class="sourceLine" id="cb316-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb316-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb316-8" data-line-number="8"><span class="co">## Fit LDA  Model, called GoM for this R pacakge</span></a>
+<a class="sourceLine" id="cb316-9" data-line-number="9"><span class="co">## Number of topics to fit is K=4</span></a>
+<a class="sourceLine" id="cb316-10" data-line-number="10">pbmc_FitGoM &lt;-<span class="st"> </span><span class="kw">FitGoM</span>(<span class="kw">t</span>(pbmc_counts), <span class="dt">K=</span><span class="dv">4</span>)</a></code></pre></div>
+<pre><code>## options not specified: switching to default BIC, other choice is BF for Bayes factor</code></pre>
+<pre><code>## Fitting a Grade of Membership model
+##             (Taddy M., AISTATS 2012, JMLR 22,
+##             http://proceedings.mlr.press/v22/taddy12/taddy12.pdf)</code></pre>
+<pre><code>## 
+## Estimating on a 80 samples collection.
+## Fit and Bayes Factor Estimation for K = 4
+## log posterior increase: 6685.6, 59.7, done.
+## log BF( 4 ) = 10162.23</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1"><span class="co">## Grab topic scores</span></a>
+<a class="sourceLine" id="cb320-2" data-line-number="2">omega &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>omega)</a>
+<a class="sourceLine" id="cb320-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb320-4" data-line-number="4"><span class="co">## Annotate topics, if identies known</span></a>
+<a class="sourceLine" id="cb320-5" data-line-number="5">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sample_id =</span> <span class="kw">rownames</span>(omega),</a>
+<a class="sourceLine" id="cb320-6" data-line-number="6">                         <span class="dt">tissue_label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cluster&quot;</span>, pbmc_small<span class="op">@</span>active.ident))</a>
+<a class="sourceLine" id="cb320-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb320-8" data-line-number="8"><span class="kw">colnames</span>(omega) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb320-9" data-line-number="9"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
+<a class="sourceLine" id="cb320-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb320-11" data-line-number="11"><span class="co">## Make plot to see topic contribution</span></a>
+<a class="sourceLine" id="cb320-12" data-line-number="12"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
+<a class="sourceLine" id="cb320-13" data-line-number="13">                <span class="dt">annotation =</span> annotation,</a>
+<a class="sourceLine" id="cb320-14" data-line-number="14">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Dark2&quot;</span>),</a>
+<a class="sourceLine" id="cb320-15" data-line-number="15">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Cells&quot;</span>,</a>
+<a class="sourceLine" id="cb320-16" data-line-number="16">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb320-17" data-line-number="17">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb320-18" data-line-number="18">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb320-19" data-line-number="19">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb320-20" data-line-number="20">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb320-21" data-line-number="21">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning: Use of `df_mlt$document` is discouraged. Use `document` instead.</code></pre>
+<pre><code>## Warning: Use of `df_mlt$value` is discouraged. Use `value` instead.</code></pre>
+<pre><code>## Warning: Use of `df_mlt$topic` is discouraged. Use `topic` instead.</code></pre>
+<p><img src="2020_scWorkshop_files/figure-html/pbmc_lda-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="co"># ## Add Topic Scores to Meta Data Part of the Seurat Object</span></a>
+<a class="sourceLine" id="cb324-2" data-line-number="2">pbmc_small &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(pbmc_small, omega)</a></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1">pbmc_small<span class="op">@</span>meta.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb325-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(RNA_snn_res<span class="fl">.1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb325-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">topic1 =</span> <span class="kw">mean</span>(topic1),</a>
+<a class="sourceLine" id="cb325-4" data-line-number="4">            <span class="dt">topic2 =</span> <span class="kw">mean</span>(topic2),</a>
+<a class="sourceLine" id="cb325-5" data-line-number="5">            <span class="dt">topic3 =</span> <span class="kw">mean</span>(topic3),</a>
+<a class="sourceLine" id="cb325-6" data-line-number="6">            <span class="dt">topic4 =</span> <span class="kw">mean</span>(topic4))</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   RNA_snn_res.1 topic1 topic2  topic3  topic4
+##   &lt;fct&gt;          &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 0             0.0771 0.326  0.342   0.255  
+## 2 1             0.973  0.0128 0.00660 0.00778
+## 3 2             0.543  0.352  0.103   0.00247</code></pre>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="co">## ggplot object, you can add layers</span></a>
+<a class="sourceLine" id="cb327-2" data-line-number="2">p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(pbmc_small, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resolution 1&quot;</span>) <span class="co">## return ggplot object</span></a>
+<a class="sourceLine" id="cb327-3" data-line-number="3">p1</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/tsne_plot_pbmc-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1">p2 &lt;-<span class="st"> </span><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc_small, </a>
+<a class="sourceLine" id="cb328-2" data-line-number="2">                  <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;topic1&quot;</span>, <span class="st">&quot;topic2&quot;</span>, <span class="st">&quot;topic3&quot;</span>, <span class="st">&quot;topic4&quot;</span>), </a>
+<a class="sourceLine" id="cb328-3" data-line-number="3">                  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
+<a class="sourceLine" id="cb328-4" data-line-number="4">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="co">## return ggplot object</span></a>
+<a class="sourceLine" id="cb328-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb328-6" data-line-number="6">p2</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/topic_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<p><img src="2020_scWorkshop_files/figure-html/combine_topic_plot-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extract-top-feature" class="section level4">
 <h4><span class="header-section-number">10.3.3.2</span> Extract Top Feature</h4>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="feature-selection-and-cluster-analysis.html#cb235-1"></a>theta_mat &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>theta</span>
-<span id="cb235-2"><a href="feature-selection-and-cluster-analysis.html#cb235-2"></a></span>
-<span id="cb235-3"><a href="feature-selection-and-cluster-analysis.html#cb235-3"></a>top_features &lt;-<span class="st"> </span><span class="kw">ExtractTopFeatures</span>(theta_mat, </span>
-<span id="cb235-4"><a href="feature-selection-and-cluster-analysis.html#cb235-4"></a>                                   <span class="dt">top_features=</span><span class="dv">100</span>,</span>
-<span id="cb235-5"><a href="feature-selection-and-cluster-analysis.html#cb235-5"></a>                                   <span class="dt">method=</span><span class="st">&quot;poisson&quot;</span>, </span>
-<span id="cb235-6"><a href="feature-selection-and-cluster-analysis.html#cb235-6"></a>                                   <span class="dt">options=</span><span class="st">&quot;min&quot;</span>)</span>
-<span id="cb235-7"><a href="feature-selection-and-cluster-analysis.html#cb235-7"></a></span>
-<span id="cb235-8"><a href="feature-selection-and-cluster-analysis.html#cb235-8"></a>gene_list &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, </span>
-<span id="cb235-9"><a href="feature-selection-and-cluster-analysis.html#cb235-9"></a>                     <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(top_features<span class="op">$</span>indices)[<span class="dv">1</span>],</span>
-<span id="cb235-10"><a href="feature-selection-and-cluster-analysis.html#cb235-10"></a>                            <span class="cf">function</span>(x) gene_names[top_features<span class="op">$</span>indices[x,]]))</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="co">## Gene scores for each topics</span></a>
+<a class="sourceLine" id="cb330-2" data-line-number="2">theta_mat &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>theta</a>
+<a class="sourceLine" id="cb330-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb330-4" data-line-number="4">top_features &lt;-<span class="st"> </span><span class="kw">ExtractTopFeatures</span>(theta_mat, </a>
+<a class="sourceLine" id="cb330-5" data-line-number="5">                                   <span class="dt">top_features=</span><span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb330-6" data-line-number="6">                                   <span class="dt">method=</span><span class="st">&quot;poisson&quot;</span>, </a>
+<a class="sourceLine" id="cb330-7" data-line-number="7">                                   <span class="dt">options=</span><span class="st">&quot;min&quot;</span>)</a>
+<a class="sourceLine" id="cb330-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb330-9" data-line-number="9">gene_list &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, </a>
+<a class="sourceLine" id="cb330-10" data-line-number="10">                     <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(top_features<span class="op">$</span>indices)[<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb330-11" data-line-number="11">                            <span class="cf">function</span>(x) gene_names[top_features<span class="op">$</span>indices[x,]]))</a></code></pre></div>
 <p>We tabulate the top <code>5</code> genes for these <code>4</code> topics</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="feature-selection-and-cluster-analysis.html#cb236-1"></a>out_table &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">toString</span>(gene_list[i,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])))</span>
-<span id="cb236-2"><a href="feature-selection-and-cluster-analysis.html#cb236-2"></a><span class="kw">rownames</span>(out_table) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Topic&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</span>
-<span id="cb236-3"><a href="feature-selection-and-cluster-analysis.html#cb236-3"></a>out_table</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1">out_table &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">toString</span>(gene_list[i,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])))</a>
+<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="kw">rownames</span>(out_table) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Topic&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb331-3" data-line-number="3">out_table</a></code></pre></div>
+<pre><code>##         [,1]                                      
+## Topic 1 &quot;S100A9, LYZ, HLA-DPB1, HLA-DRA, HLA-DPA1&quot;
+## Topic 2 &quot;LTB, LYAR, IGLL5, CD79A, SRSF7&quot;          
+## Topic 3 &quot;GNLY, NKG7, GZMB, GZMA, FGFBP2&quot;          
+## Topic 4 &quot;PPBP, PF4, GNG11, CLU, TUBB1&quot;</code></pre>
 </div>
 </div>
 <div id="practice-visualizingembedding" class="section level3">
@@ -735,12 +999,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tsne" class="section level4">
 <h4><span class="header-section-number">10.3.4.1</span> tSNE</h4>
 <p>Change the parameter settings for tSNE</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="feature-selection-and-cluster-analysis.html#cb237-1"></a><span class="kw">RunTSNE</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">RunTSNE</span>()</a></code></pre></div>
 </div>
 <div id="umap" class="section level4">
 <h4><span class="header-section-number">10.3.4.2</span> UMAP</h4>
 <p>Change the parameter settings for UMAP</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="feature-selection-and-cluster-analysis.html#cb238-1"></a><span class="kw">RunUMAP</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="kw">RunUMAP</span>()</a></code></pre></div>
 </div>
 </div>
 </div>
@@ -763,7 +1027,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="identifying-cell-populations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="batch-correction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="batch-correction-lecture.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,13 @@
+---
+title: "11-batchcorrection-lecture.Rmd"
+author: "Orr Ashenberg"
+date: "3/25/2020"
+output: html_document
+---
+
+# Batch Correction Lecture
+
+
+## Slides
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vR8ytZXIZgfMa8Zd5_GKIPLfCQFRzz10Q3yQGi-gQvzz1q9e1uOiUM_-idWhvCPXPN7lRVym_dmPdk7/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

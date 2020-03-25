@@ -1,11 +1,11 @@
 ---
-title: "11-batchcorrection-lab.Rmd"
+title: "12-batchcorrection-lab.Rmd"
 author: "Orr Ashenberg"
 date: "3/25/2020"
 output: html_document
 ---
 
-# Batch Correction 
+# Batch Correction Lab
 
 In this lab, we will look at different single cell RNA-seq datasets collected from pancreatic islets. We will look at how different batch correction methods affect our data analysis.
 
@@ -123,7 +123,7 @@ smartseq2 <- subset(smartseq2, downsample = 500, seed = 1)
 save(celseq, celseq2, fluidigmc1, smartseq2, file = Rda.sparse.path)
 ```
 
-# Cluster pancreatic datasets without batch correction
+## Cluster pancreatic datasets without batch correction
 Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.
 ```{r no_batch_correction, eval = FALSE}
 # load(Rda.sparse.path)

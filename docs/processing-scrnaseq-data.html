@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Processing scRNAseq Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Processing scRNAseq Data | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
@@ -54,9 +54,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -65,16 +65,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,9 +81,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -252,53 +250,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>10.4</b> Other Options For Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="batch-correction.html"><a href="batch-correction.html"><i class="fa fa-check"></i><b>11</b> Batch Correction</a><ul>
-<li class="chapter" data-level="11.1" data-path="batch-correction.html"><a href="batch-correction.html#load-settings-and-packages"><i class="fa fa-check"></i><b>11.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="11.2" data-path="batch-correction.html"><a href="batch-correction.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>11.2</b> Read in pancreas expression matrices</a></li>
-<li class="chapter" data-level="11.3" data-path="batch-correction.html"><a href="batch-correction.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>11.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="11" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html"><i class="fa fa-check"></i><b>11</b> Batch Correction Lecture</a><ul>
+<li class="chapter" data-level="11.1" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html#slides-3"><i class="fa fa-check"></i><b>11.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html"><i class="fa fa-check"></i><b>12</b> Cluster pancreatic datasets without batch correction</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.0.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
-<li class="chapter" data-level="12.0.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.0.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
-<li class="chapter" data-level="12.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.1</b> Additional exploration: Regressing out unwanted covariates</a></li>
-<li class="chapter" data-level="12.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.2</b> Additional exploration: kBET</a></li>
-<li class="chapter" data-level="12.3" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.3</b> Additional exploration: Seurat 3</a></li>
-<li class="chapter" data-level="12.4" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>12.4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="12" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html"><i class="fa fa-check"></i><b>12</b> Batch Correction Lab</a><ul>
+<li class="chapter" data-level="12.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#load-settings-and-packages"><i class="fa fa-check"></i><b>12.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="12.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>12.2</b> Read in pancreas expression matrices</a></li>
+<li class="chapter" data-level="12.3" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>12.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="12.4" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>12.4</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.4.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="12.4.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.4.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="batch-correction-1.html"><a href="batch-correction-1.html"><i class="fa fa-check"></i><b>13</b> Batch Correction</a><ul>
-<li class="chapter" data-level="13.1" data-path="batch-correction-1.html"><a href="batch-correction-1.html#slides-3"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
+<li class="chapter" data-level="12.5" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.5</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="12.6" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.6</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="12.7" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.7</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="12.8" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#acknowledgements"><i class="fa fa-check"></i><b>12.8</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>14</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
-<li class="chapter" data-level="14.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>14.1</b> Slides</a></li>
+<li class="chapter" data-level="13" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>13</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="13.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>15</b> Trajectory Analysis</a><ul>
-<li class="chapter" data-level="15.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="15.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>15.2</b> First look at the differentiation data from Deng et al.</a></li>
-<li class="chapter" data-level="15.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>15.3</b> Principle Components Analysis</a></li>
-<li class="chapter" data-level="15.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>15.4</b> Diffusion map pseudotime</a></li>
-<li class="chapter" data-level="15.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>15.5</b> Slingshot map pseudotime</a></li>
-<li class="chapter" data-level="15.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>15.6</b> Find temporally expressed genes</a></li>
-<li class="chapter" data-level="15.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>15.7</b> Comparison of the different trajectory inference methods</a></li>
-<li class="chapter" data-level="15.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>15.8</b> Plots of gene expression over time.</a></li>
-<li class="chapter" data-level="15.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>15.9</b> Acknowledgements</a></li>
+<li class="chapter" data-level="14" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>14</b> Trajectory Analysis</a><ul>
+<li class="chapter" data-level="14.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al.we-will-use-a-nice-smart-seq2-single-cell-rna-seq-data-from-single-cell-rna-seq-reveals-dynamic-random-monoallelic-gene-expression-in-mammalian-cells.-here-is-one-relevant-detail-from-their-paper-to-investigate-allele-specific-gene-expression-at-single-cell-resolution-we-isolated-269-individual-cells-dissociated-from-in-vivo-f1-embryos-casteij-c57bl6j-hereafter-abbreviated-as-cast-and-c57-respectively-from-oocyte-to-blastocyst-stages-of-mouse-preimplantation-development-pd"><span class="toc-section-number">14.2</span> First look at the differentiation data from Deng et
+al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells</span>. Here is one relevant detail from their paper: “To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)”</a></li>
+<li class="chapter" data-level="14.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>14.3</b> Principle Components Analysis</a></li>
+<li class="chapter" data-level="14.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>14.4</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="14.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>14.5</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="14.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>14.6</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="14.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>14.7</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="14.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>14.8</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="14.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
-<li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="16.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>16.2</b> Load in the data</a></li>
-<li class="chapter" data-level="16.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>16.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
-<li class="chapter" data-level="16.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>16.4</b> Add the protein expression levels to the Seurat object</a></li>
-<li class="chapter" data-level="16.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>16.5</b> Visualize protein levels on RNA clusters</a></li>
-<li class="chapter" data-level="16.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>16.6</b> Identify differentially expressed proteins between clusters</a></li>
-<li class="chapter" data-level="16.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>16.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="15" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>15</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="15.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="15.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>15.2</b> Load in the data</a></li>
+<li class="chapter" data-level="15.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>15.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="15.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>15.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="15.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>15.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="15.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>15.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="15.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>15.7</b> Cluster directly on protein levels</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>17</b> Additional exploration: another example of multi-modal analysis</a><ul>
-<li class="chapter" data-level="17.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>17.1</b> Acknowledgements</a></li>
+<li class="chapter" data-level="16" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>16</b> Additional exploration: another example of multi-modal analysis</a><ul>
+<li class="chapter" data-level="16.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>16.1</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>18</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="18.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>18.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="18.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>18.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="18.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>18.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="18.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>18.4</b> Online courses</a></li>
+<li class="chapter" data-level="17" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>17</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="17.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>17.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="17.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>17.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="17.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>17.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="17.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>17.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -338,8 +337,8 @@ For more exercises and ideas please visit their web-site!</p>
 <div id="download-data" class="section level2">
 <h2><span class="header-section-number">5.3</span> Download data</h2>
 <p>Please downlaod the 6 files from the dropbox folder: <a href="https://www.dropbox.com/sh/98573jes82w0fi7/AAB7Yhwe05MCZTnTZmppxZuta?dl=0" class="uri">https://www.dropbox.com/sh/98573jes82w0fi7/AAB7Yhwe05MCZTnTZmppxZuta?dl=0</a> into the data folder of your copy of github:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="processing-scrnaseq-data.html#cb28-1"></a>cd <span class="dv">2020</span>_scWorkshop<span class="op">/</span>data</span>
-<span id="cb28-2"><a href="processing-scrnaseq-data.html#cb28-2"></a>mkdir lab2data</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">cd <span class="dv">2020</span>_scWorkshop<span class="op">/</span>data</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">mkdir lab2data</a></code></pre></div>
 <p>and copy the files into it
 ## FastQC</p>
 <p>Once you’ve obtained your single-cell RNA-seq data, the first thing you need to do with it is check the quality of the reads you have sequenced. For this task, today we will be using a tool called FastQC. FastQC is a quality control tool for sequencing data, which can be used for both bulk and single-cell RNA-seq data. FastQC takes sequencing data as input and returns a report on read quality. Copy and paste this link into your browser to visit the FastQC website:</p>
@@ -348,32 +347,32 @@ For more exercises and ideas please visit their web-site!</p>
 <p>Now let’s make a FastQC report ourselves.</p>
 <p>Today we will be performing our analysis using a single cell from an mESC dataset produced by (Kolodziejczyk et al. 2015), which you downloaded froom the github link. The cells were sequenced using the SMART-seq2 library preparation protocol and the reads are paired end.</p>
 <p>First, let’s open the docker in a bash mode. open a terminal, cd to the docer folder (the folder you downloaded from github) and run this command:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="processing-scrnaseq-data.html#cb29-1"></a>docker run <span class="op">--</span>rm <span class="op">-</span>ti <span class="op">-</span>v <span class="op">$</span>PWD<span class="op">:</span><span class="er">/</span>home<span class="op">/</span>rstudio <span class="op">-</span>e DISABLE_AUTH=true kdgosik<span class="op">/</span>2020scworkshop bash</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">docker run <span class="op">--</span>rm <span class="op">-</span>ti <span class="op">-</span>v <span class="op">$</span>PWD<span class="op">:</span><span class="er">/</span>home<span class="op">/</span>rstudio <span class="op">-</span>e DISABLE_AUTH=true kdgosik<span class="op">/</span>2020scworkshop bash</a></code></pre></div>
 <p>navigate to your data folder:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="processing-scrnaseq-data.html#cb30-1"></a>cd home<span class="op">/</span>rstudio<span class="op">/</span>lab2data</span>
-<span id="cb30-2"><a href="processing-scrnaseq-data.html#cb30-2"></a>ls</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">cd home<span class="op">/</span>rstudio<span class="op">/</span>lab2data</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">ls</a></code></pre></div>
 <p>You should see the files that you downloaded from the dropbox link.</p>
 <p>Now let’s look at the files:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="processing-scrnaseq-data.html#cb31-1"></a>less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq</span>
-<span id="cb31-2"><a href="processing-scrnaseq-data.html#cb31-2"></a>less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">less Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</a></code></pre></div>
 <p>We run fastqc from /usr/local/src/FastQC. You may need to give yourself permissions to run the file (hint: chmod)</p>
 <p>Task 1: run fastqc to view the quality of the reads</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="processing-scrnaseq-data.html#cb32-1"></a>chmod <span class="dv">755</span> <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc</span>
-<span id="cb32-2"><a href="processing-scrnaseq-data.html#cb32-2"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>h</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">chmod <span class="dv">755</span> <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>h</a></code></pre></div>
 <p>This command will tell you what options are available to pass to FastQC. Let us direct our output to our personal directories (under the folder results). Feel free to ask for help if you get stuck! If you are successful, you should generate a .zip and a .html file for both the forwards and the reverse reads files. Once you have been successful, feel free to have a go at the next section.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="processing-scrnaseq-data.html#cb33-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>o <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>FastQC<span class="op">/</span>fastqc <span class="op">-</span>o <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq</a></code></pre></div>
 <p>Once the command has finished executing, you should have a total of four files - one zip file for each of the paired end reads, and one html file for each of the paired end reads. The report is in the html file.</p>
 <p>for those working in AWS, if you want to view the file you will need to download it to your computer. The scp command is:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="processing-scrnaseq-data.html#cb34-1"></a>scp <span class="op">-</span>r <span class="op">-</span>i <span class="op">&lt;</span>your pem file<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>username<span class="op">&gt;</span><span class="er">@</span>ec2<span class="dv">-34-213-180</span><span class="fl">-241.</span>us<span class="op">-</span>west<span class="fl">-2.</span>compute.amazonaws.com<span class="op">:</span><span class="er">~/&lt;</span>file to copy<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>destination <span class="cf">in</span> your computer<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">scp <span class="op">-</span>r <span class="op">-</span>i <span class="op">&lt;</span>your pem file<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>username<span class="op">&gt;</span><span class="er">@</span>ec2<span class="dv">-34-213-180</span><span class="fl">-241.</span>us<span class="op">-</span>west<span class="fl">-2.</span>compute.amazonaws.com<span class="op">:</span><span class="er">~/&lt;</span>file to copy<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>destination <span class="cf">in</span> your computer<span class="op">&gt;</span></a></code></pre></div>
 <p>Once the file is on you computer, click on it. Your FastQC report should open. Have a look through the file. Remember to look at both the forwards and the reverse end read reports! How good quality are the reads? Is there anything we should be concerned about?</p>
 <div id="fastq-file-format" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Fastq file format</h3>
 <p>FastQ is the most raw form of scRNASeq data you will encounter. All scRNASeq protocols are sequenced with paired-end sequencing. Barcode sequences may occur in one or both reads depending on the protocol employed. However, protocols using unique molecular identifiers (UMIs) will generally contain one read with the cell and UMI barcodes plus adapters but without any transcript sequence. Thus reads will be mapped as if they are single-end sequenced despite actually being paired end.</p>
 <p>FastQ files have the format:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="processing-scrnaseq-data.html#cb35-1"></a><span class="op">&gt;</span>ReadID</span>
-<span id="cb35-2"><a href="processing-scrnaseq-data.html#cb35-2"></a>READ SEQUENCE</span>
-<span id="cb35-3"><a href="processing-scrnaseq-data.html#cb35-3"></a><span class="op">+</span></span>
-<span id="cb35-4"><a href="processing-scrnaseq-data.html#cb35-4"></a>SEQUENCING QUALITY SCORES</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="op">&gt;</span>ReadID</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">READ SEQUENCE</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="op">+</span></a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">SEQUENCING QUALITY SCORES</a></code></pre></div>
 </div>
 </div>
 <div id="align-the-reads" class="section level2">
@@ -388,13 +387,13 @@ For more exercises and ideas please visit their web-site!</p>
 <p>Task 2: Create a genome index</p>
 <p>First create the output folder for the index in your personal folder under results (recommended /home/rstudio/lab2data/STAR/indices).</p>
 <p>We run STAR from:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="processing-scrnaseq-data.html#cb36-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span></a></code></pre></div>
 <p>using the command:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="processing-scrnaseq-data.html#cb37-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>runMode genomeGenerate <span class="op">--</span>genomeDir <span class="op">&lt;</span>output STAR indices folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>genomeFastaFiles <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span><span class="dv">2000</span>_reference.transcripts.fa</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>runMode genomeGenerate <span class="op">--</span>genomeDir <span class="op">&lt;</span>output STAR indices folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>genomeFastaFiles <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span><span class="dv">2000</span>_reference.transcripts.fa</a></code></pre></div>
 <p>Now that we have created the index, we can perform the mapping step.</p>
 <p>Task 4: Try to work out what command you should use to map our fastq files to the index you created. Use the STAR manual to help you. Once you think you know the answer use ./STAR command to align the fastq files to a BAM file.
 You can either create a SAM file and convert it to BAM using samtools, or use STAR to directly output a BAM file (–outSAMtype BAM Unsorted)</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="processing-scrnaseq-data.html#cb38-1"></a><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>genomeDir <span class="op">&lt;</span>genome_reference<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>readFilesIn <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq <span class="op">--</span>outFileNamePrefix <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>outSAMtype BAM Unsorted</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>STAR<span class="op">/</span>bin<span class="op">/</span>Linux_x86_<span class="dv">64</span><span class="op">/</span>STAR <span class="op">--</span>runThreadN <span class="dv">4</span> <span class="op">--</span>genomeDir <span class="op">&lt;</span>genome_reference<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>readFilesIn <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">1.</span>fastq <span class="op">/</span>home<span class="op">/</span>rstudio<span class="op">/</span>lab2data<span class="op">/</span>Teichmann_2i_<span class="dv">2</span>_<span class="dv">2</span>_<span class="fl">2.</span>fastq <span class="op">--</span>outFileNamePrefix <span class="op">&lt;</span>output_folder<span class="op">&gt;</span><span class="st"> </span><span class="op">--</span>outSAMtype BAM Unsorted</a></code></pre></div>
 <p>The alignment may take awhile, if you wish to you can complete tasks 7-10 in the meanwhile.</p>
 </div>
 <div id="bam-file-format" class="section level3">
@@ -414,18 +413,18 @@ information on the sample preparation, sequencing and mapping; and a tab-separat
 <p>SEQ : read sequence</p>
 <p>QUAL : read quality</p>
 <p>BAM/SAM files can be converted to the other format using ‘samtools’:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="processing-scrnaseq-data.html#cb39-1"></a>samtools view <span class="op">-</span>S <span class="op">-</span>b file.sam <span class="op">&gt;</span><span class="st"> </span>file.bam</span>
-<span id="cb39-2"><a href="processing-scrnaseq-data.html#cb39-2"></a>samtools view <span class="op">-</span>h file.bam <span class="op">&gt;</span><span class="st"> </span>file.sam</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">samtools view <span class="op">-</span>S <span class="op">-</span>b file.sam <span class="op">&gt;</span><span class="st"> </span>file.bam</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">samtools view <span class="op">-</span>h file.bam <span class="op">&gt;</span><span class="st"> </span>file.sam</a></code></pre></div>
 <p>Some sequencing facilities will automatically map your reads to the a standard genome and deliver either BAM or CRAM formatted files. Generally they will not have included ERCC sequences in the genome thus no ERCC reads will be mapped in the BAM/CRAM file. To quantify ERCCs (or any other genetic alterations) or if you just want to use a different alignment algorithm than whatever is in the generic pipeline (often outdated), then you will need to convert the BAM/CRAM files back to FastQs:</p>
 <p>BAM files can be converted to FastQ using bedtools. To ensure a single copy for multi-mapping reads first sort by read name and remove secondary alignments using samtools. Picard also contains a method for converting BAM to FastQ files.</p>
 <p>Bonus:</p>
 <p>To make our aligned BAM file easy to navigate (needed for IGViewer) we will sort and index it using samtools.
 Sam tools can be run from everywhere (no need to go to a special directory!) using the command:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="processing-scrnaseq-data.html#cb40-1"></a>samtools</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">samtools</a></code></pre></div>
 <p>Let us start by sorting the BAM file:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="processing-scrnaseq-data.html#cb41-1"></a>samtools sort Aligned.out.bam <span class="op">-</span>o Aligned.out.sorted.bam</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">samtools sort Aligned.out.bam <span class="op">-</span>o Aligned.out.sorted.bam</a></code></pre></div>
 <p>Task 6: can you index the file? hint: try looking at samtools -h</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="processing-scrnaseq-data.html#cb42-1"></a>samtools index Aligned.out.sorted.bam</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">samtools index Aligned.out.sorted.bam</a></code></pre></div>
 <p>Once you sorted and indexed the files you should have a BAM and a bai files. The BAM file is the aligned reads, and the bai is an index file. To view them in IGViewer (IGV) first copy them into your computer. Go ahead and copy the fa file as well, we will need a reference genome file.</p>
 </div>
 </div>
@@ -433,20 +432,20 @@ Sam tools can be run from everywhere (no need to go to a special directory!) usi
 <h2><span class="header-section-number">5.5</span> Visualization</h2>
 <p>To view the file we will use the IGV you installed on your personal computer.
 Open IGV: the default genomes are human HG19 and HG38. Through the class we will be using the PBMC dataset. You have the BAM file in your data folder. Go ahead and transfer it to your computer and upload it to IGV with hg38 as reference genome.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="processing-scrnaseq-data.html#cb43-1"></a>Task <span class="dv">7</span><span class="op">:</span><span class="st"> </span>Browse to MS4A1, this is a blood cell marker. Can you see the exons and the introns? Where are most of the aligned reads?</span>
-<span id="cb43-2"><a href="processing-scrnaseq-data.html#cb43-2"></a></span>
-<span id="cb43-3"><a href="processing-scrnaseq-data.html#cb43-3"></a>Task <span class="dv">8</span><span class="op">:</span><span class="st"> </span>Search <span class="cf">in</span> IGV or online <span class="op">-</span><span class="st"> </span>can you present splice junctions? (right click -&gt;<span class="st"> </span>“Show splice junction track”)</span>
-<span id="cb43-4"><a href="processing-scrnaseq-data.html#cb43-4"></a></span>
-<span id="cb43-5"><a href="processing-scrnaseq-data.html#cb43-5"></a>Task <span class="dv">9</span><span class="op">:</span><span class="st"> </span>Try further tasks that interest you <span class="cf">in</span> IGV. For example, can you detect reads that are within one exon and reads that start <span class="cf">in</span> one exon and continue <span class="cf">in</span> the <span class="cf">next</span>? Can you copy the sequence of exon2 <span class="cf">in</span> MS4A1?</span>
-<span id="cb43-6"><a href="processing-scrnaseq-data.html#cb43-6"></a></span>
-<span id="cb43-7"><a href="processing-scrnaseq-data.html#cb43-7"></a>Task <span class="dv">10</span><span class="op">:</span><span class="st"> </span>What would have happened <span class="cf">if</span> you chose the wrong reference genome, such as hg19?</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">Task <span class="dv">7</span><span class="op">:</span><span class="st"> </span>Browse to MS4A1, this is a blood cell marker. Can you see the exons and the introns? Where are most of the aligned reads?</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">Task <span class="dv">8</span><span class="op">:</span><span class="st"> </span>Search <span class="cf">in</span> IGV or online <span class="op">-</span><span class="st"> </span>can you present splice junctions? (right click -&gt;<span class="st"> </span>“Show splice junction track”)</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">Task <span class="dv">9</span><span class="op">:</span><span class="st"> </span>Try further tasks that interest you <span class="cf">in</span> IGV. For example, can you detect reads that are within one exon and reads that start <span class="cf">in</span> one exon and continue <span class="cf">in</span> the <span class="cf">next</span>? Can you copy the sequence of exon2 <span class="cf">in</span> MS4A1?</a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">Task <span class="dv">10</span><span class="op">:</span><span class="st"> </span>What would have happened <span class="cf">if</span> you chose the wrong reference genome, such as hg19?</a></code></pre></div>
 <p>Bonus 2 (IGV sometimes has difficulties loading small fa files. So if this becomes difficult - don’t worry! It’s not your alignment):</p>
 <p>The default genomes are human HG19 and HG38. However you can also upload your reference genome of choice. As we created our own fasta file we can now upload it as a reference genome.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="processing-scrnaseq-data.html#cb44-1"></a>Task <span class="dv">11</span><span class="op">:</span><span class="st"> </span>Load new genome<span class="op">:</span><span class="st"> </span>go to “Genomes”-&gt;”Load from file” and load the file <span class="dv">2000</span>_reference.transcripts.fa</span>
-<span id="cb44-2"><a href="processing-scrnaseq-data.html#cb44-2"></a></span>
-<span id="cb44-3"><a href="processing-scrnaseq-data.html#cb44-3"></a>Task <span class="dv">12</span><span class="op">:</span><span class="st"> </span>Now load your reads<span class="op">:</span><span class="st"> </span>go to “File”-&gt;”Load from file” and load your BAM file. Notice that IGV needs a BAM and a bai saved <span class="cf">in</span> the same location. IGV uses the bai to navigate through the BAM file. </span>
-<span id="cb44-4"><a href="processing-scrnaseq-data.html#cb44-4"></a></span>
-<span id="cb44-5"><a href="processing-scrnaseq-data.html#cb44-5"></a>Task <span class="dv">13</span><span class="op">:</span><span class="st"> </span>Some of the reads have a nucleotide substitution <span class="cf">in</span> position <span class="dv">993</span> <span class="op">-</span><span class="st"> </span>what is the reference nucleotide? What is the substitution?</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">Task <span class="dv">11</span><span class="op">:</span><span class="st"> </span>Load new genome<span class="op">:</span><span class="st"> </span>go to “Genomes”-&gt;”Load from file” and load the file <span class="dv">2000</span>_reference.transcripts.fa</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">Task <span class="dv">12</span><span class="op">:</span><span class="st"> </span>Now load your reads<span class="op">:</span><span class="st"> </span>go to “File”-&gt;”Load from file” and load your BAM file. Notice that IGV needs a BAM and a bai saved <span class="cf">in</span> the same location. IGV uses the bai to navigate through the BAM file. </a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">Task <span class="dv">13</span><span class="op">:</span><span class="st"> </span>Some of the reads have a nucleotide substitution <span class="cf">in</span> position <span class="dv">993</span> <span class="op">-</span><span class="st"> </span>what is the reference nucleotide? What is the substitution?</a></code></pre></div>
 
 </div>
 </div>
