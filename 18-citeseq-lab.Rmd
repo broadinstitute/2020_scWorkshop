@@ -290,7 +290,7 @@ The ADT-based clustering yields similar results, but with a few differences
 - However, some clusters for which the ADT data does not contain good distinguishing protein markers (i.e. Mk/Ery/DC) lose separation
 - You can verify this using FindMarkers at the RNA level, as well
 
-# Additional exploration: another example of multi-modal analysis
+## Additional exploration: another example of multi-modal analysis
 For another nice example of multi-modal analysis, please explore this [single cell ATAC-Seq vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html) and this [scATAC-seq data integration](https://satijalab.org/signac/articles/integration.html).
 
 ## Acknowledgements

@@ -162,19 +162,19 @@ install.packages("devtools")
 install.packages('rmarkdown')
 #install.packages("rgl", dependencies=TRUE)
 
+
 ## Bioconductor Packages
 BiocManager::install("SingleCellExperiment", update = FALSE)
 BiocManager::install("destiny", update = FALSE)
 BiocManager::install("slingshot", update = FALSE)
 BiocManager::install("clusterExperiment", update = FALSE)
 BiocManager::install("scater", update = FALSE)
-#BiocManager::install("DropletUtils", update = FALSE)
-#BiocManager::install("pcaMethods", update = FALSE)
-BiocManager::install("CountClust", update = FALSE)
 
 
 ## Github Packages
 devtools::install_github("satijalab/seurat", upgrade = "never")
+devtools::install_github('TaddyLab/maptpx')
+devtools::install_github('kkdey/CountClust')
 devtools::install_github('MacoskoLab/liger')
 
 ```

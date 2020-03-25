@@ -8,3 +8,4 @@
 0.0.8: add more R packages
 0.0.9: added back miniconda
 0.0.10: added leidenalg
+0.0.11: added CountClust and dependencies

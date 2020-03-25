@@ -33,7 +33,7 @@ The data for Non-Small Cell Lung Cancer Cells (NSCLC) is freely available from 1
 
 Task: Change the directory name to read your data
 ```{r, eval = FALSE}
-dirname <- "/data/"
+dirname <- "data/"
 counts_matrix_filename = paste0(dirname,"/filtered_gene_bc_matrices/GRCh38/")
 counts <- Read10X(data.dir = counts_matrix_filename)  # Seurat function to read in 10x count data
 

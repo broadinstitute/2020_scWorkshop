@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>14 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="14 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="14 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="trajectory-analysis.html"/>
-<link rel="next" href="additional-exploration-another-example-of-multi-modal-analysis.html"/>
+<link rel="next" href="single-cell-resources.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -256,46 +256,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="batch-correction.html"><a href="batch-correction.html#load-settings-and-packages"><i class="fa fa-check"></i><b>11.1</b> Load settings and packages</a></li>
 <li class="chapter" data-level="11.2" data-path="batch-correction.html"><a href="batch-correction.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>11.2</b> Read in pancreas expression matrices</a></li>
 <li class="chapter" data-level="11.3" data-path="batch-correction.html"><a href="batch-correction.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>11.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
+<li class="chapter" data-level="11.4" data-path="batch-correction.html"><a href="batch-correction.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>11.4</b> Cluster pancreatic datasets without batch correction</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="batch-correction.html"><a href="batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>11.4.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="11.4.2" data-path="batch-correction.html"><a href="batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>11.4.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html"><i class="fa fa-check"></i><b>12</b> Cluster pancreatic datasets without batch correction</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.0.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
-<li class="chapter" data-level="12.0.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.0.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
-<li class="chapter" data-level="12.1" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.1</b> Additional exploration: Regressing out unwanted covariates</a></li>
-<li class="chapter" data-level="12.2" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>12.2</b> Additional exploration: kBET</a></li>
-<li class="chapter" data-level="12.3" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.3</b> Additional exploration: Seurat 3</a></li>
-<li class="chapter" data-level="12.4" data-path="cluster-pancreatic-datasets-without-batch-correction.html"><a href="cluster-pancreatic-datasets-without-batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>12.4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="11.5" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>11.5</b> Additional exploration: Regressing out unwanted covariates</a></li>
+<li class="chapter" data-level="11.6" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-kbet"><i class="fa fa-check"></i><b>11.6</b> Additional exploration: kBET</a></li>
+<li class="chapter" data-level="11.7" data-path="batch-correction.html"><a href="batch-correction.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>11.7</b> Additional exploration: Seurat 3</a></li>
+<li class="chapter" data-level="11.8" data-path="batch-correction.html"><a href="batch-correction.html#acknowledgements"><i class="fa fa-check"></i><b>11.8</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>13</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
-<li class="chapter" data-level="13.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-3"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
+<li class="chapter" data-level="12" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>12</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
+<li class="chapter" data-level="12.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-3"><i class="fa fa-check"></i><b>12.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>14</b> Trajectory Analysis</a><ul>
-<li class="chapter" data-level="14.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="14.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>14.2</b> First look at the differentiation data from Deng et al.</a></li>
-<li class="chapter" data-level="14.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>14.3</b> Principle Components Analysis</a></li>
-<li class="chapter" data-level="14.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>14.4</b> Diffusion map pseudotime</a></li>
-<li class="chapter" data-level="14.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>14.5</b> Slingshot map pseudotime</a></li>
-<li class="chapter" data-level="14.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>14.6</b> Find temporally expressed genes</a></li>
-<li class="chapter" data-level="14.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>14.7</b> Comparison of the different trajectory inference methods</a></li>
-<li class="chapter" data-level="14.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>14.8</b> Plots of gene expression over time.</a></li>
-<li class="chapter" data-level="14.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
+<li class="chapter" data-level="13" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>13</b> Trajectory Analysis</a><ul>
+<li class="chapter" data-level="13.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>13.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="13.2" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#first-look-at-the-differentiation-data-from-deng-et-al."><i class="fa fa-check"></i><b>13.2</b> First look at the differentiation data from Deng et al.</a></li>
+<li class="chapter" data-level="13.3" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#principle-components-analysis"><i class="fa fa-check"></i><b>13.3</b> Principle Components Analysis</a></li>
+<li class="chapter" data-level="13.4" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#diffusion-map-pseudotime"><i class="fa fa-check"></i><b>13.4</b> Diffusion map pseudotime</a></li>
+<li class="chapter" data-level="13.5" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#slingshot-map-pseudotime"><i class="fa fa-check"></i><b>13.5</b> Slingshot map pseudotime</a></li>
+<li class="chapter" data-level="13.6" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#find-temporally-expressed-genes"><i class="fa fa-check"></i><b>13.6</b> Find temporally expressed genes</a></li>
+<li class="chapter" data-level="13.7" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#comparison-of-the-different-trajectory-inference-methods"><i class="fa fa-check"></i><b>13.7</b> Comparison of the different trajectory inference methods</a></li>
+<li class="chapter" data-level="13.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>13.8</b> Plots of gene expression over time.</a></li>
+<li class="chapter" data-level="13.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>13.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>15</b> Cite-Seq</a><ul>
-<li class="chapter" data-level="15.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="15.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>15.2</b> Load in the data</a></li>
-<li class="chapter" data-level="15.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>15.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
-<li class="chapter" data-level="15.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>15.4</b> Add the protein expression levels to the Seurat object</a></li>
-<li class="chapter" data-level="15.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>15.5</b> Visualize protein levels on RNA clusters</a></li>
-<li class="chapter" data-level="15.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>15.6</b> Identify differentially expressed proteins between clusters</a></li>
-<li class="chapter" data-level="15.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>15.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="14" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>14</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="14.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="14.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>14.2</b> Load in the data</a></li>
+<li class="chapter" data-level="14.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>14.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="14.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>14.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="14.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>14.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="14.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>14.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="14.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>14.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="14.8" data-path="cite-seq.html"><a href="cite-seq.html#additional-exploration-another-example-of-multi-modal-analysis"><i class="fa fa-check"></i><b>14.8</b> Additional exploration: another example of multi-modal analysis</a></li>
+<li class="chapter" data-level="14.9" data-path="cite-seq.html"><a href="cite-seq.html#acknowledgements-2"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>16</b> Additional exploration: another example of multi-modal analysis</a><ul>
-<li class="chapter" data-level="16.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>16.1</b> Acknowledgements</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>17</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="17.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>17.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="17.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>17.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="17.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>17.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="17.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>17.4</b> Online courses</a></li>
+<li class="chapter" data-level="15" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>15</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="15.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>15.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="15.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>15.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="15.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>15.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="15.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>15.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -319,257 +318,266 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="cite-seq" class="section level1">
-<h1><span class="header-section-number">15</span> Cite-Seq</h1>
+<h1><span class="header-section-number">14</span> Cite-Seq</h1>
 <p>In this lab, we will look at how single cell RNA-seq and single cell protein expression measurement datasets can be jointly analyzed, as part of a CITE-Seq experiment. To learn more about how the antibody barcode matrix is computationally generated from the sequencing data, please visit <a href="https://hoohm.github.io/CITE-seq-Count/">CITE-seq-Count</a>. To learn more about CITE-Seq and feature barcoding, please visit the <a href="https://cite-seq.com/">CITE-seq site</a>.</p>
 <p>This lab closely follows the official vignette available at <a href="https://satijalab.org/seurat/multimodal_vignette.html">Using Seurat with multi-modal data</a>.</p>
 <p>Note: you can increase the system memory available to Docker by going to Docker -&gt; Preferences -&gt; Advanced and shifting the Memory slider.</p>
 <div id="load-settings-and-packages-2" class="section level2">
-<h2><span class="header-section-number">15.1</span> Load settings and packages</h2>
+<h2><span class="header-section-number">14.1</span> Load settings and packages</h2>
 </div>
 <div id="load-in-the-data" class="section level2">
-<h2><span class="header-section-number">15.2</span> Load in the data</h2>
+<h2><span class="header-section-number">14.2</span> Load in the data</h2>
 <p>Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT).</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="cite-seq.html#cb259-1"></a><span class="co"># Load in the RNA UMI matrix</span></span>
-<span id="cb259-2"><a href="cite-seq.html#cb259-2"></a></span>
-<span id="cb259-3"><a href="cite-seq.html#cb259-3"></a><span class="co"># Note that this dataset also contains ~5% of mouse cells, which we can use</span></span>
-<span id="cb259-4"><a href="cite-seq.html#cb259-4"></a><span class="co"># as negative controls for the protein measurements. For this reason, the</span></span>
-<span id="cb259-5"><a href="cite-seq.html#cb259-5"></a><span class="co"># gene expression matrix has HUMAN_ or MOUSE_ appended to the beginning of</span></span>
-<span id="cb259-6"><a href="cite-seq.html#cb259-6"></a><span class="co"># each gene.</span></span>
-<span id="cb259-7"><a href="cite-seq.html#cb259-7"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
-<span id="cb259-8"><a href="cite-seq.html#cb259-8"></a>cbmc.rna[<span class="dv">20400</span><span class="op">:</span><span class="dv">20403</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
-<span id="cb259-9"><a href="cite-seq.html#cb259-9"></a></span>
-<span id="cb259-10"><a href="cite-seq.html#cb259-10"></a><span class="co"># To make life a bit easier going forward, we&#39;re going to discard all but</span></span>
-<span id="cb259-11"><a href="cite-seq.html#cb259-11"></a><span class="co"># the top 100 most highly expressed mouse genes, and remove the &#39;HUMAN_&#39;</span></span>
-<span id="cb259-12"><a href="cite-seq.html#cb259-12"></a><span class="co"># from the CITE-seq prefix</span></span>
-<span id="cb259-13"><a href="cite-seq.html#cb259-13"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">CollapseSpeciesExpressionMatrix</span>(cbmc.rna, <span class="dt">prefix =</span> <span class="st">&quot;HUMAN_&quot;</span>, <span class="dt">controls =</span> <span class="st">&quot;MOUSE_&quot;</span>)</span>
-<span id="cb259-14"><a href="cite-seq.html#cb259-14"></a></span>
-<span id="cb259-15"><a href="cite-seq.html#cb259-15"></a><span class="co"># Load in the ADT UMI matrix</span></span>
-<span id="cb259-16"><a href="cite-seq.html#cb259-16"></a>cbmc.adt &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
-<span id="cb259-17"><a href="cite-seq.html#cb259-17"></a></span>
-<span id="cb259-18"><a href="cite-seq.html#cb259-18"></a><span class="co"># When adding multimodal data to Seurat, it&#39;s okay to have duplicate feature names. Each set of</span></span>
-<span id="cb259-19"><a href="cite-seq.html#cb259-19"></a><span class="co"># modal data (eg. RNA, ADT, etc.) is stored in its own Assay object.  One of these Assay objects</span></span>
-<span id="cb259-20"><a href="cite-seq.html#cb259-20"></a><span class="co"># is called the &#39;default assay&#39;, meaning it&#39;s used for all analyses and visualization.  To pull</span></span>
-<span id="cb259-21"><a href="cite-seq.html#cb259-21"></a><span class="co"># data from an assay that isn&#39;t the default, you can specify a key that&#39;s linked to an assay for</span></span>
-<span id="cb259-22"><a href="cite-seq.html#cb259-22"></a><span class="co"># feature pulling.  To see all keys for all objects, use the Key function.  </span></span>
-<span id="cb259-23"><a href="cite-seq.html#cb259-23"></a></span>
-<span id="cb259-24"><a href="cite-seq.html#cb259-24"></a><span class="co"># Lastly, we observed poor enrichments for CCR5, CCR7, and CD10 - and therefore </span></span>
-<span id="cb259-25"><a href="cite-seq.html#cb259-25"></a><span class="co"># remove them from the matrix (optional)</span></span>
-<span id="cb259-26"><a href="cite-seq.html#cb259-26"></a>cbmc.adt &lt;-<span class="st"> </span>cbmc.adt[<span class="kw">setdiff</span>(<span class="kw">rownames</span>(<span class="dt">x =</span> cbmc.adt), <span class="kw">c</span>(<span class="st">&quot;CCR5&quot;</span>, <span class="st">&quot;CCR7&quot;</span>, <span class="st">&quot;CD10&quot;</span>)), ]</span>
-<span id="cb259-27"><a href="cite-seq.html#cb259-27"></a></span>
-<span id="cb259-28"><a href="cite-seq.html#cb259-28"></a><span class="co"># Look at structure of ADT matrix.</span></span>
-<span id="cb259-29"><a href="cite-seq.html#cb259-29"></a>cbmc.adt[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb259-30"><a href="cite-seq.html#cb259-30"></a></span>
-<span id="cb259-31"><a href="cite-seq.html#cb259-31"></a><span class="co"># What fraction of cells in the ADT and RNA matrix overlap?</span></span>
-<span id="cb259-32"><a href="cite-seq.html#cb259-32"></a><span class="kw">length</span>(<span class="kw">intersect</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">union</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt)))</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="cite-seq.html#cb258-1"></a><span class="co"># Load in the RNA UMI matrix</span></span>
+<span id="cb258-2"><a href="cite-seq.html#cb258-2"></a></span>
+<span id="cb258-3"><a href="cite-seq.html#cb258-3"></a><span class="co"># Note that this dataset also contains ~5% of mouse cells, which we can use</span></span>
+<span id="cb258-4"><a href="cite-seq.html#cb258-4"></a><span class="co"># as negative controls for the protein measurements. For this reason, the</span></span>
+<span id="cb258-5"><a href="cite-seq.html#cb258-5"></a><span class="co"># gene expression matrix has HUMAN_ or MOUSE_ appended to the beginning of</span></span>
+<span id="cb258-6"><a href="cite-seq.html#cb258-6"></a><span class="co"># each gene.</span></span>
+<span id="cb258-7"><a href="cite-seq.html#cb258-7"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
+<span id="cb258-8"><a href="cite-seq.html#cb258-8"></a>cbmc.rna[<span class="dv">20400</span><span class="op">:</span><span class="dv">20403</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
+<span id="cb258-9"><a href="cite-seq.html#cb258-9"></a></span>
+<span id="cb258-10"><a href="cite-seq.html#cb258-10"></a><span class="co"># To make life a bit easier going forward, we&#39;re going to discard all but</span></span>
+<span id="cb258-11"><a href="cite-seq.html#cb258-11"></a><span class="co"># the top 100 most highly expressed mouse genes, and remove the &#39;HUMAN_&#39;</span></span>
+<span id="cb258-12"><a href="cite-seq.html#cb258-12"></a><span class="co"># from the CITE-seq prefix</span></span>
+<span id="cb258-13"><a href="cite-seq.html#cb258-13"></a>cbmc.rna &lt;-<span class="st"> </span><span class="kw">CollapseSpeciesExpressionMatrix</span>(cbmc.rna, <span class="dt">prefix =</span> <span class="st">&quot;HUMAN_&quot;</span>, <span class="dt">controls =</span> <span class="st">&quot;MOUSE_&quot;</span>)</span>
+<span id="cb258-14"><a href="cite-seq.html#cb258-14"></a></span>
+<span id="cb258-15"><a href="cite-seq.html#cb258-15"></a><span class="co"># Load in the ADT UMI matrix</span></span>
+<span id="cb258-16"><a href="cite-seq.html#cb258-16"></a>cbmc.adt &lt;-<span class="st"> </span><span class="kw">as.sparse</span>(<span class="kw">read.csv</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>))</span>
+<span id="cb258-17"><a href="cite-seq.html#cb258-17"></a></span>
+<span id="cb258-18"><a href="cite-seq.html#cb258-18"></a><span class="co"># When adding multimodal data to Seurat, it&#39;s okay to have duplicate feature names. Each set of</span></span>
+<span id="cb258-19"><a href="cite-seq.html#cb258-19"></a><span class="co"># modal data (eg. RNA, ADT, etc.) is stored in its own Assay object.  One of these Assay objects</span></span>
+<span id="cb258-20"><a href="cite-seq.html#cb258-20"></a><span class="co"># is called the &#39;default assay&#39;, meaning it&#39;s used for all analyses and visualization.  To pull</span></span>
+<span id="cb258-21"><a href="cite-seq.html#cb258-21"></a><span class="co"># data from an assay that isn&#39;t the default, you can specify a key that&#39;s linked to an assay for</span></span>
+<span id="cb258-22"><a href="cite-seq.html#cb258-22"></a><span class="co"># feature pulling.  To see all keys for all objects, use the Key function.  </span></span>
+<span id="cb258-23"><a href="cite-seq.html#cb258-23"></a></span>
+<span id="cb258-24"><a href="cite-seq.html#cb258-24"></a><span class="co"># Lastly, we observed poor enrichments for CCR5, CCR7, and CD10 - and therefore </span></span>
+<span id="cb258-25"><a href="cite-seq.html#cb258-25"></a><span class="co"># remove them from the matrix (optional)</span></span>
+<span id="cb258-26"><a href="cite-seq.html#cb258-26"></a>cbmc.adt &lt;-<span class="st"> </span>cbmc.adt[<span class="kw">setdiff</span>(<span class="kw">rownames</span>(<span class="dt">x =</span> cbmc.adt), <span class="kw">c</span>(<span class="st">&quot;CCR5&quot;</span>, <span class="st">&quot;CCR7&quot;</span>, <span class="st">&quot;CD10&quot;</span>)), ]</span>
+<span id="cb258-27"><a href="cite-seq.html#cb258-27"></a></span>
+<span id="cb258-28"><a href="cite-seq.html#cb258-28"></a><span class="co"># Look at structure of ADT matrix.</span></span>
+<span id="cb258-29"><a href="cite-seq.html#cb258-29"></a>cbmc.adt[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb258-30"><a href="cite-seq.html#cb258-30"></a></span>
+<span id="cb258-31"><a href="cite-seq.html#cb258-31"></a><span class="co"># What fraction of cells in the ADT and RNA matrix overlap?</span></span>
+<span id="cb258-32"><a href="cite-seq.html#cb258-32"></a><span class="kw">length</span>(<span class="kw">intersect</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">union</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt)))</span></code></pre></div>
 </div>
 <div id="setup-a-seurat-object-and-cluster-cells-based-on-rna-expression" class="section level2">
-<h2><span class="header-section-number">15.3</span> Setup a Seurat object, and cluster cells based on RNA expression</h2>
+<h2><span class="header-section-number">14.3</span> Setup a Seurat object, and cluster cells based on RNA expression</h2>
 <p>The steps below represent a quick clustering of the PBMCs based on the scRNA-seq data. For more detail on individual steps or more advanced options, see our PBMC clustering guided tutorial here</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="cite-seq.html#cb260-1"></a>cbmc &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> cbmc.rna)</span>
-<span id="cb260-2"><a href="cite-seq.html#cb260-2"></a></span>
-<span id="cb260-3"><a href="cite-seq.html#cb260-3"></a><span class="co"># This code sub-samples the data in order to speed up calculations and not use too much memory.</span></span>
-<span id="cb260-4"><a href="cite-seq.html#cb260-4"></a><span class="co"># Idents(cbmc) &lt;- &quot;orig.ident&quot;</span></span>
-<span id="cb260-5"><a href="cite-seq.html#cb260-5"></a><span class="co"># cbmc &lt;- subset(cbmc, downsample = 2000, seed = 1)</span></span>
-<span id="cb260-6"><a href="cite-seq.html#cb260-6"></a><span class="co"># cbmc.adt &lt;- cbmc.adt[, colnames(cbmc)]</span></span>
-<span id="cb260-7"><a href="cite-seq.html#cb260-7"></a></span>
-<span id="cb260-8"><a href="cite-seq.html#cb260-8"></a><span class="co"># standard log-normalization</span></span>
-<span id="cb260-9"><a href="cite-seq.html#cb260-9"></a>cbmc &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(cbmc)</span>
-<span id="cb260-10"><a href="cite-seq.html#cb260-10"></a></span>
-<span id="cb260-11"><a href="cite-seq.html#cb260-11"></a><span class="co"># choose ~1k variable features</span></span>
-<span id="cb260-12"><a href="cite-seq.html#cb260-12"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(cbmc)</span>
-<span id="cb260-13"><a href="cite-seq.html#cb260-13"></a></span>
-<span id="cb260-14"><a href="cite-seq.html#cb260-14"></a><span class="co"># standard scaling (no regression)</span></span>
-<span id="cb260-15"><a href="cite-seq.html#cb260-15"></a>cbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(cbmc)</span>
-<span id="cb260-16"><a href="cite-seq.html#cb260-16"></a></span>
-<span id="cb260-17"><a href="cite-seq.html#cb260-17"></a><span class="co"># Run PCA, select PCs for tSNE visualization and graph-based clustering</span></span>
-<span id="cb260-18"><a href="cite-seq.html#cb260-18"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(cbmc, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb260-19"><a href="cite-seq.html#cb260-19"></a><span class="kw">ElbowPlot</span>(cbmc, <span class="dt">ndims =</span> <span class="dv">50</span>)</span>
-<span id="cb260-20"><a href="cite-seq.html#cb260-20"></a></span>
-<span id="cb260-21"><a href="cite-seq.html#cb260-21"></a><span class="co"># Cluster the cells using the first 25 principal components.</span></span>
-<span id="cb260-22"><a href="cite-seq.html#cb260-22"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(cbmc, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>)</span>
-<span id="cb260-23"><a href="cite-seq.html#cb260-23"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(cbmc, <span class="dt">resolution =</span> <span class="fl">0.8</span>)</span>
-<span id="cb260-24"><a href="cite-seq.html#cb260-24"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(cbmc, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">method =</span> <span class="st">&quot;FIt-SNE&quot;</span>)</span>
-<span id="cb260-25"><a href="cite-seq.html#cb260-25"></a></span>
-<span id="cb260-26"><a href="cite-seq.html#cb260-26"></a><span class="co"># Find the markers that define each cluster, and use these to annotate the</span></span>
-<span id="cb260-27"><a href="cite-seq.html#cb260-27"></a><span class="co"># clusters, we use max.cells.per.ident to speed up the process</span></span>
-<span id="cb260-28"><a href="cite-seq.html#cb260-28"></a>cbmc.rna.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(cbmc, <span class="dt">max.cells.per.ident =</span> <span class="dv">100</span>, <span class="dt">logfc.threshold =</span> <span class="kw">log</span>(<span class="dv">2</span>), <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.diff.pct =</span> <span class="fl">0.3</span>)</span>
-<span id="cb260-29"><a href="cite-seq.html#cb260-29"></a></span>
-<span id="cb260-30"><a href="cite-seq.html#cb260-30"></a><span class="co"># Which cluster consists of mouse cells?</span></span>
-<span id="cb260-31"><a href="cite-seq.html#cb260-31"></a>cbmc.rna.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cluster <span class="op">==</span><span class="st"> </span><span class="dv">5</span>)</span>
-<span id="cb260-32"><a href="cite-seq.html#cb260-32"></a>cbmc.rna.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cluster <span class="op">==</span><span class="st"> </span><span class="dv">13</span>)</span>
-<span id="cb260-33"><a href="cite-seq.html#cb260-33"></a></span>
-<span id="cb260-34"><a href="cite-seq.html#cb260-34"></a><span class="co"># Note, for simplicity we are merging two CD14+ Monocyte clusters (that differ in expression of</span></span>
-<span id="cb260-35"><a href="cite-seq.html#cb260-35"></a><span class="co"># HLA-DR genes) and NK clusters (that differ in cell cycle stage)</span></span>
-<span id="cb260-36"><a href="cite-seq.html#cb260-36"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;CD16+ Mono&quot;</span>, <span class="st">&quot;T/Mono doublets&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD34+&quot;</span>, <span class="st">&quot;Multiplets&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;Eryth&quot;</span>, <span class="st">&quot;Mk&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;DC&quot;</span>, <span class="st">&quot;pDCs&quot;</span>)</span>
-<span id="cb260-37"><a href="cite-seq.html#cb260-37"></a><span class="kw">names</span>(new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(cbmc)</span>
-<span id="cb260-38"><a href="cite-seq.html#cb260-38"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(cbmc, new.cluster.ids)</span>
-<span id="cb260-39"><a href="cite-seq.html#cb260-39"></a></span>
-<span id="cb260-40"><a href="cite-seq.html#cb260-40"></a><span class="co"># Visualize clustering based on RNA.</span></span>
-<span id="cb260-41"><a href="cite-seq.html#cb260-41"></a><span class="kw">DimPlot</span>(cbmc, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb260-42"><a href="cite-seq.html#cb260-42"></a></span>
-<span id="cb260-43"><a href="cite-seq.html#cb260-43"></a><span class="co"># Save current progress.</span></span>
-<span id="cb260-44"><a href="cite-seq.html#cb260-44"></a><span class="kw">save</span>(cbmc, cbmc.rna.markers, cbmc.adt, <span class="dt">file =</span> Rda.RNA.path)</span>
-<span id="cb260-45"><a href="cite-seq.html#cb260-45"></a><span class="co"># To load the data, run the following command.</span></span>
-<span id="cb260-46"><a href="cite-seq.html#cb260-46"></a><span class="co"># load(Rda.RNA.path)</span></span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="cite-seq.html#cb259-1"></a>cbmc &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> cbmc.rna)</span>
+<span id="cb259-2"><a href="cite-seq.html#cb259-2"></a></span>
+<span id="cb259-3"><a href="cite-seq.html#cb259-3"></a><span class="co"># This code sub-samples the data in order to speed up calculations and not use too much memory.</span></span>
+<span id="cb259-4"><a href="cite-seq.html#cb259-4"></a><span class="co"># Idents(cbmc) &lt;- &quot;orig.ident&quot;</span></span>
+<span id="cb259-5"><a href="cite-seq.html#cb259-5"></a><span class="co"># cbmc &lt;- subset(cbmc, downsample = 2000, seed = 1)</span></span>
+<span id="cb259-6"><a href="cite-seq.html#cb259-6"></a><span class="co"># cbmc.adt &lt;- cbmc.adt[, colnames(cbmc)]</span></span>
+<span id="cb259-7"><a href="cite-seq.html#cb259-7"></a></span>
+<span id="cb259-8"><a href="cite-seq.html#cb259-8"></a><span class="co"># standard log-normalization</span></span>
+<span id="cb259-9"><a href="cite-seq.html#cb259-9"></a>cbmc &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(cbmc)</span>
+<span id="cb259-10"><a href="cite-seq.html#cb259-10"></a></span>
+<span id="cb259-11"><a href="cite-seq.html#cb259-11"></a><span class="co"># choose ~1k variable features</span></span>
+<span id="cb259-12"><a href="cite-seq.html#cb259-12"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(cbmc)</span>
+<span id="cb259-13"><a href="cite-seq.html#cb259-13"></a></span>
+<span id="cb259-14"><a href="cite-seq.html#cb259-14"></a><span class="co"># standard scaling (no regression)</span></span>
+<span id="cb259-15"><a href="cite-seq.html#cb259-15"></a>cbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(cbmc)</span>
+<span id="cb259-16"><a href="cite-seq.html#cb259-16"></a></span>
+<span id="cb259-17"><a href="cite-seq.html#cb259-17"></a><span class="co"># Run PCA, select PCs for tSNE visualization and graph-based clustering</span></span>
+<span id="cb259-18"><a href="cite-seq.html#cb259-18"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(cbmc, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb259-19"><a href="cite-seq.html#cb259-19"></a><span class="kw">ElbowPlot</span>(cbmc, <span class="dt">ndims =</span> <span class="dv">50</span>)</span>
+<span id="cb259-20"><a href="cite-seq.html#cb259-20"></a></span>
+<span id="cb259-21"><a href="cite-seq.html#cb259-21"></a><span class="co"># Cluster the cells using the first 25 principal components.</span></span>
+<span id="cb259-22"><a href="cite-seq.html#cb259-22"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(cbmc, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>)</span>
+<span id="cb259-23"><a href="cite-seq.html#cb259-23"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(cbmc, <span class="dt">resolution =</span> <span class="fl">0.8</span>)</span>
+<span id="cb259-24"><a href="cite-seq.html#cb259-24"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(cbmc, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">method =</span> <span class="st">&quot;FIt-SNE&quot;</span>)</span>
+<span id="cb259-25"><a href="cite-seq.html#cb259-25"></a></span>
+<span id="cb259-26"><a href="cite-seq.html#cb259-26"></a><span class="co"># Find the markers that define each cluster, and use these to annotate the</span></span>
+<span id="cb259-27"><a href="cite-seq.html#cb259-27"></a><span class="co"># clusters, we use max.cells.per.ident to speed up the process</span></span>
+<span id="cb259-28"><a href="cite-seq.html#cb259-28"></a>cbmc.rna.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(cbmc, <span class="dt">max.cells.per.ident =</span> <span class="dv">100</span>, <span class="dt">logfc.threshold =</span> <span class="kw">log</span>(<span class="dv">2</span>), <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.diff.pct =</span> <span class="fl">0.3</span>)</span>
+<span id="cb259-29"><a href="cite-seq.html#cb259-29"></a></span>
+<span id="cb259-30"><a href="cite-seq.html#cb259-30"></a><span class="co"># Which cluster consists of mouse cells?</span></span>
+<span id="cb259-31"><a href="cite-seq.html#cb259-31"></a>cbmc.rna.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cluster <span class="op">==</span><span class="st"> </span><span class="dv">5</span>)</span>
+<span id="cb259-32"><a href="cite-seq.html#cb259-32"></a>cbmc.rna.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cluster <span class="op">==</span><span class="st"> </span><span class="dv">13</span>)</span>
+<span id="cb259-33"><a href="cite-seq.html#cb259-33"></a></span>
+<span id="cb259-34"><a href="cite-seq.html#cb259-34"></a><span class="co"># Note, for simplicity we are merging two CD14+ Monocyte clusters (that differ in expression of</span></span>
+<span id="cb259-35"><a href="cite-seq.html#cb259-35"></a><span class="co"># HLA-DR genes) and NK clusters (that differ in cell cycle stage)</span></span>
+<span id="cb259-36"><a href="cite-seq.html#cb259-36"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;CD16+ Mono&quot;</span>, <span class="st">&quot;T/Mono doublets&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD34+&quot;</span>, <span class="st">&quot;Multiplets&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;Eryth&quot;</span>, <span class="st">&quot;Mk&quot;</span>, <span class="st">&quot;Mouse&quot;</span>, <span class="st">&quot;DC&quot;</span>, <span class="st">&quot;pDCs&quot;</span>)</span>
+<span id="cb259-37"><a href="cite-seq.html#cb259-37"></a><span class="kw">names</span>(new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(cbmc)</span>
+<span id="cb259-38"><a href="cite-seq.html#cb259-38"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(cbmc, new.cluster.ids)</span>
+<span id="cb259-39"><a href="cite-seq.html#cb259-39"></a></span>
+<span id="cb259-40"><a href="cite-seq.html#cb259-40"></a><span class="co"># Visualize clustering based on RNA.</span></span>
+<span id="cb259-41"><a href="cite-seq.html#cb259-41"></a><span class="kw">DimPlot</span>(cbmc, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb259-42"><a href="cite-seq.html#cb259-42"></a></span>
+<span id="cb259-43"><a href="cite-seq.html#cb259-43"></a><span class="co"># Save current progress.</span></span>
+<span id="cb259-44"><a href="cite-seq.html#cb259-44"></a><span class="kw">save</span>(cbmc, cbmc.rna.markers, cbmc.adt, <span class="dt">file =</span> Rda.RNA.path)</span>
+<span id="cb259-45"><a href="cite-seq.html#cb259-45"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb259-46"><a href="cite-seq.html#cb259-46"></a><span class="co"># load(Rda.RNA.path)</span></span></code></pre></div>
 </div>
 <div id="add-the-protein-expression-levels-to-the-seurat-object" class="section level2">
-<h2><span class="header-section-number">15.4</span> Add the protein expression levels to the Seurat object</h2>
+<h2><span class="header-section-number">14.4</span> Add the protein expression levels to the Seurat object</h2>
 <p>Seurat v3.0 allows you to store information from multiple assays in the same object, as long as the data is multi-modal (collected on the same set of cells). You can use the <code>SetAssayData</code> and <code>GetAssayData</code> accessor functions to add and fetch data from additional assays.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="cite-seq.html#cb261-1"></a><span class="co"># We will define an ADT assay, and store raw counts for it</span></span>
-<span id="cb261-2"><a href="cite-seq.html#cb261-2"></a></span>
-<span id="cb261-3"><a href="cite-seq.html#cb261-3"></a><span class="co"># If you are interested in how these data are internally stored, you can check out the Assay</span></span>
-<span id="cb261-4"><a href="cite-seq.html#cb261-4"></a><span class="co"># class, which is defined in objects.R; note that all single-cell expression data, including RNA</span></span>
-<span id="cb261-5"><a href="cite-seq.html#cb261-5"></a><span class="co"># data, are still stored in Assay objects, and can also be accessed using GetAssayData</span></span>
-<span id="cb261-6"><a href="cite-seq.html#cb261-6"></a>cbmc[[<span class="st">&quot;ADT&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">CreateAssayObject</span>(<span class="dt">counts =</span> cbmc.adt)</span>
-<span id="cb261-7"><a href="cite-seq.html#cb261-7"></a></span>
-<span id="cb261-8"><a href="cite-seq.html#cb261-8"></a><span class="kw">GetAssayData</span>(cbmc, <span class="dt">slot =</span> <span class="st">&quot;counts&quot;</span>, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb261-9"><a href="cite-seq.html#cb261-9"></a>cbmc[[<span class="st">&quot;ADT&quot;</span>]]<span class="op">@</span>counts[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb261-10"><a href="cite-seq.html#cb261-10"></a></span>
-<span id="cb261-11"><a href="cite-seq.html#cb261-11"></a><span class="co"># Now we can repeat the preprocessing (normalization and scaling) steps that we typically run</span></span>
-<span id="cb261-12"><a href="cite-seq.html#cb261-12"></a><span class="co"># with RNA, but modifying the &#39;assay&#39; argument.  For CITE-seq data, we do not recommend typical</span></span>
-<span id="cb261-13"><a href="cite-seq.html#cb261-13"></a><span class="co"># LogNormalization. Instead, we use a centered log-ratio (CLR) normalization, computed</span></span>
-<span id="cb261-14"><a href="cite-seq.html#cb261-14"></a><span class="co"># independently for each feature.  This is a slightly improved procedure from the original</span></span>
-<span id="cb261-15"><a href="cite-seq.html#cb261-15"></a><span class="co"># publication, and we will release more advanced versions of CITE-seq normalizations soon.</span></span>
-<span id="cb261-16"><a href="cite-seq.html#cb261-16"></a>cbmc &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(cbmc, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">normalization.method =</span> <span class="st">&quot;CLR&quot;</span>)</span>
-<span id="cb261-17"><a href="cite-seq.html#cb261-17"></a>cbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(cbmc, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="cite-seq.html#cb260-1"></a><span class="co"># We will define an ADT assay, and store raw counts for it</span></span>
+<span id="cb260-2"><a href="cite-seq.html#cb260-2"></a></span>
+<span id="cb260-3"><a href="cite-seq.html#cb260-3"></a><span class="co"># If you are interested in how these data are internally stored, you can check out the Assay</span></span>
+<span id="cb260-4"><a href="cite-seq.html#cb260-4"></a><span class="co"># class, which is defined in objects.R; note that all single-cell expression data, including RNA</span></span>
+<span id="cb260-5"><a href="cite-seq.html#cb260-5"></a><span class="co"># data, are still stored in Assay objects, and can also be accessed using GetAssayData</span></span>
+<span id="cb260-6"><a href="cite-seq.html#cb260-6"></a>cbmc[[<span class="st">&quot;ADT&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">CreateAssayObject</span>(<span class="dt">counts =</span> cbmc.adt)</span>
+<span id="cb260-7"><a href="cite-seq.html#cb260-7"></a></span>
+<span id="cb260-8"><a href="cite-seq.html#cb260-8"></a><span class="kw">GetAssayData</span>(cbmc, <span class="dt">slot =</span> <span class="st">&quot;counts&quot;</span>, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb260-9"><a href="cite-seq.html#cb260-9"></a>cbmc[[<span class="st">&quot;ADT&quot;</span>]]<span class="op">@</span>counts[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb260-10"><a href="cite-seq.html#cb260-10"></a></span>
+<span id="cb260-11"><a href="cite-seq.html#cb260-11"></a><span class="co"># Now we can repeat the preprocessing (normalization and scaling) steps that we typically run</span></span>
+<span id="cb260-12"><a href="cite-seq.html#cb260-12"></a><span class="co"># with RNA, but modifying the &#39;assay&#39; argument.  For CITE-seq data, we do not recommend typical</span></span>
+<span id="cb260-13"><a href="cite-seq.html#cb260-13"></a><span class="co"># LogNormalization. Instead, we use a centered log-ratio (CLR) normalization, computed</span></span>
+<span id="cb260-14"><a href="cite-seq.html#cb260-14"></a><span class="co"># independently for each feature.  This is a slightly improved procedure from the original</span></span>
+<span id="cb260-15"><a href="cite-seq.html#cb260-15"></a><span class="co"># publication, and we will release more advanced versions of CITE-seq normalizations soon.</span></span>
+<span id="cb260-16"><a href="cite-seq.html#cb260-16"></a>cbmc &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(cbmc, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">normalization.method =</span> <span class="st">&quot;CLR&quot;</span>)</span>
+<span id="cb260-17"><a href="cite-seq.html#cb260-17"></a>cbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(cbmc, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>)</span></code></pre></div>
 </div>
 <div id="visualize-protein-levels-on-rna-clusters" class="section level2">
-<h2><span class="header-section-number">15.5</span> Visualize protein levels on RNA clusters</h2>
+<h2><span class="header-section-number">14.5</span> Visualize protein levels on RNA clusters</h2>
 <p>You can use the names of any ADT markers, (i.e. “adt_CD4”), in FetchData, FeaturePlot, RidgePlot, FeatureScatter, DoHeatmap, or any other visualization features</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="cite-seq.html#cb262-1"></a><span class="co"># In this plot, protein (ADT) levels are on top, and RNA levels are on the bottom</span></span>
-<span id="cb262-2"><a href="cite-seq.html#cb262-2"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;ITGAX&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, </span>
-<span id="cb262-3"><a href="cite-seq.html#cb262-3"></a>    <span class="st">&quot;FCGR3A&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb262-4"><a href="cite-seq.html#cb262-4"></a></span>
-<span id="cb262-5"><a href="cite-seq.html#cb262-5"></a><span class="co"># How do the gene and protein expression levels compare to one another?</span></span>
-<span id="cb262-6"><a href="cite-seq.html#cb262-6"></a></span>
-<span id="cb262-7"><a href="cite-seq.html#cb262-7"></a><span class="co"># Compare gene and protein expression levels for the other 6 antibodies.</span></span>
-<span id="cb262-8"><a href="cite-seq.html#cb262-8"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD4&quot;</span>, <span class="st">&quot;adt_CD45RA&quot;</span>, <span class="st">&quot;adt_CD56&quot;</span>, <span class="st">&quot;adt_CD14&quot;</span>, <span class="st">&quot;adt_CD19&quot;</span>, <span class="st">&quot;adt_CD34&quot;</span>, <span class="st">&quot;CD4&quot;</span>, <span class="st">&quot;PTPRC&quot;</span>, <span class="st">&quot;NCAM1&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;CD19&quot;</span>, <span class="st">&quot;CD34&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">6</span>)</span>
-<span id="cb262-9"><a href="cite-seq.html#cb262-9"></a></span>
-<span id="cb262-10"><a href="cite-seq.html#cb262-10"></a><span class="co"># Ridge plots are another useful visualization.</span></span>
-<span id="cb262-11"><a href="cite-seq.html#cb262-11"></a><span class="kw">RidgePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb262-12"><a href="cite-seq.html#cb262-12"></a></span>
-<span id="cb262-13"><a href="cite-seq.html#cb262-13"></a><span class="co"># Draw ADT scatter plots (like biaxial plots for FACS). Note that you can even &#39;gate&#39; cells if</span></span>
-<span id="cb262-14"><a href="cite-seq.html#cb262-14"></a><span class="co"># desired by using HoverLocator and CellSelector</span></span>
-<span id="cb262-15"><a href="cite-seq.html#cb262-15"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD19&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD3&quot;</span>)</span>
-<span id="cb262-16"><a href="cite-seq.html#cb262-16"></a><span class="co"># HoverLocator(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
-<span id="cb262-17"><a href="cite-seq.html#cb262-17"></a><span class="co"># CellSelector(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
-<span id="cb262-18"><a href="cite-seq.html#cb262-18"></a></span>
-<span id="cb262-19"><a href="cite-seq.html#cb262-19"></a><span class="co"># View relationship between protein and RNA</span></span>
-<span id="cb262-20"><a href="cite-seq.html#cb262-20"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD3&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD3E&quot;</span>)</span>
-<span id="cb262-21"><a href="cite-seq.html#cb262-21"></a></span>
-<span id="cb262-22"><a href="cite-seq.html#cb262-22"></a><span class="co"># Let&#39;s plot CD4 vs CD8 levels in T cells</span></span>
-<span id="cb262-23"><a href="cite-seq.html#cb262-23"></a>tcells &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>))</span>
-<span id="cb262-24"><a href="cite-seq.html#cb262-24"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
-<span id="cb262-25"><a href="cite-seq.html#cb262-25"></a></span>
-<span id="cb262-26"><a href="cite-seq.html#cb262-26"></a><span class="co"># Let&#39;s look at the raw (non-normalized) ADT counts. You can see the values are quite high,</span></span>
-<span id="cb262-27"><a href="cite-seq.html#cb262-27"></a><span class="co"># particularly in comparison to RNA values. This is due to the significantly higher protein copy</span></span>
-<span id="cb262-28"><a href="cite-seq.html#cb262-28"></a><span class="co"># number in cells, which significantly reduces &#39;drop-out&#39; in ADT data</span></span>
-<span id="cb262-29"><a href="cite-seq.html#cb262-29"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>, <span class="dt">slot =</span> <span class="st">&quot;counts&quot;</span>)</span>
-<span id="cb262-30"><a href="cite-seq.html#cb262-30"></a></span>
-<span id="cb262-31"><a href="cite-seq.html#cb262-31"></a><span class="co"># If you look a bit more closely, you&#39;ll see that our CD8 T cell cluster is</span></span>
-<span id="cb262-32"><a href="cite-seq.html#cb262-32"></a><span class="co"># enriched for CD8 T cells, but still contains many CD4+ CD8- T cells.  This</span></span>
-<span id="cb262-33"><a href="cite-seq.html#cb262-33"></a><span class="co"># is because Naive CD4 and CD8 T cells are quite similar transcriptomically,</span></span>
-<span id="cb262-34"><a href="cite-seq.html#cb262-34"></a><span class="co"># and the RNA dropout levels for CD4 and CD8 are quite high.  This</span></span>
-<span id="cb262-35"><a href="cite-seq.html#cb262-35"></a><span class="co"># demonstrates the challenge of defining subtle immune cell differences from</span></span>
-<span id="cb262-36"><a href="cite-seq.html#cb262-36"></a><span class="co"># scRNA-seq data alone.</span></span>
-<span id="cb262-37"><a href="cite-seq.html#cb262-37"></a></span>
-<span id="cb262-38"><a href="cite-seq.html#cb262-38"></a><span class="co"># What fraction of T cells are double negative in gene expression? (CD4- and CD8-)</span></span>
-<span id="cb262-39"><a href="cite-seq.html#cb262-39"></a><span class="co"># You can use an interactive plot to gate on the cells (do.identify = T) or use </span></span>
-<span id="cb262-40"><a href="cite-seq.html#cb262-40"></a><span class="co"># Boolean conditions on CD4 and CD8A expression to find double negative cells.</span></span>
-<span id="cb262-41"><a href="cite-seq.html#cb262-41"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD8A&quot;</span>)</span>
-<span id="cb262-42"><a href="cite-seq.html#cb262-42"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> CD4 <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>CD8A <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
-<span id="cb262-43"><a href="cite-seq.html#cb262-43"></a></span>
-<span id="cb262-44"><a href="cite-seq.html#cb262-44"></a><span class="co"># What fraction of T cells are double negative in protein expression? (CD4- and CD8-)</span></span>
-<span id="cb262-45"><a href="cite-seq.html#cb262-45"></a><span class="co"># length(cells) / length(tcells@cell.names)</span></span>
-<span id="cb262-46"><a href="cite-seq.html#cb262-46"></a><span class="kw">DefaultAssay</span>(tcells) &lt;-<span class="st"> &quot;ADT&quot;</span>  <span class="co"># work with ADT count matrix</span></span>
-<span id="cb262-47"><a href="cite-seq.html#cb262-47"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
-<span id="cb262-48"><a href="cite-seq.html#cb262-48"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> adt_CD4 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>adt_CD8 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
-<span id="cb262-49"><a href="cite-seq.html#cb262-49"></a></span>
-<span id="cb262-50"><a href="cite-seq.html#cb262-50"></a><span class="co"># Save current progress.</span></span>
-<span id="cb262-51"><a href="cite-seq.html#cb262-51"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.multi.path)</span>
-<span id="cb262-52"><a href="cite-seq.html#cb262-52"></a><span class="co"># To load the data, run the following command.</span></span>
-<span id="cb262-53"><a href="cite-seq.html#cb262-53"></a><span class="co"># load(Rda.multi.path)</span></span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="cite-seq.html#cb261-1"></a><span class="co"># In this plot, protein (ADT) levels are on top, and RNA levels are on the bottom</span></span>
+<span id="cb261-2"><a href="cite-seq.html#cb261-2"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;ITGAX&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, </span>
+<span id="cb261-3"><a href="cite-seq.html#cb261-3"></a>    <span class="st">&quot;FCGR3A&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb261-4"><a href="cite-seq.html#cb261-4"></a></span>
+<span id="cb261-5"><a href="cite-seq.html#cb261-5"></a><span class="co"># How do the gene and protein expression levels compare to one another?</span></span>
+<span id="cb261-6"><a href="cite-seq.html#cb261-6"></a></span>
+<span id="cb261-7"><a href="cite-seq.html#cb261-7"></a><span class="co"># Compare gene and protein expression levels for the other 6 antibodies.</span></span>
+<span id="cb261-8"><a href="cite-seq.html#cb261-8"></a><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD4&quot;</span>, <span class="st">&quot;adt_CD45RA&quot;</span>, <span class="st">&quot;adt_CD56&quot;</span>, <span class="st">&quot;adt_CD14&quot;</span>, <span class="st">&quot;adt_CD19&quot;</span>, <span class="st">&quot;adt_CD34&quot;</span>, <span class="st">&quot;CD4&quot;</span>, <span class="st">&quot;PTPRC&quot;</span>, <span class="st">&quot;NCAM1&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;CD19&quot;</span>, <span class="st">&quot;CD34&quot;</span>), <span class="dt">min.cutoff =</span> <span class="st">&quot;q05&quot;</span>, <span class="dt">max.cutoff =</span> <span class="st">&quot;q95&quot;</span>, <span class="dt">ncol =</span> <span class="dv">6</span>)</span>
+<span id="cb261-9"><a href="cite-seq.html#cb261-9"></a></span>
+<span id="cb261-10"><a href="cite-seq.html#cb261-10"></a><span class="co"># Ridge plots are another useful visualization.</span></span>
+<span id="cb261-11"><a href="cite-seq.html#cb261-11"></a><span class="kw">RidgePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb261-12"><a href="cite-seq.html#cb261-12"></a></span>
+<span id="cb261-13"><a href="cite-seq.html#cb261-13"></a><span class="co"># Draw ADT scatter plots (like biaxial plots for FACS). Note that you can even &#39;gate&#39; cells if</span></span>
+<span id="cb261-14"><a href="cite-seq.html#cb261-14"></a><span class="co"># desired by using HoverLocator and CellSelector</span></span>
+<span id="cb261-15"><a href="cite-seq.html#cb261-15"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD19&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD3&quot;</span>)</span>
+<span id="cb261-16"><a href="cite-seq.html#cb261-16"></a><span class="co"># HoverLocator(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
+<span id="cb261-17"><a href="cite-seq.html#cb261-17"></a><span class="co"># CellSelector(FeatureScatter(cbmc, feature1 = &quot;adt_CD19&quot;, feature2 = &quot;adt_CD3&quot;))</span></span>
+<span id="cb261-18"><a href="cite-seq.html#cb261-18"></a></span>
+<span id="cb261-19"><a href="cite-seq.html#cb261-19"></a><span class="co"># View relationship between protein and RNA</span></span>
+<span id="cb261-20"><a href="cite-seq.html#cb261-20"></a><span class="kw">FeatureScatter</span>(cbmc, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD3&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD3E&quot;</span>)</span>
+<span id="cb261-21"><a href="cite-seq.html#cb261-21"></a></span>
+<span id="cb261-22"><a href="cite-seq.html#cb261-22"></a><span class="co"># Let&#39;s plot CD4 vs CD8 levels in T cells</span></span>
+<span id="cb261-23"><a href="cite-seq.html#cb261-23"></a>tcells &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>))</span>
+<span id="cb261-24"><a href="cite-seq.html#cb261-24"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
+<span id="cb261-25"><a href="cite-seq.html#cb261-25"></a></span>
+<span id="cb261-26"><a href="cite-seq.html#cb261-26"></a><span class="co"># Let&#39;s look at the raw (non-normalized) ADT counts. You can see the values are quite high,</span></span>
+<span id="cb261-27"><a href="cite-seq.html#cb261-27"></a><span class="co"># particularly in comparison to RNA values. This is due to the significantly higher protein copy</span></span>
+<span id="cb261-28"><a href="cite-seq.html#cb261-28"></a><span class="co"># number in cells, which significantly reduces &#39;drop-out&#39; in ADT data</span></span>
+<span id="cb261-29"><a href="cite-seq.html#cb261-29"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>, <span class="dt">slot =</span> <span class="st">&quot;counts&quot;</span>)</span>
+<span id="cb261-30"><a href="cite-seq.html#cb261-30"></a></span>
+<span id="cb261-31"><a href="cite-seq.html#cb261-31"></a><span class="co"># If you look a bit more closely, you&#39;ll see that our CD8 T cell cluster is</span></span>
+<span id="cb261-32"><a href="cite-seq.html#cb261-32"></a><span class="co"># enriched for CD8 T cells, but still contains many CD4+ CD8- T cells.  This</span></span>
+<span id="cb261-33"><a href="cite-seq.html#cb261-33"></a><span class="co"># is because Naive CD4 and CD8 T cells are quite similar transcriptomically,</span></span>
+<span id="cb261-34"><a href="cite-seq.html#cb261-34"></a><span class="co"># and the RNA dropout levels for CD4 and CD8 are quite high.  This</span></span>
+<span id="cb261-35"><a href="cite-seq.html#cb261-35"></a><span class="co"># demonstrates the challenge of defining subtle immune cell differences from</span></span>
+<span id="cb261-36"><a href="cite-seq.html#cb261-36"></a><span class="co"># scRNA-seq data alone.</span></span>
+<span id="cb261-37"><a href="cite-seq.html#cb261-37"></a></span>
+<span id="cb261-38"><a href="cite-seq.html#cb261-38"></a><span class="co"># What fraction of T cells are double negative in gene expression? (CD4- and CD8-)</span></span>
+<span id="cb261-39"><a href="cite-seq.html#cb261-39"></a><span class="co"># You can use an interactive plot to gate on the cells (do.identify = T) or use </span></span>
+<span id="cb261-40"><a href="cite-seq.html#cb261-40"></a><span class="co"># Boolean conditions on CD4 and CD8A expression to find double negative cells.</span></span>
+<span id="cb261-41"><a href="cite-seq.html#cb261-41"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;CD8A&quot;</span>)</span>
+<span id="cb261-42"><a href="cite-seq.html#cb261-42"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> CD4 <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>CD8A <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
+<span id="cb261-43"><a href="cite-seq.html#cb261-43"></a></span>
+<span id="cb261-44"><a href="cite-seq.html#cb261-44"></a><span class="co"># What fraction of T cells are double negative in protein expression? (CD4- and CD8-)</span></span>
+<span id="cb261-45"><a href="cite-seq.html#cb261-45"></a><span class="co"># length(cells) / length(tcells@cell.names)</span></span>
+<span id="cb261-46"><a href="cite-seq.html#cb261-46"></a><span class="kw">DefaultAssay</span>(tcells) &lt;-<span class="st"> &quot;ADT&quot;</span>  <span class="co"># work with ADT count matrix</span></span>
+<span id="cb261-47"><a href="cite-seq.html#cb261-47"></a><span class="kw">FeatureScatter</span>(tcells, <span class="dt">feature1 =</span> <span class="st">&quot;adt_CD4&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;adt_CD8&quot;</span>)</span>
+<span id="cb261-48"><a href="cite-seq.html#cb261-48"></a><span class="kw">ncol</span>(<span class="kw">subset</span>(tcells, <span class="dt">subset =</span> adt_CD4 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>adt_CD8 <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(tcells)</span>
+<span id="cb261-49"><a href="cite-seq.html#cb261-49"></a></span>
+<span id="cb261-50"><a href="cite-seq.html#cb261-50"></a><span class="co"># Save current progress.</span></span>
+<span id="cb261-51"><a href="cite-seq.html#cb261-51"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.multi.path)</span>
+<span id="cb261-52"><a href="cite-seq.html#cb261-52"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb261-53"><a href="cite-seq.html#cb261-53"></a><span class="co"># load(Rda.multi.path)</span></span></code></pre></div>
 </div>
 <div id="identify-differentially-expressed-proteins-between-clusters" class="section level2">
-<h2><span class="header-section-number">15.6</span> Identify differentially expressed proteins between clusters</h2>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="cite-seq.html#cb263-1"></a><span class="co"># Downsample the clusters to a maximum of 300 cells each (makes the heatmap easier to see for</span></span>
-<span id="cb263-2"><a href="cite-seq.html#cb263-2"></a><span class="co"># small clusters)</span></span>
-<span id="cb263-3"><a href="cite-seq.html#cb263-3"></a>cbmc.small &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">downsample =</span> <span class="dv">300</span>)</span>
-<span id="cb263-4"><a href="cite-seq.html#cb263-4"></a></span>
-<span id="cb263-5"><a href="cite-seq.html#cb263-5"></a><span class="co"># Find protein markers for all clusters, and draw a heatmap</span></span>
-<span id="cb263-6"><a href="cite-seq.html#cb263-6"></a>adt.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(cbmc.small, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb263-7"><a href="cite-seq.html#cb263-7"></a><span class="kw">DoHeatmap</span>(cbmc.small, <span class="dt">features =</span> <span class="kw">unique</span>(adt.markers<span class="op">$</span>gene), <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">angle =</span> <span class="dv">90</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb263-8"><a href="cite-seq.html#cb263-8"></a></span>
-<span id="cb263-9"><a href="cite-seq.html#cb263-9"></a><span class="co"># You can see that our unknown cells co-express both myeloid and lymphoid markers (true at the</span></span>
-<span id="cb263-10"><a href="cite-seq.html#cb263-10"></a><span class="co"># RNA level as well). They are likely cell clumps (multiplets) that should be discarded. We&#39;ll</span></span>
-<span id="cb263-11"><a href="cite-seq.html#cb263-11"></a><span class="co"># remove the mouse cells now as well</span></span>
-<span id="cb263-12"><a href="cite-seq.html#cb263-12"></a>cbmc &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Multiplets&quot;</span>, <span class="st">&quot;Mouse&quot;</span>), <span class="dt">invert =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<h2><span class="header-section-number">14.6</span> Identify differentially expressed proteins between clusters</h2>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="cite-seq.html#cb262-1"></a><span class="co"># Downsample the clusters to a maximum of 300 cells each (makes the heatmap easier to see for</span></span>
+<span id="cb262-2"><a href="cite-seq.html#cb262-2"></a><span class="co"># small clusters)</span></span>
+<span id="cb262-3"><a href="cite-seq.html#cb262-3"></a>cbmc.small &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">downsample =</span> <span class="dv">300</span>)</span>
+<span id="cb262-4"><a href="cite-seq.html#cb262-4"></a></span>
+<span id="cb262-5"><a href="cite-seq.html#cb262-5"></a><span class="co"># Find protein markers for all clusters, and draw a heatmap</span></span>
+<span id="cb262-6"><a href="cite-seq.html#cb262-6"></a>adt.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(cbmc.small, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb262-7"><a href="cite-seq.html#cb262-7"></a><span class="kw">DoHeatmap</span>(cbmc.small, <span class="dt">features =</span> <span class="kw">unique</span>(adt.markers<span class="op">$</span>gene), <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">angle =</span> <span class="dv">90</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb262-8"><a href="cite-seq.html#cb262-8"></a></span>
+<span id="cb262-9"><a href="cite-seq.html#cb262-9"></a><span class="co"># You can see that our unknown cells co-express both myeloid and lymphoid markers (true at the</span></span>
+<span id="cb262-10"><a href="cite-seq.html#cb262-10"></a><span class="co"># RNA level as well). They are likely cell clumps (multiplets) that should be discarded. We&#39;ll</span></span>
+<span id="cb262-11"><a href="cite-seq.html#cb262-11"></a><span class="co"># remove the mouse cells now as well</span></span>
+<span id="cb262-12"><a href="cite-seq.html#cb262-12"></a>cbmc &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Multiplets&quot;</span>, <span class="st">&quot;Mouse&quot;</span>), <span class="dt">invert =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="cluster-directly-on-protein-levels" class="section level2">
-<h2><span class="header-section-number">15.7</span> Cluster directly on protein levels</h2>
+<h2><span class="header-section-number">14.7</span> Cluster directly on protein levels</h2>
 <p>You can also run dimensional reduction and graph-based clustering directly on CITE-seq data</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="cite-seq.html#cb264-1"></a><span class="co"># Because we&#39;re going to be working with the ADT data extensively, we&#39;re going to switch the</span></span>
-<span id="cb264-2"><a href="cite-seq.html#cb264-2"></a><span class="co"># default assay to the &#39;CITE&#39; assay.  This will cause all functions to use ADT data by default,</span></span>
-<span id="cb264-3"><a href="cite-seq.html#cb264-3"></a><span class="co"># rather than requiring us to specify it each time</span></span>
-<span id="cb264-4"><a href="cite-seq.html#cb264-4"></a><span class="kw">DefaultAssay</span>(cbmc) &lt;-<span class="st"> &quot;ADT&quot;</span></span>
-<span id="cb264-5"><a href="cite-seq.html#cb264-5"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(cbmc, <span class="dt">features =</span> <span class="kw">rownames</span>(cbmc), <span class="dt">reduction.name =</span> <span class="st">&quot;pca_adt&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;pca_adt_&quot;</span>, </span>
-<span id="cb264-6"><a href="cite-seq.html#cb264-6"></a>    <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb264-7"><a href="cite-seq.html#cb264-7"></a><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;pca_adt&quot;</span>)</span>
-<span id="cb264-8"><a href="cite-seq.html#cb264-8"></a></span>
-<span id="cb264-9"><a href="cite-seq.html#cb264-9"></a><span class="co"># Why do we not use PCA to do dimensionality reduction here?</span></span>
-<span id="cb264-10"><a href="cite-seq.html#cb264-10"></a><span class="co"># Is Euclidean distance a good distance metric in this case?</span></span>
-<span id="cb264-11"><a href="cite-seq.html#cb264-11"></a><span class="kw">ElbowPlot</span>(cbmc)</span>
-<span id="cb264-12"><a href="cite-seq.html#cb264-12"></a></span>
-<span id="cb264-13"><a href="cite-seq.html#cb264-13"></a><span class="co"># Since we only have 10 markers, instead of doing PCA, we&#39;ll just use a standard euclidean</span></span>
-<span id="cb264-14"><a href="cite-seq.html#cb264-14"></a><span class="co"># distance matrix here.  Also, this provides a good opportunity to demonstrate how to do</span></span>
-<span id="cb264-15"><a href="cite-seq.html#cb264-15"></a><span class="co"># visualization and clustering using a custom distance matrix in Seurat</span></span>
-<span id="cb264-16"><a href="cite-seq.html#cb264-16"></a>adt.data &lt;-<span class="st"> </span><span class="kw">GetAssayData</span>(cbmc, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>)</span>
-<span id="cb264-17"><a href="cite-seq.html#cb264-17"></a>adt.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(adt.data))</span>
-<span id="cb264-18"><a href="cite-seq.html#cb264-18"></a></span>
-<span id="cb264-19"><a href="cite-seq.html#cb264-19"></a><span class="co"># Before we recluster the data on ADT levels, we&#39;ll stash the RNA cluster IDs for later</span></span>
-<span id="cb264-20"><a href="cite-seq.html#cb264-20"></a>cbmc[[<span class="st">&quot;rnaClusterID&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(cbmc)</span>
-<span id="cb264-21"><a href="cite-seq.html#cb264-21"></a></span>
-<span id="cb264-22"><a href="cite-seq.html#cb264-22"></a><span class="co"># Now, we rerun tSNE using our distance matrix defined only on ADT (protein) levels.</span></span>
-<span id="cb264-23"><a href="cite-seq.html#cb264-23"></a>cbmc[[<span class="st">&quot;tsne_adt&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(adt.dist, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;adtTSNE_&quot;</span>)</span>
-<span id="cb264-24"><a href="cite-seq.html#cb264-24"></a>cbmc[[<span class="st">&quot;adt_snn&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(adt.dist)<span class="op">$</span>snn</span>
-<span id="cb264-25"><a href="cite-seq.html#cb264-25"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(cbmc, <span class="dt">resolution =</span> <span class="fl">0.2</span>, <span class="dt">graph.name =</span> <span class="st">&quot;adt_snn&quot;</span>)</span>
-<span id="cb264-26"><a href="cite-seq.html#cb264-26"></a></span>
-<span id="cb264-27"><a href="cite-seq.html#cb264-27"></a><span class="co"># We can compare the RNA and protein clustering, and use this to annotate the protein clustering</span></span>
-<span id="cb264-28"><a href="cite-seq.html#cb264-28"></a><span class="co"># (we could also of course use FindMarkers)</span></span>
-<span id="cb264-29"><a href="cite-seq.html#cb264-29"></a>clustering.table &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">Idents</span>(cbmc), cbmc<span class="op">$</span>rnaClusterID)</span>
-<span id="cb264-30"><a href="cite-seq.html#cb264-30"></a>clustering.table</span>
-<span id="cb264-31"><a href="cite-seq.html#cb264-31"></a></span>
-<span id="cb264-32"><a href="cite-seq.html#cb264-32"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD34+&quot;</span>, <span class="st">&quot;T/Mono doublets&quot;</span>, </span>
-<span id="cb264-33"><a href="cite-seq.html#cb264-33"></a>    <span class="st">&quot;CD16+ Mono&quot;</span>, <span class="st">&quot;pDCs&quot;</span>, <span class="st">&quot;B&quot;</span>)</span>
-<span id="cb264-34"><a href="cite-seq.html#cb264-34"></a><span class="kw">names</span>(new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(cbmc)</span>
-<span id="cb264-35"><a href="cite-seq.html#cb264-35"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(cbmc, new.cluster.ids)</span>
-<span id="cb264-36"><a href="cite-seq.html#cb264-36"></a></span>
-<span id="cb264-37"><a href="cite-seq.html#cb264-37"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb264-38"><a href="cite-seq.html#cb264-38"></a>tsne_rnaClusters &lt;-<span class="st"> </span>tsne_rnaClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on scRNA-seq&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
-<span id="cb264-39"><a href="cite-seq.html#cb264-39"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_rnaClusters, <span class="dt">id =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
-<span id="cb264-40"><a href="cite-seq.html#cb264-40"></a></span>
-<span id="cb264-41"><a href="cite-seq.html#cb264-41"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
-<span id="cb264-42"><a href="cite-seq.html#cb264-42"></a>tsne_adtClusters &lt;-<span class="st"> </span>tsne_adtClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on ADT signal&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
-<span id="cb264-43"><a href="cite-seq.html#cb264-43"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_adtClusters, <span class="dt">id =</span> <span class="st">&quot;ident&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
-<span id="cb264-44"><a href="cite-seq.html#cb264-44"></a></span>
-<span id="cb264-45"><a href="cite-seq.html#cb264-45"></a><span class="co"># Note: for this comparison, both the RNA and protein clustering are visualized on a tSNE</span></span>
-<span id="cb264-46"><a href="cite-seq.html#cb264-46"></a><span class="co"># generated using the ADT distance matrix.</span></span>
-<span id="cb264-47"><a href="cite-seq.html#cb264-47"></a><span class="kw">wrap_plots</span>(<span class="kw">list</span>(tsne_rnaClusters, tsne_adtClusters), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb264-48"><a href="cite-seq.html#cb264-48"></a></span>
-<span id="cb264-49"><a href="cite-seq.html#cb264-49"></a><span class="co"># What differences if any do you see between the clustering based on scRNA-seq</span></span>
-<span id="cb264-50"><a href="cite-seq.html#cb264-50"></a><span class="co"># and the clustering based on ADT signal?</span></span>
-<span id="cb264-51"><a href="cite-seq.html#cb264-51"></a><span class="co"># How could we combine these datasets in a joint, integrative analysis?</span></span>
-<span id="cb264-52"><a href="cite-seq.html#cb264-52"></a></span>
-<span id="cb264-53"><a href="cite-seq.html#cb264-53"></a><span class="co"># Save current progress.</span></span>
-<span id="cb264-54"><a href="cite-seq.html#cb264-54"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.protein.path)</span>
-<span id="cb264-55"><a href="cite-seq.html#cb264-55"></a><span class="co"># To load the data, run the following command.</span></span>
-<span id="cb264-56"><a href="cite-seq.html#cb264-56"></a><span class="co"># load(Rda.protein.path)</span></span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="cite-seq.html#cb263-1"></a><span class="co"># Because we&#39;re going to be working with the ADT data extensively, we&#39;re going to switch the</span></span>
+<span id="cb263-2"><a href="cite-seq.html#cb263-2"></a><span class="co"># default assay to the &#39;CITE&#39; assay.  This will cause all functions to use ADT data by default,</span></span>
+<span id="cb263-3"><a href="cite-seq.html#cb263-3"></a><span class="co"># rather than requiring us to specify it each time</span></span>
+<span id="cb263-4"><a href="cite-seq.html#cb263-4"></a><span class="kw">DefaultAssay</span>(cbmc) &lt;-<span class="st"> &quot;ADT&quot;</span></span>
+<span id="cb263-5"><a href="cite-seq.html#cb263-5"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(cbmc, <span class="dt">features =</span> <span class="kw">rownames</span>(cbmc), <span class="dt">reduction.name =</span> <span class="st">&quot;pca_adt&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;pca_adt_&quot;</span>, </span>
+<span id="cb263-6"><a href="cite-seq.html#cb263-6"></a>    <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb263-7"><a href="cite-seq.html#cb263-7"></a><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;pca_adt&quot;</span>)</span>
+<span id="cb263-8"><a href="cite-seq.html#cb263-8"></a></span>
+<span id="cb263-9"><a href="cite-seq.html#cb263-9"></a><span class="co"># Why do we not use PCA to do dimensionality reduction here?</span></span>
+<span id="cb263-10"><a href="cite-seq.html#cb263-10"></a><span class="co"># Is Euclidean distance a good distance metric in this case?</span></span>
+<span id="cb263-11"><a href="cite-seq.html#cb263-11"></a><span class="kw">ElbowPlot</span>(cbmc)</span>
+<span id="cb263-12"><a href="cite-seq.html#cb263-12"></a></span>
+<span id="cb263-13"><a href="cite-seq.html#cb263-13"></a><span class="co"># Since we only have 10 markers, instead of doing PCA, we&#39;ll just use a standard euclidean</span></span>
+<span id="cb263-14"><a href="cite-seq.html#cb263-14"></a><span class="co"># distance matrix here.  Also, this provides a good opportunity to demonstrate how to do</span></span>
+<span id="cb263-15"><a href="cite-seq.html#cb263-15"></a><span class="co"># visualization and clustering using a custom distance matrix in Seurat</span></span>
+<span id="cb263-16"><a href="cite-seq.html#cb263-16"></a>adt.data &lt;-<span class="st"> </span><span class="kw">GetAssayData</span>(cbmc, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>)</span>
+<span id="cb263-17"><a href="cite-seq.html#cb263-17"></a>adt.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(adt.data))</span>
+<span id="cb263-18"><a href="cite-seq.html#cb263-18"></a></span>
+<span id="cb263-19"><a href="cite-seq.html#cb263-19"></a><span class="co"># Before we recluster the data on ADT levels, we&#39;ll stash the RNA cluster IDs for later</span></span>
+<span id="cb263-20"><a href="cite-seq.html#cb263-20"></a>cbmc[[<span class="st">&quot;rnaClusterID&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(cbmc)</span>
+<span id="cb263-21"><a href="cite-seq.html#cb263-21"></a></span>
+<span id="cb263-22"><a href="cite-seq.html#cb263-22"></a><span class="co"># Now, we rerun tSNE using our distance matrix defined only on ADT (protein) levels.</span></span>
+<span id="cb263-23"><a href="cite-seq.html#cb263-23"></a>cbmc[[<span class="st">&quot;tsne_adt&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(adt.dist, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>, <span class="dt">reduction.key =</span> <span class="st">&quot;adtTSNE_&quot;</span>)</span>
+<span id="cb263-24"><a href="cite-seq.html#cb263-24"></a>cbmc[[<span class="st">&quot;adt_snn&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(adt.dist)<span class="op">$</span>snn</span>
+<span id="cb263-25"><a href="cite-seq.html#cb263-25"></a>cbmc &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(cbmc, <span class="dt">resolution =</span> <span class="fl">0.2</span>, <span class="dt">graph.name =</span> <span class="st">&quot;adt_snn&quot;</span>)</span>
+<span id="cb263-26"><a href="cite-seq.html#cb263-26"></a></span>
+<span id="cb263-27"><a href="cite-seq.html#cb263-27"></a><span class="co"># We can compare the RNA and protein clustering, and use this to annotate the protein clustering</span></span>
+<span id="cb263-28"><a href="cite-seq.html#cb263-28"></a><span class="co"># (we could also of course use FindMarkers)</span></span>
+<span id="cb263-29"><a href="cite-seq.html#cb263-29"></a>clustering.table &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">Idents</span>(cbmc), cbmc<span class="op">$</span>rnaClusterID)</span>
+<span id="cb263-30"><a href="cite-seq.html#cb263-30"></a>clustering.table</span>
+<span id="cb263-31"><a href="cite-seq.html#cb263-31"></a></span>
+<span id="cb263-32"><a href="cite-seq.html#cb263-32"></a>new.cluster.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;CD34+&quot;</span>, <span class="st">&quot;T/Mono doublets&quot;</span>, </span>
+<span id="cb263-33"><a href="cite-seq.html#cb263-33"></a>    <span class="st">&quot;CD16+ Mono&quot;</span>, <span class="st">&quot;pDCs&quot;</span>, <span class="st">&quot;B&quot;</span>)</span>
+<span id="cb263-34"><a href="cite-seq.html#cb263-34"></a><span class="kw">names</span>(new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(cbmc)</span>
+<span id="cb263-35"><a href="cite-seq.html#cb263-35"></a>cbmc &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(cbmc, new.cluster.ids)</span>
+<span id="cb263-36"><a href="cite-seq.html#cb263-36"></a></span>
+<span id="cb263-37"><a href="cite-seq.html#cb263-37"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">group.by =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb263-38"><a href="cite-seq.html#cb263-38"></a>tsne_rnaClusters &lt;-<span class="st"> </span>tsne_rnaClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on scRNA-seq&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb263-39"><a href="cite-seq.html#cb263-39"></a>tsne_rnaClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_rnaClusters, <span class="dt">id =</span> <span class="st">&quot;rnaClusterID&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
+<span id="cb263-40"><a href="cite-seq.html#cb263-40"></a></span>
+<span id="cb263-41"><a href="cite-seq.html#cb263-41"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(cbmc, <span class="dt">reduction =</span> <span class="st">&quot;tsne_adt&quot;</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</span>
+<span id="cb263-42"><a href="cite-seq.html#cb263-42"></a>tsne_adtClusters &lt;-<span class="st"> </span>tsne_adtClusters <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Clustering based on ADT signal&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb263-43"><a href="cite-seq.html#cb263-43"></a>tsne_adtClusters &lt;-<span class="st"> </span><span class="kw">LabelClusters</span>(<span class="dt">plot =</span> tsne_adtClusters, <span class="dt">id =</span> <span class="st">&quot;ident&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span>
+<span id="cb263-44"><a href="cite-seq.html#cb263-44"></a></span>
+<span id="cb263-45"><a href="cite-seq.html#cb263-45"></a><span class="co"># Note: for this comparison, both the RNA and protein clustering are visualized on a tSNE</span></span>
+<span id="cb263-46"><a href="cite-seq.html#cb263-46"></a><span class="co"># generated using the ADT distance matrix.</span></span>
+<span id="cb263-47"><a href="cite-seq.html#cb263-47"></a><span class="kw">wrap_plots</span>(<span class="kw">list</span>(tsne_rnaClusters, tsne_adtClusters), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb263-48"><a href="cite-seq.html#cb263-48"></a></span>
+<span id="cb263-49"><a href="cite-seq.html#cb263-49"></a><span class="co"># What differences if any do you see between the clustering based on scRNA-seq</span></span>
+<span id="cb263-50"><a href="cite-seq.html#cb263-50"></a><span class="co"># and the clustering based on ADT signal?</span></span>
+<span id="cb263-51"><a href="cite-seq.html#cb263-51"></a><span class="co"># How could we combine these datasets in a joint, integrative analysis?</span></span>
+<span id="cb263-52"><a href="cite-seq.html#cb263-52"></a></span>
+<span id="cb263-53"><a href="cite-seq.html#cb263-53"></a><span class="co"># Save current progress.</span></span>
+<span id="cb263-54"><a href="cite-seq.html#cb263-54"></a><span class="kw">save</span>(cbmc, <span class="dt">file =</span> Rda.protein.path)</span>
+<span id="cb263-55"><a href="cite-seq.html#cb263-55"></a><span class="co"># To load the data, run the following command.</span></span>
+<span id="cb263-56"><a href="cite-seq.html#cb263-56"></a><span class="co"># load(Rda.protein.path)</span></span></code></pre></div>
 <p>The ADT-based clustering yields similar results, but with a few differences</p>
 <ul>
 <li>Clustering is improved for CD4/CD8 T cell populations, based on the robust ADT data for CD4, CD8, CD14, and CD45RA</li>
 <li>However, some clusters for which the ADT data does not contain good distinguishing protein markers (i.e. Mk/Ery/DC) lose separation</li>
 <li>You can verify this using FindMarkers at the RNA level, as well</li>
 </ul>
+</div>
+<div id="additional-exploration-another-example-of-multi-modal-analysis" class="section level2">
+<h2><span class="header-section-number">14.8</span> Additional exploration: another example of multi-modal analysis</h2>
+<p>For another nice example of multi-modal analysis, please explore this <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/cicero/inst/doc/website.html">single cell ATAC-Seq vignette</a> and this <a href="https://satijalab.org/signac/articles/integration.html">scATAC-seq data integration</a>.</p>
+</div>
+<div id="acknowledgements-2" class="section level2">
+<h2><span class="header-section-number">14.9</span> Acknowledgements</h2>
+<p>This document is largely a tutorial from Seurat website, with some small modifications. The official vignette is available at <a href="https://satijalab.org/seurat/multimodal_vignette.html">Using Seurat with multi-modal data</a>.</p>
+
 </div>
 </div>
             </section>
@@ -578,7 +586,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="trajectory-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="additional-exploration-another-example-of-multi-modal-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="single-cell-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

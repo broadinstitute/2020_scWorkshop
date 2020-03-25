@@ -124,7 +124,8 @@ smartseq2 <- subset(smartseq2, downsample = 500, seed = 1)
 save(celseq, celseq2, fluidigmc1, smartseq2, file = Rda.sparse.path)
 ```
 
-# Cluster pancreatic datasets without batch correction
+## Cluster pancreatic datasets without batch correction
+
 Let us cluster all the pancreatic islet datasets together and see whether there is a batch effect.
 ```{r no_batch_correction, eval = TRUE}
 # load(Rda.sparse.path)
