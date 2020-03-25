@@ -28,6 +28,7 @@ library(knitr)
 
 # Set folder location for saving output files. This is also the same location as input data.
 mydir <- "data/trajectory/"
+setwd("/home/rstudio/materials/") 
 
 # Objects to save.
 Rda.destiny.path <- paste0(mydir, "trajectory_destiny.Rda")

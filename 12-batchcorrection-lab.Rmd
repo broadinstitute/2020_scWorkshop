@@ -25,6 +25,7 @@ library(liger)
 
 # Set folder location for saving output files. This is also the same location as input data.
 mydir <- "data/batch_correction/"
+setwd("/home/rstudio/materials/") 
 
 # Objects to save.
 Rda.sparse.path <- paste0(mydir, "pancreas_subsample.Rda")
