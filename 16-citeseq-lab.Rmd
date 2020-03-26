@@ -5,7 +5,7 @@ date: "3/26/2020"
 output: html_document
 ---
 
-# Cite-Seq
+# CITE-Seq
 
 In this lab, we will look at how single cell RNA-seq and single cell protein expression measurement datasets can be jointly analyzed, as part of a CITE-Seq experiment. To learn more about how the antibody barcode matrix is computationally generated from the sequencing data, please visit [CITE-seq-Count](https://hoohm.github.io/CITE-seq-Count/). To learn more about CITE-Seq and feature barcoding, please visit the [CITE-seq site](https://cite-seq.com/).
 
@@ -155,9 +155,10 @@ cbmc <- ScaleData(cbmc, assay = "ADT")
 You can use the names of any ADT markers, (i.e. “adt_CD4”), in FetchData, FeaturePlot, RidgePlot, FeatureScatter, DoHeatmap, or any other visualization features
 
 ```{r, eval = FALSE}
+DefaultAssay(cbmc) <- "RNA"
+
 # In this plot, protein (ADT) levels are on top, and RNA levels are on the bottom
-FeaturePlot(cbmc, features = c("adt_CD3", "adt_CD11c", "adt_CD8", "adt_CD16", "CD3E", "ITGAX", "CD8A", 
-    "FCGR3A"), min.cutoff = "q05", max.cutoff = "q95", ncol = 4)
+FeaturePlot(cbmc, features = c("adt_CD3", "adt_CD11c", "adt_CD8", "adt_CD16", "CD3E", "ITGAX", "CD8A", "FCGR3A"), min.cutoff = "q05", max.cutoff = "q95", ncol = 4)
 
 # How do the gene and protein expression levels compare to one another?
 
@@ -233,8 +234,7 @@ You can also run dimensional reduction and graph-based clustering directly on CI
 # default assay to the 'CITE' assay.  This will cause all functions to use ADT data by default,
 # rather than requiring us to specify it each time
 DefaultAssay(cbmc) <- "ADT"
-cbmc <- RunPCA(cbmc, features = rownames(cbmc), reduction.name = "pca_adt", reduction.key = "pca_adt_", 
-    verbose = FALSE)
+cbmc <- RunPCA(cbmc, features = rownames(cbmc), reduction.name = "pca_adt", reduction.key = "pca_adt_", verbose = FALSE)
 DimPlot(cbmc, reduction = "pca_adt")
 
 # Why do we not use PCA to do dimensionality reduction here?
@@ -260,8 +260,7 @@ cbmc <- FindClusters(cbmc, resolution = 0.2, graph.name = "adt_snn")
 clustering.table <- table(Idents(cbmc), cbmc$rnaClusterID)
 clustering.table
 
-new.cluster.ids <- c("CD4 T", "CD14+ Mono", "NK", "B", "CD8 T", "NK", "CD34+", "T/Mono doublets", 
-    "CD16+ Mono", "pDCs", "B")
+new.cluster.ids <- c("CD4 T", "CD14+ Mono", "NK", "B", "CD8 T", "NK", "CD34+", "T/Mono doublets", "CD16+ Mono", "pDCs", "B")
 names(new.cluster.ids) <- levels(cbmc)
 cbmc <- RenameIdents(cbmc, new.cluster.ids)
 
