@@ -74,9 +74,9 @@ seurat <- AddMetaData(object = seurat, metadata = n.expressed.hkgenes, col.name 
 VlnPlot(object = seurat, features = c("nFeature_RNA", "nCount_RNA","n.exp.hkgenes"), ncol = 3)
 ```
 
-You can start by filtering extreme outliers:
+You can start by filtering extreme outliers if you would like (just replace the '?')
 ```{r filter data}
-seurat <- subset(seurat, subset = nFeature_RNA > 350 & nFeature_RNA < 9000 & n.exp.hkgenes > 60)
+seurat <- subset(seurat, subset = nFeature_RNA > ? & nFeature_RNA < ? & n.exp.hkgenes > ?)
 ```
 And normalize:
 ```{r normalize}
@@ -110,10 +110,12 @@ And a few useful commands, that can be used after clustering:
 # notice that the name of the signature is the name you assigned to it, plus "1" that seurat is adding to it
 FeaturePlot(seurat, features = c("oligo_signature1","astro_signature1","stemness_signature1"))
 ```
+
+If you want to focus on just malignant cells, or just one tumor at a time
 ```{r subset seurat object, eval = FALSE}
 seurat.malignant<- subset(seurat, subset = cell_type == "malignant") #keep only malignant cells
-seurat.malignant.MGH107<- subset(seurat_malignant, subset = tumor_name == "MGH107neg") #keep only malignant MGH107 cells
-seurat.malignant.MGH44<- subset(seurat_malignant, subset = tumor_name == "MGH44") #keep only malignant MGH44 cells
+seurat.malignant.MGH107<- subset(seurat.malignant, subset = tumor_name == "MGH107neg") #keep only malignant MGH107 cells
+seurat.malignant.MGH44<- subset(seurat.malignant, subset = tumor_name == "MGH44") #keep only malignant MGH44 cells
 ```
 
 Ok, you are ready! Discuss what you wish to explore and go for it!
