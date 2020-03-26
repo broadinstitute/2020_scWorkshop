@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
+  <title>16 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta property="og:title" content="16 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://broadinstitute.github.io/2020_scWorkshop/" />
   <meta property="og:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="broadinstitute/2019_scWorkship" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
+  <meta name="twitter:title" content="16 Cite-Seq | ANALYSIS OF SINGLE CELL RNA-SEQ DATA" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://broadinstitute.github.io/2020_scWorkshop/images/cover.png" />
@@ -32,7 +32,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="trajectory-analysis.html"/>
+<link rel="prev" href="transcriptome-quantification-1.html"/>
 <link rel="next" href="additional-exploration-another-example-of-multi-modal-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#read-in-pancreas-expression-matrices"><i class="fa fa-check"></i><b>12.2</b> Read in pancreas expression matrices</a></li>
 <li class="chapter" data-level="12.3" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#preparing-the-individual-seurat-objects-for-each-pancreas-dataset-without-batch-correction"><i class="fa fa-check"></i><b>12.3</b> Preparing the individual Seurat objects for each pancreas dataset without batch correction</a></li>
 <li class="chapter" data-level="12.4" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#cluster-pancreatic-datasets-without-batch-correction"><i class="fa fa-check"></i><b>12.4</b> Cluster pancreatic datasets without batch correction</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.4.1</b> Batch correction: canonical correlation analysis (CCA)+ mutual nearest neighbors (MNN) using Seurat v3</a></li>
+<li class="chapter" data-level="12.4.1" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-canonical-correlation-analysis-cca-mutual-nearest-neighbors-mnn-using-seurat-v3"><i class="fa fa-check"></i><b>12.4.1</b> Batch correction: canonical correlation analysis (CCA) + mutual nearest neighbors (MNN) using Seurat v3</a></li>
 <li class="chapter" data-level="12.4.2" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#batch-correction-integrative-non-negative-matrix-factorization-nmf-using-liger"><i class="fa fa-check"></i><b>12.4.2</b> Batch correction: integrative non-negative matrix factorization (NMF) using LIGER</a></li>
 </ul></li>
 <li class="chapter" data-level="12.5" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-regressing-out-unwanted-covariates"><i class="fa fa-check"></i><b>12.5</b> Additional exploration: Regressing out unwanted covariates</a></li>
@@ -281,23 +281,26 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <li class="chapter" data-level="14.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>14.8</b> Plots of gene expression over time.</a></li>
 <li class="chapter" data-level="14.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>15</b> Cite-Seq</a><ul>
-<li class="chapter" data-level="15.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>15.1</b> Load settings and packages</a></li>
-<li class="chapter" data-level="15.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>15.2</b> Load in the data</a></li>
-<li class="chapter" data-level="15.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>15.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
-<li class="chapter" data-level="15.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>15.4</b> Add the protein expression levels to the Seurat object</a></li>
-<li class="chapter" data-level="15.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>15.5</b> Visualize protein levels on RNA clusters</a></li>
-<li class="chapter" data-level="15.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>15.6</b> Identify differentially expressed proteins between clusters</a></li>
-<li class="chapter" data-level="15.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>15.7</b> Cluster directly on protein levels</a></li>
+<li class="chapter" data-level="15" data-path="transcriptome-quantification-1.html"><a href="transcriptome-quantification-1.html"><i class="fa fa-check"></i><b>15</b> Transcriptome Quantification</a><ul>
+<li class="chapter" data-level="15.1" data-path="transcriptome-quantification-1.html"><a href="transcriptome-quantification-1.html#slides-5"><i class="fa fa-check"></i><b>15.1</b> Slides</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>16</b> Additional exploration: another example of multi-modal analysis</a><ul>
-<li class="chapter" data-level="16.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>16.1</b> Acknowledgements</a></li>
+<li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
+<li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
+<li class="chapter" data-level="16.2" data-path="cite-seq.html"><a href="cite-seq.html#load-in-the-data"><i class="fa fa-check"></i><b>16.2</b> Load in the data</a></li>
+<li class="chapter" data-level="16.3" data-path="cite-seq.html"><a href="cite-seq.html#setup-a-seurat-object-and-cluster-cells-based-on-rna-expression"><i class="fa fa-check"></i><b>16.3</b> Setup a Seurat object, and cluster cells based on RNA expression</a></li>
+<li class="chapter" data-level="16.4" data-path="cite-seq.html"><a href="cite-seq.html#add-the-protein-expression-levels-to-the-seurat-object"><i class="fa fa-check"></i><b>16.4</b> Add the protein expression levels to the Seurat object</a></li>
+<li class="chapter" data-level="16.5" data-path="cite-seq.html"><a href="cite-seq.html#visualize-protein-levels-on-rna-clusters"><i class="fa fa-check"></i><b>16.5</b> Visualize protein levels on RNA clusters</a></li>
+<li class="chapter" data-level="16.6" data-path="cite-seq.html"><a href="cite-seq.html#identify-differentially-expressed-proteins-between-clusters"><i class="fa fa-check"></i><b>16.6</b> Identify differentially expressed proteins between clusters</a></li>
+<li class="chapter" data-level="16.7" data-path="cite-seq.html"><a href="cite-seq.html#cluster-directly-on-protein-levels"><i class="fa fa-check"></i><b>16.7</b> Cluster directly on protein levels</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>17</b> Single Cell Resources</a><ul>
-<li class="chapter" data-level="17.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>17.1</b> Comprehensive list of single-cell resources</a></li>
-<li class="chapter" data-level="17.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>17.2</b> Computational packages for single-cell analysis</a></li>
-<li class="chapter" data-level="17.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>17.3</b> eLife Commentary on the Human Cell Atlas</a></li>
-<li class="chapter" data-level="17.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>17.4</b> Online courses</a></li>
+<li class="chapter" data-level="17" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html"><i class="fa fa-check"></i><b>17</b> Additional exploration: another example of multi-modal analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="additional-exploration-another-example-of-multi-modal-analysis.html"><a href="additional-exploration-another-example-of-multi-modal-analysis.html#acknowledgements-2"><i class="fa fa-check"></i><b>17.1</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="single-cell-resources.html"><a href="single-cell-resources.html"><i class="fa fa-check"></i><b>18</b> Single Cell Resources</a><ul>
+<li class="chapter" data-level="18.1" data-path="single-cell-resources.html"><a href="single-cell-resources.html#comprehensive-list-of-single-cell-resources"><i class="fa fa-check"></i><b>18.1</b> Comprehensive list of single-cell resources</a></li>
+<li class="chapter" data-level="18.2" data-path="single-cell-resources.html"><a href="single-cell-resources.html#computational-packages-for-single-cell-analysis"><i class="fa fa-check"></i><b>18.2</b> Computational packages for single-cell analysis</a></li>
+<li class="chapter" data-level="18.3" data-path="single-cell-resources.html"><a href="single-cell-resources.html#elife-commentary-on-the-human-cell-atlas"><i class="fa fa-check"></i><b>18.3</b> eLife Commentary on the Human Cell Atlas</a></li>
+<li class="chapter" data-level="18.4" data-path="single-cell-resources.html"><a href="single-cell-resources.html#online-courses"><i class="fa fa-check"></i><b>18.4</b> Online courses</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -321,14 +324,14 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 
             <section class="normal" id="section-">
 <div id="cite-seq" class="section level1">
-<h1><span class="header-section-number">15</span> Cite-Seq</h1>
+<h1><span class="header-section-number">16</span> Cite-Seq</h1>
 <p>In this lab, we will look at how single cell RNA-seq and single cell protein expression measurement datasets can be jointly analyzed, as part of a CITE-Seq experiment. To learn more about how the antibody barcode matrix is computationally generated from the sequencing data, please visit <a href="https://hoohm.github.io/CITE-seq-Count/">CITE-seq-Count</a>. To learn more about CITE-Seq and feature barcoding, please visit the <a href="https://cite-seq.com/">CITE-seq site</a>.</p>
 <p>This lab closely follows the official vignette available at <a href="https://satijalab.org/seurat/multimodal_vignette.html">Using Seurat with multi-modal data</a>.</p>
 <div id="load-settings-and-packages-2" class="section level2">
-<h2><span class="header-section-number">15.1</span> Load settings and packages</h2>
+<h2><span class="header-section-number">16.1</span> Load settings and packages</h2>
 </div>
 <div id="load-in-the-data" class="section level2">
-<h2><span class="header-section-number">15.2</span> Load in the data</h2>
+<h2><span class="header-section-number">16.2</span> Load in the data</h2>
 <p>Here, we analyze a dataset of 8,617 cord blood mononuclear cells (CBMCs), produced with CITE-seq, where we simultaneously measure the single cell transcriptomes alongside the expression of 11 surface proteins, whose levels are quantified with DNA-barcoded antibodies. First, we load in two count matrices : one for the RNA measurements, and one for the antibody-derived tags (ADT).</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="co"># Load in the RNA UMI matrix</span></a>
 <a class="sourceLine" id="cb354-2" data-line-number="2"></a>
@@ -361,10 +364,13 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <a class="sourceLine" id="cb354-29" data-line-number="29">cbmc.adt[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
 <a class="sourceLine" id="cb354-30" data-line-number="30"></a>
 <a class="sourceLine" id="cb354-31" data-line-number="31"><span class="co"># What fraction of cells in the ADT and RNA matrix overlap?</span></a>
-<a class="sourceLine" id="cb354-32" data-line-number="32"><span class="kw">length</span>(<span class="kw">intersect</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">union</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt)))</a></code></pre></div>
+<a class="sourceLine" id="cb354-32" data-line-number="32"><span class="kw">length</span>(<span class="kw">intersect</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">union</span>(<span class="kw">colnames</span>(cbmc.rna), <span class="kw">colnames</span>(cbmc.adt)))</a>
+<a class="sourceLine" id="cb354-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb354-34" data-line-number="34"><span class="co"># Save current progress.</span></a>
+<a class="sourceLine" id="cb354-35" data-line-number="35"><span class="kw">save</span>(cbmc.rna, cbmc.adt, <span class="dt">file =</span> Rda.quickload.path)</a></code></pre></div>
 </div>
 <div id="setup-a-seurat-object-and-cluster-cells-based-on-rna-expression" class="section level2">
-<h2><span class="header-section-number">15.3</span> Setup a Seurat object, and cluster cells based on RNA expression</h2>
+<h2><span class="header-section-number">16.3</span> Setup a Seurat object, and cluster cells based on RNA expression</h2>
 <p>The steps below represent a quick clustering of the PBMCs based on the scRNA-seq data. For more detail on individual steps or more advanced options, see our PBMC clustering guided tutorial here</p>
 <div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1">cbmc &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> cbmc.rna)</a>
 <a class="sourceLine" id="cb355-2" data-line-number="2"></a>
@@ -414,7 +420,7 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <a class="sourceLine" id="cb355-46" data-line-number="46"><span class="co"># load(Rda.RNA.path)</span></a></code></pre></div>
 </div>
 <div id="add-the-protein-expression-levels-to-the-seurat-object" class="section level2">
-<h2><span class="header-section-number">15.4</span> Add the protein expression levels to the Seurat object</h2>
+<h2><span class="header-section-number">16.4</span> Add the protein expression levels to the Seurat object</h2>
 <p>Seurat v3.0 allows you to store information from multiple assays in the same object, as long as the data is multi-modal (collected on the same set of cells). You can use the <code>SetAssayData</code> and <code>GetAssayData</code> accessor functions to add and fetch data from additional assays.</p>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="co"># We will define an ADT assay, and store raw counts for it</span></a>
 <a class="sourceLine" id="cb356-2" data-line-number="2"></a>
@@ -435,7 +441,7 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <a class="sourceLine" id="cb356-17" data-line-number="17">cbmc &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(cbmc, <span class="dt">assay =</span> <span class="st">&quot;ADT&quot;</span>)</a></code></pre></div>
 </div>
 <div id="visualize-protein-levels-on-rna-clusters" class="section level2">
-<h2><span class="header-section-number">15.5</span> Visualize protein levels on RNA clusters</h2>
+<h2><span class="header-section-number">16.5</span> Visualize protein levels on RNA clusters</h2>
 <p>You can use the names of any ADT markers, (i.e. “adt_CD4”), in FetchData, FeaturePlot, RidgePlot, FeatureScatter, DoHeatmap, or any other visualization features</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="co"># In this plot, protein (ADT) levels are on top, and RNA levels are on the bottom</span></a>
 <a class="sourceLine" id="cb357-2" data-line-number="2"><span class="kw">FeaturePlot</span>(cbmc, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;adt_CD3&quot;</span>, <span class="st">&quot;adt_CD11c&quot;</span>, <span class="st">&quot;adt_CD8&quot;</span>, <span class="st">&quot;adt_CD16&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;ITGAX&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, </a>
@@ -492,7 +498,7 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <a class="sourceLine" id="cb357-53" data-line-number="53"><span class="co"># load(Rda.multi.path)</span></a></code></pre></div>
 </div>
 <div id="identify-differentially-expressed-proteins-between-clusters" class="section level2">
-<h2><span class="header-section-number">15.6</span> Identify differentially expressed proteins between clusters</h2>
+<h2><span class="header-section-number">16.6</span> Identify differentially expressed proteins between clusters</h2>
 <div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1"><span class="co"># Downsample the clusters to a maximum of 300 cells each (makes the heatmap easier to see for</span></a>
 <a class="sourceLine" id="cb358-2" data-line-number="2"><span class="co"># small clusters)</span></a>
 <a class="sourceLine" id="cb358-3" data-line-number="3">cbmc.small &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">downsample =</span> <span class="dv">300</span>)</a>
@@ -507,7 +513,7 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <a class="sourceLine" id="cb358-12" data-line-number="12">cbmc &lt;-<span class="st"> </span><span class="kw">subset</span>(cbmc, <span class="dt">idents =</span> <span class="kw">c</span>(<span class="st">&quot;Multiplets&quot;</span>, <span class="st">&quot;Mouse&quot;</span>), <span class="dt">invert =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="cluster-directly-on-protein-levels" class="section level2">
-<h2><span class="header-section-number">15.7</span> Cluster directly on protein levels</h2>
+<h2><span class="header-section-number">16.7</span> Cluster directly on protein levels</h2>
 <p>You can also run dimensional reduction and graph-based clustering directly on CITE-seq data</p>
 <div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="co"># Because we&#39;re going to be working with the ADT data extensively, we&#39;re going to switch the</span></a>
 <a class="sourceLine" id="cb359-2" data-line-number="2"><span class="co"># default assay to the &#39;CITE&#39; assay.  This will cause all functions to use ADT data by default,</span></a>
@@ -578,7 +584,7 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
           </div>
         </div>
       </div>
-<a href="trajectory-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transcriptome-quantification-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="additional-exploration-another-example-of-multi-modal-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

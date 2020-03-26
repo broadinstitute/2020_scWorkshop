@@ -9,3 +9,4 @@
 0.0.9: added back miniconda
 0.0.10: added leidenalg
 0.0.11: added CountClust and dependencies
+0.0.12: miniconda through reticulate, only Rstudio

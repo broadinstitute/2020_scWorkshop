@@ -36,15 +36,22 @@ COPY install.R /usr/local/src
 RUN Rscript /usr/local/src/install.R
 
 
+RUN R --no-save -e 'reticulate:::install_miniconda(path = "/home/ubuntu/.local/share/r-miniconda", force = TRUE)'
+RUN export PATH=/home/ubuntu/.local/share/r-miniconda/bin:$PATH && \
+  conda init bash && \
+  conda create -n seurat -c conda-forge python=3 umap-learn leidenalg -y
+# conda install -n seurat -c conda-forge umap-learn leidenalg -y
+
+
 # ## Install Python Requirements
-COPY requirements.txt /usr/local/src
-RUN pip3 install -r /usr/local/src/requirements.txt
+# COPY requirements.txt /usr/local/src
+# RUN pip3 install -r /usr/local/src/requirements.txt
 
 # ## FASTQC
-COPY fastqc_v0.11.8.zip /usr/local/src/fastqc_v0.11.8.zip
-RUN cd /usr/local/src/ && \
-  unzip fastqc_v0.11.8.zip && \
-  cd /
+# COPY fastqc_v0.11.8.zip /usr/local/src/fastqc_v0.11.8.zip
+# RUN cd /usr/local/src/ && \
+#  unzip fastqc_v0.11.8.zip && \
+#  cd /
 
 
 # ## IGViewer
@@ -55,37 +62,26 @@ RUN cd /usr/local/src/ && \
 
 
 # ## cellranger
-COPY cellranger-3.1.0.tar.gz /usr/local/src
-RUN cd /usr/local/src && \
-  tar -xvzf cellranger-3.1.0.tar.gz && \
-  cd /
+# COPY cellranger-3.1.0.tar.gz /usr/local/src
+# RUN cd /usr/local/src && \
+#  tar -xvzf cellranger-3.1.0.tar.gz && \
+#  cd /
 
 # COPY cellranger_count_3.0.2.sh /usr/local/src
 
 
 # ## Alternatively, get STAR source using git
-RUN git clone https://github.com/alexdobin/STAR.git usr/local/src/STAR && \
-  cd /usr/local/src/STAR/source && \
-  make STAR && \
-  cd /
+# RUN git clone https://github.com/alexdobin/STAR.git usr/local/src/STAR && \
+#   cd /usr/local/src/STAR/source && \
+#   make STAR && \
+#   cd /
 
 
-RUN wget -O /usr/local/src/samtools-1.10.tar.bz2 https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2 && \
-  cd /usr/local/src && \
-  tar xvjf samtools-1.10.tar.bz2 && \
-  cd samtools-1.10 && \
-  ./configure --without-curses && \
-  make && make install && \
-  cd /
+# RUN wget -O /usr/local/src/samtools-1.10.tar.bz2 https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2 && \
+#   cd /usr/local/src && \
+#   tar xvjf samtools-1.10.tar.bz2 && \
+#   cd samtools-1.10 && \
+#   ./configure --without-curses && \
+#   make && make install && \
+#   cd /
   
-
-RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh
-
-ENV PATH="/root/miniconda3/bin:${PATH}"
-ARG PATH="/root/miniconda3/bin:${PATH}"
-
-RUN conda install -y -c conda-forge leidenalg
