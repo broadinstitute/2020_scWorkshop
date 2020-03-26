@@ -1,0 +1,10 @@
+---
+title: "07-multiomics"
+output: html_document
+---
+
+# Transcriptome Quantification
+
+## Google Slides
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSuUzTSVmI5ntxEzaumz8u_OY7meQGy2p7Sz5zWu4TbIDg_Je0pb61OyX7mjVy6dg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="1280" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
