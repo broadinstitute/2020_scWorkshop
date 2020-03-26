@@ -1,5 +1,5 @@
 ---
-title: "16-trajectory-lab.Rmd"
+title: "14-trajectory-lab.Rmd"
 author: "Orr Ashenberg"
 date: "3/26/2020"
 output: html_document
@@ -12,9 +12,9 @@ In this lab, we will analyze a single cell RNA-seq dataset that will teach us ab
 ## Load settings and packages
 
 ```{r setup_trajectory, include=FALSE, eval = FALSE}
-library(SingleCellExperiment)
-library(destiny)
-library(scater)
+library(SingleCellExperiment)  # way to store single cell data
+library(destiny)  # diffusion maps and diffusion pseudotime
+library(scater)  # related SingleCellExperiment package
 library(clusterExperiment)
 library(gam)
 library(corrplot)
@@ -75,9 +75,10 @@ pca <- reducedDim(deng_SCE, "PCA")
 head(pca)
 dim(pca)
 
-# Add PCA data to the deng_SCE object.
+# Add PCA data (first two PCs) to the deng_SCE object.
 deng_SCE$PC1 <- pca[, 1]
 deng_SCE$PC2 <- pca[, 2]
+head(colData(deng_SCE))
 
 # Plot PC biplot with cells colored by cell_type2. 
 # colData(deng_SCE) accesses the cell metadata DataFrame object for deng_SCE.
@@ -100,8 +101,11 @@ ggplot(as.data.frame(colData(deng_SCE)), aes(x = pseudotime_PC1, y = cell_type2,
 ggsave(paste0(mydir, "/pseudotime_PC1.png"))
 
 # Try separating the cell types using other PCs. How does the separation look?
-
-
+deng_SCE$PC5 <- pca[, 5]
+deng_SCE$PC6 <- pca[, 6]
+ggplot(as.data.frame(colData(deng_SCE)), aes(x = PC5, y = PC6, color = cell_type2)) + geom_quasirandom(groupOnX = FALSE) +
+    scale_color_tableau() + theme_classic() +
+    xlab("PC5") + ylab("PC6") + ggtitle("PC biplot")
 ```
 
 ## Diffusion map pseudotime
@@ -138,6 +142,14 @@ ggplot(tmp, aes(x = DC1, y = DC2, colour = Timepoint)) +
     theme_classic()
 
 # Try plotting higher diffusion components against one another.
+tmp <- data.frame(DC3 = eigenvectors(dm)[, 3],
+                  DC4 = eigenvectors(dm)[, 4],
+                  Timepoint = deng_SCE$cell_type2)
+ggplot(tmp, aes(x = DC3, y = DC4, colour = Timepoint)) +
+    geom_point() + scale_color_tableau() + 
+    xlab("Diffusion component 3") + 
+    ylab("Diffusion component 4") +
+    theme_classic()
 
 # Next, let us use the first diffusion component (DC1) as a measure of pseudotime.
 # How does the separation by cell stage look?
@@ -234,6 +246,7 @@ gcdata <- FindClusters(gcdata, resolution = 0.6, algorithm = 1, random.seed = 10
 # Add clustering information from Seurat to the deng_SCE object
 deng_SCE$slingPseudotime_1 <- NULL  # remove old slingshot pseudotime data
 colData(deng_SCE)$Seurat_clusters <- as.character(Idents(gcdata))  # go from factor to character
+head(colData(deng_SCE))
 
 # Then run Slingshot using these cluster assignments.
 deng_SCE <- slingshot(deng_SCE, clusterLabels = 'Seurat_clusters', reducedDim = 'PCA')
