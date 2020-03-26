@@ -5,7 +5,7 @@ date: "3/22/2020"
 output: html_document
 ---
 
-# Advanced Topics: Pseudotime Cell Trajectories
+# Trajectory Inference
 
 
 ## Slides

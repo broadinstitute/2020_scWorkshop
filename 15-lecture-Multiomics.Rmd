@@ -3,7 +3,7 @@ title: "07-multiomics"
 output: html_document
 ---
 
-# Transcriptome Quantification
+# Mutli-omic Analysis
 
 ## Slides
 

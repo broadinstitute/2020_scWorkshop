@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="advanced-topics-pseudotime-cell-trajectories.html"/>
-<link rel="next" href="transcriptome-quantification-1.html"/>
+<link rel="prev" href="trajectory-inference.html"/>
+<link rel="next" href="mutli-omic-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -246,9 +246,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#differential-expression-analysis"><i class="fa fa-check"></i><b>10.3.1</b> Differential Expression Analysis</a></li>
 <li class="chapter" data-level="10.3.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#check-clusters"><i class="fa fa-check"></i><b>10.3.2</b> Check Clusters</a></li>
 <li class="chapter" data-level="10.3.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#view-entire-object-structure"><i class="fa fa-check"></i><b>10.3.3</b> View Entire Object Structure</a></li>
-<li class="chapter" data-level="10.3.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>10.3.4</b> Practice Visualizing/Embedding</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>10.4</b> Other Options For Analysis</a></li>
+<li class="chapter" data-level="10.4" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#probabilistic-lda-clustering"><i class="fa fa-check"></i><b>10.4</b> Probabilistic (LDA) Clustering</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#example-lda-in-bulk"><i class="fa fa-check"></i><b>10.4.1</b> Example LDA in Bulk</a></li>
+<li class="chapter" data-level="10.4.2" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#pbmc-lda"><i class="fa fa-check"></i><b>10.4.2</b> PBMC LDA</a></li>
+<li class="chapter" data-level="10.4.3" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#practice-visualizingembedding"><i class="fa fa-check"></i><b>10.4.3</b> Practice Visualizing/Embedding</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="feature-selection-and-cluster-analysis.html"><a href="feature-selection-and-cluster-analysis.html#other-options-for-analysis"><i class="fa fa-check"></i><b>10.5</b> Other Options For Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html"><i class="fa fa-check"></i><b>11</b> Batch Correction Lecture</a><ul>
 <li class="chapter" data-level="11.1" data-path="batch-correction-lecture.html"><a href="batch-correction-lecture.html#slides-3"><i class="fa fa-check"></i><b>11.1</b> Slides</a></li>
@@ -266,8 +270,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.7" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#additional-exploration-seurat-3"><i class="fa fa-check"></i><b>12.7</b> Additional exploration: Seurat 3</a></li>
 <li class="chapter" data-level="12.8" data-path="batch-correction-lab.html"><a href="batch-correction-lab.html#acknowledgements"><i class="fa fa-check"></i><b>12.8</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html"><i class="fa fa-check"></i><b>13</b> Advanced Topics: Pseudotime Cell Trajectories</a><ul>
-<li class="chapter" data-level="13.1" data-path="advanced-topics-pseudotime-cell-trajectories.html"><a href="advanced-topics-pseudotime-cell-trajectories.html#slides-4"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
+<li class="chapter" data-level="13" data-path="trajectory-inference.html"><a href="trajectory-inference.html"><i class="fa fa-check"></i><b>13</b> Trajectory Inference</a><ul>
+<li class="chapter" data-level="13.1" data-path="trajectory-inference.html"><a href="trajectory-inference.html#slides-4"><i class="fa fa-check"></i><b>13.1</b> Slides</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html"><i class="fa fa-check"></i><b>14</b> Trajectory Analysis</a><ul>
 <li class="chapter" data-level="14.1" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#load-settings-and-packages-1"><i class="fa fa-check"></i><b>14.1</b> Load settings and packages</a></li>
@@ -281,8 +285,8 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <li class="chapter" data-level="14.8" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#plots-of-gene-expression-over-time."><i class="fa fa-check"></i><b>14.8</b> Plots of gene expression over time.</a></li>
 <li class="chapter" data-level="14.9" data-path="trajectory-analysis.html"><a href="trajectory-analysis.html#acknowledgements-1"><i class="fa fa-check"></i><b>14.9</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="transcriptome-quantification-1.html"><a href="transcriptome-quantification-1.html"><i class="fa fa-check"></i><b>15</b> Transcriptome Quantification</a><ul>
-<li class="chapter" data-level="15.1" data-path="transcriptome-quantification-1.html"><a href="transcriptome-quantification-1.html#slides-5"><i class="fa fa-check"></i><b>15.1</b> Slides</a></li>
+<li class="chapter" data-level="15" data-path="mutli-omic-analysis.html"><a href="mutli-omic-analysis.html"><i class="fa fa-check"></i><b>15</b> Mutli-omic Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="mutli-omic-analysis.html"><a href="mutli-omic-analysis.html#slides-5"><i class="fa fa-check"></i><b>15.1</b> Slides</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="cite-seq.html"><a href="cite-seq.html"><i class="fa fa-check"></i><b>16</b> Cite-Seq</a><ul>
 <li class="chapter" data-level="16.1" data-path="cite-seq.html"><a href="cite-seq.html#load-settings-and-packages-2"><i class="fa fa-check"></i><b>16.1</b> Load settings and packages</a></li>
@@ -332,62 +336,62 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <div id="first-look-at-the-differentiation-data-from-deng-et-al.we-will-use-a-nice-smart-seq2-single-cell-rna-seq-data-from-single-cell-rna-seq-reveals-dynamic-random-monoallelic-gene-expression-in-mammalian-cells.-here-is-one-relevant-detail-from-their-paper-to-investigate-allele-specific-gene-expression-at-single-cell-resolution-we-isolated-269-individual-cells-dissociated-from-in-vivo-f1-embryos-casteij-c57bl6j-hereafter-abbreviated-as-cast-and-c57-respectively-from-oocyte-to-blastocyst-stages-of-mouse-preimplantation-development-pd" class="section level2">
 <h2><span class="header-section-number">14.2</span> First look at the differentiation data from Deng et
 al. We will use a nice SMART-Seq2 single cell RNA-seq data from <a href="http://science.sciencemag.org/content/343/6167/193">Single-Cell RNA-Seq Reveals Dynamic, Random Monoallelic Gene Expression in Mammalian Cells</a>. Here is one relevant detail from their paper: “To investigate allele-specific gene expression at single-cell resolution, we isolated 269 individual cells dissociated from in vivo F1 embryos (CAST/EiJ × C57BL/6J, hereafter abbreviated as CAST and C57, respectively) from oocyte to blastocyst stages of mouse preimplantation development (PD)”</h2>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1"><span class="co"># Read in single cell data.</span></a>
-<a class="sourceLine" id="cb347-2" data-line-number="2">path.deng &lt;-<span class="st"> </span><span class="kw">paste0</span>(mydir, <span class="st">&quot;deng-reads.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb347-3" data-line-number="3">deng_SCE &lt;-<span class="st"> </span><span class="kw">readRDS</span>(path.deng)</a>
-<a class="sourceLine" id="cb347-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb347-5" data-line-number="5"><span class="co"># What class is the deng_SCE object, and how is it organized?</span></a>
-<a class="sourceLine" id="cb347-6" data-line-number="6"><span class="kw">class</span>(deng_SCE)</a>
-<a class="sourceLine" id="cb347-7" data-line-number="7"><span class="kw">structure</span>(deng_SCE)</a>
-<a class="sourceLine" id="cb347-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb347-9" data-line-number="9"><span class="co"># How many mouse cells are at each stage?</span></a>
-<a class="sourceLine" id="cb347-10" data-line-number="10"><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type1)</a>
-<a class="sourceLine" id="cb347-11" data-line-number="11"><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type2)</a>
-<a class="sourceLine" id="cb347-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb347-13" data-line-number="13"><span class="co"># Re-order the levels of the factor storing the cell developmental stage.</span></a>
-<a class="sourceLine" id="cb347-14" data-line-number="14">deng_SCE<span class="op">$</span>cell_type2 &lt;-<span class="st"> </span><span class="kw">factor</span>(deng_SCE<span class="op">$</span>cell_type2,</a>
-<a class="sourceLine" id="cb347-15" data-line-number="15">                              <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>, </a>
-<a class="sourceLine" id="cb347-16" data-line-number="16">                                         <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>,</a>
-<a class="sourceLine" id="cb347-17" data-line-number="17">                                         <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1"><span class="co"># Read in single cell data.</span></a>
+<a class="sourceLine" id="cb346-2" data-line-number="2">path.deng &lt;-<span class="st"> </span><span class="kw">paste0</span>(mydir, <span class="st">&quot;deng-reads.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb346-3" data-line-number="3">deng_SCE &lt;-<span class="st"> </span><span class="kw">readRDS</span>(path.deng)</a>
+<a class="sourceLine" id="cb346-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb346-5" data-line-number="5"><span class="co"># What class is the deng_SCE object, and how is it organized?</span></a>
+<a class="sourceLine" id="cb346-6" data-line-number="6"><span class="kw">class</span>(deng_SCE)</a>
+<a class="sourceLine" id="cb346-7" data-line-number="7"><span class="kw">structure</span>(deng_SCE)</a>
+<a class="sourceLine" id="cb346-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb346-9" data-line-number="9"><span class="co"># How many mouse cells are at each stage?</span></a>
+<a class="sourceLine" id="cb346-10" data-line-number="10"><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type1)</a>
+<a class="sourceLine" id="cb346-11" data-line-number="11"><span class="kw">table</span>(deng_SCE<span class="op">$</span>cell_type2)</a>
+<a class="sourceLine" id="cb346-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb346-13" data-line-number="13"><span class="co"># Re-order the levels of the factor storing the cell developmental stage.</span></a>
+<a class="sourceLine" id="cb346-14" data-line-number="14">deng_SCE<span class="op">$</span>cell_type2 &lt;-<span class="st"> </span><span class="kw">factor</span>(deng_SCE<span class="op">$</span>cell_type2,</a>
+<a class="sourceLine" id="cb346-15" data-line-number="15">                              <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>, </a>
+<a class="sourceLine" id="cb346-16" data-line-number="16">                                         <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>,</a>
+<a class="sourceLine" id="cb346-17" data-line-number="17">                                         <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>))</a></code></pre></div>
 </div>
 <div id="principle-components-analysis" class="section level2">
 <h2><span class="header-section-number">14.3</span> Principle Components Analysis</h2>
 <p>Let us take a first look at the Deng data. One simple approach to ordering cells in pseudotime is to use PCA. By carrying out PCA and labeling the cells by the stage at which they were collected, we can see how well the principal components separate cells along a differentiation trajectory.</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1"><span class="co"># Run PCA on Deng data. Use the runPCA function from the SingleCellExperiment package.</span></a>
-<a class="sourceLine" id="cb348-2" data-line-number="2">deng_SCE &lt;-<span class="st"> </span><span class="kw">runPCA</span>(deng_SCE, <span class="dt">ncomponents =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb348-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="co"># Use the reducedDim function to access the PCA and store the results. </span></a>
-<a class="sourceLine" id="cb348-5" data-line-number="5">pca &lt;-<span class="st"> </span><span class="kw">reducedDim</span>(deng_SCE, <span class="st">&quot;PCA&quot;</span>)</a>
-<a class="sourceLine" id="cb348-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb348-7" data-line-number="7"><span class="co"># Describe how the PCA is stored in a matrix. Why does it have this structure?</span></a>
-<a class="sourceLine" id="cb348-8" data-line-number="8"><span class="kw">head</span>(pca)</a>
-<a class="sourceLine" id="cb348-9" data-line-number="9"><span class="kw">dim</span>(pca)</a>
-<a class="sourceLine" id="cb348-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb348-11" data-line-number="11"><span class="co"># Add PCA data to the deng_SCE object.</span></a>
-<a class="sourceLine" id="cb348-12" data-line-number="12">deng_SCE<span class="op">$</span>PC1 &lt;-<span class="st"> </span>pca[, <span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb348-13" data-line-number="13">deng_SCE<span class="op">$</span>PC2 &lt;-<span class="st"> </span>pca[, <span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb348-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb348-15" data-line-number="15"><span class="co"># Plot PC biplot with cells colored by cell_type2. </span></a>
-<a class="sourceLine" id="cb348-16" data-line-number="16"><span class="co"># colData(deng_SCE) accesses the cell metadata DataFrame object for deng_SCE.</span></a>
-<a class="sourceLine" id="cb348-17" data-line-number="17"><span class="co"># Look at Figure 1A of the paper as a comparison to your PC biplot.</span></a>
-<a class="sourceLine" id="cb348-18" data-line-number="18"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2, <span class="dt">color =</span> cell_type2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-19" data-line-number="19"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-20" data-line-number="20"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;PC2&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;PC biplot&quot;</span>)</a>
-<a class="sourceLine" id="cb348-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb348-22" data-line-number="22"><span class="co"># PCA is a simple approach and can be good to compare to more complex algorithms </span></a>
-<a class="sourceLine" id="cb348-23" data-line-number="23"><span class="co"># designed to capture differentiation processes. As a simple measure of pseudotime </span></a>
-<a class="sourceLine" id="cb348-24" data-line-number="24"><span class="co"># we can use the coordinates of PC1.</span></a>
-<a class="sourceLine" id="cb348-25" data-line-number="25"><span class="co"># Plot PC1 vs cell_type2. </span></a>
-<a class="sourceLine" id="cb348-26" data-line-number="26">deng_SCE<span class="op">$</span>pseudotime_PC1 &lt;-<span class="st"> </span><span class="kw">rank</span>(deng_SCE<span class="op">$</span>PC1)  <span class="co"># rank cells by their PC1 score</span></a>
-<a class="sourceLine" id="cb348-27" data-line-number="27"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_PC1, <span class="dt">y =</span> cell_type2, </a>
-<a class="sourceLine" id="cb348-28" data-line-number="28">                                             <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-29" data-line-number="29"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-30" data-line-number="30"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-31" data-line-number="31"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb348-32" data-line-number="32"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by first principal component&quot;</span>)</a>
-<a class="sourceLine" id="cb348-33" data-line-number="33"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_PC1.png&quot;</span>))</a>
-<a class="sourceLine" id="cb348-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb348-35" data-line-number="35"><span class="co"># Try separating the cell types using other PCs. How does the separation look?</span></a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1"><span class="co"># Run PCA on Deng data. Use the runPCA function from the SingleCellExperiment package.</span></a>
+<a class="sourceLine" id="cb347-2" data-line-number="2">deng_SCE &lt;-<span class="st"> </span><span class="kw">runPCA</span>(deng_SCE, <span class="dt">ncomponents =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb347-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb347-4" data-line-number="4"><span class="co"># Use the reducedDim function to access the PCA and store the results. </span></a>
+<a class="sourceLine" id="cb347-5" data-line-number="5">pca &lt;-<span class="st"> </span><span class="kw">reducedDim</span>(deng_SCE, <span class="st">&quot;PCA&quot;</span>)</a>
+<a class="sourceLine" id="cb347-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb347-7" data-line-number="7"><span class="co"># Describe how the PCA is stored in a matrix. Why does it have this structure?</span></a>
+<a class="sourceLine" id="cb347-8" data-line-number="8"><span class="kw">head</span>(pca)</a>
+<a class="sourceLine" id="cb347-9" data-line-number="9"><span class="kw">dim</span>(pca)</a>
+<a class="sourceLine" id="cb347-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb347-11" data-line-number="11"><span class="co"># Add PCA data to the deng_SCE object.</span></a>
+<a class="sourceLine" id="cb347-12" data-line-number="12">deng_SCE<span class="op">$</span>PC1 &lt;-<span class="st"> </span>pca[, <span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb347-13" data-line-number="13">deng_SCE<span class="op">$</span>PC2 &lt;-<span class="st"> </span>pca[, <span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb347-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb347-15" data-line-number="15"><span class="co"># Plot PC biplot with cells colored by cell_type2. </span></a>
+<a class="sourceLine" id="cb347-16" data-line-number="16"><span class="co"># colData(deng_SCE) accesses the cell metadata DataFrame object for deng_SCE.</span></a>
+<a class="sourceLine" id="cb347-17" data-line-number="17"><span class="co"># Look at Figure 1A of the paper as a comparison to your PC biplot.</span></a>
+<a class="sourceLine" id="cb347-18" data-line-number="18"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2, <span class="dt">color =</span> cell_type2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-19" data-line-number="19"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-20" data-line-number="20"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;PC2&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;PC biplot&quot;</span>)</a>
+<a class="sourceLine" id="cb347-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb347-22" data-line-number="22"><span class="co"># PCA is a simple approach and can be good to compare to more complex algorithms </span></a>
+<a class="sourceLine" id="cb347-23" data-line-number="23"><span class="co"># designed to capture differentiation processes. As a simple measure of pseudotime </span></a>
+<a class="sourceLine" id="cb347-24" data-line-number="24"><span class="co"># we can use the coordinates of PC1.</span></a>
+<a class="sourceLine" id="cb347-25" data-line-number="25"><span class="co"># Plot PC1 vs cell_type2. </span></a>
+<a class="sourceLine" id="cb347-26" data-line-number="26">deng_SCE<span class="op">$</span>pseudotime_PC1 &lt;-<span class="st"> </span><span class="kw">rank</span>(deng_SCE<span class="op">$</span>PC1)  <span class="co"># rank cells by their PC1 score</span></a>
+<a class="sourceLine" id="cb347-27" data-line-number="27"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_PC1, <span class="dt">y =</span> cell_type2, </a>
+<a class="sourceLine" id="cb347-28" data-line-number="28">                                             <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-29" data-line-number="29"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-30" data-line-number="30"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-31" data-line-number="31"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;PC1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb347-32" data-line-number="32"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by first principal component&quot;</span>)</a>
+<a class="sourceLine" id="cb347-33" data-line-number="33"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_PC1.png&quot;</span>))</a>
+<a class="sourceLine" id="cb347-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb347-35" data-line-number="35"><span class="co"># Try separating the cell types using other PCs. How does the separation look?</span></a></code></pre></div>
 </div>
 <div id="diffusion-map-pseudotime" class="section level2">
 <h2><span class="header-section-number">14.4</span> Diffusion map pseudotime</h2>
@@ -395,206 +399,206 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <a href="http:/
 <p><a href="https://en.wikipedia.org/wiki/Diffusion_map">Diffusion maps</a> were introduced by <a href="http://www.sciencedirect.com/science/article/pii/S1063520306000546">Ronald Coifman and Stephane Lafon</a>, and the underlying idea is to assume that the data are samples from a diffusion process. The method infers the low-dimensional manifold by estimating the eigenvalues and eigenvectors for the diffusion operator related to the data.</p>
 <p><a href="https://academic.oup.com/bioinformatics/article/32/8/1241/1744143">Angerer et al</a> have applied the diffusion maps concept to the analysis of single-cell RNA-seq data to create an R package called <a href="http://bioconductor.org/packages/destiny">destiny</a>.</p>
 <p>We will use two forms of pseudotime: the first diffusion component and the diffusion pseudotime.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="co">#  Prepare a counts matrix with labeled rows and columns. </span></a>
-<a class="sourceLine" id="cb349-2" data-line-number="2">deng &lt;-<span class="st"> </span><span class="kw">logcounts</span>(deng_SCE)  <span class="co"># access log-transformed counts matrix</span></a>
-<a class="sourceLine" id="cb349-3" data-line-number="3">cellLabels &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>cell_type2</a>
-<a class="sourceLine" id="cb349-4" data-line-number="4"><span class="kw">colnames</span>(deng) &lt;-<span class="st"> </span>cellLabels</a>
-<a class="sourceLine" id="cb349-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb349-6" data-line-number="6"><span class="co"># Make a diffusion map.</span></a>
-<a class="sourceLine" id="cb349-7" data-line-number="7">dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(<span class="kw">t</span>(deng))</a>
-<a class="sourceLine" id="cb349-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb349-9" data-line-number="9"><span class="co"># Optional: Try different sigma values when making diffusion map.</span></a>
-<a class="sourceLine" id="cb349-10" data-line-number="10"><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = &quot;local&quot;)  # use local option to set sigma</span></a>
-<a class="sourceLine" id="cb349-11" data-line-number="11"><span class="co"># sigmas &lt;- find_sigmas(t(deng), verbose = FALSE)  # find optimal sigma</span></a>
-<a class="sourceLine" id="cb349-12" data-line-number="12"><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = optimal_sigma(sigmas))  </span></a>
-<a class="sourceLine" id="cb349-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb349-14" data-line-number="14"><span class="co"># Plot diffusion component 1 vs diffusion component 2 (DC1 vs DC2). </span></a>
-<a class="sourceLine" id="cb349-15" data-line-number="15">tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb349-16" data-line-number="16">                  <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>],</a>
-<a class="sourceLine" id="cb349-17" data-line-number="17">                  <span class="dt">Timepoint =</span> deng_SCE<span class="op">$</span>cell_type2)</a>
-<a class="sourceLine" id="cb349-18" data-line-number="18"><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">colour =</span> Timepoint)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-19" data-line-number="19"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb349-20" data-line-number="20"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb349-21" data-line-number="21"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Diffusion component 2&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-22" data-line-number="22"><span class="st">    </span><span class="kw">theme_classic</span>()</a>
-<a class="sourceLine" id="cb349-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb349-24" data-line-number="24"><span class="co"># Try plotting higher diffusion components against one another.</span></a>
-<a class="sourceLine" id="cb349-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb349-26" data-line-number="26"><span class="co"># Next, let us use the first diffusion component (DC1) as a measure of pseudotime.</span></a>
-<a class="sourceLine" id="cb349-27" data-line-number="27"><span class="co"># How does the separation by cell stage look?</span></a>
-<a class="sourceLine" id="cb349-28" data-line-number="28">deng_SCE<span class="op">$</span>pseudotime_diffusionmap &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="kw">eigenvectors</span>(dm)[,<span class="dv">1</span>])    <span class="co"># rank cells by their dpt</span></a>
-<a class="sourceLine" id="cb349-29" data-line-number="29"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </a>
-<a class="sourceLine" id="cb349-30" data-line-number="30">       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_diffusionmap, </a>
-<a class="sourceLine" id="cb349-31" data-line-number="31">           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-32" data-line-number="32"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-33" data-line-number="33"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-34" data-line-number="34"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1 (DC1)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-35" data-line-number="35"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by DC1&quot;</span>)</a>
-<a class="sourceLine" id="cb349-36" data-line-number="36"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_DC1.png&quot;</span>))</a>
-<a class="sourceLine" id="cb349-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb349-38" data-line-number="38"><span class="co"># Plot eigenvalues of diffusion distance matrix. How many diffusion components would you use?</span></a>
-<a class="sourceLine" id="cb349-39" data-line-number="39"><span class="co"># This is analagous to the PC elbow plot (scree plot) that we previously used to assess how </span></a>
-<a class="sourceLine" id="cb349-40" data-line-number="40"><span class="co"># many PCs to use in downstream applications like clustering.</span></a>
-<a class="sourceLine" id="cb349-41" data-line-number="41"><span class="kw">plot</span>(<span class="kw">eigenvalues</span>(dm), <span class="dt">ylim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">xlab =</span> <span class="st">&#39;Diffusion component (DC)&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Eigenvalue&#39;</span>)</a>
-<a class="sourceLine" id="cb349-42" data-line-number="42"></a>
-<a class="sourceLine" id="cb349-43" data-line-number="43"><span class="co"># What happens if you run the diffusion map on the PCs? Why would one do this?</span></a>
-<a class="sourceLine" id="cb349-44" data-line-number="44"><span class="kw">rownames</span>(pca) &lt;-<span class="st"> </span>cellLabels</a>
-<a class="sourceLine" id="cb349-45" data-line-number="45">dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(pca)</a>
-<a class="sourceLine" id="cb349-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb349-47" data-line-number="47"><span class="co"># Diffusion pseudotime calculation. </span></a>
-<a class="sourceLine" id="cb349-48" data-line-number="48"><span class="co"># Set index or tip of pseudotime calculation to be a zygotic cell (cell 268). </span></a>
-<a class="sourceLine" id="cb349-49" data-line-number="49">dpt &lt;-<span class="st"> </span><span class="kw">DPT</span>(dm, <span class="dt">tips =</span> <span class="dv">268</span>)</a>
-<a class="sourceLine" id="cb349-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb349-51" data-line-number="51"><span class="co"># Plot DC1 vs DC2 and color the cells by their inferred diffusion pseudotime.</span></a>
-<a class="sourceLine" id="cb349-52" data-line-number="52"><span class="co"># We can accesss diffusion pseudotime via dpt$dpt.</span></a>
-<a class="sourceLine" id="cb349-53" data-line-number="53">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>], <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>], </a>
-<a class="sourceLine" id="cb349-54" data-line-number="54">                 <span class="dt">dptval =</span> dpt<span class="op">$</span>dpt, <span class="dt">cell_type2 =</span> deng_SCE<span class="op">$</span>cell_type2)</a>
-<a class="sourceLine" id="cb349-55" data-line-number="55">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> dptval))</a>
-<a class="sourceLine" id="cb349-56" data-line-number="56">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> cell_type2))</a>
-<a class="sourceLine" id="cb349-57" data-line-number="57">p &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(p1, p2)</a>
-<a class="sourceLine" id="cb349-58" data-line-number="58">p</a>
-<a class="sourceLine" id="cb349-59" data-line-number="59"><span class="kw">save_plot</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/dpt_celltype.png&quot;</span>), p, <span class="dt">base_height =</span> <span class="dv">5</span>, <span class="dt">base_aspect_ratio =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb349-60" data-line-number="60"></a>
-<a class="sourceLine" id="cb349-61" data-line-number="61"><span class="co"># Plot diffusion pseudotime vs timepoint. </span></a>
-<a class="sourceLine" id="cb349-62" data-line-number="62"><span class="co"># Which separates the data better, DC1 or diffusion pseudotime?</span></a>
-<a class="sourceLine" id="cb349-63" data-line-number="63">deng_SCE<span class="op">$</span>pseudotime_dpt &lt;-<span class="st"> </span><span class="kw">rank</span>(dpt<span class="op">$</span>dpt) </a>
-<a class="sourceLine" id="cb349-64" data-line-number="64"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </a>
-<a class="sourceLine" id="cb349-65" data-line-number="65">       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_dpt, </a>
-<a class="sourceLine" id="cb349-66" data-line-number="66">           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-67" data-line-number="67"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-68" data-line-number="68"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-69" data-line-number="69"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion map pseudotime (dpt)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-70" data-line-number="70"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb349-71" data-line-number="71"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by diffusion map pseudotime&quot;</span>)</a>
-<a class="sourceLine" id="cb349-72" data-line-number="72"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_dpt.png&quot;</span>))</a>
-<a class="sourceLine" id="cb349-73" data-line-number="73"></a>
-<a class="sourceLine" id="cb349-74" data-line-number="74"><span class="co"># Save current progress.</span></a>
-<a class="sourceLine" id="cb349-75" data-line-number="75"><span class="kw">save</span>(deng_SCE, <span class="dt">file =</span> Rda.destiny.path)</a>
-<a class="sourceLine" id="cb349-76" data-line-number="76"><span class="co"># To load the data, run the following command.</span></a>
-<a class="sourceLine" id="cb349-77" data-line-number="77"><span class="co"># load(Rda.destiny.path)</span></a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1"><span class="co">#  Prepare a counts matrix with labeled rows and columns. </span></a>
+<a class="sourceLine" id="cb348-2" data-line-number="2">deng &lt;-<span class="st"> </span><span class="kw">logcounts</span>(deng_SCE)  <span class="co"># access log-transformed counts matrix</span></a>
+<a class="sourceLine" id="cb348-3" data-line-number="3">cellLabels &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>cell_type2</a>
+<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="kw">colnames</span>(deng) &lt;-<span class="st"> </span>cellLabels</a>
+<a class="sourceLine" id="cb348-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb348-6" data-line-number="6"><span class="co"># Make a diffusion map.</span></a>
+<a class="sourceLine" id="cb348-7" data-line-number="7">dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(<span class="kw">t</span>(deng))</a>
+<a class="sourceLine" id="cb348-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb348-9" data-line-number="9"><span class="co"># Optional: Try different sigma values when making diffusion map.</span></a>
+<a class="sourceLine" id="cb348-10" data-line-number="10"><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = &quot;local&quot;)  # use local option to set sigma</span></a>
+<a class="sourceLine" id="cb348-11" data-line-number="11"><span class="co"># sigmas &lt;- find_sigmas(t(deng), verbose = FALSE)  # find optimal sigma</span></a>
+<a class="sourceLine" id="cb348-12" data-line-number="12"><span class="co"># dm &lt;- DiffusionMap(t(deng), sigma = optimal_sigma(sigmas))  </span></a>
+<a class="sourceLine" id="cb348-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb348-14" data-line-number="14"><span class="co"># Plot diffusion component 1 vs diffusion component 2 (DC1 vs DC2). </span></a>
+<a class="sourceLine" id="cb348-15" data-line-number="15">tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb348-16" data-line-number="16">                  <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb348-17" data-line-number="17">                  <span class="dt">Timepoint =</span> deng_SCE<span class="op">$</span>cell_type2)</a>
+<a class="sourceLine" id="cb348-18" data-line-number="18"><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">colour =</span> Timepoint)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-19" data-line-number="19"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb348-20" data-line-number="20"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb348-21" data-line-number="21"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Diffusion component 2&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-22" data-line-number="22"><span class="st">    </span><span class="kw">theme_classic</span>()</a>
+<a class="sourceLine" id="cb348-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb348-24" data-line-number="24"><span class="co"># Try plotting higher diffusion components against one another.</span></a>
+<a class="sourceLine" id="cb348-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb348-26" data-line-number="26"><span class="co"># Next, let us use the first diffusion component (DC1) as a measure of pseudotime.</span></a>
+<a class="sourceLine" id="cb348-27" data-line-number="27"><span class="co"># How does the separation by cell stage look?</span></a>
+<a class="sourceLine" id="cb348-28" data-line-number="28">deng_SCE<span class="op">$</span>pseudotime_diffusionmap &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="kw">eigenvectors</span>(dm)[,<span class="dv">1</span>])    <span class="co"># rank cells by their dpt</span></a>
+<a class="sourceLine" id="cb348-29" data-line-number="29"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </a>
+<a class="sourceLine" id="cb348-30" data-line-number="30">       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_diffusionmap, </a>
+<a class="sourceLine" id="cb348-31" data-line-number="31">           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-32" data-line-number="32"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-33" data-line-number="33"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-34" data-line-number="34"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion component 1 (DC1)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-35" data-line-number="35"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by DC1&quot;</span>)</a>
+<a class="sourceLine" id="cb348-36" data-line-number="36"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_DC1.png&quot;</span>))</a>
+<a class="sourceLine" id="cb348-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb348-38" data-line-number="38"><span class="co"># Plot eigenvalues of diffusion distance matrix. How many diffusion components would you use?</span></a>
+<a class="sourceLine" id="cb348-39" data-line-number="39"><span class="co"># This is analagous to the PC elbow plot (scree plot) that we previously used to assess how </span></a>
+<a class="sourceLine" id="cb348-40" data-line-number="40"><span class="co"># many PCs to use in downstream applications like clustering.</span></a>
+<a class="sourceLine" id="cb348-41" data-line-number="41"><span class="kw">plot</span>(<span class="kw">eigenvalues</span>(dm), <span class="dt">ylim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">xlab =</span> <span class="st">&#39;Diffusion component (DC)&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Eigenvalue&#39;</span>)</a>
+<a class="sourceLine" id="cb348-42" data-line-number="42"></a>
+<a class="sourceLine" id="cb348-43" data-line-number="43"><span class="co"># What happens if you run the diffusion map on the PCs? Why would one do this?</span></a>
+<a class="sourceLine" id="cb348-44" data-line-number="44"><span class="kw">rownames</span>(pca) &lt;-<span class="st"> </span>cellLabels</a>
+<a class="sourceLine" id="cb348-45" data-line-number="45">dm &lt;-<span class="st"> </span><span class="kw">DiffusionMap</span>(pca)</a>
+<a class="sourceLine" id="cb348-46" data-line-number="46"></a>
+<a class="sourceLine" id="cb348-47" data-line-number="47"><span class="co"># Diffusion pseudotime calculation. </span></a>
+<a class="sourceLine" id="cb348-48" data-line-number="48"><span class="co"># Set index or tip of pseudotime calculation to be a zygotic cell (cell 268). </span></a>
+<a class="sourceLine" id="cb348-49" data-line-number="49">dpt &lt;-<span class="st"> </span><span class="kw">DPT</span>(dm, <span class="dt">tips =</span> <span class="dv">268</span>)</a>
+<a class="sourceLine" id="cb348-50" data-line-number="50"></a>
+<a class="sourceLine" id="cb348-51" data-line-number="51"><span class="co"># Plot DC1 vs DC2 and color the cells by their inferred diffusion pseudotime.</span></a>
+<a class="sourceLine" id="cb348-52" data-line-number="52"><span class="co"># We can accesss diffusion pseudotime via dpt$dpt.</span></a>
+<a class="sourceLine" id="cb348-53" data-line-number="53">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">DC1 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">1</span>], <span class="dt">DC2 =</span> <span class="kw">eigenvectors</span>(dm)[, <span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb348-54" data-line-number="54">                 <span class="dt">dptval =</span> dpt<span class="op">$</span>dpt, <span class="dt">cell_type2 =</span> deng_SCE<span class="op">$</span>cell_type2)</a>
+<a class="sourceLine" id="cb348-55" data-line-number="55">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> dptval))</a>
+<a class="sourceLine" id="cb348-56" data-line-number="56">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> DC1, <span class="dt">y =</span> DC2, <span class="dt">color =</span> cell_type2))</a>
+<a class="sourceLine" id="cb348-57" data-line-number="57">p &lt;-<span class="st"> </span><span class="kw">plot_grid</span>(p1, p2)</a>
+<a class="sourceLine" id="cb348-58" data-line-number="58">p</a>
+<a class="sourceLine" id="cb348-59" data-line-number="59"><span class="kw">save_plot</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/dpt_celltype.png&quot;</span>), p, <span class="dt">base_height =</span> <span class="dv">5</span>, <span class="dt">base_aspect_ratio =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb348-60" data-line-number="60"></a>
+<a class="sourceLine" id="cb348-61" data-line-number="61"><span class="co"># Plot diffusion pseudotime vs timepoint. </span></a>
+<a class="sourceLine" id="cb348-62" data-line-number="62"><span class="co"># Which separates the data better, DC1 or diffusion pseudotime?</span></a>
+<a class="sourceLine" id="cb348-63" data-line-number="63">deng_SCE<span class="op">$</span>pseudotime_dpt &lt;-<span class="st"> </span><span class="kw">rank</span>(dpt<span class="op">$</span>dpt) </a>
+<a class="sourceLine" id="cb348-64" data-line-number="64"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), </a>
+<a class="sourceLine" id="cb348-65" data-line-number="65">       <span class="kw">aes</span>(<span class="dt">x =</span> pseudotime_dpt, </a>
+<a class="sourceLine" id="cb348-66" data-line-number="66">           <span class="dt">y =</span> cell_type2, <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-67" data-line-number="67"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-68" data-line-number="68"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-69" data-line-number="69"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Diffusion map pseudotime (dpt)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-70" data-line-number="70"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-71" data-line-number="71"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by diffusion map pseudotime&quot;</span>)</a>
+<a class="sourceLine" id="cb348-72" data-line-number="72"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_dpt.png&quot;</span>))</a>
+<a class="sourceLine" id="cb348-73" data-line-number="73"></a>
+<a class="sourceLine" id="cb348-74" data-line-number="74"><span class="co"># Save current progress.</span></a>
+<a class="sourceLine" id="cb348-75" data-line-number="75"><span class="kw">save</span>(deng_SCE, <span class="dt">file =</span> Rda.destiny.path)</a>
+<a class="sourceLine" id="cb348-76" data-line-number="76"><span class="co"># To load the data, run the following command.</span></a>
+<a class="sourceLine" id="cb348-77" data-line-number="77"><span class="co"># load(Rda.destiny.path)</span></a></code></pre></div>
 </div>
 <div id="slingshot-map-pseudotime" class="section level2">
 <h2><span class="header-section-number">14.5</span> Slingshot map pseudotime</h2>
 <p>Let us see how another advance trajectory inference method, Slingshot, performs at placing cells along the expected differentiation trajectory.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="kw">library</span>(slingshot)</a>
-<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="kw">library</span>(Seurat)</a>
-<a class="sourceLine" id="cb350-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb350-4" data-line-number="4"><span class="co"># load(Rda.destiny.path)</span></a>
-<a class="sourceLine" id="cb350-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb350-6" data-line-number="6"><span class="co"># Read the Slingshot documentation (?slingshot) and then run Slingshot below. </span></a>
-<a class="sourceLine" id="cb350-7" data-line-number="7"><span class="co"># Given your understanding of the algorithm and the documentation, what is one </span></a>
-<a class="sourceLine" id="cb350-8" data-line-number="8"><span class="co"># major set of parameters we omitted here when running Slingshot?</span></a>
-<a class="sourceLine" id="cb350-9" data-line-number="9">sce &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)  <span class="co"># no clusters</span></a>
-<a class="sourceLine" id="cb350-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb350-11" data-line-number="11"><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></a>
-<a class="sourceLine" id="cb350-12" data-line-number="12">colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb350-13" data-line-number="13"><span class="kw">plot</span>(<span class="kw">reducedDims</span>(sce)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb350-14" data-line-number="14"><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(sce), <span class="dt">lwd=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb350-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb350-16" data-line-number="16"><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></a>
-<a class="sourceLine" id="cb350-17" data-line-number="17"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </a>
-<a class="sourceLine" id="cb350-18" data-line-number="18">                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-19" data-line-number="19"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-20" data-line-number="20"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-21" data-line-number="21"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-22" data-line-number="22"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</a>
-<a class="sourceLine" id="cb350-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb350-24" data-line-number="24"><span class="co"># Cluster cells using the Seurat workflow below.</span></a>
-<a class="sourceLine" id="cb350-25" data-line-number="25">gcdata &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> <span class="kw">counts</span>(deng_SCE), <span class="dt">project =</span> <span class="st">&quot;slingshot&quot;</span>)</a>
-<a class="sourceLine" id="cb350-26" data-line-number="26">gcdata &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(gcdata, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a>
-<a class="sourceLine" id="cb350-27" data-line-number="27">gcdata &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(gcdata, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</a>
-<a class="sourceLine" id="cb350-28" data-line-number="28">gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> gcdata, <span class="dt">do.center =</span> T, <span class="dt">do.scale =</span> F)</a>
-<a class="sourceLine" id="cb350-29" data-line-number="29">gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(gcdata, <span class="dt">features =</span> <span class="kw">VariableFeatures</span>(gcdata), <span class="dt">npcs =</span> <span class="dv">40</span>, <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb350-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb350-31" data-line-number="31"><span class="co"># Cluster the cells using the first twenty principal components.</span></a>
-<a class="sourceLine" id="cb350-32" data-line-number="32">gcdata &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">k.param =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb350-33" data-line-number="33">gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.6</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb350-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb350-35" data-line-number="35"><span class="co"># Add clustering information from Seurat to the deng_SCE object</span></a>
-<a class="sourceLine" id="cb350-36" data-line-number="36">deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># remove old slingshot pseudotime data</span></a>
-<a class="sourceLine" id="cb350-37" data-line-number="37"><span class="kw">colData</span>(deng_SCE)<span class="op">$</span>Seurat_clusters &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">Idents</span>(gcdata))  <span class="co"># go from factor to character</span></a>
-<a class="sourceLine" id="cb350-38" data-line-number="38"></a>
-<a class="sourceLine" id="cb350-39" data-line-number="39"><span class="co"># Then run Slingshot using these cluster assignments.</span></a>
-<a class="sourceLine" id="cb350-40" data-line-number="40">deng_SCE &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">clusterLabels =</span> <span class="st">&#39;Seurat_clusters&#39;</span>, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)</a>
-<a class="sourceLine" id="cb350-41" data-line-number="41"></a>
-<a class="sourceLine" id="cb350-42" data-line-number="42"><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></a>
-<a class="sourceLine" id="cb350-43" data-line-number="43">colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb350-44" data-line-number="44"><span class="kw">plot</span>(<span class="kw">reducedDims</span>(deng_SCE)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb350-45" data-line-number="45"><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(deng_SCE), <span class="dt">lwd=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb350-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb350-47" data-line-number="47"><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></a>
-<a class="sourceLine" id="cb350-48" data-line-number="48"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </a>
-<a class="sourceLine" id="cb350-49" data-line-number="49">                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-50" data-line-number="50"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-51" data-line-number="51"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-52" data-line-number="52"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb350-53" data-line-number="53"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</a>
-<a class="sourceLine" id="cb350-54" data-line-number="54"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_slingshot.png&quot;</span>))</a>
-<a class="sourceLine" id="cb350-55" data-line-number="55"></a>
-<a class="sourceLine" id="cb350-56" data-line-number="56"><span class="co"># Save current progress.</span></a>
-<a class="sourceLine" id="cb350-57" data-line-number="57"><span class="kw">save</span>(deng_SCE, <span class="dt">file =</span> Rda.slingshot.path)</a>
-<a class="sourceLine" id="cb350-58" data-line-number="58"><span class="co"># To load the data, run the following command.</span></a>
-<a class="sourceLine" id="cb350-59" data-line-number="59"><span class="co"># load(Rda.slingshot.path)</span></a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">library</span>(slingshot)</a>
+<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="kw">library</span>(Seurat)</a>
+<a class="sourceLine" id="cb349-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb349-4" data-line-number="4"><span class="co"># load(Rda.destiny.path)</span></a>
+<a class="sourceLine" id="cb349-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb349-6" data-line-number="6"><span class="co"># Read the Slingshot documentation (?slingshot) and then run Slingshot below. </span></a>
+<a class="sourceLine" id="cb349-7" data-line-number="7"><span class="co"># Given your understanding of the algorithm and the documentation, what is one </span></a>
+<a class="sourceLine" id="cb349-8" data-line-number="8"><span class="co"># major set of parameters we omitted here when running Slingshot?</span></a>
+<a class="sourceLine" id="cb349-9" data-line-number="9">sce &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)  <span class="co"># no clusters</span></a>
+<a class="sourceLine" id="cb349-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb349-11" data-line-number="11"><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></a>
+<a class="sourceLine" id="cb349-12" data-line-number="12">colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb349-13" data-line-number="13"><span class="kw">plot</span>(<span class="kw">reducedDims</span>(sce)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb349-14" data-line-number="14"><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(sce), <span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb349-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb349-16" data-line-number="16"><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></a>
+<a class="sourceLine" id="cb349-17" data-line-number="17"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> sce<span class="op">$</span>slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </a>
+<a class="sourceLine" id="cb349-18" data-line-number="18">                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-19" data-line-number="19"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-20" data-line-number="20"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-21" data-line-number="21"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-22" data-line-number="22"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</a>
+<a class="sourceLine" id="cb349-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb349-24" data-line-number="24"><span class="co"># Cluster cells using the Seurat workflow below.</span></a>
+<a class="sourceLine" id="cb349-25" data-line-number="25">gcdata &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> <span class="kw">counts</span>(deng_SCE), <span class="dt">project =</span> <span class="st">&quot;slingshot&quot;</span>)</a>
+<a class="sourceLine" id="cb349-26" data-line-number="26">gcdata &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(gcdata, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb349-27" data-line-number="27">gcdata &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(gcdata, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</a>
+<a class="sourceLine" id="cb349-28" data-line-number="28">gcdata &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> gcdata, <span class="dt">do.center =</span> T, <span class="dt">do.scale =</span> F)</a>
+<a class="sourceLine" id="cb349-29" data-line-number="29">gcdata &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(gcdata, <span class="dt">features =</span> <span class="kw">VariableFeatures</span>(gcdata), <span class="dt">npcs =</span> <span class="dv">40</span>, <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb349-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb349-31" data-line-number="31"><span class="co"># Cluster the cells using the first twenty principal components.</span></a>
+<a class="sourceLine" id="cb349-32" data-line-number="32">gcdata &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(gcdata, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">k.param =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb349-33" data-line-number="33">gcdata &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(gcdata, <span class="dt">resolution =</span> <span class="fl">0.6</span>, <span class="dt">algorithm =</span> <span class="dv">1</span>, <span class="dt">random.seed =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb349-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb349-35" data-line-number="35"><span class="co"># Add clustering information from Seurat to the deng_SCE object</span></a>
+<a class="sourceLine" id="cb349-36" data-line-number="36">deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># remove old slingshot pseudotime data</span></a>
+<a class="sourceLine" id="cb349-37" data-line-number="37"><span class="kw">colData</span>(deng_SCE)<span class="op">$</span>Seurat_clusters &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">Idents</span>(gcdata))  <span class="co"># go from factor to character</span></a>
+<a class="sourceLine" id="cb349-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb349-39" data-line-number="39"><span class="co"># Then run Slingshot using these cluster assignments.</span></a>
+<a class="sourceLine" id="cb349-40" data-line-number="40">deng_SCE &lt;-<span class="st"> </span><span class="kw">slingshot</span>(deng_SCE, <span class="dt">clusterLabels =</span> <span class="st">&#39;Seurat_clusters&#39;</span>, <span class="dt">reducedDim =</span> <span class="st">&#39;PCA&#39;</span>)</a>
+<a class="sourceLine" id="cb349-41" data-line-number="41"></a>
+<a class="sourceLine" id="cb349-42" data-line-number="42"><span class="co"># Plot PC1 vs PC2 colored by Slingshot pseudotime.</span></a>
+<a class="sourceLine" id="cb349-43" data-line-number="43">colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">50</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb349-44" data-line-number="44"><span class="kw">plot</span>(<span class="kw">reducedDims</span>(deng_SCE)<span class="op">$</span>PCA, <span class="dt">col =</span> colors[<span class="kw">cut</span>(deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span>,<span class="dt">breaks=</span><span class="dv">50</span>)], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb349-45" data-line-number="45"><span class="kw">lines</span>(<span class="kw">SlingshotDataSet</span>(deng_SCE), <span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb349-46" data-line-number="46"></a>
+<a class="sourceLine" id="cb349-47" data-line-number="47"><span class="co"># Plot Slingshot pseudotime vs cell stage. </span></a>
+<a class="sourceLine" id="cb349-48" data-line-number="48"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)), <span class="kw">aes</span>(<span class="dt">x =</span> slingPseudotime_<span class="dv">1</span>, <span class="dt">y =</span> cell_type2, </a>
+<a class="sourceLine" id="cb349-49" data-line-number="49">                              <span class="dt">colour =</span> cell_type2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-50" data-line-number="50"><span class="st">    </span><span class="kw">geom_quasirandom</span>(<span class="dt">groupOnX =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-51" data-line-number="51"><span class="st">    </span><span class="kw">scale_color_tableau</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-52" data-line-number="52"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Slingshot pseudotime&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Timepoint&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb349-53" data-line-number="53"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cells ordered by Slingshot pseudotime&quot;</span>)</a>
+<a class="sourceLine" id="cb349-54" data-line-number="54"><span class="kw">ggsave</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;/pseudotime_slingshot.png&quot;</span>))</a>
+<a class="sourceLine" id="cb349-55" data-line-number="55"></a>
+<a class="sourceLine" id="cb349-56" data-line-number="56"><span class="co"># Save current progress.</span></a>
+<a class="sourceLine" id="cb349-57" data-line-number="57"><span class="kw">save</span>(deng_SCE, <span class="dt">file =</span> Rda.slingshot.path)</a>
+<a class="sourceLine" id="cb349-58" data-line-number="58"><span class="co"># To load the data, run the following command.</span></a>
+<a class="sourceLine" id="cb349-59" data-line-number="59"><span class="co"># load(Rda.slingshot.path)</span></a></code></pre></div>
 </div>
 <div id="find-temporally-expressed-genes" class="section level2">
 <h2><span class="header-section-number">14.6</span> Find temporally expressed genes</h2>
 <p>In this final analysis code chunk, we will identify temporally expressed genes, ie those genes whose expression is changing in a continuous manner over pseudotime. To do this, we will fit a GAM with a LOESS term for pseudotime. Functions for fitting and working with generalized additive models, as described in “Generalized Additive Models” (Hastie and Tibshirani, 1990).
 <a href="https://multithreaded.stitchfix.com/blog/2015/07/30/gam/">Read more about GAMs</a></p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="co"># Only look at the 1,000 most variable genes when identifying temporally expressesd genes.</span></a>
-<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="co"># Identify the variable genes by ranking all genes by their variance.</span></a>
-<a class="sourceLine" id="cb351-3" data-line-number="3">Y &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">counts</span>(deng_SCE) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb351-4" data-line-number="4">var1K &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(Y, <span class="dv">1</span>, var), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>]</a>
-<a class="sourceLine" id="cb351-5" data-line-number="5">Y &lt;-<span class="st"> </span>Y[var1K, ]  <span class="co"># only counts for variable genes</span></a>
-<a class="sourceLine" id="cb351-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb351-7" data-line-number="7"><span class="co"># Fit GAM for each gene using pseudotime as independent variable.</span></a>
-<a class="sourceLine" id="cb351-8" data-line-number="8">t &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span></a>
-<a class="sourceLine" id="cb351-9" data-line-number="9">gam.pval &lt;-<span class="st"> </span><span class="kw">apply</span>(Y, <span class="dv">1</span>, <span class="cf">function</span>(z){</a>
-<a class="sourceLine" id="cb351-10" data-line-number="10">  d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">z=</span>z, <span class="dt">t=</span>t)</a>
-<a class="sourceLine" id="cb351-11" data-line-number="11">  tmp &lt;-<span class="st"> </span><span class="kw">gam</span>(z <span class="op">~</span><span class="st"> </span><span class="kw">lo</span>(t), <span class="dt">data=</span>d)</a>
-<a class="sourceLine" id="cb351-12" data-line-number="12">  p &lt;-<span class="st"> </span><span class="kw">summary</span>(tmp)[<span class="dv">4</span>][[<span class="dv">1</span>]][<span class="dv">1</span>,<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb351-13" data-line-number="13">  p</a>
-<a class="sourceLine" id="cb351-14" data-line-number="14">})</a>
-<a class="sourceLine" id="cb351-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb351-16" data-line-number="16"><span class="co"># Identify genes with the most significant time-dependent model fit.</span></a>
-<a class="sourceLine" id="cb351-17" data-line-number="17">topgenes &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(gam.pval, <span class="dt">decreasing =</span> <span class="ot">FALSE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>]  </a>
-<a class="sourceLine" id="cb351-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb351-19" data-line-number="19"><span class="co"># Prepare and plot a heatmap of the top genes that vary their expression over pseudotime.</span></a>
-<a class="sourceLine" id="cb351-20" data-line-number="20"><span class="kw">require</span>(clusterExperiment)</a>
-<a class="sourceLine" id="cb351-21" data-line-number="21">heatdata &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(gcdata[[<span class="st">&#39;RNA&#39;</span>]]<span class="op">@</span>data[<span class="kw">rownames</span>(gcdata) <span class="op">%in%</span><span class="st"> </span>topgenes, <span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)])</a>
-<a class="sourceLine" id="cb351-22" data-line-number="22">heatclus &lt;-<span class="st"> </span><span class="kw">Idents</span>(gcdata)[<span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)]</a>
-<a class="sourceLine" id="cb351-23" data-line-number="23"><span class="kw">png</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;heatmap_time_genes.png&quot;</span>), <span class="dt">width=</span><span class="dv">10</span>, <span class="dt">height=</span><span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">res=</span><span class="dv">200</span>)</a>
-<a class="sourceLine" id="cb351-24" data-line-number="24"><span class="co"># ce &lt;- ClusterExperiment(heatdata, heatclus, transformation = log1p)</span></a>
-<a class="sourceLine" id="cb351-25" data-line-number="25"><span class="co"># clusterExperiment::plotHeatmap(ce, clusterSamplesData = &quot;orderSamplesValue&quot;, visualizeData = &#39;transformed&#39;, cexRow = 1.5, fontsize = 15)</span></a>
-<a class="sourceLine" id="cb351-26" data-line-number="26"><span class="kw">heatmap</span>(<span class="kw">log1p</span>(heatdata), <span class="dt">Colv =</span> <span class="ot">NA</span>, <span class="dt">ColSideColors =</span> <span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Set1&quot;</span>)[heatclus])</a>
-<a class="sourceLine" id="cb351-27" data-line-number="27"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="co"># Only look at the 1,000 most variable genes when identifying temporally expressesd genes.</span></a>
+<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="co"># Identify the variable genes by ranking all genes by their variance.</span></a>
+<a class="sourceLine" id="cb350-3" data-line-number="3">Y &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">counts</span>(deng_SCE) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb350-4" data-line-number="4">var1K &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(Y, <span class="dv">1</span>, var), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>]</a>
+<a class="sourceLine" id="cb350-5" data-line-number="5">Y &lt;-<span class="st"> </span>Y[var1K, ]  <span class="co"># only counts for variable genes</span></a>
+<a class="sourceLine" id="cb350-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb350-7" data-line-number="7"><span class="co"># Fit GAM for each gene using pseudotime as independent variable.</span></a>
+<a class="sourceLine" id="cb350-8" data-line-number="8">t &lt;-<span class="st"> </span>deng_SCE<span class="op">$</span>slingPseudotime_<span class="dv">1</span></a>
+<a class="sourceLine" id="cb350-9" data-line-number="9">gam.pval &lt;-<span class="st"> </span><span class="kw">apply</span>(Y, <span class="dv">1</span>, <span class="cf">function</span>(z){</a>
+<a class="sourceLine" id="cb350-10" data-line-number="10">  d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">z=</span>z, <span class="dt">t=</span>t)</a>
+<a class="sourceLine" id="cb350-11" data-line-number="11">  tmp &lt;-<span class="st"> </span><span class="kw">gam</span>(z <span class="op">~</span><span class="st"> </span><span class="kw">lo</span>(t), <span class="dt">data=</span>d)</a>
+<a class="sourceLine" id="cb350-12" data-line-number="12">  p &lt;-<span class="st"> </span><span class="kw">summary</span>(tmp)[<span class="dv">4</span>][[<span class="dv">1</span>]][<span class="dv">1</span>,<span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb350-13" data-line-number="13">  p</a>
+<a class="sourceLine" id="cb350-14" data-line-number="14">})</a>
+<a class="sourceLine" id="cb350-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb350-16" data-line-number="16"><span class="co"># Identify genes with the most significant time-dependent model fit.</span></a>
+<a class="sourceLine" id="cb350-17" data-line-number="17">topgenes &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="kw">sort</span>(gam.pval, <span class="dt">decreasing =</span> <span class="ot">FALSE</span>))[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>]  </a>
+<a class="sourceLine" id="cb350-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb350-19" data-line-number="19"><span class="co"># Prepare and plot a heatmap of the top genes that vary their expression over pseudotime.</span></a>
+<a class="sourceLine" id="cb350-20" data-line-number="20"><span class="kw">require</span>(clusterExperiment)</a>
+<a class="sourceLine" id="cb350-21" data-line-number="21">heatdata &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(gcdata[[<span class="st">&#39;RNA&#39;</span>]]<span class="op">@</span>data[<span class="kw">rownames</span>(gcdata) <span class="op">%in%</span><span class="st"> </span>topgenes, <span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)])</a>
+<a class="sourceLine" id="cb350-22" data-line-number="22">heatclus &lt;-<span class="st"> </span><span class="kw">Idents</span>(gcdata)[<span class="kw">order</span>(t, <span class="dt">na.last =</span> <span class="ot">NA</span>)]</a>
+<a class="sourceLine" id="cb350-23" data-line-number="23"><span class="kw">png</span>(<span class="kw">paste0</span>(mydir, <span class="st">&quot;heatmap_time_genes.png&quot;</span>), <span class="dt">width=</span><span class="dv">10</span>, <span class="dt">height=</span><span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">res=</span><span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb350-24" data-line-number="24"><span class="co"># ce &lt;- ClusterExperiment(heatdata, heatclus, transformation = log1p)</span></a>
+<a class="sourceLine" id="cb350-25" data-line-number="25"><span class="co"># clusterExperiment::plotHeatmap(ce, clusterSamplesData = &quot;orderSamplesValue&quot;, visualizeData = &#39;transformed&#39;, cexRow = 1.5, fontsize = 15)</span></a>
+<a class="sourceLine" id="cb350-26" data-line-number="26"><span class="kw">heatmap</span>(<span class="kw">log1p</span>(heatdata), <span class="dt">Colv =</span> <span class="ot">NA</span>, <span class="dt">ColSideColors =</span> <span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Set1&quot;</span>)[heatclus])</a>
+<a class="sourceLine" id="cb350-27" data-line-number="27"><span class="kw">dev.off</span>()</a></code></pre></div>
 </div>
 <div id="comparison-of-the-different-trajectory-inference-methods" class="section level2">
 <h2><span class="header-section-number">14.7</span> Comparison of the different trajectory inference methods</h2>
 <p>How do the trajectories inferred by PCA, diffusion pseudotime, and slingshot pseudotime compare to one another?</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="co"># Prepare data frame with different pseudotime measures.</span></a>
-<a class="sourceLine" id="cb352-2" data-line-number="2">df_pseudotime &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)[, <span class="kw">c</span>(<span class="st">&quot;pseudotime_PC1&quot;</span>, <span class="st">&quot;pseudotime_dpt&quot;</span>, <span class="st">&quot;slingPseudotime_1&quot;</span>)])</a>
-<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="kw">colnames</span>(df_pseudotime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PC1&quot;</span>, <span class="st">&quot;diffusion&quot;</span>, <span class="st">&quot;slingshot&quot;</span>)</a>
-<a class="sourceLine" id="cb352-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb352-5" data-line-number="5"><span class="co"># Plot correlation between different pseudotime measures.</span></a>
-<a class="sourceLine" id="cb352-6" data-line-number="6"><span class="kw">corrplot.mixed</span>(<span class="kw">cor</span>(df_pseudotime, <span class="dt">use =</span> <span class="st">&quot;na.or.complete&quot;</span>), </a>
-<a class="sourceLine" id="cb352-7" data-line-number="7">               <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb352-8" data-line-number="8">               <span class="dt">main =</span> <span class="st">&quot;Correlation matrix for pseudotime results&quot;</span>,</a>
-<a class="sourceLine" id="cb352-9" data-line-number="9">               <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">3.1</span>, <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="co"># Prepare data frame with different pseudotime measures.</span></a>
+<a class="sourceLine" id="cb351-2" data-line-number="2">df_pseudotime &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">colData</span>(deng_SCE)[, <span class="kw">c</span>(<span class="st">&quot;pseudotime_PC1&quot;</span>, <span class="st">&quot;pseudotime_dpt&quot;</span>, <span class="st">&quot;slingPseudotime_1&quot;</span>)])</a>
+<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="kw">colnames</span>(df_pseudotime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PC1&quot;</span>, <span class="st">&quot;diffusion&quot;</span>, <span class="st">&quot;slingshot&quot;</span>)</a>
+<a class="sourceLine" id="cb351-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb351-5" data-line-number="5"><span class="co"># Plot correlation between different pseudotime measures.</span></a>
+<a class="sourceLine" id="cb351-6" data-line-number="6"><span class="kw">corrplot.mixed</span>(<span class="kw">cor</span>(df_pseudotime, <span class="dt">use =</span> <span class="st">&quot;na.or.complete&quot;</span>), </a>
+<a class="sourceLine" id="cb351-7" data-line-number="7">               <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>,</a>
+<a class="sourceLine" id="cb351-8" data-line-number="8">               <span class="dt">main =</span> <span class="st">&quot;Correlation matrix for pseudotime results&quot;</span>,</a>
+<a class="sourceLine" id="cb351-9" data-line-number="9">               <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">3.1</span>, <span class="dv">0</span>))</a></code></pre></div>
 </div>
 <div id="plots-of-gene-expression-over-time." class="section level2">
 <h2><span class="header-section-number">14.8</span> Plots of gene expression over time.</h2>
 <p>Visualize how some of the temporally expressed genes change in time.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, </a>
-<a class="sourceLine" id="cb353-2" data-line-number="2">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb353-3" data-line-number="3">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb353-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb353-5" data-line-number="5"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;pseudotime_dpt&quot;</span>, </a>
-<a class="sourceLine" id="cb353-6" data-line-number="6">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb353-7" data-line-number="7">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb353-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb353-9" data-line-number="9"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;slingPseudotime_1&quot;</span>, </a>
-<a class="sourceLine" id="cb353-10" data-line-number="10">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb353-11" data-line-number="11">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, </a>
+<a class="sourceLine" id="cb352-2" data-line-number="2">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb352-3" data-line-number="3">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb352-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb352-5" data-line-number="5"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;pseudotime_dpt&quot;</span>, </a>
+<a class="sourceLine" id="cb352-6" data-line-number="6">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb352-7" data-line-number="7">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb352-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb352-9" data-line-number="9"><span class="kw">plotExpression</span>(deng_SCE, <span class="st">&quot;Obox5&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;slingPseudotime_1&quot;</span>, </a>
+<a class="sourceLine" id="cb352-10" data-line-number="10">               <span class="dt">colour_by =</span> <span class="st">&quot;cell_type2&quot;</span>, <span class="dt">show_violin =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb352-11" data-line-number="11">               <span class="dt">show_smooth =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="acknowledgements-1" class="section level2">
 <h2><span class="header-section-number">14.9</span> Acknowledgements</h2>
@@ -607,8 +611,8 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <a href="http:/
           </div>
         </div>
       </div>
-<a href="advanced-topics-pseudotime-cell-trajectories.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="transcriptome-quantification-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="trajectory-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mutli-omic-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

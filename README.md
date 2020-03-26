@@ -14,7 +14,7 @@ git clone https://github.com/broadinstitute/2020_scWorkshop.git
 cd 2020_scWorkshop
 
 # you may need to give the script execution permission
-# chmod 755 docker/run_docker.sh
+# chmod 700 docker/run_docker.sh
 # if first time, this could take 10-20 minutes depending on internet connection.
 ./docker/run_docker.sh
 ```

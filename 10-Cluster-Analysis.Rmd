@@ -492,10 +492,11 @@ str(seurat)
 ```
 
 
-#### Probabilistic (LDA)
+## Probabilistic (LDA) Clustering
 
 Another type of clustering we can do is a fuzzy or probablistic clustering.  This is where cells are not assigned to specifically only one cluster.  They get assigned a score for how much the cells belong to each of the clusters (sometimes called topics).  This can be helpful for when your dataset continuous processes and/or cellular states as opposed to distinct cell types.
 
+### Example LDA in Bulk
 
 ```{r example_lda, eval = TRUE}
 data("MouseDeng2014.FitGoM")
@@ -524,6 +525,9 @@ StructureGGplot(omega = omega,
                                  axis_label_face = "bold"))
 ```
 
+### PBMC LDA
+
+#### Fitting the Model
 
 ```{r pbmc_lda, eval = TRUE}
 set.seed(2020)
@@ -575,6 +579,8 @@ StructureGGplot(omega = omega,
 pbmc_small <- AddMetaData(pbmc_small, omega)
 ```
 
+#### Summarizing Topic By Cluster
+
 ```{r topic_summary, eval = TRUE}
 pbmc_small@meta.data %>% 
   group_by(RNA_snn_res.1) %>% 
@@ -584,6 +590,8 @@ pbmc_small@meta.data %>%
             topic4 = mean(topic4))
 ```
 
+
+#### Visualizing Topic Scores
 
 ```{r tsne_plot_pbmc, eval = TRUE}
 ## ggplot object, you can add layers
