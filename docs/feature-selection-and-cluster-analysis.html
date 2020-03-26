@@ -338,252 +338,252 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <h2><span class="header-section-number">10.2</span> Seurat Tutorial Redo</h2>
 <p>For this tutorial, we will be analyzing the a dataset of Non-Small Cell Lung Cancer Cells (NSCLC) freely available from 10X Genomics (<a href="https://support.10xgenomics.com/single-cell-vdj/datasets/2.2.0/vdj_v1_hs_nsclc_5gex" class="uri">https://support.10xgenomics.com/single-cell-vdj/datasets/2.2.0/vdj_v1_hs_nsclc_5gex</a>), using the Seurat R package (<a href="http://satijalab.org/seurat/" class="uri">http://satijalab.org/seurat/</a>), a popular and powerful set of tools to conduct scRNA-seq analysis in R. In this dataset, there are 7802 single cells that were sequenced on the Illumina NovaSeq 6000. Please note this tutorial borrows heavily from Seurat’s tutorials, so feel free to go through them in more detail.</p>
 <p><strong>Task: Check the dirname to directory where you saved your data</strong></p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">progress=</span><span class="ot">FALSE</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb192-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="kw">library</span>(Seurat)</a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb192-6" data-line-number="6"><span class="kw">library</span>(CountClust)</a>
-<a class="sourceLine" id="cb192-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb192-8" data-line-number="8">dirname &lt;-<span class="st"> &quot;data/&quot;</span></a>
-<a class="sourceLine" id="cb192-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb192-10" data-line-number="10">counts_matrix_filename =<span class="st"> </span><span class="kw">paste0</span>(dirname, <span class="st">&quot;filtered_gene_bc_matrices/GRCh38/&quot;</span>)</a>
-<a class="sourceLine" id="cb192-11" data-line-number="11">counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> counts_matrix_filename)  <span class="co"># Seurat function to read in 10x count data</span></a></code></pre></div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="co">## Using the first 1000 cells for computational efficiency</span></a>
-<a class="sourceLine" id="cb193-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> counts, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.features =</span> <span class="dv">350</span>, <span class="dt">project =</span> <span class="st">&quot;10X_NSCLC&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">progress=</span><span class="ot">FALSE</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb194-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="kw">library</span>(Seurat)</a>
+<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb194-6" data-line-number="6"><span class="kw">library</span>(CountClust)</a>
+<a class="sourceLine" id="cb194-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb194-8" data-line-number="8">dirname &lt;-<span class="st"> &quot;data/&quot;</span></a>
+<a class="sourceLine" id="cb194-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb194-10" data-line-number="10">counts_matrix_filename =<span class="st"> </span><span class="kw">paste0</span>(dirname, <span class="st">&quot;filtered_gene_bc_matrices/GRCh38/&quot;</span>)</a>
+<a class="sourceLine" id="cb194-11" data-line-number="11">counts &lt;-<span class="st"> </span><span class="kw">Read10X</span>(<span class="dt">data.dir =</span> counts_matrix_filename)  <span class="co"># Seurat function to read in 10x count data</span></a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co">## Using the first 1000 cells for computational efficiency</span></a>
+<a class="sourceLine" id="cb195-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(<span class="dt">counts =</span> counts, <span class="dt">min.cells =</span> <span class="dv">3</span>, <span class="dt">min.features =</span> <span class="dv">350</span>, <span class="dt">project =</span> <span class="st">&quot;10X_NSCLC&quot;</span>)</a></code></pre></div>
 <div id="preprocessing-steps" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Preprocessing Steps</h3>
 <p>This was all covered in Dana’s Lab!</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="co"># The number of genes and UMIs (nFeature_RNA nCount_RNA) are automatically calculated</span></a>
-<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="co"># for every object by Seurat.  For non-UMI data, nCount_RNA represents the sum of</span></a>
-<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="co"># the non-normalized values within a cell We calculate the percentage of</span></a>
-<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="co"># mitochondrial genes here and store it in percent.mito using AddMetaData.</span></a>
-<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="co"># We use object@raw.data since this represents non-transformed and</span></a>
-<a class="sourceLine" id="cb194-6" data-line-number="6"><span class="co"># non-log-normalized counts The % of UMI mapping to MT-genes is a common</span></a>
-<a class="sourceLine" id="cb194-7" data-line-number="7"><span class="co"># scRNA-seq QC metric.</span></a>
-<a class="sourceLine" id="cb194-8" data-line-number="8"><span class="co"># Load the the list of house keeping genes</span></a>
-<a class="sourceLine" id="cb194-9" data-line-number="9">hkgenes &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/resources/tirosh_house_keeping.txt&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb194-10" data-line-number="10">hkgenes &lt;-<span class="st"> </span><span class="kw">as.vector</span>(hkgenes<span class="op">$</span>V1)</a>
-<a class="sourceLine" id="cb194-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb194-12" data-line-number="12"><span class="co"># remove hkgenes that were not found</span></a>
-<a class="sourceLine" id="cb194-13" data-line-number="13">hkgenes.found &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">toupper</span>(<span class="kw">rownames</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data)) <span class="op">%in%</span><span class="st"> </span>hkgenes)</a>
-<a class="sourceLine" id="cb194-14" data-line-number="14">n.expressed.hkgenes &lt;-<span class="st"> </span><span class="kw">sum</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data[hkgenes.found, ] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb194-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb194-16" data-line-number="16"><span class="co">## Add to Seurat Meta Data</span></a>
-<a class="sourceLine" id="cb194-17" data-line-number="17">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> n.expressed.hkgenes, <span class="dt">col.name =</span> <span class="st">&quot;n.exp.hkgenes&quot;</span>)</a>
-<a class="sourceLine" id="cb194-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb194-19" data-line-number="19">seurat[[<span class="st">&quot;percent.mito&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(<span class="dt">object =</span> seurat, <span class="dt">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</a>
-<a class="sourceLine" id="cb194-20" data-line-number="20"><span class="co">##VlnPlot(object = seurat, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</span></a></code></pre></div>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co"># FeatureScatter is typically used to visualize gene-gene relationships, but can</span></a>
-<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="co"># be used for anything calculated by the object, i.e. columns in</span></a>
-<a class="sourceLine" id="cb195-3" data-line-number="3"><span class="co"># object@meta.data, PC scores etc.  Since there is a rare subset of cells</span></a>
-<a class="sourceLine" id="cb195-4" data-line-number="4"><span class="co"># with an outlier level of high mitochondrial percentage and also low UMI</span></a>
-<a class="sourceLine" id="cb195-5" data-line-number="5"><span class="co"># content, we filter these as well</span></a>
-<a class="sourceLine" id="cb195-6" data-line-number="6"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb195-7" data-line-number="7"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mito&quot;</span>)</a>
-<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="co"># We filter out cells that have unique gene counts over 4,000 or less than</span></a>
-<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="co"># 350 Note that low thresholds and high thresholds are used to define a</span></a>
-<a class="sourceLine" id="cb196-3" data-line-number="3"><span class="co"># &#39;gate&#39;.  -Inf and Inf should be used if you don&#39;t want a lower or upper</span></a>
-<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co"># threshold.</span></a>
-<a class="sourceLine" id="cb196-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb196-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb196-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">subset</span>(seurat, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">350</span> <span class="op">&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb196-8" data-line-number="8"><span class="st">                   </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span><span class="dv">4000</span> <span class="op">&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb196-9" data-line-number="9"><span class="st">                   </span>percent.mito <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb196-10" data-line-number="10"><span class="st">                   </span>n.exp.hkgenes <span class="op">&gt;</span><span class="st"> </span><span class="dv">55</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> seurat, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="co"># Read in a list of cell cycle markers, from Tirosh et al, 2015.</span></a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="co"># We can segregate this list into markers of G2/M phase and markers of S phase.</span></a>
-<a class="sourceLine" id="cb198-3" data-line-number="3">s.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>s.genes</a>
-<a class="sourceLine" id="cb198-4" data-line-number="4">s.genes &lt;-<span class="st"> </span>s.genes[s.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
-<a class="sourceLine" id="cb198-5" data-line-number="5">g2m.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>g2m.genes</a>
-<a class="sourceLine" id="cb198-6" data-line-number="6">g2m.genes &lt;-<span class="st"> </span>g2m.genes[g2m.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
-<a class="sourceLine" id="cb198-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb198-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">CellCycleScoring</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb198-9" data-line-number="9">                           <span class="dt">s.features =</span> s.genes, </a>
-<a class="sourceLine" id="cb198-10" data-line-number="10">                           <span class="dt">g2m.features =</span> g2m.genes, </a>
-<a class="sourceLine" id="cb198-11" data-line-number="11">                           <span class="dt">set.ident =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(<span class="dt">object =</span> seurat, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="co"># The number of genes and UMIs (nFeature_RNA nCount_RNA) are automatically calculated</span></a>
+<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="co"># for every object by Seurat.  For non-UMI data, nCount_RNA represents the sum of</span></a>
+<a class="sourceLine" id="cb196-3" data-line-number="3"><span class="co"># the non-normalized values within a cell We calculate the percentage of</span></a>
+<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co"># mitochondrial genes here and store it in percent.mito using AddMetaData.</span></a>
+<a class="sourceLine" id="cb196-5" data-line-number="5"><span class="co"># We use object@raw.data since this represents non-transformed and</span></a>
+<a class="sourceLine" id="cb196-6" data-line-number="6"><span class="co"># non-log-normalized counts The % of UMI mapping to MT-genes is a common</span></a>
+<a class="sourceLine" id="cb196-7" data-line-number="7"><span class="co"># scRNA-seq QC metric.</span></a>
+<a class="sourceLine" id="cb196-8" data-line-number="8"><span class="co"># Load the the list of house keeping genes</span></a>
+<a class="sourceLine" id="cb196-9" data-line-number="9">hkgenes &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/resources/tirosh_house_keeping.txt&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb196-10" data-line-number="10">hkgenes &lt;-<span class="st"> </span><span class="kw">as.vector</span>(hkgenes<span class="op">$</span>V1)</a>
+<a class="sourceLine" id="cb196-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb196-12" data-line-number="12"><span class="co"># remove hkgenes that were not found</span></a>
+<a class="sourceLine" id="cb196-13" data-line-number="13">hkgenes.found &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">toupper</span>(<span class="kw">rownames</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data)) <span class="op">%in%</span><span class="st"> </span>hkgenes)</a>
+<a class="sourceLine" id="cb196-14" data-line-number="14">n.expressed.hkgenes &lt;-<span class="st"> </span><span class="kw">sum</span>(seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>data[hkgenes.found, ] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb196-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb196-16" data-line-number="16"><span class="co">## Add to Seurat Meta Data</span></a>
+<a class="sourceLine" id="cb196-17" data-line-number="17">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> n.expressed.hkgenes, <span class="dt">col.name =</span> <span class="st">&quot;n.exp.hkgenes&quot;</span>)</a>
+<a class="sourceLine" id="cb196-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb196-19" data-line-number="19">seurat[[<span class="st">&quot;percent.mito&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(<span class="dt">object =</span> seurat, <span class="dt">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</a>
+<a class="sourceLine" id="cb196-20" data-line-number="20"><span class="co">##VlnPlot(object = seurat, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</span></a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="co"># FeatureScatter is typically used to visualize gene-gene relationships, but can</span></a>
+<a class="sourceLine" id="cb197-2" data-line-number="2"><span class="co"># be used for anything calculated by the object, i.e. columns in</span></a>
+<a class="sourceLine" id="cb197-3" data-line-number="3"><span class="co"># object@meta.data, PC scores etc.  Since there is a rare subset of cells</span></a>
+<a class="sourceLine" id="cb197-4" data-line-number="4"><span class="co"># with an outlier level of high mitochondrial percentage and also low UMI</span></a>
+<a class="sourceLine" id="cb197-5" data-line-number="5"><span class="co"># content, we filter these as well</span></a>
+<a class="sourceLine" id="cb197-6" data-line-number="6"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb197-7" data-line-number="7"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mito&quot;</span>)</a>
+<a class="sourceLine" id="cb197-8" data-line-number="8"><span class="kw">FeatureScatter</span>(<span class="dt">object =</span> seurat, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="co"># We filter out cells that have unique gene counts over 4,000 or less than</span></a>
+<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="co"># 350 Note that low thresholds and high thresholds are used to define a</span></a>
+<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="co"># &#39;gate&#39;.  -Inf and Inf should be used if you don&#39;t want a lower or upper</span></a>
+<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co"># threshold.</span></a>
+<a class="sourceLine" id="cb198-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb198-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb198-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">subset</span>(seurat, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span><span class="dv">350</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-8" data-line-number="8"><span class="st">                   </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span><span class="dv">4000</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-9" data-line-number="9"><span class="st">                   </span>percent.mito <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb198-10" data-line-number="10"><span class="st">                   </span>n.exp.hkgenes <span class="op">&gt;</span><span class="st"> </span><span class="dv">55</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> seurat, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="co"># Read in a list of cell cycle markers, from Tirosh et al, 2015.</span></a>
+<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="co"># We can segregate this list into markers of G2/M phase and markers of S phase.</span></a>
+<a class="sourceLine" id="cb200-3" data-line-number="3">s.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>s.genes</a>
+<a class="sourceLine" id="cb200-4" data-line-number="4">s.genes &lt;-<span class="st"> </span>s.genes[s.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
+<a class="sourceLine" id="cb200-5" data-line-number="5">g2m.genes &lt;-<span class="st"> </span>Seurat<span class="op">::</span>cc.genes<span class="op">$</span>g2m.genes</a>
+<a class="sourceLine" id="cb200-6" data-line-number="6">g2m.genes &lt;-<span class="st"> </span>g2m.genes[g2m.genes <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(seurat)] <span class="co"># genes in dataset</span></a>
+<a class="sourceLine" id="cb200-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb200-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">CellCycleScoring</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb200-9" data-line-number="9">                           <span class="dt">s.features =</span> s.genes, </a>
+<a class="sourceLine" id="cb200-10" data-line-number="10">                           <span class="dt">g2m.features =</span> g2m.genes, </a>
+<a class="sourceLine" id="cb200-11" data-line-number="11">                           <span class="dt">set.ident =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(<span class="dt">object =</span> seurat, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>)</a></code></pre></div>
 </div>
 <div id="start-of-identifying-cell-types" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> Start of Identifying Cell Types</h3>
 <div id="scaling" class="section level4">
 <h4><span class="header-section-number">10.2.2.1</span> Scaling</h4>
 <p>This part is where you mean center the data, substract the mean. You also divide by the standard deviation to make everything to a ‘standard normal’, where the mean is zero and the standard deviation is 1.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="kw">c</span>(<span class="st">&quot;percent.mito&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="kw">c</span>(<span class="st">&quot;percent.mito&quot;</span>))</a></code></pre></div>
 <p><strong>Task: Try Regressing Other Variables</strong></p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>) <span class="co">## used for reporducibility</span></a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="co">## randomly making a batch id data.frame</span></a>
-<a class="sourceLine" id="cb201-4" data-line-number="4">batch_ids &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">barcode =</span> <span class="kw">rownames</span>(seurat<span class="op">@</span>meta.data), </a>
-<a class="sourceLine" id="cb201-5" data-line-number="5">                        <span class="dt">batch_id =</span> <span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb201-6" data-line-number="6">                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb201-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb201-8" data-line-number="8"><span class="co">## naming batch ids by cell names</span></a>
-<a class="sourceLine" id="cb201-9" data-line-number="9"><span class="kw">row.names</span>(batch_ids) &lt;-<span class="st"> </span><span class="kw">row.names</span>(seurat<span class="op">@</span>meta.data)</a>
-<a class="sourceLine" id="cb201-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb201-11" data-line-number="11"><span class="co">## adding batch ids to the meta data</span></a>
-<a class="sourceLine" id="cb201-12" data-line-number="12">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> batch_ids, <span class="dt">col.name =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb201-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb201-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb201-15" data-line-number="15"><span class="co">## try different variables to regress</span></a>
-<a class="sourceLine" id="cb201-16" data-line-number="16">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="st">&#39;??&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>) <span class="co">## used for reporducibility</span></a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="co">## randomly making a batch id data.frame</span></a>
+<a class="sourceLine" id="cb203-4" data-line-number="4">batch_ids &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">barcode =</span> <span class="kw">rownames</span>(seurat<span class="op">@</span>meta.data), </a>
+<a class="sourceLine" id="cb203-5" data-line-number="5">                        <span class="dt">batch_id =</span> <span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb203-6" data-line-number="6">                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb203-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb203-8" data-line-number="8"><span class="co">## naming batch ids by cell names</span></a>
+<a class="sourceLine" id="cb203-9" data-line-number="9"><span class="kw">row.names</span>(batch_ids) &lt;-<span class="st"> </span><span class="kw">row.names</span>(seurat<span class="op">@</span>meta.data)</a>
+<a class="sourceLine" id="cb203-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb203-11" data-line-number="11"><span class="co">## adding batch ids to the meta data</span></a>
+<a class="sourceLine" id="cb203-12" data-line-number="12">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> batch_ids, <span class="dt">col.name =</span> <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb203-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb203-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb203-15" data-line-number="15"><span class="co">## try different variables to regress</span></a>
+<a class="sourceLine" id="cb203-16" data-line-number="16">seurat &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(<span class="dt">object =</span> seurat, <span class="dt">vars.to.regress =</span> <span class="st">&#39;??&#39;</span>)</a></code></pre></div>
 </div>
 <div id="perform-linear-dimensional-reduction-pca" class="section level4">
 <h4><span class="header-section-number">10.2.2.2</span> Perform linear dimensional reduction (PCA)</h4>
 <p>This will run pca on the just the variable features found.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb202-2" data-line-number="2">               <span class="dt">features =</span> seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>var.features, </a>
-<a class="sourceLine" id="cb202-3" data-line-number="3">               <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb202-4" data-line-number="4">               <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb204-2" data-line-number="2">               <span class="dt">features =</span> seurat<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>var.features, </a>
+<a class="sourceLine" id="cb204-3" data-line-number="3">               <span class="dt">ndims.print =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb204-4" data-line-number="4">               <span class="dt">nfeatures.print =</span> <span class="dv">5</span>)</a></code></pre></div>
 </div>
 <div id="visualizing-pca-in-different-ways" class="section level4">
 <h4><span class="header-section-number">10.2.2.3</span> Visualizing PCA in Different Ways</h4>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">DimPlot</span>(seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">DimPlot</span>(seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
 </div>
 <div id="perform-linear-dimensional-reduction-ica" class="section level4">
 <h4><span class="header-section-number">10.2.2.4</span> Perform linear dimensional reduction (ICA)</h4>
 <p><strong>Task:</strong> Try running Independent Component Analysis. If you need help with the inputs try using the ?RunICA menu.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunICA</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunICA</span>()</a></code></pre></div>
 </div>
 <div id="visualizing-ica-in-different-ways" class="section level4">
 <h4><span class="header-section-number">10.2.2.5</span> Visualizing ICA in Different Ways</h4>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">DimPlot</span>()</a></code></pre></div>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="co"># ProjectDim scores each gene in the dataset (including genes not included</span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="co"># in the PCA) based on their correlation with the calculated components.</span></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="co"># Though we don&#39;t use this further here, it can be used to identify markers</span></a>
-<a class="sourceLine" id="cb206-4" data-line-number="4"><span class="co"># that are strongly correlated with cellular heterogeneity, but may not have</span></a>
-<a class="sourceLine" id="cb206-5" data-line-number="5"><span class="co"># passed through variable gene selection.  The results of the projected PCA</span></a>
-<a class="sourceLine" id="cb206-6" data-line-number="6"><span class="co"># can be explored by setting use.full=T in the functions above</span></a>
-<a class="sourceLine" id="cb206-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">ProjectDim</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">DimPlot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="co"># ProjectDim scores each gene in the dataset (including genes not included</span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="co"># in the PCA) based on their correlation with the calculated components.</span></a>
+<a class="sourceLine" id="cb208-3" data-line-number="3"><span class="co"># Though we don&#39;t use this further here, it can be used to identify markers</span></a>
+<a class="sourceLine" id="cb208-4" data-line-number="4"><span class="co"># that are strongly correlated with cellular heterogeneity, but may not have</span></a>
+<a class="sourceLine" id="cb208-5" data-line-number="5"><span class="co"># passed through variable gene selection.  The results of the projected PCA</span></a>
+<a class="sourceLine" id="cb208-6" data-line-number="6"><span class="co"># can be explored by setting use.full=T in the functions above</span></a>
+<a class="sourceLine" id="cb208-7" data-line-number="7">seurat &lt;-<span class="st"> </span><span class="kw">ProjectDim</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
 </div>
 <div id="genes-by-pcs" class="section level4">
 <h4><span class="header-section-number">10.2.2.6</span> Genes by PCs</h4>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">DimHeatmap</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb207-2" data-line-number="2">          <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, </a>
-<a class="sourceLine" id="cb207-3" data-line-number="3">          <span class="dt">cells =</span> <span class="dv">50</span>, </a>
-<a class="sourceLine" id="cb207-4" data-line-number="4">          <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>,</a>
-<a class="sourceLine" id="cb207-5" data-line-number="5">          <span class="dt">balanced =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">DimHeatmap</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb209-2" data-line-number="2">          <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb209-3" data-line-number="3">          <span class="dt">cells =</span> <span class="dv">50</span>, </a>
+<a class="sourceLine" id="cb209-4" data-line-number="4">          <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>,</a>
+<a class="sourceLine" id="cb209-5" data-line-number="5">          <span class="dt">balanced =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Check other PCs to plot</p>
 <p><strong>Task: Check other PCs</strong></p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">DimHeatmap</span>()</a></code></pre></div>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">JackStraw</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a>
-<a class="sourceLine" id="cb209-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">ScoreJackStraw</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">JackStrawPlot</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="kw">PCASigGenes</span>(<span class="dt">object =</span> seurat, <span class="dt">pcs.use =</span> <span class="dv">1</span>, <span class="dt">pval.cut =</span> <span class="fl">0.001</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]</a></code></pre></div>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">ElbowPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">ndims =</span> <span class="dv">30</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="co"># save.SNN = T saves the SNN so that the clustering algorithm can be rerun</span></a>
-<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="co"># using the same graph but with a different resolution value (see docs for</span></a>
-<a class="sourceLine" id="cb213-3" data-line-number="3"><span class="co"># full details)</span></a>
-<a class="sourceLine" id="cb213-4" data-line-number="4"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
-<a class="sourceLine" id="cb213-5" data-line-number="5">seurat &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(<span class="dt">object =</span> seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb213-6" data-line-number="6">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb213-7" data-line-number="7">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
-<a class="sourceLine" id="cb213-8" data-line-number="8">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
-<a class="sourceLine" id="cb213-9" data-line-number="9">                       <span class="dt">resolution =</span> <span class="fl">0.6</span>,</a>
-<a class="sourceLine" id="cb213-10" data-line-number="10">                       <span class="dt">random.seed =</span> <span class="dv">2020</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">DimHeatmap</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">JackStraw</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a>
+<a class="sourceLine" id="cb211-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">ScoreJackStraw</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">JackStrawPlot</span>(seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">PCASigGenes</span>(<span class="dt">object =</span> seurat, <span class="dt">pcs.use =</span> <span class="dv">1</span>, <span class="dt">pval.cut =</span> <span class="fl">0.001</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">ElbowPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">ndims =</span> <span class="dv">30</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="co"># save.SNN = T saves the SNN so that the clustering algorithm can be rerun</span></a>
+<a class="sourceLine" id="cb215-2" data-line-number="2"><span class="co"># using the same graph but with a different resolution value (see docs for</span></a>
+<a class="sourceLine" id="cb215-3" data-line-number="3"><span class="co"># full details)</span></a>
+<a class="sourceLine" id="cb215-4" data-line-number="4"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb215-5" data-line-number="5">seurat &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(<span class="dt">object =</span> seurat, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb215-6" data-line-number="6">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb215-7" data-line-number="7">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb215-8" data-line-number="8">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb215-9" data-line-number="9">                       <span class="dt">resolution =</span> <span class="fl">0.6</span>,</a>
+<a class="sourceLine" id="cb215-10" data-line-number="10">                       <span class="dt">random.seed =</span> <span class="dv">2020</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="run-non-linear-dimensional-reduction-umaptsne" class="section level3">
 <h3><span class="header-section-number">10.2.3</span> Run non-linear dimensional reduction (UMAP/tSNE)</h3>
 <p>Seurat offers several non-linear dimensional reduction techniques, such as tSNE and UMAP, to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.</p>
 <p><strong>Task: Look up and tune hyperparameters of the tSNE. (hint: <code>?RunTSNE</code>)</strong></p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(seurat, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">perplexity=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb214-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb214-3" data-line-number="3"><span class="co"># note that you can set do.label=T to help label individual clusters</span></a>
-<a class="sourceLine" id="cb214-4" data-line-number="4"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1">seurat &lt;-<span class="st"> </span><span class="kw">RunTSNE</span>(seurat, <span class="dt">reduction.use =</span> <span class="st">&quot;pca&quot;</span>, <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">perplexity=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb216-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb216-3" data-line-number="3"><span class="co"># note that you can set do.label=T to help label individual clusters</span></a>
+<a class="sourceLine" id="cb216-4" data-line-number="4"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
 <p><strong>Task: Try using UMAP for the non-linear dimension reduction technique (hint: <code>?RunUMAP</code>)</strong></p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
-<a class="sourceLine" id="cb215-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>()</a>
-<a class="sourceLine" id="cb215-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb215-4" data-line-number="4"><span class="co"># note that you can set label=TRUE to help label individual clusters</span></a>
-<a class="sourceLine" id="cb215-5" data-line-number="5"><span class="kw">DimPlot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb217-2" data-line-number="2">seurat &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>()</a>
+<a class="sourceLine" id="cb217-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb217-4" data-line-number="4"><span class="co"># note that you can set label=TRUE to help label individual clusters</span></a>
+<a class="sourceLine" id="cb217-5" data-line-number="5"><span class="kw">DimPlot</span>()</a></code></pre></div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level4">
 <h4><span class="header-section-number">10.2.3.1</span> Finding differentially expressed features (cluster biomarkers)</h4>
 <p>Seurat can help you find markers that define clusters via differential expression. By default, it identifes positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. FindAllMarkers automates this process for all clusters, but you can also test groups of clusters vs. each other, or against all cells.</p>
 <p>The min.pct argument requires a feature to be detected at a minimum percentage in either of the two groups of cells, and the thresh.test argument requires a feature to be differentially expressed (on average) by some amount between the two groups. You can set both of these to 0, but with a dramatic increase in time - since this will test a large number of features that are unlikely to be highly discriminatory. As another option to speed up these computations, max.cells.per.ident can be set. This will downsample each identity class to have no more cells than whatever this is set to. While there is generally going to be a loss in power, the speed increases can be significiant and the most highly differentially expressed features will likely still rise to the top.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="co"># find all markers of cluster 1 using default parameters</span></a>
-<a class="sourceLine" id="cb216-2" data-line-number="2">cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb216-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb216-4" data-line-number="4">                                <span class="dt">min.pct =</span> <span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb216-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb216-6" data-line-number="6"><span class="kw">head</span>(cluster1.markers)</a></code></pre></div>
-<p><strong>Task: Try tuning different parameters. How does that affect results?</strong></p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="co"># find all markers distinguishing cluster 5 from clusters 0 and 1</span></a>
-<a class="sourceLine" id="cb217-2" data-line-number="2">cluster5.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb217-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">5</span>, <span class="dt">ident.2 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb217-4" data-line-number="4">                                <span class="dt">min.pct =</span> ?? </a>
-<a class="sourceLine" id="cb217-5" data-line-number="5">                                <span class="dt">only.pos =</span> ??)</a>
-<a class="sourceLine" id="cb217-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb217-7" data-line-number="7"><span class="kw">head</span>(cluster5.markers)</a></code></pre></div>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">cluster3.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb218-2" data-line-number="2">                                <span class="dt">ident.1 =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb218-3" data-line-number="3">                                <span class="dt">thresh.use =</span> <span class="fl">0.25</span>, </a>
-<a class="sourceLine" id="cb218-4" data-line-number="4">                                <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</a>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="co"># find all markers of cluster 1 using default parameters</span></a>
+<a class="sourceLine" id="cb218-2" data-line-number="2">cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb218-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb218-4" data-line-number="4">                                <span class="dt">min.pct =</span> <span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb218-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb218-6" data-line-number="6"><span class="kw">head</span>(cluster3.markers)</a></code></pre></div>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="co"># you can plot raw UMI counts as well</span></a>
-<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb220-3" data-line-number="3">        <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), </a>
-<a class="sourceLine" id="cb220-4" data-line-number="4">        <span class="dt">log =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="co"># find markers for every cluster compared to all remaining cells, report</span></a>
-<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="co"># only the positive ones</span></a>
-<a class="sourceLine" id="cb221-3" data-line-number="3">nsclc.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>, <span class="dt">thresh.use =</span> <span class="fl">0.25</span>)</a>
-<a class="sourceLine" id="cb221-4" data-line-number="4">nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">2</span>, avg_logFC)</a></code></pre></div>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb222-2" data-line-number="2">            <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>, <span class="st">&quot;CD8A&quot;</span>),</a>
-<a class="sourceLine" id="cb222-3" data-line-number="3">            <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
-<a class="sourceLine" id="cb222-4" data-line-number="4">            <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">top10 &lt;-<span class="st"> </span>nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>, avg_logFC)</a>
-<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="co"># setting slim.col.label to TRUE will print just the cluster IDS instead of</span></a>
-<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="co"># every cell name</span></a>
-<a class="sourceLine" id="cb223-4" data-line-number="4"><span class="kw">DoHeatmap</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> top10<span class="op">$</span>gene, <span class="dt">label =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="co">## pbmc markers</span></a>
-<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="co"># new.cluster.ids &lt;- c(&quot;Memory CD4 T&quot;, &quot;Naive CD4 T&quot;, &quot;CD14+ Mono&quot;, &quot;B&quot;, &quot;CD8 T&quot;, </span></a>
-<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="co">#                      &quot;FCGR3A+ Mono&quot;, &quot;NK&quot;, &quot;DC&quot;, &quot;Mk&quot;)</span></a>
-<a class="sourceLine" id="cb224-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb224-5" data-line-number="5"><span class="co">## making generic cell type names</span></a>
-<a class="sourceLine" id="cb224-6" data-line-number="6">new.cluster.ids &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;CellType&quot;</span>, <span class="kw">levels</span>(seurat<span class="op">@</span>active.ident))</a>
-<a class="sourceLine" id="cb224-7" data-line-number="7"><span class="kw">names</span>(<span class="dt">x =</span> new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(<span class="dt">x =</span> seurat)</a>
-<a class="sourceLine" id="cb224-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(<span class="dt">object =</span> seurat, new.cluster.ids)</a>
-<a class="sourceLine" id="cb224-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb224-10" data-line-number="10"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&#39;tsne&#39;</span>, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb218-6" data-line-number="6"><span class="kw">head</span>(cluster1.markers)</a></code></pre></div>
+<p><strong>Task: Try tuning different parameters. How does that affect results?</strong></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="co"># find all markers distinguishing cluster 5 from clusters 0 and 1</span></a>
+<a class="sourceLine" id="cb219-2" data-line-number="2">cluster5.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb219-3" data-line-number="3">                                <span class="dt">ident.1 =</span> <span class="dv">5</span>, <span class="dt">ident.2 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb219-4" data-line-number="4">                                <span class="dt">min.pct =</span> ?? </a>
+<a class="sourceLine" id="cb219-5" data-line-number="5">                                <span class="dt">only.pos =</span> ??)</a>
+<a class="sourceLine" id="cb219-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb219-7" data-line-number="7"><span class="kw">head</span>(cluster5.markers)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">cluster3.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb220-2" data-line-number="2">                                <span class="dt">ident.1 =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb220-3" data-line-number="3">                                <span class="dt">thresh.use =</span> <span class="fl">0.25</span>, </a>
+<a class="sourceLine" id="cb220-4" data-line-number="4">                                <span class="dt">only.pos =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb220-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb220-6" data-line-number="6"><span class="kw">head</span>(cluster3.markers)</a></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="co"># you can plot raw UMI counts as well</span></a>
+<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="kw">VlnPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb222-3" data-line-number="3">        <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), </a>
+<a class="sourceLine" id="cb222-4" data-line-number="4">        <span class="dt">log =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="co"># find markers for every cluster compared to all remaining cells, report</span></a>
+<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="co"># only the positive ones</span></a>
+<a class="sourceLine" id="cb223-3" data-line-number="3">nsclc.markers &lt;-<span class="st"> </span><span class="kw">FindAllMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">only.pos =</span> <span class="ot">TRUE</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>, <span class="dt">thresh.use =</span> <span class="fl">0.25</span>)</a>
+<a class="sourceLine" id="cb223-4" data-line-number="4">nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">2</span>, avg_logFC)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb224-2" data-line-number="2">            <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>, <span class="st">&quot;CD8A&quot;</span>),</a>
+<a class="sourceLine" id="cb224-3" data-line-number="3">            <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
+<a class="sourceLine" id="cb224-4" data-line-number="4">            <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">top10 &lt;-<span class="st"> </span>nsclc.markers <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cluster) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">10</span>, avg_logFC)</a>
+<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="co"># setting slim.col.label to TRUE will print just the cluster IDS instead of</span></a>
+<a class="sourceLine" id="cb225-3" data-line-number="3"><span class="co"># every cell name</span></a>
+<a class="sourceLine" id="cb225-4" data-line-number="4"><span class="kw">DoHeatmap</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> top10<span class="op">$</span>gene, <span class="dt">label =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="co">## pbmc markers</span></a>
+<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="co"># new.cluster.ids &lt;- c(&quot;Memory CD4 T&quot;, &quot;Naive CD4 T&quot;, &quot;CD14+ Mono&quot;, &quot;B&quot;, &quot;CD8 T&quot;, </span></a>
+<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="co">#                      &quot;FCGR3A+ Mono&quot;, &quot;NK&quot;, &quot;DC&quot;, &quot;Mk&quot;)</span></a>
+<a class="sourceLine" id="cb226-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb226-5" data-line-number="5"><span class="co">## making generic cell type names</span></a>
+<a class="sourceLine" id="cb226-6" data-line-number="6">new.cluster.ids &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;CellType&quot;</span>, <span class="kw">levels</span>(seurat<span class="op">@</span>active.ident))</a>
+<a class="sourceLine" id="cb226-7" data-line-number="7"><span class="kw">names</span>(<span class="dt">x =</span> new.cluster.ids) &lt;-<span class="st"> </span><span class="kw">levels</span>(<span class="dt">x =</span> seurat)</a>
+<a class="sourceLine" id="cb226-8" data-line-number="8">seurat &lt;-<span class="st"> </span><span class="kw">RenameIdents</span>(<span class="dt">object =</span> seurat, new.cluster.ids)</a>
+<a class="sourceLine" id="cb226-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb226-10" data-line-number="10"><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, <span class="dt">reduction =</span> <span class="st">&#39;tsne&#39;</span>, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">pt.size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a></code></pre></div>
 </div>
 <div id="further-subdivisions-within-cell-types" class="section level4">
 <h4><span class="header-section-number">10.2.3.2</span> Further subdivisions within cell types</h4>
 <p>If you perturb some of our parameter choices above (for example, setting resolution=0.8 or changing the number of PCs), you might see cells subdivide into two groups. You can explore this subdivision to find markers separating the two cell subsets. However, before reclustering (which will overwrite <a href="mailto:object@ident" class="email">object@ident</a>), we can stash our renamed identities to be easily recovered later.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="co"># First lets stash our identities for later</span></a>
-<a class="sourceLine" id="cb225-2" data-line-number="2">seurat[[<span class="st">&quot;ClusterNames_0.6&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(<span class="dt">object =</span> seurat)</a>
-<a class="sourceLine" id="cb225-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb225-4" data-line-number="4"><span class="co"># Note that if you set save.snn=T above, you don&#39;t need to recalculate the</span></a>
-<a class="sourceLine" id="cb225-5" data-line-number="5"><span class="co"># SNN, and can simply put: seurat &lt;- FindClusters(seurat, resolution = 0.8)</span></a>
-<a class="sourceLine" id="cb225-6" data-line-number="6">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb225-7" data-line-number="7">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
-<a class="sourceLine" id="cb225-8" data-line-number="8">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
-<a class="sourceLine" id="cb225-9" data-line-number="9">                       <span class="dt">resolution =</span> <span class="fl">0.8</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="co">## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type</span></a>
-<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="co">## = reduction.type, : Build parameters exactly match those of already</span></a>
-<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="co">## computed and stored SNN. To force recalculation, set force.recalc to TRUE.</span></a>
-<a class="sourceLine" id="cb226-4" data-line-number="4"><span class="co"># Demonstration of how to plot two tSNE plots side by side, and how to color</span></a>
-<a class="sourceLine" id="cb226-5" data-line-number="5"><span class="co"># points based on different criteria</span></a>
-<a class="sourceLine" id="cb226-6" data-line-number="6">plot1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb226-7" data-line-number="7">                 <span class="dt">reduction=</span> <span class="st">&quot;tsne&quot;</span>,</a>
-<a class="sourceLine" id="cb226-8" data-line-number="8">                 <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
-<a class="sourceLine" id="cb226-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb226-10" data-line-number="10">plot2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
-<a class="sourceLine" id="cb226-11" data-line-number="11">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>, </a>
-<a class="sourceLine" id="cb226-12" data-line-number="12">                  <span class="dt">group.by =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>,</a>
-<a class="sourceLine" id="cb226-13" data-line-number="13">                  <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
-<a class="sourceLine" id="cb226-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb226-15" data-line-number="15"><span class="co"># patchwork system</span></a>
-<a class="sourceLine" id="cb226-16" data-line-number="16">plot1 <span class="op">+</span><span class="st"> </span>plot2</a></code></pre></div>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># Find discriminating markers</span></a>
-<a class="sourceLine" id="cb227-2" data-line-number="2">cell.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>)</a>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># First lets stash our identities for later</span></a>
+<a class="sourceLine" id="cb227-2" data-line-number="2">seurat[[<span class="st">&quot;ClusterNames_0.6&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">Idents</span>(<span class="dt">object =</span> seurat)</a>
 <a class="sourceLine" id="cb227-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="co"># Checking some markers found</span></a>
-<a class="sourceLine" id="cb227-5" data-line-number="5"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;S100A4&quot;</span>, <span class="st">&quot;CCR7&quot;</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="co"># Note that if you set save.snn=T above, you don&#39;t need to recalculate the</span></a>
+<a class="sourceLine" id="cb227-5" data-line-number="5"><span class="co"># SNN, and can simply put: seurat &lt;- FindClusters(seurat, resolution = 0.8)</span></a>
+<a class="sourceLine" id="cb227-6" data-line-number="6">seurat &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb227-7" data-line-number="7">                       <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb227-8" data-line-number="8">                       <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb227-9" data-line-number="9">                       <span class="dt">resolution =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="co">## Warning in BuildSNN(object = object, genes.use = genes.use, reduction.type</span></a>
+<a class="sourceLine" id="cb228-2" data-line-number="2"><span class="co">## = reduction.type, : Build parameters exactly match those of already</span></a>
+<a class="sourceLine" id="cb228-3" data-line-number="3"><span class="co">## computed and stored SNN. To force recalculation, set force.recalc to TRUE.</span></a>
+<a class="sourceLine" id="cb228-4" data-line-number="4"><span class="co"># Demonstration of how to plot two tSNE plots side by side, and how to color</span></a>
+<a class="sourceLine" id="cb228-5" data-line-number="5"><span class="co"># points based on different criteria</span></a>
+<a class="sourceLine" id="cb228-6" data-line-number="6">plot1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb228-7" data-line-number="7">                 <span class="dt">reduction=</span> <span class="st">&quot;tsne&quot;</span>,</a>
+<a class="sourceLine" id="cb228-8" data-line-number="8">                 <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
+<a class="sourceLine" id="cb228-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb228-10" data-line-number="10">plot2 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(<span class="dt">object =</span> seurat, </a>
+<a class="sourceLine" id="cb228-11" data-line-number="11">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>, </a>
+<a class="sourceLine" id="cb228-12" data-line-number="12">                  <span class="dt">group.by =</span> <span class="st">&quot;ClusterNames_0.6&quot;</span>,</a>
+<a class="sourceLine" id="cb228-13" data-line-number="13">                  <span class="dt">label =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">NoLegend</span>()</a>
+<a class="sourceLine" id="cb228-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb228-15" data-line-number="15"><span class="co"># patchwork system</span></a>
+<a class="sourceLine" id="cb228-16" data-line-number="16">plot1 <span class="op">+</span><span class="st"> </span>plot2</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co"># Find discriminating markers</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">cell.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb229-4" data-line-number="4"><span class="co"># Checking some markers found</span></a>
+<a class="sourceLine" id="cb229-5" data-line-number="5"><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> seurat, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;S100A4&quot;</span>, <span class="st">&quot;CCR7&quot;</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
 </div>
 </div>
 </div>
@@ -594,11 +594,11 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <div id="differential-expression-tests" class="section level4">
 <h4><span class="header-section-number">10.3.1.1</span> Differential Expression Tests</h4>
 <p>One of the most commonly performed tasks for RNA-seq data is differential gene expression (DE) analysis. Although well-established tools exist for such analysis in bulk RNA-seq data, methods for scRNA-seq data are just emerging. Given the special characteristics of scRNA-seq data, including generally low library sizes, high noise levels and a large fraction of so-called ‘dropout’ events, it is unclear whether DE methods that have been developed for bulk RNA-seq are suitable also for scRNA-seq. Check the help page out for the FindMarkers function by using <code> ?FindMarkers </code></p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="co">## Differential expression using t-test</span></a>
-<a class="sourceLine" id="cb228-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> <span class="st">&quot;t&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="co">## Differential expression using t-test</span></a>
+<a class="sourceLine" id="cb230-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> <span class="st">&quot;t&quot;</span>)</a></code></pre></div>
 <p><strong>Task:</strong> Try to use different test for diffential expression analysis (hint: <code>?FindMarkers</code>)</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co">## Use the help function and run other tests.  Do they find similar markers?</span></a>
-<a class="sourceLine" id="cb229-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> ??)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="co">## Use the help function and run other tests.  Do they find similar markers?</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="kw">FindMarkers</span>(<span class="dt">object =</span> seurat, <span class="dt">ident.1 =</span> <span class="dv">0</span>, <span class="dt">ident.2 =</span> <span class="dv">1</span>, <span class="dt">test.use =</span> ??)</a></code></pre></div>
 </div>
 </div>
 <div id="check-clusters" class="section level3">
@@ -606,32 +606,32 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <p>How do we test the cell types identified? How do we know how reliable they are?</p>
 <p>Use Classifier to predict cell cluster. See how it predicts using hold out data.
 <a href="https://satijalab.org/seurat/v3.0/integration.html">reference</a></p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="co"># Assign the test object a three level attribute</span></a>
-<a class="sourceLine" id="cb230-2" data-line-number="2">groups &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>), <span class="dt">size =</span> <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</a>
-<a class="sourceLine" id="cb230-3" data-line-number="3"><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seurat)</a>
-<a class="sourceLine" id="cb230-4" data-line-number="4">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> groups, <span class="dt">col.name =</span> <span class="st">&quot;group&quot;</span>)</a>
-<a class="sourceLine" id="cb230-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb230-6" data-line-number="6"><span class="co"># Find Anchors</span></a>
-<a class="sourceLine" id="cb230-7" data-line-number="7">seurat.list &lt;-<span class="st"> </span><span class="kw">SplitObject</span>(seurat, <span class="dt">split.by =</span> <span class="st">&quot;group&quot;</span>)</a>
-<a class="sourceLine" id="cb230-8" data-line-number="8">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindIntegrationAnchors</span>(<span class="dt">object.list =</span> seurat.list, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb230-9" data-line-number="9">seurat.integrated &lt;-<span class="st"> </span><span class="kw">IntegrateData</span>(<span class="dt">anchorset =</span> seurat.anchors, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb230-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb230-11" data-line-number="11">seurat.query &lt;-<span class="st"> </span>seurat.list[[<span class="st">&quot;train&quot;</span>]]</a>
-<a class="sourceLine" id="cb230-12" data-line-number="12">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindTransferAnchors</span>(<span class="dt">reference =</span> seurat.integrated, </a>
-<a class="sourceLine" id="cb230-13" data-line-number="13">                                      <span class="dt">query =</span> seurat.query, </a>
-<a class="sourceLine" id="cb230-14" data-line-number="14">                                      <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb230-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb230-16" data-line-number="16">predictions &lt;-<span class="st"> </span><span class="kw">TransferData</span>(<span class="dt">anchorset =</span> seurat.anchors, </a>
-<a class="sourceLine" id="cb230-17" data-line-number="17">                            <span class="dt">refdata =</span> seurat.integrated<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, </a>
-<a class="sourceLine" id="cb230-18" data-line-number="18">                            <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb230-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb230-20" data-line-number="20">seurat.query &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(seurat.query, <span class="dt">metadata =</span> predictions)</a>
-<a class="sourceLine" id="cb230-21" data-line-number="21"><span class="kw">table</span>(seurat.query<span class="op">@</span>meta.data<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, seurat.query<span class="op">@</span>meta.data<span class="op">$</span>predicted.id)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="co"># Assign the test object a three level attribute</span></a>
+<a class="sourceLine" id="cb232-2" data-line-number="2">groups &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>), <span class="dt">size =</span> <span class="kw">NROW</span>(seurat<span class="op">@</span>meta.data), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seurat)</a>
+<a class="sourceLine" id="cb232-4" data-line-number="4">seurat &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(<span class="dt">object =</span> seurat, <span class="dt">metadata =</span> groups, <span class="dt">col.name =</span> <span class="st">&quot;group&quot;</span>)</a>
+<a class="sourceLine" id="cb232-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb232-6" data-line-number="6"><span class="co"># Find Anchors</span></a>
+<a class="sourceLine" id="cb232-7" data-line-number="7">seurat.list &lt;-<span class="st"> </span><span class="kw">SplitObject</span>(seurat, <span class="dt">split.by =</span> <span class="st">&quot;group&quot;</span>)</a>
+<a class="sourceLine" id="cb232-8" data-line-number="8">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindIntegrationAnchors</span>(<span class="dt">object.list =</span> seurat.list, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb232-9" data-line-number="9">seurat.integrated &lt;-<span class="st"> </span><span class="kw">IntegrateData</span>(<span class="dt">anchorset =</span> seurat.anchors, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb232-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb232-11" data-line-number="11">seurat.query &lt;-<span class="st"> </span>seurat.list[[<span class="st">&quot;train&quot;</span>]]</a>
+<a class="sourceLine" id="cb232-12" data-line-number="12">seurat.anchors &lt;-<span class="st"> </span><span class="kw">FindTransferAnchors</span>(<span class="dt">reference =</span> seurat.integrated, </a>
+<a class="sourceLine" id="cb232-13" data-line-number="13">                                      <span class="dt">query =</span> seurat.query, </a>
+<a class="sourceLine" id="cb232-14" data-line-number="14">                                      <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb232-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb232-16" data-line-number="16">predictions &lt;-<span class="st"> </span><span class="kw">TransferData</span>(<span class="dt">anchorset =</span> seurat.anchors, </a>
+<a class="sourceLine" id="cb232-17" data-line-number="17">                            <span class="dt">refdata =</span> seurat.integrated<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, </a>
+<a class="sourceLine" id="cb232-18" data-line-number="18">                            <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb232-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb232-20" data-line-number="20">seurat.query &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(seurat.query, <span class="dt">metadata =</span> predictions)</a>
+<a class="sourceLine" id="cb232-21" data-line-number="21"><span class="kw">table</span>(seurat.query<span class="op">@</span>meta.data<span class="op">$</span>ClusterNames_<span class="fl">0.6</span>, seurat.query<span class="op">@</span>meta.data<span class="op">$</span>predicted.id)</a></code></pre></div>
 </div>
 <div id="view-entire-object-structure" class="section level3">
 <h3><span class="header-section-number">10.3.3</span> View Entire Object Structure</h3>
 <p>Notice all the slots and elements added to the object.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="kw">str</span>(seurat)</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">str</span>(seurat)</a></code></pre></div>
 </div>
 </div>
 <div id="probabilistic-lda-clustering" class="section level2">
@@ -639,122 +639,122 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <p>Another type of clustering we can do is a fuzzy or probablistic clustering. This is where cells are not assigned to specifically only one cluster. They get assigned a score for how much the cells belong to each of the clusters (sometimes called topics). This can be helpful for when your dataset continuous processes and/or cellular states as opposed to distinct cell types.</p>
 <div id="example-lda-in-bulk" class="section level3">
 <h3><span class="header-section-number">10.4.1</span> Example LDA in Bulk</h3>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;MouseDeng2014.FitGoM&quot;</span>)</a>
-<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="kw">names</span>(MouseDeng2014.FitGoM)</a>
-<a class="sourceLine" id="cb232-3" data-line-number="3">omega &lt;-<span class="st"> </span>MouseDeng2014.FitGoM<span class="op">$</span>clust_<span class="dv">6</span><span class="op">$</span>omega</a>
-<a class="sourceLine" id="cb232-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb232-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb232-6" data-line-number="6">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb232-7" data-line-number="7">  <span class="dt">sample_id =</span> <span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(omega))),</a>
-<a class="sourceLine" id="cb232-8" data-line-number="8">  <span class="dt">tissue_label =</span> <span class="kw">factor</span>(<span class="kw">rownames</span>(omega),</a>
-<a class="sourceLine" id="cb232-9" data-line-number="9">                        <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>,</a>
-<a class="sourceLine" id="cb232-10" data-line-number="10">                                        <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>, <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>)))</a>
-<a class="sourceLine" id="cb232-11" data-line-number="11">  )</a>
-<a class="sourceLine" id="cb232-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb232-13" data-line-number="13"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
-<a class="sourceLine" id="cb232-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb232-15" data-line-number="15"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
-<a class="sourceLine" id="cb232-16" data-line-number="16">                <span class="dt">annotation =</span> annotation,</a>
-<a class="sourceLine" id="cb232-17" data-line-number="17">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Accent&quot;</span>),</a>
-<a class="sourceLine" id="cb232-18" data-line-number="18">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Amplification batch&quot;</span>,</a>
-<a class="sourceLine" id="cb232-19" data-line-number="19">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb232-20" data-line-number="20">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb232-21" data-line-number="21">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb232-22" data-line-number="22">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb232-23" data-line-number="23">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb232-24" data-line-number="24">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;MouseDeng2014.FitGoM&quot;</span>)</a>
+<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="kw">names</span>(MouseDeng2014.FitGoM)</a>
+<a class="sourceLine" id="cb234-3" data-line-number="3">omega &lt;-<span class="st"> </span>MouseDeng2014.FitGoM<span class="op">$</span>clust_<span class="dv">6</span><span class="op">$</span>omega</a>
+<a class="sourceLine" id="cb234-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb234-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb234-6" data-line-number="6">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb234-7" data-line-number="7">  <span class="dt">sample_id =</span> <span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(omega))),</a>
+<a class="sourceLine" id="cb234-8" data-line-number="8">  <span class="dt">tissue_label =</span> <span class="kw">factor</span>(<span class="kw">rownames</span>(omega),</a>
+<a class="sourceLine" id="cb234-9" data-line-number="9">                        <span class="dt">levels =</span> <span class="kw">rev</span>(<span class="kw">c</span>(<span class="st">&quot;zy&quot;</span>, <span class="st">&quot;early2cell&quot;</span>, <span class="st">&quot;mid2cell&quot;</span>, <span class="st">&quot;late2cell&quot;</span>,</a>
+<a class="sourceLine" id="cb234-10" data-line-number="10">                                        <span class="st">&quot;4cell&quot;</span>, <span class="st">&quot;8cell&quot;</span>, <span class="st">&quot;16cell&quot;</span>, <span class="st">&quot;earlyblast&quot;</span>, <span class="st">&quot;midblast&quot;</span>, <span class="st">&quot;lateblast&quot;</span>)))</a>
+<a class="sourceLine" id="cb234-11" data-line-number="11">  )</a>
+<a class="sourceLine" id="cb234-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb234-13" data-line-number="13"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
+<a class="sourceLine" id="cb234-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb234-15" data-line-number="15"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
+<a class="sourceLine" id="cb234-16" data-line-number="16">                <span class="dt">annotation =</span> annotation,</a>
+<a class="sourceLine" id="cb234-17" data-line-number="17">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Accent&quot;</span>),</a>
+<a class="sourceLine" id="cb234-18" data-line-number="18">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Amplification batch&quot;</span>,</a>
+<a class="sourceLine" id="cb234-19" data-line-number="19">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb234-20" data-line-number="20">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb234-21" data-line-number="21">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb234-22" data-line-number="22">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb234-23" data-line-number="23">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb234-24" data-line-number="24">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
 </div>
 <div id="pbmc-lda" class="section level3">
 <h3><span class="header-section-number">10.4.2</span> PBMC LDA</h3>
 <div id="fitting-the-model" class="section level4">
 <h4><span class="header-section-number">10.4.2.1</span> Fitting the Model</h4>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
-<a class="sourceLine" id="cb233-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="co">## Preprocessing Steps</span></a>
-<a class="sourceLine" id="cb233-4" data-line-number="4">pbmc_small &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a>
-<a class="sourceLine" id="cb233-5" data-line-number="5">pbmc_small &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> pbmc_small)</a>
-<a class="sourceLine" id="cb233-6" data-line-number="6">pbmc_small &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc_small, </a>
-<a class="sourceLine" id="cb233-7" data-line-number="7">                           <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
-<a class="sourceLine" id="cb233-8" data-line-number="8">                           <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
-<a class="sourceLine" id="cb233-9" data-line-number="9">                           <span class="dt">resolution =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb233-10" data-line-number="10">                           <span class="dt">print.output =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb233-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb233-12" data-line-number="12"><span class="co">## Grab the Raw Count Matrix from Seurat Object</span></a>
-<a class="sourceLine" id="cb233-13" data-line-number="13"><span class="co">## Needs count matrix</span></a>
-<a class="sourceLine" id="cb233-14" data-line-number="14">pbmc_counts &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>counts)</a>
-<a class="sourceLine" id="cb233-15" data-line-number="15">pbmc_meta &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>meta.data</a>
-<a class="sourceLine" id="cb233-16" data-line-number="16">gene_names &lt;-<span class="st"> </span><span class="kw">rownames</span>(pbmc_counts)</a>
-<a class="sourceLine" id="cb233-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb233-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb233-19" data-line-number="19"><span class="co">## Fit LDA  Model, called GoM for this R pacakge</span></a>
-<a class="sourceLine" id="cb233-20" data-line-number="20"><span class="co">## Number of topics to fit is K=4</span></a>
-<a class="sourceLine" id="cb233-21" data-line-number="21">pbmc_FitGoM &lt;-<span class="st"> </span><span class="kw">FitGoM</span>(<span class="kw">t</span>(pbmc_counts), <span class="dt">K=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb233-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb233-23" data-line-number="23"><span class="co">## Grab topic scores</span></a>
-<a class="sourceLine" id="cb233-24" data-line-number="24">omega &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>omega)</a>
-<a class="sourceLine" id="cb233-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb233-26" data-line-number="26"><span class="co">## Annotate topics, if identies known</span></a>
-<a class="sourceLine" id="cb233-27" data-line-number="27">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sample_id =</span> <span class="kw">rownames</span>(omega),</a>
-<a class="sourceLine" id="cb233-28" data-line-number="28">                         <span class="dt">tissue_label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cluster&quot;</span>, pbmc_small<span class="op">@</span>active.ident))</a>
-<a class="sourceLine" id="cb233-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb233-30" data-line-number="30"><span class="kw">colnames</span>(omega) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb233-31" data-line-number="31"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
-<a class="sourceLine" id="cb233-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb233-33" data-line-number="33"><span class="co">## Make plot to see topic contribution</span></a>
-<a class="sourceLine" id="cb233-34" data-line-number="34"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
-<a class="sourceLine" id="cb233-35" data-line-number="35">                <span class="dt">annotation =</span> annotation,</a>
-<a class="sourceLine" id="cb233-36" data-line-number="36">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Dark2&quot;</span>),</a>
-<a class="sourceLine" id="cb233-37" data-line-number="37">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Cells&quot;</span>,</a>
-<a class="sourceLine" id="cb233-38" data-line-number="38">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb233-39" data-line-number="39">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb233-40" data-line-number="40">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb233-41" data-line-number="41">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
-<a class="sourceLine" id="cb233-42" data-line-number="42">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb233-43" data-line-number="43">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a>
-<a class="sourceLine" id="cb233-44" data-line-number="44"></a>
-<a class="sourceLine" id="cb233-45" data-line-number="45"></a>
-<a class="sourceLine" id="cb233-46" data-line-number="46"><span class="co"># ## Add Topic Scores to Meta Data Part of the Seurat Object</span></a>
-<a class="sourceLine" id="cb233-47" data-line-number="47">pbmc_small &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(pbmc_small, omega)</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2020</span>)</a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb235-3" data-line-number="3"><span class="co">## Preprocessing Steps</span></a>
+<a class="sourceLine" id="cb235-4" data-line-number="4">pbmc_small &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(<span class="dt">object =</span> pbmc_small, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb235-5" data-line-number="5">pbmc_small &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(<span class="dt">object =</span> pbmc_small)</a>
+<a class="sourceLine" id="cb235-6" data-line-number="6">pbmc_small &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(<span class="dt">object =</span> pbmc_small, </a>
+<a class="sourceLine" id="cb235-7" data-line-number="7">                           <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>, </a>
+<a class="sourceLine" id="cb235-8" data-line-number="8">                           <span class="dt">dims.use =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb235-9" data-line-number="9">                           <span class="dt">resolution =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb235-10" data-line-number="10">                           <span class="dt">print.output =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb235-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb235-12" data-line-number="12"><span class="co">## Grab the Raw Count Matrix from Seurat Object</span></a>
+<a class="sourceLine" id="cb235-13" data-line-number="13"><span class="co">## Needs count matrix</span></a>
+<a class="sourceLine" id="cb235-14" data-line-number="14">pbmc_counts &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(pbmc_small<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>counts)</a>
+<a class="sourceLine" id="cb235-15" data-line-number="15">pbmc_meta &lt;-<span class="st"> </span>pbmc_small<span class="op">@</span>meta.data</a>
+<a class="sourceLine" id="cb235-16" data-line-number="16">gene_names &lt;-<span class="st"> </span><span class="kw">rownames</span>(pbmc_counts)</a>
+<a class="sourceLine" id="cb235-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb235-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb235-19" data-line-number="19"><span class="co">## Fit LDA  Model, called GoM for this R pacakge</span></a>
+<a class="sourceLine" id="cb235-20" data-line-number="20"><span class="co">## Number of topics to fit is K=4</span></a>
+<a class="sourceLine" id="cb235-21" data-line-number="21">pbmc_FitGoM &lt;-<span class="st"> </span><span class="kw">FitGoM</span>(<span class="kw">t</span>(pbmc_counts), <span class="dt">K=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb235-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb235-23" data-line-number="23"><span class="co">## Grab topic scores</span></a>
+<a class="sourceLine" id="cb235-24" data-line-number="24">omega &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>omega)</a>
+<a class="sourceLine" id="cb235-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb235-26" data-line-number="26"><span class="co">## Annotate topics, if identies known</span></a>
+<a class="sourceLine" id="cb235-27" data-line-number="27">annotation &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sample_id =</span> <span class="kw">rownames</span>(omega),</a>
+<a class="sourceLine" id="cb235-28" data-line-number="28">                         <span class="dt">tissue_label =</span> <span class="kw">paste0</span>(<span class="st">&quot;cluster&quot;</span>, pbmc_small<span class="op">@</span>active.ident))</a>
+<a class="sourceLine" id="cb235-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb235-30" data-line-number="30"><span class="kw">colnames</span>(omega) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;topic&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb235-31" data-line-number="31"><span class="kw">rownames</span>(omega) &lt;-<span class="st"> </span>annotation<span class="op">$</span>sample_id;</a>
+<a class="sourceLine" id="cb235-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb235-33" data-line-number="33"><span class="co">## Make plot to see topic contribution</span></a>
+<a class="sourceLine" id="cb235-34" data-line-number="34"><span class="kw">StructureGGplot</span>(<span class="dt">omega =</span> omega,</a>
+<a class="sourceLine" id="cb235-35" data-line-number="35">                <span class="dt">annotation =</span> annotation,</a>
+<a class="sourceLine" id="cb235-36" data-line-number="36">                <span class="dt">palette =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Dark2&quot;</span>),</a>
+<a class="sourceLine" id="cb235-37" data-line-number="37">                <span class="dt">yaxis_label =</span> <span class="st">&quot;Cells&quot;</span>,</a>
+<a class="sourceLine" id="cb235-38" data-line-number="38">                <span class="dt">order_sample =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb235-39" data-line-number="39">                <span class="dt">axis_tick =</span> <span class="kw">list</span>(<span class="dt">axis_ticks_length =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb235-40" data-line-number="40">                                 <span class="dt">axis_ticks_lwd_y =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb235-41" data-line-number="41">                                 <span class="dt">axis_ticks_lwd_x =</span> <span class="fl">.1</span>,</a>
+<a class="sourceLine" id="cb235-42" data-line-number="42">                                 <span class="dt">axis_label_size =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb235-43" data-line-number="43">                                 <span class="dt">axis_label_face =</span> <span class="st">&quot;bold&quot;</span>))</a>
+<a class="sourceLine" id="cb235-44" data-line-number="44"></a>
+<a class="sourceLine" id="cb235-45" data-line-number="45"></a>
+<a class="sourceLine" id="cb235-46" data-line-number="46"><span class="co"># ## Add Topic Scores to Meta Data Part of the Seurat Object</span></a>
+<a class="sourceLine" id="cb235-47" data-line-number="47">pbmc_small &lt;-<span class="st"> </span><span class="kw">AddMetaData</span>(pbmc_small, omega)</a></code></pre></div>
 </div>
 <div id="summarizing-topic-by-cluster" class="section level4">
 <h4><span class="header-section-number">10.4.2.2</span> Summarizing Topic By Cluster</h4>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">pbmc_small<span class="op">@</span>meta.data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(RNA_snn_res<span class="fl">.1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb234-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">topic1 =</span> <span class="kw">mean</span>(topic1),</a>
-<a class="sourceLine" id="cb234-4" data-line-number="4">            <span class="dt">topic2 =</span> <span class="kw">mean</span>(topic2),</a>
-<a class="sourceLine" id="cb234-5" data-line-number="5">            <span class="dt">topic3 =</span> <span class="kw">mean</span>(topic3),</a>
-<a class="sourceLine" id="cb234-6" data-line-number="6">            <span class="dt">topic4 =</span> <span class="kw">mean</span>(topic4))</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">pbmc_small<span class="op">@</span>meta.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(RNA_snn_res<span class="fl">.1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb236-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">topic1 =</span> <span class="kw">mean</span>(topic1),</a>
+<a class="sourceLine" id="cb236-4" data-line-number="4">            <span class="dt">topic2 =</span> <span class="kw">mean</span>(topic2),</a>
+<a class="sourceLine" id="cb236-5" data-line-number="5">            <span class="dt">topic3 =</span> <span class="kw">mean</span>(topic3),</a>
+<a class="sourceLine" id="cb236-6" data-line-number="6">            <span class="dt">topic4 =</span> <span class="kw">mean</span>(topic4))</a></code></pre></div>
 </div>
 <div id="visualizing-topic-scores" class="section level4">
 <h4><span class="header-section-number">10.4.2.3</span> Visualizing Topic Scores</h4>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="co">## ggplot object, you can add layers</span></a>
-<a class="sourceLine" id="cb235-2" data-line-number="2">p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(pbmc_small, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resolution 1&quot;</span>) <span class="co">## return ggplot object</span></a>
-<a class="sourceLine" id="cb235-3" data-line-number="3">p1</a></code></pre></div>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">p2 &lt;-<span class="st"> </span><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc_small, </a>
-<a class="sourceLine" id="cb236-2" data-line-number="2">                  <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;topic1&quot;</span>, <span class="st">&quot;topic2&quot;</span>, <span class="st">&quot;topic3&quot;</span>, <span class="st">&quot;topic4&quot;</span>), </a>
-<a class="sourceLine" id="cb236-3" data-line-number="3">                  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
-<a class="sourceLine" id="cb236-4" data-line-number="4">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="co">## return ggplot object</span></a>
-<a class="sourceLine" id="cb236-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb236-6" data-line-number="6">p2</a></code></pre></div>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="co">## ggplot object, you can add layers</span></a>
+<a class="sourceLine" id="cb237-2" data-line-number="2">p1 &lt;-<span class="st"> </span><span class="kw">DimPlot</span>(pbmc_small, <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resolution 1&quot;</span>) <span class="co">## return ggplot object</span></a>
+<a class="sourceLine" id="cb237-3" data-line-number="3">p1</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">p2 &lt;-<span class="st"> </span><span class="kw">FeaturePlot</span>(<span class="dt">object =</span> pbmc_small, </a>
+<a class="sourceLine" id="cb238-2" data-line-number="2">                  <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;topic1&quot;</span>, <span class="st">&quot;topic2&quot;</span>, <span class="st">&quot;topic3&quot;</span>, <span class="st">&quot;topic4&quot;</span>), </a>
+<a class="sourceLine" id="cb238-3" data-line-number="3">                  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
+<a class="sourceLine" id="cb238-4" data-line-number="4">                  <span class="dt">reduction =</span> <span class="st">&quot;tsne&quot;</span>) <span class="co">## return ggplot object</span></a>
+<a class="sourceLine" id="cb238-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb238-6" data-line-number="6">p2</a></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
 </div>
 <div id="extract-top-feature" class="section level4">
 <h4><span class="header-section-number">10.4.2.4</span> Extract Top Feature</h4>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="co">## Gene scores for each topics</span></a>
-<a class="sourceLine" id="cb238-2" data-line-number="2">theta_mat &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>theta</a>
-<a class="sourceLine" id="cb238-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb238-4" data-line-number="4">top_features &lt;-<span class="st"> </span><span class="kw">ExtractTopFeatures</span>(theta_mat, </a>
-<a class="sourceLine" id="cb238-5" data-line-number="5">                                   <span class="dt">top_features=</span><span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb238-6" data-line-number="6">                                   <span class="dt">method=</span><span class="st">&quot;poisson&quot;</span>, </a>
-<a class="sourceLine" id="cb238-7" data-line-number="7">                                   <span class="dt">options=</span><span class="st">&quot;min&quot;</span>)</a>
-<a class="sourceLine" id="cb238-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb238-9" data-line-number="9">gene_list &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, </a>
-<a class="sourceLine" id="cb238-10" data-line-number="10">                     <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(top_features<span class="op">$</span>indices)[<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb238-11" data-line-number="11">                            <span class="cf">function</span>(x) gene_names[top_features<span class="op">$</span>indices[x,]]))</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="co">## Gene scores for each topics</span></a>
+<a class="sourceLine" id="cb240-2" data-line-number="2">theta_mat &lt;-<span class="st"> </span>pbmc_FitGoM<span class="op">$</span>fit<span class="op">$</span>theta</a>
+<a class="sourceLine" id="cb240-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb240-4" data-line-number="4">top_features &lt;-<span class="st"> </span><span class="kw">ExtractTopFeatures</span>(theta_mat, </a>
+<a class="sourceLine" id="cb240-5" data-line-number="5">                                   <span class="dt">top_features=</span><span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb240-6" data-line-number="6">                                   <span class="dt">method=</span><span class="st">&quot;poisson&quot;</span>, </a>
+<a class="sourceLine" id="cb240-7" data-line-number="7">                                   <span class="dt">options=</span><span class="st">&quot;min&quot;</span>)</a>
+<a class="sourceLine" id="cb240-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb240-9" data-line-number="9">gene_list &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, </a>
+<a class="sourceLine" id="cb240-10" data-line-number="10">                     <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(top_features<span class="op">$</span>indices)[<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb240-11" data-line-number="11">                            <span class="cf">function</span>(x) gene_names[top_features<span class="op">$</span>indices[x,]]))</a></code></pre></div>
 <p>We tabulate the top <code>5</code> genes for these <code>4</code> topics</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">out_table &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">toString</span>(gene_list[i,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])))</a>
-<a class="sourceLine" id="cb239-2" data-line-number="2"><span class="kw">rownames</span>(out_table) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Topic&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb239-3" data-line-number="3">out_table</a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">out_table &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">toString</span>(gene_list[i,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])))</a>
+<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="kw">rownames</span>(out_table) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Topic&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb241-3" data-line-number="3">out_table</a></code></pre></div>
 </div>
 </div>
 <div id="practice-visualizingembedding" class="section level3">
@@ -762,12 +762,12 @@ al. We will use a nice SMART-Seq2 single cell RNA-seq data from <span>Single-Ce
 <div id="tsne" class="section level4">
 <h4><span class="header-section-number">10.4.3.1</span> tSNE</h4>
 <p>Change the parameter settings for tSNE</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="kw">RunTSNE</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1"><span class="kw">RunTSNE</span>()</a></code></pre></div>
 </div>
 <div id="umap" class="section level4">
 <h4><span class="header-section-number">10.4.3.2</span> UMAP</h4>
 <p>Change the parameter settings for UMAP</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">RunUMAP</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">RunUMAP</span>()</a></code></pre></div>
 </div>
 </div>
 </div>
