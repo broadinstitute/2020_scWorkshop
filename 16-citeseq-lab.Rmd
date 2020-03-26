@@ -79,6 +79,7 @@ save(cbmc.rna, cbmc.adt, file = Rda.quickload.path)
 The steps below represent a quick clustering of the PBMCs based on the scRNA-seq data. For more detail on individual steps or more advanced options, see our PBMC clustering guided tutorial here
 
 ```{r, eval = FALSE}
+# load(Rda.quickload.path)
 cbmc <- CreateSeuratObject(counts = cbmc.rna)
 
 # This code sub-samples the data in order to speed up calculations and not use too much memory.
