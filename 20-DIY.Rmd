@@ -3,7 +3,6 @@ title: "Lab 20"
 output: html_document
 ---
 
-
 ```{r, warning=FALSE, message=FALSE}
 library(Seurat)
 library(dplyr)
@@ -34,7 +33,7 @@ What would you like to focus on today?
 If it's clustering and identifying cell populations we reccomend you use all the data and try to distinguish the different cell types. If it's combining a few datasets and work on batch correction, we reccomend you focus on all malignant cells and work on the batch effects among tumors and identifying cell populations shared among them. If it's identifying subtle differenced in clustering and trying also to identify lineages we reccomend you use one tumor. 
 Most importantly, feel free to explore what ever interest you!
 
-```{r}
+```{r read data}
 # read the single cell RNA data
 sc.data.dirname <- "data/lab20_DIY/"
 
@@ -48,7 +47,7 @@ Create a seurat object filtering out the very extreme cases.
 seurat<-CreateSeuratObject(counts = counts, min.cells = 3, min.features = 350, project = "Astrocytomas")
 ```
 
-```{r add meta data, eval = FALSE} 
+```{r add meta data} 
 vec.cell.type <- classification$type
 names(vec.cell.type) <- classification$cell_name
 seurat <- AddMetaData(object = seurat, metadata = vec.cell.type, col.name = "cell_type")
@@ -76,7 +75,7 @@ VlnPlot(object = seurat, features = c("nFeature_RNA", "nCount_RNA","n.exp.hkgene
 ```
 
 You can start by filtering extreme outliers:
-```{r}
+```{r filter data}
 seurat <- subset(seurat, subset = nFeature_RNA > 350 & nFeature_RNA < 9000 & n.exp.hkgenes > 60)
 ```
 And normalize:
@@ -84,8 +83,7 @@ And normalize:
 seurat <- NormalizeData(object = seurat, normalization.method = "LogNormalize", scale.factor = 1e4)
 ```
 
-
-```{r cell_cycle_genes_pbmc, eval = FALSE}
+```{r calculate cell cycle}
 # Read in a list of cell cycle markers, from Tirosh et al, 2015.
 # We can segregate this list into markers of G2/M phase and markers of S phase.
 s.genes <- Seurat::cc.genes$s.genes
@@ -93,7 +91,7 @@ g2m.genes <- Seurat::cc.genes$g2m.genes
 seurat <- CellCycleScoring(object = seurat, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 ```
 
-```{r add known signatures, eval = FALSE}
+```{r add known signatures}
 seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"astro_genes.txt"))$V1), name = "astro_signature")
 
 seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"oligo_genes.txt"))$V1), name = "oligo_signature")
@@ -103,21 +101,19 @@ seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(reso
 
 NOTICE: THESE FOLLOWING COMMANDS WILL ONLY WORK AFTER CREATEING UMAP/tSNE
 Here are useful markers that can be used to explore the clusters after you will cluster the data
-```{r plot immune cells markers}
+```{r plot immune cells markers, eval = FALSE}
 FeaturePlot(seurat, features = c("CD14","CSF1R","FCER1G","FCGR3A")) # markers for macrophages
 FeaturePlot(seurat, features = c("MBP","MAG","MOG")) # markers for oligodendrocytes
 ```
 And a few useful commands, that can be used after clustering:
-```{r plot signatures}
+```{r plot signatures, eval = FALSE}
 # notice that the name of the signature is the name you assigned to it, plus "1" that seurat is adding to it
 FeaturePlot(seurat, features = c("oligo_signature1","astro_signature1","stemness_signature1"))
 ```
-
-```{r subset seurat object}
+```{r subset seurat object, eval = FALSE}
 seurat.malignant<- subset(seurat, subset = cell_type == "malignant") #keep only malignant cells
 seurat.malignant.MGH107<- subset(seurat_malignant, subset = tumor_name == "MGH107neg") #keep only malignant MGH107 cells
 seurat.malignant.MGH44<- subset(seurat_malignant, subset = tumor_name == "MGH44") #keep only malignant MGH44 cells
-
 ```
 
 Ok, you are ready! Discuss what you wish to explore and go for it!
