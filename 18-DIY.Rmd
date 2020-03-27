@@ -3,6 +3,8 @@ title: "Lab 20"
 output: html_document
 ---
 
+# DIY Lab
+
 ```{r, warning=FALSE, message=FALSE}
 library(Seurat)
 library(dplyr)
@@ -23,6 +25,8 @@ library(cowplot)
 library(RColorBrewer)
 ```
 
+## Lab
+
 Hopefully now you have a "feel" for what scRNA-seq analysis entails. Today we will work in groups to analyze a publicly available data set: IDH-mutated gliomas. 
 Your data includes:
 IDH_A_processed_data_portal.txt - the TPM matrix, already in log scale
@@ -33,7 +37,7 @@ What would you like to focus on today?
 If it's clustering and identifying cell populations we reccomend you use all the data and try to distinguish the different cell types. If it's combining a few datasets and work on batch correction, we reccomend you focus on all malignant cells and work on the batch effects among tumors and identifying cell populations shared among them. If it's identifying subtle differenced in clustering and trying also to identify lineages we reccomend you use one tumor. 
 Most importantly, feel free to explore what ever interest you!
 
-```{r read data}
+```{r read data_diy}
 # read the single cell RNA data
 sc.data.dirname <- "data/lab20_DIY/"
 
@@ -43,11 +47,11 @@ classification <- read.table(file = paste0(sc.data.dirname,"/IDH_A_cell_type_ass
 ```
 
 Create a seurat object filtering out the very extreme cases. 
-```{r create seurat object} 
+```{r create seurat object_diy} 
 seurat<-CreateSeuratObject(counts = counts, min.cells = 3, min.features = 350, project = "Astrocytomas")
 ```
 
-```{r add meta data} 
+```{r add_meta_data_diy} 
 vec.cell.type <- classification$type
 names(vec.cell.type) <- classification$cell_name
 seurat <- AddMetaData(object = seurat, metadata = vec.cell.type, col.name = "cell_type")
@@ -57,7 +61,7 @@ names(vec.tumor.name) <- classification$cell_name
 seurat <- AddMetaData(object = seurat, metadata = vec.tumor.name, col.name = "tumor_name")
 ```
 
-```{r look into technical features}
+```{r look_into_technical_features_diy}
 #Notice: Unfortunetlay this dataset does not provide mitochondrial genes so we cannot calculate percent.mito
 
 # load resources
@@ -75,15 +79,15 @@ VlnPlot(object = seurat, features = c("nFeature_RNA", "nCount_RNA","n.exp.hkgene
 ```
 
 You can start by filtering extreme outliers if you would like (just replace the '?')
-```{r filter data}
+```{r filterdata_diy, eval = FALSE}
 seurat <- subset(seurat, subset = nFeature_RNA > ? & nFeature_RNA < ? & n.exp.hkgenes > ?)
 ```
 And normalize:
-```{r normalize}
+```{r normalize_diy}
 seurat <- NormalizeData(object = seurat, normalization.method = "LogNormalize", scale.factor = 1e4)
 ```
 
-```{r calculate cell cycle}
+```{r calculate_cell_cycle_diy}
 # Read in a list of cell cycle markers, from Tirosh et al, 2015.
 # We can segregate this list into markers of G2/M phase and markers of S phase.
 s.genes <- Seurat::cc.genes$s.genes
@@ -91,7 +95,7 @@ g2m.genes <- Seurat::cc.genes$g2m.genes
 seurat <- CellCycleScoring(object = seurat, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 ```
 
-```{r add known signatures}
+```{r add_known_signatures_diy}
 seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"astro_genes.txt"))$V1), name = "astro_signature")
 
 seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"oligo_genes.txt"))$V1), name = "oligo_signature")
@@ -101,18 +105,18 @@ seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(reso
 
 NOTICE: THESE FOLLOWING COMMANDS WILL ONLY WORK AFTER CREATEING UMAP/tSNE
 Here are useful markers that can be used to explore the clusters after you will cluster the data
-```{r plot immune cells markers, eval = FALSE}
+```{r plot_immune_cells_markers_diy, eval = FALSE}
 FeaturePlot(seurat, features = c("CD14","CSF1R","FCER1G","FCGR3A")) # markers for macrophages
 FeaturePlot(seurat, features = c("MBP","MAG","MOG")) # markers for oligodendrocytes
 ```
 And a few useful commands, that can be used after clustering:
-```{r plot signatures, eval = FALSE}
+```{r plot_signatures_diy, eval = FALSE}
 # notice that the name of the signature is the name you assigned to it, plus "1" that seurat is adding to it
 FeaturePlot(seurat, features = c("oligo_signature1","astro_signature1","stemness_signature1"))
 ```
 
 If you want to focus on just malignant cells, or just one tumor at a time
-```{r subset seurat object, eval = FALSE}
+```{r subset_seurat_object_diy, eval = FALSE}
 seurat.malignant<- subset(seurat, subset = cell_type == "malignant") #keep only malignant cells
 seurat.malignant.MGH107<- subset(seurat.malignant, subset = tumor_name == "MGH107neg") #keep only malignant MGH107 cells
 seurat.malignant.MGH44<- subset(seurat.malignant, subset = tumor_name == "MGH44") #keep only malignant MGH44 cells
