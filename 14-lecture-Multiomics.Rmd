@@ -1,0 +1,10 @@
+---
+title: "14-multiomics"
+output: html_document
+---
+
+# Mutli-omic Analysis
+
+## Slides
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS5k4mKhWWjqp_UpsaSZspd_8u5oQgnUYzXSErAxbt-vrE2AwkvbeWZpGP9HIBXSQ/embed?start=false&loop=false&delayms=3000" frameborder="0" width="760" height="560" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

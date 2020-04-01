@@ -1,5 +1,5 @@
 ---
-title: "03-Understanding-Sequencing-Raw-Data"
+title: "02-Understanding-Sequencing-Raw-Data"
 output: html_document
 ---
 

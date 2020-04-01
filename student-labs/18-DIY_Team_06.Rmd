@@ -1,0 +1,343 @@
+---
+title: "Lab 20"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# DIY Lab
+
+```{r, warning=FALSE, message=FALSE}
+library(Seurat)
+library(dplyr)
+library(Matrix)
+library(gdata)
+library(utils)
+library(liger)
+library(SingleCellExperiment)
+library(destiny)
+library(scater)
+library(clusterExperiment)
+library(gam)
+library(corrplot)
+library(ggplot2)
+library(ggthemes)
+library(ggbeeswarm)
+library(cowplot)
+library(RColorBrewer)
+```
+
+## Lab
+
+Hopefully now you have a "feel" for what scRNA-seq analysis entails. Today we will work in groups to analyze a publicly available data set: IDH-mutated gliomas. 
+Your data includes:
+IDH_A_processed_data_portal.txt - the TPM matrix, already in log scale
+IDH_A_cell_type_assignment_portal.txt - a classification of cells to malignant and non-malignant groups, and to tumors
+You also have files for different signatures.
+
+What would you like to focus on today?
+If it's clustering and identifying cell populations we reccomend you use all the data and try to distinguish the different cell types. If it's combining a few datasets and work on batch correction, we reccomend you focus on all malignant cells and work on the batch effects among tumors and identifying cell populations shared among them. If it's identifying subtle differenced in clustering and trying also to identify lineages we reccomend you use one tumor. 
+Most importantly, feel free to explore what ever interest you!
+
+
+```{r read data_diy}
+# read the single cell RNA data
+sc.data.dirname <- "data/lab20_DIY/"
+
+# if your rstudio crashes and you would like to use a smaller dataset
+counts <- read.table(file = paste0(sc.data.dirname,"/IDH_A_processed_data_portal_filtered.txt"), sep="\t", header = TRUE, row.names=1)
+classification <- read.table(file = paste0(sc.data.dirname,"/IDH_A_cell_type_assignment_portal_filtered.txt"), sep="\t", header = TRUE) 
+```
+
+Create a seurat object filtering out the very extreme cases. 
+```{r create seurat object_diy} 
+seurat<-CreateSeuratObject(counts = counts, min.cells = 3, min.features = 350, project = "Astrocytomas")
+```
+
+```{r add_meta_data_diy} 
+vec.cell.type <- classification$type
+names(vec.cell.type) <- classification$cell_name
+seurat <- AddMetaData(object = seurat, metadata = vec.cell.type, col.name = "cell_type")
+
+vec.tumor.name <- classification$tumor_name
+names(vec.tumor.name) <- classification$cell_name
+seurat <- AddMetaData(object = seurat, metadata = vec.tumor.name, col.name = "tumor_name")
+```
+
+```{r look_into_technical_features_diy}
+#Notice: Unfortunetlay this dataset does not provide mitochondrial genes so we cannot calculate percent.mito
+
+# load resources
+resources.dirname <- "data/resources/"
+
+# Load the the list of house keeping genes
+hkgenes <- read.table(paste0(resources.dirname,"/tirosh_house_keeping.txt"), skip = 2)
+hkgenes <- as.vector(hkgenes$V1)
+
+# remove hkgenes that were not found
+hkgenes.found <- which(toupper(rownames(seurat@assays$RNA)) %in% hkgenes)
+n.expressed.hkgenes <- Matrix::colSums(seurat@assays$RNA[hkgenes.found, ] > 0)
+seurat <- AddMetaData(object = seurat, metadata = n.expressed.hkgenes, col.name = "n.exp.hkgenes")
+VlnPlot(object = seurat, features = c("nFeature_RNA", "nCount_RNA","n.exp.hkgenes"), ncol = 3, group.by = "tumor_name")
+```
+
+You can start by filtering extreme outliers if you would like (just replace the '?')
+```{r filterdata_diy, eval = FALSE}
+seurat.tumor <- subset(seurat, subset = tumor_name %in% c("MGH107neg", "MGH44"))
+seurat.immune <- subset(seurat, subset = tumor_name == "MGH107pos")
+
+seurat.tumor <- subset(seurat.tumor, subset = nFeature_RNA > 4000 & n.exp.hkgenes > 75)
+seurat.immune <- subset(seurat.immune, subset = n.exp.hkgenes > 60)
+
+```
+
+```{r eval=FALSE, paged.print=FALSE}
+seurat.merged <- merge(seurat.immune, seurat.tumor)
+seurat.merged <- FindVariableFeatures(seurat.merged)
+seurat.merged <- ScaleData(seurat.merged)
+seurat.merged <- RunPCA(seurat.merged, npcs = 40)
+ElbowPlot(seurat.merged)
+```
+
+
+```{r eval=FALSE, paged.print=FALSE}
+DimPlot(seurat.merged)
+DimPlot(seurat.merged, group.by = "tumor_name")
+DimPlot(seurat.merged, group.by = "cell_type")
+```
+
+
+```{r eval=FALSE, paged.print=FALSE}
+seurat.merged <- FindNeighbors(seurat.merged, dims = 1:10)
+seurat.merged <- FindClusters(seurat.merged, resolution = 1)
+seurat.merged <- RunUMAP(seurat.merged, dims = 1:10)
+```
+
+
+```{r eval=FALSE, paged.print=FALSE}
+DimPlot(seurat.merged)
+DimPlot(seurat.merged, group.by = "tumor_name")
+```
+
+
+```{r eval=FALSE, paged.print=FALSE}
+seurat.merged <- AddModuleScore(object = seurat.merged, features = list(read.table(paste0(resources.dirname,"astro_genes.txt"))$V1), name = "astro_signature")
+
+seurat.merged <- AddModuleScore(object = seurat.merged, features = list(read.table(paste0(resources.dirname,"oligo_genes.txt"))$V1), name = "oligo_signature")
+
+seurat.merged <- AddModuleScore(object = seurat.merged, features = list(read.table(paste0(resources.dirname,"stemness_genes.txt"))$V1), name = "stemness_signature")
+```
+
+
+```{r eval=FALSE, paged.print=FALSE}
+FeaturePlot(seurat.merged, features = c("astro_signature1", "oligo_signature1", "stemness_signature1"), reduction = "pca")
+FeaturePlot(seurat.merged, features = c("astro_signature1", "oligo_signature1", "stemness_signature1"), reduction = "umap")
+```
+
+
+
+
+```{r}
+s.genes <- Seurat::cc.genes$s.genes
+g2m.genes <- Seurat::cc.genes$g2m.genes
+```
+
+
+```{r process immune subset one separetely}
+seurat.immune <- CellCycleScoring(object = seurat.immune, s.features = s.genes, g2m.features = g2m.genes, set.ident = T)
+seurat.immune <- FindVariableFeatures(seurat.immune)
+seurat.immune <- ScaleData(seurat.immune)
+seurat.immune <- RunPCA(seurat.immune, npcs = 40)
+```
+
+
+```{r process immune subset one separetely}
+ElbowPlot(seurat.immune, ndims = 40)
+DimPlot(seurat.immune)
+```
+
+
+```{r process immune subset one separetely}
+seurat.immune <- FindNeighbors(seurat.immune, dims = 1:20)
+seurat.immune <- FindClusters(seurat.immune, resolution = 1)
+DimPlot(seurat.immune)
+seurat.immune <- RunTSNE(seurat.immune, dims = 1:20, perplexity = 10) 
+DimPlot(seurat.immune)
+```
+
+
+```{r process immune subset one separetely}
+seurat.immune <- RunUMAP(seurat.immune, dims = 1:20)
+DimPlot(seurat.immune)
+(var.genes <- VariableFeatures(seurat.immune)[1:20])
+VariableFeaturePlot(seurat.immune)
+FeatureScatter(seurat.immune, "IL1B", "FCER1G")
+```
+
+
+```{r process immune subset one separetely}
+```
+
+```{r}
+seurat.tumor <- FindVariableFeatures(seurat.tumor)
+seurat.tumor <- ScaleData((seurat.tumor))
+seurat.tumor <- RunPCA(seurat.tumor, npcs = 40)
+```
+
+
+```{r}
+ElbowPlot(seurat.tumor)
+DimPlot(seurat.tumor, group.by = "old.ident")
+```
+
+
+```{r}
+seurat.tumor <- FindNeighbors(seurat.tumor, dims = 1:10)
+seurat.tumor <- FindClusters(seurat.tumor, resolution = seq(0.6, 2, 0.4))
+```
+
+
+```{r}
+library(clustree)
+clustree(seurat.tumor, prefix = "RNA_snn_res.")
+Idents(seurat.tumor) <- "RNA_snn_res.1"
+# seurat.tumor <- RunUMAP(seurat.tumor, dims = 1:10)
+DimPlot(seurat.tumor, label = T, group.by = "orig.ident")
+seurat.tumor$orig.ident <- drop.levels(seurat.tumor$orig.ident)
+table(seurat.tumor$orig.ident)
+```
+
+
+```{r}
+```
+
+```{r integarted tumor analysis}
+integration.anchors <- FindIntegrationAnchors(object.list = SplitObject(seurat.tumor, split.by = "orig.ident"), k.filter = 100)
+tumor.integrated <- IntegrateData(anchorset = integration.anchors)
+tumor.integrated <- ScaleData(tumor.integrated)
+```
+
+
+```{r integarted tumor analysis}
+tumor.integrated <- RunPCA(tumor.integrated)
+ElbowPlot(tumor.integrated)
+```
+
+
+```{r integarted tumor analysis}
+tumor.integrated <- FindNeighbors(tumor.integrated, dims = 1:10)
+tumor.integrated <- FindClusters(tumor.integrated, resolution = seq(0.6, 2.2, by = 0.4))
+```
+
+
+```{r integarted tumor analysis}
+clustree(tumor.integrated, prefix = "integrated_snn_res.")
+Idents(tumor.integrated) <- "integrated_snn_res.1.4"
+tumor.integrated <- RunUMAP(tumor.integrated, dims = 1:10)
+p1 <- DimPlot(tumor.integrated, label = T, group.by = "orig.ident")
+p2 <- DimPlot(tumor.integrated, label = T)
+p1+p2
+```
+
+
+```{r integarted tumor analysis}
+markers <- FindAllMarkers(tumor.integrated)
+top5 <- markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_logFC)
+table(tumor.integrated$integrated_snn_res.1.4)
+DoHeatmap(subset(tumor.integrated, downsample = 20), features = top5$gene)
+DoHeatmap(tumor.integrated, features = top5$gene, assay = "integrated")
+```
+
+
+```{r}
+md <- tumor.integrated[[]]
+freq <- md %>% group_by(orig.ident, integrated_snn_res.1.4) %>%
+  summarise(n = n()) %>% mutate(freq = n/sum(n)*100)
+ggplot(freq, aes(x = integrated_snn_res.1.4, y = freq, col = orig.ident))+
+  geom_point(size = 5)+
+  theme_classic()+
+  labs(x = "Cluster ID", y = "Cluster Frequency",
+       title = "Cluster Frequencies", color = "Sample")
+```
+
+```{r}
+Idents(tumor.integrated)
+DefaultAssay(tumor.integrated) <- "RNA"
+tumor.integrated <- NormalizeData(tumor.integrated)
+dif.genes <- FindMarkers(tumor.integrated, ident.1 = "MGH44",  group.by = "orig.ident", subset.ident = 0, assay = "RNA")
+
+dif.genes <- lapply(levels(tumor.integrated), function(cluster){
+  FindMarkers(tumor.integrated, ident.1 = "MGH44",  group.by = "orig.ident", subset.ident = cluster, assay = "RNA", logfc.threshold = 0.7)
+})
+
+dif.genes <- lapply(dif.genes, function(x){
+  x$gene <- rownames(x)
+  return(x)
+})
+
+dif.genes <- lapply(dif.genes, function(frame){
+  top <- frame %>% top_n(5, wt = avg_logFC)
+  bottom <- frame %>% top_n(-5, wt = avg_logFC)
+  return(rbind(top, bottom))
+})
+
+genelist <- do.call(c, sapply(dif.genes, '[', "gene"))
+DotPlot(tumor.integrated, features = unique(genelist), group.by = "integrated_snn_res.1.4", split.by = "orig.ident")+RotatedAxis()
+FeaturePlot(tumor.integrated, features = "JUNB", split.by = "orig.ident")
+```
+
+
+```{r add_known_signatures_diy}
+# seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"astro_genes.txt"))$V1), name = "astro_signature")
+# 
+# seurat <- AddModuleScore(object = seurat, features = list(read.table(paste0(resources.dirname,"oligo_genes.txt"))$V1), name = "oligo_signature")
+
+tumor.integrated <- AddModuleScore(object = tumor.integrated, features = list(read.table(paste0(resources.dirname,"stemness_genes.txt"))$V1), name = "stemness_signature")
+```
+
+```{r}
+FeaturePlot(tumor.integrated, features = "stemness_signature1")
+summary(tumor.integrated$stemness_signature1)
+hist(tumor.integrated$stemness_signature1)
+
+tumors <- SplitObject(tumor.integrated, split.by = "orig.ident")
+dms <- lapply(tumors, function(tumor){
+  DiffusionMap(as.matrix(t(tumor[["RNA"]]@data)))
+})
+
+dpts <- lapply(dms, DPT)
+
+dfs <- lapply(dpts, function(x){
+  data.frame(DC1 = eigenvectors(x@dm)[, 1], DC2 = eigenvectors(x@dm)[, 2], 
+                 dptval = x$dpt)
+})
+
+ggplots <- lapply(dfs, function(df){
+  ggplot(df, aes(x = DC1, y = DC2, color = dptval))+
+    geom_point()+
+    coord_cartesian(xlim = c(-0.3, 0.3), ylim = c(-1, 1))
+})
+cowplot::plot_grid(plotlist = ggplots, ncol = 2)
+
+tmp <- data.frame(DC1 = eigenvectors(dm)[, 1],
+                  DC2 = eigenvectors(dm)[, 2])
+ggplot(tmp, aes(x = DC1, y = DC2)) +
+    geom_point() + scale_color_tableau() + 
+    xlab("Diffusion component 1") + 
+    ylab("Diffusion component 2") +
+    theme_classic()
+
+
+
+dpt <- DPT(dm)
+
+# Plot DC1 vs DC2 and color the cells by their inferred diffusion pseudotime.
+# We can accesss diffusion pseudotime via dpt$dpt.
+df <- data.frame(DC1 = eigenvectors(dm)[, 1], DC2 = eigenvectors(dm)[, 2], 
+                 dptval = dpt$dpt)
+ggplot(df) + geom_point(aes(x = DC1, y = DC2, color = dptval))
+
+
+```
+
+
