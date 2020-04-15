@@ -313,7 +313,7 @@ plot_grid(p[[1]], p[[2]])
 # Let's look to see how the adjusted rand index changed compared to using no batch correction.
 tech <- unlist(lapply(1:length(data.liger@H), function(x) { 
   rep(names(data.liger@H)[x], nrow(data.liger@H[[x]]))}))
-clusters <- data.liger@alignment.clusters
+clusters <- data.liger@clusters
 ari <- data.frame("tech" = tech, "clusters" = clusters)
 ari$tech <- plyr::mapvalues(ari$tech, from = c("celseq", "celseq2", "fluidigmc1", "smartseq2"), to = c(0, 1, 2, 3))
 adj.rand.index(as.numeric(ari$tech), as.numeric(ari$clusters))
